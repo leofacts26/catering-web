@@ -1,0 +1,24 @@
+[
+    {
+      "id": 2,
+      "name": "Chennai",
+      "date": "Feb 13 - Feb 15 , 600 people",
+      "people": 800,
+      "image": "/img/popular/01.jpg"
+    },
+    {
+      "id": 3,
+      "name": "Pondicherry",
+      "date": "Feb 13 - Feb 15 , 600 people",
+      "people": 450,
+      "image": "/img/popular/02.jpg"
+    },
+    {
+      "id": 4,
+      "name": "Mahabalipuram",
+      "date": "Feb 13 - Feb 15 , 600 people",
+      "people": 700,
+      "image": "/img/popular/03.jpg"
+    }
+  ]
+  

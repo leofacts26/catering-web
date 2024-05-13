@@ -1,0 +1,62 @@
+[
+    {
+        "id": 1,
+        "url": "/img/popular/01.jpg",
+        "title": "Royal Catering Service",
+        "description": "Adyar, Chennai"
+    },
+    {
+        "id": 2,
+        "url": "/img/popular/02.jpg",
+        "title": "Royal Catering Service",
+        "description": "Adyar, Chennai"
+    },
+    {
+        "id": 3,
+        "url": "/img/popular/03.jpg",
+        "title": "Royal Catering Service",
+        "description": "Adyar, Chennai"
+    },
+    {
+        "id": 4,
+        "url": "/img/popular/04.jpg",
+        "title": "Royal Catering Service",
+        "description": "Adyar, Chennai"
+    },
+    {
+        "id": 5,
+        "url": "/img/popular/05.jpg",
+        "title": "Royal Catering Service",
+        "description": "Adyar, Chennai"
+    },
+    {
+        "id": 6,
+        "url": "/img/popular/06.jpg",
+        "title": "Royal Catering Service",
+        "description": "Adyar, Chennai"
+    },
+    {
+        "id": 7,
+        "url": "/img/popular/07.jpg",
+        "title": "Royal Catering Service",
+        "description": "Adyar, Chennai"
+    },
+    {
+        "id": 8,
+        "url": "/img/popular/08.jpg",
+        "title": "Royal Catering Service",
+        "description": "Adyar, Chennai"
+    },
+    {
+        "id": 9,
+        "url": "/img/popular/09.jpg",
+        "title": "Royal Catering Service",
+        "description": "Adyar, Chennai"
+    },
+    {
+        "id": 10,
+        "url": "/img/popular/10.jpg",
+        "title": "Royal Catering Service",
+        "description": "Adyar, Chennai"
+    }
+]

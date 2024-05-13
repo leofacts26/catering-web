@@ -1,0 +1,17 @@
+[
+    {
+        "id": 1,
+        "name": "Catering",
+        "url": "/catering"
+    },
+    {
+        "id": 2,
+        "name": "Tiffin",
+        "url": "/tiffin"
+    },
+    {
+        "id": 3,
+        "name": "List Your Service",
+        "url": "/"
+    }
+]

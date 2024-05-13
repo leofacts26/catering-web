@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1,
+        "url": "/img/around-india/01.jpg",
+        "name": "Bangalore"
+    },
+    {
+        "id": 2,
+        "url": "/img/around-india/02.jpg",
+        "name": "Chennai"
+    },
+    {
+        "id": 3,
+        "url": "/img/around-india/03.jpg",
+        "name": "Pondicherry"
+    },
+    {
+        "id": 4,
+        "url": "/img/around-india/04.jpg",
+        "name": "New Delhi"
+    },
+    {
+        "id": 5,
+        "url": "/img/around-india/05.jpg",
+        "name": "Mumbai"
+    },
+    {
+        "id": 6,
+        "url": "/img/around-india/06.jpg",
+        "name": "Hyderabad"
+    }
+]

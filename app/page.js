@@ -1,95 +1,40 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Stack from '@mui/material/Stack';
+import Link from 'next/link'
 
 export default function Home() {
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <>
+      <section className='landing-bg'>
+        <div className="landing-container h-100">
+          <Stack direction={{ xs: 'column', sm: 'column', md:"row", lg: 'row' }} alignItems="center" justifyContent="center" className='h-100' spacing={5}>
+            <Stack direction="row" alignItems="center" flexDirection="column" justifyContent="center" className='landing-left'>
+              <div className='landing-mobile'>
+                <h1 className='landing-heading'>Caterings & Tiffins</h1>
+                <h4 className='landing-para'>Find your best Caterers and Tiffin Service providers in INDIA</h4>
+              </div>
+            </Stack>
+
+            <Stack className='landing-right' direction="row" alignItems={{ xs: 'center', sm: 'center', lg: 'end' }} flexDirection="column" justifyContent="center" sx={{ marginBottom: '10px' }}>
+              <Card style={{ padding: '15px 35px', borderRadius: '10px' }}>
+                <CardContent style={{ marginTop: '10px', padding: '0px' }}>
+                  <h2 className='service-text'>Choose your service below</h2>
+                </CardContent>
+                <Stack direction="row" alignItems="center" justifyContent="center" sx={{ margin: '40px 0px 10px 0px' }}>
+                  <Link href="/catering" variant="contained" className='landing-btn-one'>Catering Service</Link>
+                </Stack>
+                <Stack direction="row" alignItems="center" justifyContent="center" sx={{ margin: '40px 0px 10px 0px', paddingBottom: '20px' }}>
+                  <Link href="/tiffin" variant="contained" className='landing-btn-two'>Tiffin Service</Link>
+                </Stack>
+              </Card>
+            </Stack>
+          </Stack>
         </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+      </section>
+    </>
   );
 }

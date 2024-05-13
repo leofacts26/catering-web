@@ -1,0 +1,27 @@
+[
+    {
+        "id": 1,
+        "title": "How to book my caterer",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum, quasi non consectetur assumenda corrupti officiis saepe omnis ipsum quisquam dolores."
+    },
+    {
+        "id": 2,
+        "title": "How to book tiffin service",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum, quasi non consectetur assumenda corrupti officiis saepe omnis ipsum quisquam dolores."
+    },
+    {
+        "id": 3,
+        "title": "How to check cancellation policy",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum, quasi non consectetur assumenda corrupti officiis saepe omnis ipsum quisquam dolores."
+    },
+    {
+        "id": 4,
+        "title": "How to choose meal plans",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum, quasi non consectetur assumenda corrupti officiis saepe omnis ipsum quisquam dolores."
+    },
+    {
+        "id": 5,
+        "title": "How to get caterer contact details",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum, quasi non consectetur assumenda corrupti officiis saepe omnis ipsum quisquam dolores."
+    }
+]
