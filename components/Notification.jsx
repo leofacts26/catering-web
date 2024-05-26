@@ -74,8 +74,8 @@ const Notification = () => {
                             <p className='notification-mark'>Mark all as read</p>
                         </Stack>
                         <Divider sx={{ marginBottom: '30px' }} />
-                        {[1, 2, 3, 4, 5].map((item) => (
-                            <div style={{ padding: '10px', width: '400px' }}>
+                        {[1, 2, 3, 4, 5].map((item, index) => (
+                            <div style={{ padding: '10px', width: '400px' }} key={index}>
 
                                 <Stack direction="row" justifyContent="space-between">
                                     <Stack direction="row" alignItems="center" spacing={1}>

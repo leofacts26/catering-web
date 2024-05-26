@@ -2,7 +2,7 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { api } from '@/api/apiConfig';
 import { datavalidationerror, successToast } from '@/utils';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setAccessToken, setData, setVendorId } from '@/app/features/user/userSlice';
 import { vendor_type } from '@/constant';
 
@@ -10,6 +10,8 @@ const useRegistration = () => {
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
     const [open, setOpen] = useState(false);
+    // const loginUserData = useSelector((state) => state.user.loginUserData)
+    // console.log(loginUserData, "00000");
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -25,7 +27,7 @@ const useRegistration = () => {
         setLoading(true);
         try {
             const response = await api.post('/register-user-send-otp', registerData);
-            console.log(response, "response");
+            // console.log(response, "response");
             dispatch(setVendorId(response?.data?.data));
             dispatch(setData(registerData));
             setShowOtp(false);
@@ -48,7 +50,8 @@ const useRegistration = () => {
         setLoading(true);
         try {
             const response = await api.post('/register-user-verify-otp', data);
-            dispatch(setAccessToken(response?.data?.token));
+            console.log(response, "response ****000");
+            dispatch(setAccessToken(response?.data?.data?.token));
             console.log(response, "response");
             toast.success(successToast(response));
             setLoading(false);  
@@ -80,7 +83,65 @@ const useRegistration = () => {
         }
     }
 
-    return { loading, registerVendor, verifyOtp, resendOtp, open, setOpen, handleClickOpen, handleClose };
+     // registerVendor 
+     const loginVendor = async (loginData, setShowOtp) => {
+        setLoading(true);
+        try {
+            const response = await api.post('/login-send-user-otp', loginData);
+            toast.success(successToast(response));
+            setShowOtp(false);
+        } catch (error) {
+            setLoading(false);
+            toast.error(datavalidationerror(error));
+        } finally {
+            setLoading(false)
+        }
+    };
+
+     // verifyOtp 
+     const verifyLoginOtp = async (otp, loginUserData, setOtp, setShowOtp, handleClose) => {
+        const data = {
+            phone_number: loginUserData?.phone_number,
+            otp_code: otp,
+            // vendor_type: vendor_type
+        };
+        setLoading(true);
+        try {
+            const response = await api.post('/login-verify-user-otp', data);
+            dispatch(setAccessToken(response?.data?.data?.token));
+            // console.log(response, "response");
+            toast.success(successToast(response));
+            setLoading(false);  
+            setOtp(['', '', '', '', '', '']);
+            setShowOtp(true)
+            if(response.status === 200){
+                handleClose()
+            }
+        } catch (error) {
+            console.log(error, "Error");
+            setLoading(false);
+            toast.error(datavalidationerror(error));
+        }
+    };
+
+     // Resend otp 
+     const resendLoginOtp = async (loginUserData) => {
+        try {
+            const data = {
+                // company_id: loginUserData?.company_id,
+                // password: loginUserData?.password
+                phone_number: loginUserData?.phone_number
+            }
+            const response = await api.post('/login-resend-user-otp', data)
+            toast.success(response?.data?.message);
+        } catch (error) {
+            console.log(error);
+            toast.error(error?.response?.data?.message);
+        }
+    }
+
+
+    return { loading, registerVendor, verifyOtp, resendOtp, open, setOpen, handleClickOpen, handleClose, loginVendor, verifyLoginOtp, resendLoginOtp };
 };
 
 export default useRegistration;

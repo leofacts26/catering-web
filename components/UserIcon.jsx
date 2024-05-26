@@ -20,7 +20,10 @@ import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Fade from '@mui/material/Fade';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import useGetuser from '@/hooks/useGetUser';
+import toast from 'react-hot-toast';
+import { logoutUser } from '@/app/features/user/userSlice';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -36,8 +39,11 @@ const UserIcon = () => {
     // const handleClose = () => {
     //     setOpen(false);
     // };
+    const dispatch = useDispatch()
 
     const user = useSelector((state) => state.user.userData)
+    // const vendorBusinessProfile = useGetuser()
+    // console.log(vendorBusinessProfile, "vendorBusinessProfile");
 
     // dropdown 
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -48,6 +54,12 @@ const UserIcon = () => {
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+    const onLogout = () => {
+        localStorage.clear();
+        dispatch(logoutUser());
+        toast.success("Logout Successfull")
+    }
 
 
     return (
@@ -144,7 +156,7 @@ const UserIcon = () => {
                     </Stack>
 
                     <Stack direction="row" justifyContent="end" sx={{ marginTop: '10px' }}>
-                        <Button variant="contained" className='logout-icon'> <LogoutIcon style={{ marginRight: '10px', fontSize: '18px' }} />
+                        <Button variant="contained" className='logout-icon' onClick={()=> onLogout()}> <LogoutIcon style={{ marginRight: '10px', fontSize: '18px' }} />
                             <span className='logout-icon-span'>Logout</span> </Button>
                     </Stack>
 
