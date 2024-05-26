@@ -42,8 +42,8 @@ const UserIcon = () => {
     const dispatch = useDispatch()
 
     const user = useSelector((state) => state.user.userData)
-    // const vendorBusinessProfile = useGetuser()
-    // console.log(vendorBusinessProfile, "vendorBusinessProfile");
+    const userDetails = useGetuser()
+    console.log(userDetails, "userDetails");
 
     // dropdown 
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -71,9 +71,9 @@ const UserIcon = () => {
                     aria-haspopup="true"
                     aria-expanded={open ? 'true' : undefined}
                     onClick={handleClick}>
-                    <Avatar sx={{ bgcolor: '#a81e1e' }}>{user?.name?.slice(0, 1).toUpperCase()}</Avatar>
+                    <Avatar sx={{ bgcolor: '#a81e1e' }}>{userDetails?.username?.slice(0, 1).toUpperCase()}</Avatar>
 
-                    <p className='avatar-text'>{user?.name}</p>
+                    <p className='avatar-text'>{userDetails?.username}</p>
                 </Stack>
                 {/* <NotificationsNoneIcon style={{color: '#fff'}} /> */}
                 {/* <Notification /> */}
@@ -95,10 +95,10 @@ const UserIcon = () => {
             >
                 <div className="user-link-box" style={{ padding: '20px' }}>
                     <Stack direction="row" alignItems="center" spacing={2} onClick={handleClose}>
-                        <img src="https://mui.com/static/images/avatar/1.jpg" alt="" className="img-fluid up-img" />
+                    <Avatar sx={{ bgcolor: '#a81e1e' }}>{userDetails?.username?.slice(0, 1).toUpperCase()}</Avatar>
                         <Stack direction="column">
-                            <h2 className='up-name'>Randy Peterson</h2>
-                            <p className='up-domain'>name@domainname.com</p>
+                            <h2 className='up-name'>{userDetails?.username}</h2>
+                            <p className='up-domain'>{userDetails?.phone_number}</p>
                         </Stack>
                     </Stack>
 

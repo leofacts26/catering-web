@@ -4,16 +4,16 @@ import { useSelector } from "react-redux";
 
 const useGetuser = () => {
     const accessToken = useSelector((state) => state.user.accessToken)
-    const [vendorBusinessProfile, setVendorBusinessProfile] = useState(null)
+    const [userDetails, setUserDetails] = useState(null)
 
     const fetchVendorData = async () => {
         try {
-            const response = await api.post(`${BASE_URL}/get-user-info`, {
+            const response = await api.get(`${BASE_URL}/get-user-info`, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
                 }
             })
-            setVendorBusinessProfile(response?.data?.data)
+            setUserDetails(response?.data?.data[0])
         } catch (error) {
             console.log(error);
         }
@@ -24,7 +24,7 @@ const useGetuser = () => {
     }, [])
 
 
-    return vendorBusinessProfile
+    return userDetails
 }
 
 export default useGetuser
