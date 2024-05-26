@@ -36,7 +36,6 @@ const Navbar = ( ) => {
                     </Stack>
                     <Stack direction="row" flexWrap="wrap" spacing={1}>
                         {navlinks.map((navlink) => {
-                            console.log(navlink, "navlinknavlinknavlinknavlink");
                             return (
                                 <Link href={navlink.url} key={navlink.id} className={checkActivePath(navlink.url) ? 'active nav-link' : 'nav-link'}
                                 >{navlink.name}</Link>
