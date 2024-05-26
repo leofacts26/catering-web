@@ -12,6 +12,7 @@ import RecentSearchCard from '@/components/cards/RecentSearchCard';
 import Container from '@mui/material/Container';
 import CateringSearchBar from '@/components/catering/CateringSearchBar';
 
+
 const page = () => {
     return (
         <>

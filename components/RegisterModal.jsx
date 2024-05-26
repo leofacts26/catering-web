@@ -15,6 +15,7 @@ import * as Yup from 'yup';
 import useRegistration from '@/hooks/useRegistration';
 import { useEffect, useRef, useState } from 'react';
 import Box from '@mui/material/Box';
+import { useSelector } from 'react-redux';
 
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -28,9 +29,10 @@ const initialState = {
     phone_extension: '+91',
 }
 
-const OtpInput = ({ length = 6, onOtpSubmit = () => { } }) => {
+const OtpInput = ({ length = 6, user, setShowOtp, handleClose }) => {
     const [otp, setOtp] = useState(new Array(length).fill(''));
     const inputRefs = useRef([]);
+    const { loading, verifyOtp } = useRegistration();
 
     useEffect(() => {
         if (inputRefs.current[0]) {
@@ -48,8 +50,10 @@ const OtpInput = ({ length = 6, onOtpSubmit = () => { } }) => {
         setOtp(newOtp)
 
         // submit trigger 
-        const combinedOtp = newOtp.join("");
-        if (combinedOtp.length === length) onOtpSubmit(combinedOtp)
+        // const combinedOtp = newOtp.join("");
+        // console.log(combinedOtp, "combinedOtp");
+        // console.log(combinedOtp.length === length, "combinedOtp.length === length");
+        // if (combinedOtp.length === length) onOtpSubmit(combinedOtp)
 
 
         // Focus on the next input box if available
@@ -75,41 +79,56 @@ const OtpInput = ({ length = 6, onOtpSubmit = () => { } }) => {
         }
     }
 
+        // onOtpSubmit 
+        console.log('Login Successfully', otp.join(""));
+        const onOtpSubmit = (e) => {
+            e.preventDefault()
+            verifyOtp(otp.join(""), user, setOtp, setShowOtp, handleClose);
+        }
+
     return (
         <div className='otp-input-fields'>
-            {
-                otp.map((value, index) => {
-                    return <input
-                        required
-                        ref={(input) => (inputRefs.current[index] = input)}
-                        key={index}
-                        type="text"
-                        value={value}
-                        onChange={(e) => handleChange(index, e)}
-                        onClick={() => handleClick(index)}
-                        onKeyDown={(e) => handleKeyDown(index, e)}
-                        className='otp__digit'
-                    />
-                })
-            }
+            <form onSubmit={onOtpSubmit}>
+
+                {
+                    otp.map((value, index) => {
+                        return <input
+                            required
+                            ref={(input) => (inputRefs.current[index] = input)}
+                            key={index}
+                            type="text"
+                            value={value}
+                            onChange={(e) => handleChange(index, e)}
+                            onClick={() => handleClick(index)}
+                            onKeyDown={(e) => handleKeyDown(index, e)}
+                            className='otp__digit mb-4 me-1'
+                        />
+                    })
+                }
+                <Button disabled={loading} variant="contained" type="submit" className='ct-box-btn-catering mb-3' style={{ textTransform: 'capitalize', margin: '0px auto', display: 'block' }}>
+                    {loading ? 'Loading...' : 'Submit'}
+                </Button>
+            </form>
         </div>
     )
 }
 
 const RegisterModal = () => {
-    const { loading, registerVendor, verifyOtp, resendOtp } = useRegistration();
-    const [open, setOpen] = useState(false);
-    const [showOtp, setShowOtp] = useState(false);
+    const { loading, registerVendor, verifyOtp, resendOtp, open, setOpen, handleClickOpen, handleClose } = useRegistration();
+
+    const [showOtp, setShowOtp] = useState(true);
     const [minutes, setMinutes] = useState(0);
     const [seconds, setSeconds] = useState(30);
+    // const [value, setValue] = useState('1');
+    // const [otp, setOtp] = useState(['', '', '', '', '', ''])
+    const user = useSelector((state) => state.user.userData)
+    // console.log(user, "user");
 
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
+    // const handleChange = (event, newValue) => {
+    //     setValue(newValue);
+    // };
 
-    const handleClose = () => {
-        setOpen(false);
-    };
+
 
 
     // validation schema
@@ -125,17 +144,17 @@ const RegisterModal = () => {
 
     // onHandleRegisterSubmit 
     const handleSubmit = async (regData, resetForm) => {
-        console.log(regData, "regData");
         registerVendor(regData, setShowOtp);
         resetForm(initialState);
     }
 
 
-    // onOtpSubmit 
-    const onOtpSubmit = (otp) => {
-        verifyOtp(otp, user, setOtp, setValue);
-        console.log('Login Successfully', otp);
-    }
+    // // onOtpSubmit 
+    // const onOtpSubmit = (e, otp) => {
+    //     console.log('Login Successfully', otp);
+    //     e.preventDefault()
+    //     verifyOtp(otp, user, setOtp);
+    // }
 
 
     // resendOtp 
@@ -195,7 +214,7 @@ const RegisterModal = () => {
                                     <DialogContent style={{ background: "transparent" }}>
                                         <DialogContentText id="alert-dialog-slide-description" style={{ background: "transparent" }}>
                                             <h3 className='register-welcome'>Welcome</h3>
-                                            <p className='mb-4 register-para'>Login for a seamless experience</p>
+                                            <p className='mb-4 register-para'>Register for a seamless experience</p>
 
                                             <TextField
                                                 id="filled-basic"
@@ -273,16 +292,15 @@ const RegisterModal = () => {
                         </Formik>
                     ) : (
                         <>
-                            <form>
+                            <div>
                                 <p className='text-center mt-5 mb-2 enter-otp'>Please enter Your OTP below</p>
                                 <div className="otp-input-fields mb-3 my-4">
-                                    <OtpInput length={6} onOtpSubmit={onOtpSubmit} />
+                                    <OtpInput length={6} user={user} setShowOtp={setShowOtp} handleClose={handleClose} />
                                 </div>
 
-                                <Button disabled={loading} variant="contained" type='submit' className='ct-box-btn-catering mb-3' style={{ textTransform: 'capitalize', margin: '0px auto', display: 'block' }}>
+                                {/* <Button disabled={loading} variant="contained" className='ct-box-btn-catering mb-3' style={{ textTransform: 'capitalize', margin: '0px auto', display: 'block' }}>
                                     {loading ? 'Loading...' : 'Submit'}
-                                </Button>
-                                {/* <p className='ct-box-both' onClick={handleResendOtp}>resend otp in : 30</p> */}
+                                </Button> */}
 
                                 <div className="countdown-text">
                                     {seconds > 0 || minutes > 0 ? (
@@ -308,7 +326,7 @@ const RegisterModal = () => {
                                         </button>
                                     </Box>
                                 </div>
-                            </form>
+                            </div>
                         </>
                     )}
 

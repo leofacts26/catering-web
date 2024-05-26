@@ -1,0 +1,1 @@
+export const vendor_type = 'Caterer'

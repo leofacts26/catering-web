@@ -20,6 +20,7 @@ import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Fade from '@mui/material/Fade';
+import { useSelector } from 'react-redux';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -35,6 +36,8 @@ const UserIcon = () => {
     // const handleClose = () => {
     //     setOpen(false);
     // };
+
+    const user = useSelector((state) => state.user.userData)
 
     // dropdown 
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -56,12 +59,9 @@ const UserIcon = () => {
                     aria-haspopup="true"
                     aria-expanded={open ? 'true' : undefined}
                     onClick={handleClick}>
-                    <Avatar
-                        alt="Remy Sharp"
-                        src="https://mui.com/static/images/avatar/1.jpg"
-                        sx={{ width: 28, height: 28 }}
-                    />
-                    <p className='avatar-text'>Christiana</p>
+                    <Avatar sx={{ bgcolor: '#a81e1e' }}>{user?.name?.slice(0, 1).toUpperCase()}</Avatar>
+
+                    <p className='avatar-text'>{user?.name}</p>
                 </Stack>
                 {/* <NotificationsNoneIcon style={{color: '#fff'}} /> */}
                 {/* <Notification /> */}
@@ -111,25 +111,25 @@ const UserIcon = () => {
                         </Stack>
                     </Link>
 
-                        <Link href="/user-profile/my-wishlist">
-                    <Stack direction="row" justifyContent="space-between" className='up-card'>
+                    <Link href="/user-profile/my-wishlist">
+                        <Stack direction="row" justifyContent="space-between" className='up-card'>
                             <Stack direction="row" spacing={1} alignItems="center">
                                 <DownloadDoneIcon className="up-profile-icon" />
                                 <p>View Bookings</p>
                             </Stack>
                             <ChevronRightIcon />
-                    </Stack>
-                        </Link>
+                        </Stack>
+                    </Link>
 
                     <p style={{ marginTop: '10px', fontSize: '12px' }}>Settings</p>
                     <Link href="/user-profile/user-settings">
-                    <Stack direction="row" justifyContent="space-between" className='up-card'>
-                        <Stack direction="row" spacing={1} alignItems="center">
-                            <SettingsIcon className="up-profile-icon" />
-                            <p>Settings</p>
+                        <Stack direction="row" justifyContent="space-between" className='up-card'>
+                            <Stack direction="row" spacing={1} alignItems="center">
+                                <SettingsIcon className="up-profile-icon" />
+                                <p>Settings</p>
+                            </Stack>
+                            <ChevronRightIcon />
                         </Stack>
-                        <ChevronRightIcon />
-                    </Stack>
                     </Link>
 
                     <p style={{ marginTop: '10px', fontSize: '12px' }}>Get in Touch</p>
@@ -144,8 +144,8 @@ const UserIcon = () => {
                     </Stack>
 
                     <Stack direction="row" justifyContent="end" sx={{ marginTop: '10px' }}>
-                        <Button variant="contained" className='logout-icon'> <LogoutIcon style={{ marginRight: '10px', fontSize: '18px' }} /> 
-                        <span className='logout-icon-span'>Logout</span> </Button>
+                        <Button variant="contained" className='logout-icon'> <LogoutIcon style={{ marginRight: '10px', fontSize: '18px' }} />
+                            <span className='logout-icon-span'>Logout</span> </Button>
                     </Stack>
 
 

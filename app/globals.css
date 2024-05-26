@@ -2207,7 +2207,7 @@ h6 {
 
 .otp-input-fields input:focus {
   border-width: 2px;
-  border-color: var(--secondary);
+  border-color: var(--alternate);
   font-size: 20px;
   border-radius: 8px;
 }

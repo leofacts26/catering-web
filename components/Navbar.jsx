@@ -14,16 +14,29 @@ import UserIcon from './UserIcon';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import Notification from './Notification';
 import Container from '@mui/material/Container';
+import { useDispatch, useSelector } from 'react-redux';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { logoutUser } from '@/app/features/user/userSlice';
 
-const Navbar = ( ) => {
+
+const Navbar = () => {
     const checkActivePath = useActivePath()
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [login, setLogin] = useState(false)
+    const dispatch = useDispatch()
 
     const toggleDrawer = () => {
         setDrawerOpen(!drawerOpen);
     };
 
+    const user = useSelector((state) => state.user.userData)
+    console.log(user, "user");
+
+    const onLogout = () => {
+        localStorage.clear();
+        dispatch(logoutUser());
+        toast.success("Logout Successfull")
+    }
 
     return (
         <>
@@ -42,13 +55,16 @@ const Navbar = ( ) => {
                             )
                         })}
 
-                        {!login && <>
-                            <RegisterModal />
-                            <Link href="javascript:void(0)" onClick={() => setLogin(!login)} className="nav-link"
-                            >Login</Link>
-                        </>}
+                        {!user && (
+                            <>
+                                <RegisterModal />
+                                <Link href="javascript:void(0)" onClick={() => setLogin(!login)} className="nav-link"
+                                >Login</Link>
+                            </>
+                        )}
 
-                        {login &&
+
+                        {user && (
                             <>
                                 <Stack direction="row" alignItems="center" spacing={4}>
                                     <Link href="/user-profile/my-wishlist" className='notification-bg'>
@@ -57,8 +73,12 @@ const Navbar = ( ) => {
                                     <Notification />
                                 </Stack>
                                 <UserIcon />
+                                <Stack direction="row" alignItems="center" spacing={4}>
+                                    <LogoutIcon onClick={() => onLogout()} className='notification' style={{ color: '#ffffff' }} />
+                                </Stack>
                             </>
-                        }
+                        )}
+
 
                     </Stack>
                 </Stack>
