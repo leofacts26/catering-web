@@ -17,38 +17,13 @@ import SelectBox from '@/components/catering/SelectBox';
 import ListView from '@/components/catering/ListView';
 import GridViewList from '@/components/catering/GridView';
 import useGetPriceRanges from '@/hooks/catering/useGetPriceRanges';
-import { styled } from '@mui/material/styles';
-import TextField from '@mui/material/TextField';
 
 
 const page = () => {
   const [checked, setChecked] = useState(true);
 
-  const { loading, getSearchCards, getPriceRanges, getFoodTypes, getOccasionTypes, getCuisines, getServiceTypes, getServingTypes, setShowAllOccasions, occationsCount, setGetFoodTypes, fetchSearchCards, isChecked, updatePriceRangesFilter } = useGetPriceRanges();
+  const { loading, getSearchCards, getPriceRanges, getFoodTypes, getOccasionTypes, getCuisines, getServiceTypes, getServingTypes, occationsCount, isChecked, updatePriceRangesFilter, updateFoodTypeFilter, onShowAllOccasions } = useGetPriceRanges();
 
-  const onShowAllOccasions = () => {
-    setShowAllOccasions(occationsCount)
-  }
-
-  const updateFoodTypeFilter = (item) => {
-    const newFoodTypes = getFoodTypes.map((foodType) => {
-      if (foodType.id === item.id) {
-        return { ...foodType, selected: item.selected === "1" ? "0" : "1" };
-      } else {
-        return foodType;
-      }
-    });
-    setGetFoodTypes(newFoodTypes);
-    fetchSearchCards();
-  };
-
-
-  // Price range filter 
-  // const [selectedPriceRanges, setSelectedPriceRanges] = useState([]);
-
-  
-
-  // console.log(formattedPriceRanges, "formattedPriceRanges");
 
   return (
     <>
@@ -77,7 +52,7 @@ const page = () => {
 
 
 
-              <Filters getPriceRanges={getPriceRanges} getFoodTypes={getFoodTypes} getOccasionTypes={getOccasionTypes} getCuisines={getCuisines} getServiceTypes={getServiceTypes} getServingTypes={getServingTypes} setShowAllOccasions={setShowAllOccasions} occationsCount={occationsCount} loading={loading} onShowAllOccasions={onShowAllOccasions} updateFoodTypeFilter={updateFoodTypeFilter} updatePriceRangesFilter={updatePriceRangesFilter} isChecked={isChecked} />
+              <Filters getPriceRanges={getPriceRanges} getFoodTypes={getFoodTypes} getOccasionTypes={getOccasionTypes} getCuisines={getCuisines} getServiceTypes={getServiceTypes} getServingTypes={getServingTypes} occationsCount={occationsCount} loading={loading} onShowAllOccasions={onShowAllOccasions} updateFoodTypeFilter={updateFoodTypeFilter} updatePriceRangesFilter={updatePriceRangesFilter} isChecked={isChecked} />
 
 
             </Grid>

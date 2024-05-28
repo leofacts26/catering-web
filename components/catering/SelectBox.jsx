@@ -45,7 +45,7 @@ const SelectBox = ({ catering }) => {
         <>
             <Stack direction="row" alignItems="center" flexWrap="wrap" spacing={2} style={{ margin: '10px 0px 15px 0px' }}>
               <ReactSelectRed text1="Sort by" /> 
-                <Stack direction="row" alignItems="center" flexWrap="wrap" spacing={2}>
+                <Stack direction="row" alignItems="center" flexWrap="wrap" spacing={2} style={{marginTop: '15px'}}>
                     <Button size="small" className={'btn-pill btn-pill-active'}>All Caterers</Button>
                     <Button size="small" className="btn-pill" style={{ color: '#726e6e', fontSize: '12px' }}>Branded Caterers</Button>
                     <Button size="small" className="btn-pill" style={{ color: '#726e6e', fontSize: '12px' }}>Popular Caterers</Button>

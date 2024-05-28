@@ -127,7 +127,23 @@ const useGetPriceRanges = () => {
         fetchServingTypes()
     }, [])
 
+    // Occasions Show All 
+    const onShowAllOccasions = () => {
+        setShowAllOccasions(occationsCount)
+    }
 
+    // Food type Filter 
+    const updateFoodTypeFilter = (item) => {
+        const newFoodTypes = getFoodTypes.map((foodType) => {
+            if (foodType.id === item.id) {
+                return { ...foodType, selected: item.selected === "1" ? "0" : "1" };
+            } else {
+                return foodType;
+            }
+        });
+        setGetFoodTypes(newFoodTypes);
+        fetchSearchCards();
+    };
 
     // Price range filter  start
     const isChecked = (price) => {
@@ -180,7 +196,7 @@ const useGetPriceRanges = () => {
         fetchSearchCards()
     }, [selectedPriceRanges])
 
-    return { getPriceRanges, getFoodTypes, getOccasionTypes, getCuisines, getServiceTypes, getServingTypes, getSearchCards, showAllOccasions, setShowAllOccasions, occationsCount, setoccasionCount, loading, setGetFoodTypes, fetchSearchCards, isChecked, updatePriceRangesFilter }
+    return { getPriceRanges, getFoodTypes, getOccasionTypes, getCuisines, getServiceTypes, getServingTypes, getSearchCards, showAllOccasions, setShowAllOccasions, occationsCount, setoccasionCount, loading, setGetFoodTypes, fetchSearchCards, onShowAllOccasions, updateFoodTypeFilter, isChecked, updatePriceRangesFilter }
 }
 
 export default useGetPriceRanges
