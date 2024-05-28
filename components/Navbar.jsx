@@ -30,7 +30,7 @@ const Navbar = () => {
     };
 
     const accessToken = useSelector((state) => state.user.accessToken)
-    console.log(accessToken, "user, rrrr");
+    // console.log(accessToken, "user, rrrr");
 
 
     return (

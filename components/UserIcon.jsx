@@ -43,7 +43,7 @@ const UserIcon = () => {
 
     const user = useSelector((state) => state.user.userData)
     const userDetails = useGetuser()
-    console.log(userDetails, "userDetails");
+    // console.log(userDetails, "userDetails");
 
     // dropdown 
     const [anchorEl, setAnchorEl] = React.useState(null);

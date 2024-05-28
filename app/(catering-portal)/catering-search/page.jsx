@@ -16,11 +16,31 @@ import { useState } from 'react';
 import SelectBox from '@/components/catering/SelectBox';
 import ListView from '@/components/catering/ListView';
 import GridViewList from '@/components/catering/GridView';
+import useGetPriceRanges from '@/hooks/catering/useGetPriceRanges';
+import { styled } from '@mui/material/styles';
+import TextField from '@mui/material/TextField';
+
 
 const page = () => {
-
   const [checked, setChecked] = useState(true);
 
+  const {loading, getSearchCards, getPriceRanges, getFoodTypes, getOccasionTypes, getCuisines, getServiceTypes, getServingTypes, setShowAllOccasions, occationsCount, setGetFoodTypes, fetchSearchCards } = useGetPriceRanges();
+
+  const onShowAllOccasions = () => {
+    setShowAllOccasions(occationsCount)
+  }
+
+  const updateFoodTypeFilter = (item) => {
+    const newFoodTypes = getFoodTypes.map((foodType) => {
+      if (foodType.id === item.id) {
+        return { ...foodType, selected: item.selected === "1" ? "0" : "1" };
+      } else {
+        return foodType;
+      }
+    });
+    setGetFoodTypes(newFoodTypes);
+    fetchSearchCards();
+  };
 
   return (
     <>
@@ -46,7 +66,12 @@ const page = () => {
                   <Button variant="contained" className='show-on-map' sx={{ backgroundColor: '#C33332', fontSize: '10px', '&:hover': { backgroundColor: '#C33332' } }}>Show on map</Button>
                 </div>
               </div>
-              <Filters />
+
+
+
+              <Filters getPriceRanges={getPriceRanges} getFoodTypes={getFoodTypes} getOccasionTypes={getOccasionTypes} getCuisines={getCuisines} getServiceTypes={getServiceTypes} getServingTypes={getServingTypes} setShowAllOccasions={setShowAllOccasions} occationsCount={occationsCount} loading={loading} setGetFoodTypes={setGetFoodTypes} fetchSearchCards={fetchSearchCards} onShowAllOccasions={onShowAllOccasions} updateFoodTypeFilter={updateFoodTypeFilter} />
+
+             
             </Grid>
             <Grid item xs={12} md={12} lg={9} xl={9.2}>
               <Stack direction='row' justifyContent="space-between" style={{ margin: '0px 0px 0px 0px' }}>
@@ -56,7 +81,7 @@ const page = () => {
 
               <SelectBox />
 
-              {checked ? <ListView /> : <GridViewList />}
+              {checked ? <ListView loading={loading} getSearchCards={getSearchCards} /> : <GridViewList loading={loading} getSearchCards={getSearchCards} />}
             </Grid>
           </Grid>
         </Box>
