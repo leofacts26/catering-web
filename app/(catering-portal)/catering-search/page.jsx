@@ -24,7 +24,7 @@ import TextField from '@mui/material/TextField';
 const page = () => {
   const [checked, setChecked] = useState(true);
 
-  const {loading, getSearchCards, getPriceRanges, getFoodTypes, getOccasionTypes, getCuisines, getServiceTypes, getServingTypes, setShowAllOccasions, occationsCount, setGetFoodTypes, fetchSearchCards } = useGetPriceRanges();
+  const { loading, getSearchCards, getPriceRanges, getFoodTypes, getOccasionTypes, getCuisines, getServiceTypes, getServingTypes, setShowAllOccasions, occationsCount, setGetFoodTypes, fetchSearchCards, isChecked, updatePriceRangesFilter } = useGetPriceRanges();
 
   const onShowAllOccasions = () => {
     setShowAllOccasions(occationsCount)
@@ -41,6 +41,14 @@ const page = () => {
     setGetFoodTypes(newFoodTypes);
     fetchSearchCards();
   };
+
+
+  // Price range filter 
+  // const [selectedPriceRanges, setSelectedPriceRanges] = useState([]);
+
+  
+
+  // console.log(formattedPriceRanges, "formattedPriceRanges");
 
   return (
     <>
@@ -69,9 +77,9 @@ const page = () => {
 
 
 
-              <Filters getPriceRanges={getPriceRanges} getFoodTypes={getFoodTypes} getOccasionTypes={getOccasionTypes} getCuisines={getCuisines} getServiceTypes={getServiceTypes} getServingTypes={getServingTypes} setShowAllOccasions={setShowAllOccasions} occationsCount={occationsCount} loading={loading} setGetFoodTypes={setGetFoodTypes} fetchSearchCards={fetchSearchCards} onShowAllOccasions={onShowAllOccasions} updateFoodTypeFilter={updateFoodTypeFilter} />
+              <Filters getPriceRanges={getPriceRanges} getFoodTypes={getFoodTypes} getOccasionTypes={getOccasionTypes} getCuisines={getCuisines} getServiceTypes={getServiceTypes} getServingTypes={getServingTypes} setShowAllOccasions={setShowAllOccasions} occationsCount={occationsCount} loading={loading} onShowAllOccasions={onShowAllOccasions} updateFoodTypeFilter={updateFoodTypeFilter} updatePriceRangesFilter={updatePriceRangesFilter} isChecked={isChecked} />
 
-             
+
             </Grid>
             <Grid item xs={12} md={12} lg={9} xl={9.2}>
               <Stack direction='row' justifyContent="space-between" style={{ margin: '0px 0px 0px 0px' }}>

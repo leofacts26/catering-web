@@ -36,7 +36,7 @@ const CssTextField = styled(TextField)(({ theme }) => ({
     },
 }));
 
-const Filters = ({getPriceRanges, getFoodTypes, getOccasionTypes, getCuisines, getServiceTypes, getServingTypes, occationsCount, loading, onShowAllOccasions, updateFoodTypeFilter}) => {
+const Filters = ({ getPriceRanges, getFoodTypes, getOccasionTypes, getCuisines, getServiceTypes, getServingTypes, occationsCount, loading, onShowAllOccasions, updateFoodTypeFilter, updatePriceRangesFilter, isChecked }) => {
 
 
     return (
@@ -54,7 +54,8 @@ const Filters = ({getPriceRanges, getFoodTypes, getOccasionTypes, getCuisines, g
 
                         {getPriceRanges.map((price) => (
                             <Stack className='text-muted' key={price?.id} direction="row" alignItems="center" sx={{ marginLeft: '-10px', marginTop: '5px' }}>
-                                <Checkbox {...label} size="small" className='checkbox-color' />
+                                <Checkbox {...label} size="small" className='checkbox-color' checked={isChecked(price)}
+                                    onClick={() => updatePriceRangesFilter(price)} />
                                 <span className='checkbox-text'>{`Rs. ${price?.start_price} - Rs. ${price?.end_price}`}</span>
                             </Stack>
                         ))}

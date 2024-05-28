@@ -15,6 +15,9 @@ const useGetPriceRanges = () => {
     const [occationsCount, setoccasionCount] = useState(null)
     const [loading, setLoading] = useState(false)
 
+    // filters 
+    const [selectedPriceRanges, setSelectedPriceRanges] = useState([]);
+
 
     const fetchPriceRanges = async () => {
         try {
@@ -125,16 +128,42 @@ const useGetPriceRanges = () => {
     }, [])
 
 
+
+    // Price range filter  start
+    const isChecked = (price) => {
+        return selectedPriceRanges.some(range => areEqualRanges(range, price));
+    }
+
+    const updatePriceRangesFilter = (price) => {
+        const isSelected = isChecked(price);
+        setSelectedPriceRanges(prevRanges =>
+            isSelected
+                ? prevRanges.filter(range => !areEqualRanges(range, price))
+                : [...prevRanges, price]
+        );
+    }
+
+    const areEqualRanges = (range1, range2) => {
+        return range1.start_price === range2.start_price && range1.end_price === range2.end_price;
+    }
+
+    const formattedPriceRanges = selectedPriceRanges.map(range => ({
+        start_price: range.start_price,
+        end_price: range.end_price
+    }));
+
+    // Price range filter end 
+
     const fetchSearchCards = async () => {
         setLoading(true)
         try {
 
-            const foodTypesFilter = getFoodTypes.map(foodType => ({
+            const foodTypesFilter = getFoodTypes?.map(foodType => ({
                 id: foodType.id,
                 selected: foodType.selected === "1" ? 1 : 0
             }));
 
-            const response = await api.get(`${BASE_URL}/search-vendors?order_by=distance&limit=100&current_page=1&food_types_filter=${JSON.stringify(foodTypesFilter)}&price_ranges= [{"start_price" :100,"end_price" :2000},{"start_price" :2000,"end_price" :5000}] &latitude=12.9359&longitude=77.7005&city=Bangalore&pincode=560085&place_id=111222&start_date=2024-05-01&end_date=2024-05-05&search_term=200`, {
+            const response = await api.get(`${BASE_URL}/search-vendors?order_by=distance&limit=100&current_page=1&food_types_filter=${JSON.stringify(foodTypesFilter)}&price_ranges=${JSON.stringify(formattedPriceRanges)}&latitude=12.9359&longitude=77.7005&city=Bangalore&pincode=560085&place_id=111222&start_date=2024-05-01&end_date=2024-05-05&search_term=200`, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
                 }
@@ -149,9 +178,9 @@ const useGetPriceRanges = () => {
 
     useEffect(() => {
         fetchSearchCards()
-    }, [])
+    }, [selectedPriceRanges])
 
-    return { getPriceRanges, getFoodTypes, getOccasionTypes, getCuisines, getServiceTypes, getServingTypes, getSearchCards, showAllOccasions, setShowAllOccasions, occationsCount, setoccasionCount, loading, setGetFoodTypes, fetchSearchCards }
+    return { getPriceRanges, getFoodTypes, getOccasionTypes, getCuisines, getServiceTypes, getServingTypes, getSearchCards, showAllOccasions, setShowAllOccasions, occationsCount, setoccasionCount, loading, setGetFoodTypes, fetchSearchCards, isChecked, updatePriceRangesFilter }
 }
 
 export default useGetPriceRanges
