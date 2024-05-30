@@ -12,18 +12,53 @@ import Button from '@mui/material/Button';
 import Filters from '@/components/catering/Filters';
 import Stack from '@mui/material/Stack';
 import SwitchSearchResult from '@/components/catering/SwitchSearchResult';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import SelectBox from '@/components/catering/SelectBox';
 import ListView from '@/components/catering/ListView';
 import GridViewList from '@/components/catering/GridView';
-import useGetPriceRanges from '@/hooks/catering/useGetPriceRanges';
+// import useGetPriceRanges from '@/hooks/catering/useGetPriceRanges';
+import { useRouter } from 'next/navigation'
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchCateringCuisines, fetchCateringFoodTypes, fetchCateringSearchCards, fetchCateringServingTypes, fetchOccasionCateringTypes, fetchPriceRanges, fetchServiceTypes } from '@/app/features/user/cateringFilterSlice';
 
 
 const page = () => {
+  const router = useRouter(); // Access the router object
   const [checked, setChecked] = useState(true);
+  // const { loading, getSearchCards, getPriceRanges, getFoodTypes, getOccasionTypes, getCuisines, getServiceTypes, getServingTypes, occationsCount, isChecked, updatePriceRangesFilter, updateFoodTypeFilter, onShowAllOccasions, fetchSearchCards  } = useGetPriceRanges();
 
-  const { loading, getSearchCards, getPriceRanges, getFoodTypes, getOccasionTypes, getCuisines, getServiceTypes, getServingTypes, occationsCount, isChecked, updatePriceRangesFilter, updateFoodTypeFilter, onShowAllOccasions } = useGetPriceRanges();
+  const onHandleSubmit = async (e) => {
+    e.preventDefault();
 
+    try {
+        // Perform any async tasks here, if needed
+        // await fetchSearchCards();
+        // router.push('/catering-search'); // Redirect to the specified page
+    } catch (error) {
+        console.error('Error occurred while processing form submission:', error);
+    }
+}
+
+
+const dispatch = useDispatch()
+const { getCateringPriceRanges, getCateringFoodTypes, getOccasionCateringTypes, getCateringCuisines, getCateringServiceTypes, getCateringServingTypes, getCateringSearchCards, occasionCount, isLoading } = useSelector((state) => state.cateringFilter)
+
+useEffect(() => {
+    dispatch(fetchPriceRanges());
+    dispatch(fetchCateringFoodTypes());
+    dispatch(fetchOccasionCateringTypes(occasionCount));
+    dispatch(fetchCateringCuisines());
+    dispatch(fetchServiceTypes());
+    dispatch(fetchCateringServingTypes());
+    dispatch(fetchCateringSearchCards());
+}, []);
+
+// useEffect(() =>{
+//   dispatch(fetchOccasionCateringTypes());
+//   fetchOccasionCateringTypes()
+// }, [occasionCount])
+
+console.log(getCateringPriceRanges, "getCateringPriceRanges");
 
   return (
     <>
@@ -33,7 +68,7 @@ const page = () => {
       <div className="search-container">
         <div className="container-search">
           <Container maxWidth="md">
-            <CateringSearchBar searchLink="/catering-search" />
+            <CateringSearchBar onHandleSubmit={onHandleSubmit} />
           </Container>
         </div>
       </div>
@@ -52,7 +87,21 @@ const page = () => {
 
 
 
-              <Filters getPriceRanges={getPriceRanges} getFoodTypes={getFoodTypes} getOccasionTypes={getOccasionTypes} getCuisines={getCuisines} getServiceTypes={getServiceTypes} getServingTypes={getServingTypes} occationsCount={occationsCount} loading={loading} onShowAllOccasions={onShowAllOccasions} updateFoodTypeFilter={updateFoodTypeFilter} updatePriceRangesFilter={updatePriceRangesFilter} isChecked={isChecked} />
+              <Filters 
+              getPriceRanges={getCateringPriceRanges} 
+              getFoodTypes={getCateringFoodTypes} 
+              getOccasionTypes={getOccasionCateringTypes} 
+              getCuisines={getCateringCuisines} 
+              getServiceTypes={getCateringServiceTypes} 
+              getServingTypes={getCateringServingTypes} 
+              occationsCount={occasionCount} 
+              loading={isLoading} 
+              fetchOccasionCateringTypes={fetchOccasionCateringTypes}
+              // onShowAllOccasions={onShowAllOccasions} 
+              // updateFoodTypeFilter={updateFoodTypeFilter} 
+              // updatePriceRangesFilter={updatePriceRangesFilter} 
+              // isChecked={isChecked} 
+              />
 
 
             </Grid>
@@ -64,7 +113,7 @@ const page = () => {
 
               <SelectBox />
 
-              {checked ? <ListView loading={loading} getSearchCards={getSearchCards} /> : <GridViewList loading={loading} getSearchCards={getSearchCards} />}
+              {checked ? <ListView loading={isLoading} getSearchCards={getCateringSearchCards} /> : <GridViewList loading={isLoading} getSearchCards={getCateringSearchCards} />}
             </Grid>
           </Grid>
         </Box>

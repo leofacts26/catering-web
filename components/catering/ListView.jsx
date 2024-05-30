@@ -8,14 +8,14 @@ import BrunchDiningIcon from '@mui/icons-material/BrunchDining';
 import FastfoodIcon from '@mui/icons-material/Fastfood';
 import Link from 'next/link'
 import ShareIcon from '@mui/icons-material/Share';
-import useGetPriceRanges from '@/hooks/catering/useGetPriceRanges';
+// import useGetPriceRanges from '@/hooks/catering/useGetPriceRanges';
 import LoadingAnimation from '../LoadingAnimation';
 
 
 const ListView = ({ loading, getSearchCards }) => {
 
     // const { getSearchCards, loading } = useGetPriceRanges();
-    console.log(getSearchCards, "List View");
+    // console.log(getSearchCards, "List View");
 
     if (loading) {
         return <LoadingAnimation center />

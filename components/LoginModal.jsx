@@ -122,7 +122,7 @@ const LoginModal = () => {
     const dispatch = useDispatch();
     const user = useSelector((state) => state.user.userData)
     const loginUserData = useSelector((state) => state.user.loginUserData)
-    console.log(loginUserData, "00000");
+    // console.log(loginUserData, "00000");
     // console.log(user, "user");
 
     // const handleChange = (event, newValue) => {

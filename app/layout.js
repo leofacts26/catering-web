@@ -41,7 +41,12 @@ export default function RootLayout({ children }) {
             </ThemeProvider>
           </PersistGate>
         </Provider>
+
+        <script type="text/javascript" src={`https://maps.googleapis.com/maps/api/js?key=AIzaSyBf22eHEMxKk_9x0XWag-oCFTXkdClnPw8&libraries=places`}></script>
+
+
       </body>
     </html>
   );
 }
+

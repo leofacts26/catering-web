@@ -84,7 +84,9 @@ h5,
 h6 {
   font-family: var(--fontPrimary);
 }
-
+.cursor-pointer{
+  cursor: pointer;
+}
 .text-decoration-none {
   text-decoration: none;
 }
@@ -2657,4 +2659,35 @@ textarea:-webkit-autofill:active {
 
 .loading-center {
   margin: 0 auto;
+}
+
+
+/* search bar */
+.ct-box-btn-current-loc {
+  background-color: var(--primarybg) !important;
+  font-size: 8px !important;
+  font-family: var(--fontPrimary) !important;
+  font-weight: 500 !important;
+  border-radius: 8px !important;
+  width: 180px !important;
+  margin: 0px auto !important;
+  color: var(--secondary) !important;
+}
+
+.ct-box-search-loc {
+  font-size: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: left;
+  color: var(--secondarytext);
+  font-family: var(--fontPrimary) !important;
+}
+
+.ct-box-search-results {
+  font-size: 12px;
+  text-transform: capitalize;
+  padding-top: 15px;
+  color: var(--primarytext);
+  font-weight: 400;
+  font-family: var(--fontPrimary);
 }

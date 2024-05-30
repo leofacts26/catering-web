@@ -15,9 +15,7 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { useDispatch, useSelector } from 'react-redux';
-import { areEqualRanges, fetchCateringSearchCards, setShowAllOccasions, updatePriceRanges } from '@/app/features/user/cateringFilterSlice';
-import useGetLocationResults from '@/hooks/catering/useGetLocationResults';
+
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 const CssTextField = styled(TextField)(({ theme }) => ({
     '& .MuiOutlinedInput-root': {
@@ -38,46 +36,8 @@ const CssTextField = styled(TextField)(({ theme }) => ({
     },
 }));
 
-const Filters = ({
-    getPriceRanges,
-    getFoodTypes,
-    getOccasionTypes,
-    getCuisines,
-    getServiceTypes,
-    getServingTypes,
-    occationsCount,
-    loading,
-    fetchOccasionCateringTypes,
-    // onShowAllOccasions,
-    // updateFoodTypeFilter,
-    // updatePriceRangesFilter,
-    // isChecked
-}) => {
+const TiffinFilters = ({ getPriceRanges, getFoodTypes, getOccasionTypes, getCuisines, getServiceTypes, getServingTypes, occationsCount, loading, onShowAllOccasions, updateFoodTypeFilter, updatePriceRangesFilter, isChecked }) => {
 
-  
-    const {locationValues} = useGetLocationResults();
-    console.log(locationValues, 'pallu');
-
-    const dispatch = useDispatch()
-    const {selectedPriceRanges, people} = useSelector(state => state.cateringFilter);
-
-    const isChecked = (price) => {
-        return selectedPriceRanges.some(range => areEqualRanges(range, price));
-      }
-
-    const onShowAllOccasions = () => {
-        dispatch(setShowAllOccasions(occationsCount));
-        dispatch(fetchOccasionCateringTypes(occationsCount));
-    }
-
-    const handlePriceRangeClick = (price) => {
-        dispatch(updatePriceRanges({ price }));
-        dispatch(fetchCateringSearchCards({
-          people: people, // replace with your actual people value
-          locationValues: locationValues, // replace with your actual locationValues
-          formattedPriceRanges: selectedPriceRanges // pass the formattedPriceRanges here
-        }));
-      }
 
     return (
         <>
@@ -94,9 +54,8 @@ const Filters = ({
 
                         {getPriceRanges?.map((price) => (
                             <Stack className='text-muted' key={price?.id} direction="row" alignItems="center" sx={{ marginLeft: '-10px', marginTop: '5px' }}>
-                                <Checkbox {...label} size="small" className='checkbox-color'
-                                    checked={isChecked(price)}
-                                    onClick={() => handlePriceRangeClick(price)} />
+                                <Checkbox {...label} size="small" className='checkbox-color' checked={isChecked(price)}
+                                    onClick={() => updatePriceRangesFilter(price)} />
                                 <span className='checkbox-text'>{`Rs. ${price?.start_price} - Rs. ${price?.end_price}`}</span>
                             </Stack>
                         ))}
@@ -193,9 +152,7 @@ const Filters = ({
                                 )
                             })
                         }
-                        <p className='text-center' style={{ color: '#245396', fontSize: '12px', cursor: 'pointer' }}
-                            onClick={onShowAllOccasions}
-                        >
+                        <p className='text-center' style={{ color: '#245396', fontSize: '12px', cursor: 'pointer' }} onClick={onShowAllOccasions}>
                             {loading ? 'Loading...' : `Show All ${occationsCount}`}  </p>
                     </CardContent>
 
@@ -237,4 +194,4 @@ const Filters = ({
     )
 }
 
-export default Filters
+export default TiffinFilters

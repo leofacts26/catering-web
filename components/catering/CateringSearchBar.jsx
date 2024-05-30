@@ -1,5 +1,5 @@
 "use client"
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import TextField from '@mui/material/TextField';
 import { styled } from '@mui/material/styles';
 import MyLocationIcon from '@mui/icons-material/MyLocation';
@@ -13,6 +13,13 @@ import Link from 'next/link'
 import Stack from '@mui/material/Stack';
 // import DatePickerSearchOrange from '../search/DatePickerSearchOrange';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
+import LoaderSpinner from '../LoaderSpinner';
+import Card from '@mui/material/Card';
+import useGetPriceRanges from '@/hooks/catering/useGetPriceRanges';
+import useGetLocationResults from '@/hooks/catering/useGetLocationResults';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchCateringSearchCards, setPeople } from '@/app/features/user/cateringFilterSlice';
+import { useRouter } from 'next/navigation'
 
 
 const CssTextField = styled(TextField)(({ theme }) => ({
@@ -63,20 +70,57 @@ const CssTextFieldRadius = styled(TextField)(({ theme }) => ({
     },
 }));
 
+
+
 const CateringSearchBar = () => {
+    // const {  people, setPeople } = useGetPriceRanges()
+    const {locationValues, manualLocation, isPlacePredictionsLoading, setSelectedLocation, selectedLocation, placePredictions, setManualLocation, getPlacePredictions, selectLocation } = useGetLocationResults()
     const [isAdornmentClicked, setIsAdornmentClicked] = useState(false);
+
+    console.log(locationValues, "ballu");
+
+    const dispatch = useDispatch();
+    const people = useSelector(state => state.cateringFilter.people);
+
+    const handlePeopleChange = (e) => {
+        dispatch(setPeople(e.target.value));
+    };
+
+    const router = useRouter()
+
+
+    const onHandleSubmit = (e) => {
+        e.preventDefault();
+        console.log(locationValues, "locationValues");
+        console.log(people, "people");
+        const data = {
+            locationValues,
+            people
+        }
+        dispatch(fetchCateringSearchCards(data))
+        router.push('/catering-search')
+    }
+
 
     return (
         <>
-            <form>
+            <form onSubmit={onHandleSubmit}>
                 <Stack className='search-bg' direction={{ xs: 'column', sm: 'column', md: 'column', lg: "row" }} justifyContent="space-between" spacing={0.2}>
                     <div className='w-100'>
                         <CssTextFieldRadius
+                            required
                             id="outlined-number"
                             placeholder="Enter your location..."
                             variant="outlined"
                             className='mt-0'
                             style={{ width: '100%' }}
+                            onChange={(evt) => {
+                                setSelectedLocation(null);
+                                setManualLocation(evt.target.value);
+                                getPlacePredictions({ input: evt.target.value });
+                            }}
+                            value={manualLocation}
+                            loading={isPlacePredictionsLoading}
                             InputLabelProps={{
                                 style: { color: '#777777', fontSize: '14px' },
                             }}
@@ -95,12 +139,16 @@ const CateringSearchBar = () => {
                                 ),
                             }}
                         />
+
                     </div>
                     <div className="w-100">
                         <DatePickerSearch />
                     </div>
                     <div className="three w-100">
                         <CssTextField
+                            required
+                            value={people}
+                            onChange={handlePeopleChange}
                             id="outlined-number"
                             placeholder="How many people attending?"
                             variant="outlined"
@@ -126,19 +174,37 @@ const CateringSearchBar = () => {
                         />
                     </div>
                     <div>
-                        <Link href="/catering-search">
-                            <Button className='red-btn' variant="contained" sx={{
-                                boxShadow: 'none',
-                                width: '100%', fontWeight: '600', padding: '11px 20px', fontSize: '14px', backgroundColor: '#C33332', textTransform: 'capitalize', '&:hover': {
-                                    backgroundColor: '#C33332',
-                                },
-                            }}>
-                                <SearchIcon style={{ marginRight: '5px', fontSize: '18px' }} /> Search
-                            </Button>
-                        </Link>
+                        <Button type='submit' className='red-btn' variant="contained" sx={{
+                            boxShadow: 'none',
+                            width: '100%', fontWeight: '600', padding: '11px 20px', fontSize: '14px', backgroundColor: '#C33332', textTransform: 'capitalize', '&:hover': {
+                                backgroundColor: '#C33332',
+                            },
+                        }}>
+                            <SearchIcon style={{ marginRight: '5px', fontSize: '18px' }} /> Search
+                        </Button>
                     </div>
                 </Stack>
             </form >
+
+
+            {
+                placePredictions.length > 0 && !selectedLocation && (
+                    <Card className='px-3 py-2'>
+                        {isPlacePredictionsLoading ? (
+                            <LoaderSpinner />
+                        ) : (
+                            <>
+                                <p className='ct-box-search-loc mb-1'>Search Results</p>
+                                {placePredictions?.map((item, index) => (
+                                    <h2 className='ct-box-search-results cursor-pointer' key={index} onClick={() => selectLocation(item)}>{item?.description}</h2>
+                                ))}
+                            </>
+                        )}
+                    </Card>
+                )
+            }
+
+
         </>
     )
 }

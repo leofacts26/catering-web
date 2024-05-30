@@ -29,6 +29,11 @@ const initialState = {
     phone_extension: '+91',
 }
 
+const options = {
+    enableHighAccuracy: true,
+    timeout: 10000,
+};
+
 const OtpInput = ({ length = 6, user, setShowOtp, handleClose }) => {
     const [otp, setOtp] = useState(new Array(length).fill(''));
     const inputRefs = useRef([]);
@@ -48,13 +53,6 @@ const OtpInput = ({ length = 6, user, setShowOtp, handleClose }) => {
         //allow only one input
         newOtp[index] = value.substring(value.length - 1)
         setOtp(newOtp)
-
-        // submit trigger 
-        // const combinedOtp = newOtp.join("");
-        // console.log(combinedOtp, "combinedOtp");
-        // console.log(combinedOtp.length === length, "combinedOtp.length === length");
-        // if (combinedOtp.length === length) onOtpSubmit(combinedOtp)
-
 
         // Focus on the next input box if available
         if (value !== '' && index < length - 1 && inputRefs.current[index + 1]) {
@@ -79,12 +77,81 @@ const OtpInput = ({ length = 6, user, setShowOtp, handleClose }) => {
         }
     }
 
-        // onOtpSubmit 
-        console.log('Login Successfully', otp.join(""));
-        const onOtpSubmit = (e) => {
-            e.preventDefault()
-            verifyOtp(otp.join(""), user, setOtp, setShowOtp, handleClose);
+
+
+
+    // test loc 
+
+    const successCallback = async (position) => {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+
+        try {
+            const response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${process.env.REACT_APP_GOOGLE}`);
+            const results = response.data.results;
+            let maxAddressComponentsLength = -1;
+            let selectedAddress = null;
+
+
+            results.forEach(result => {
+                const addressComponentsLength = result.address_components.length;
+                if (addressComponentsLength > maxAddressComponentsLength) {
+                    maxAddressComponentsLength = addressComponentsLength;
+                    selectedAddress = result;
+                }
+            });
+
+
+            if (selectedAddress) {
+                const addressComponents = selectedAddress.address_components;
+                const addressData = {
+                    street_name: getAddressComponent(addressComponents, 'route'),
+                    area: getAddressComponent(addressComponents, 'sublocality_level_1'),
+                    pincode: getAddressComponent(addressComponents, 'postal_code'),
+                    latitude: latitude,
+                    longitude: longitude,
+                    address: getAddressComponent(addressComponents, 'administrative_area_level_3'),
+                    city: getAddressComponent(addressComponents, 'locality'),
+                    state: getAddressComponent(addressComponents, 'administrative_area_level_1'),
+                    country: getAddressComponent(addressComponents, 'country'),
+                    formatted_address: response.data.results[0].formatted_address,
+                    place_id: response.data.results[0].place_id,
+                };
+                // handleSubmit(addressData); RRR
+            } else {
+                console.log("No suitable address found");
+            }
+
+        } catch (error) {
+            console.log(error);
         }
+    };
+
+    const errorCallback = (error) => {
+        console.log(error);
+    };
+
+    const getAddressComponent = (addressComponents, type) => {
+        const component = addressComponents.find(component => component.types.includes(type));
+        return component ? component.long_name : '';
+    };
+
+
+    const getCurrentLocation = () => {
+        const id = navigator.geolocation.getCurrentPosition(successCallback, errorCallback, options)
+        navigator.geolocation.clearWatch(id);
+    };
+
+
+
+    
+    // onOtpSubmit 
+    console.log('Login Successfully', otp.join(""));
+    const onOtpSubmit = (e) => {
+        e.preventDefault()
+        verifyOtp(otp.join(""), user, setOtp, setShowOtp, handleClose);
+        // getCurrentLocation()  RRR
+    }
 
     return (
         <div className='otp-input-fields'>
@@ -105,7 +172,8 @@ const OtpInput = ({ length = 6, user, setShowOtp, handleClose }) => {
                         />
                     })
                 }
-                <Button disabled={loading} variant="contained" type="submit" className='ct-box-btn-catering mb-3' style={{ textTransform: 'capitalize', margin: '0px auto', display: 'block' }}>
+                <Button disabled={loading} variant="contained" type="submit" className='ct-box-btn-catering mb-3'
+                    style={{ textTransform: 'capitalize', margin: '0px auto', display: 'block' }}>
                     {loading ? 'Loading...' : 'Submit'}
                 </Button>
             </form>
@@ -119,17 +187,7 @@ const RegisterModal = () => {
     const [showOtp, setShowOtp] = useState(true);
     const [minutes, setMinutes] = useState(0);
     const [seconds, setSeconds] = useState(30);
-    // const [value, setValue] = useState('1');
-    // const [otp, setOtp] = useState(['', '', '', '', '', ''])
     const user = useSelector((state) => state.user.userData)
-    // console.log(user, "user");
-
-    // const handleChange = (event, newValue) => {
-    //     setValue(newValue);
-    // };
-
-
-
 
     // validation schema
     const schema = Yup.object().shape({
@@ -147,15 +205,6 @@ const RegisterModal = () => {
         registerVendor(regData, setShowOtp);
         resetForm(initialState);
     }
-
-
-    // // onOtpSubmit 
-    // const onOtpSubmit = (e, otp) => {
-    //     console.log('Login Successfully', otp);
-    //     e.preventDefault()
-    //     verifyOtp(otp, user, setOtp);
-    // }
-
 
     // resendOtp 
     const handleResendOtp = async () => {
