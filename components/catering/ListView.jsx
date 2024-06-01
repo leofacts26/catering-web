@@ -141,10 +141,12 @@ const ListView = ({ loading, getSearchCards }) => {
                 </div>
             ))}
 
-            <Stack direction="row" justifyContent="space-between" style={{ marginBottom: '20px 0px 0px 0px' }} className='mb-5 mt-5'>
-                <h2 className='pagination-heading'>Chennai: 78 Catering service providers found</h2>
-                <p className='pagination-showing'>Showing 20 - 30</p>
+            {getSearchCards?.length > 0 && <>
+                <Stack direction="row" justifyContent="space-between" style={{ marginBottom: '20px 0px 0px 0px' }} className='mb-5 mt-5'>
+                    <h2 className='pagination-heading'>Chennai: {getSearchCards?.length} Catering service providers found</h2>
+                    <p className='pagination-showing'>Showing 20 - 30</p>
             </Stack>
+                </>}
 
 
         </>

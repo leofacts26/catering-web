@@ -16,29 +16,12 @@ import { useEffect, useState } from 'react';
 import SelectBox from '@/components/catering/SelectBox';
 import ListView from '@/components/catering/ListView';
 import GridViewList from '@/components/catering/GridView';
-// import useGetPriceRanges from '@/hooks/catering/useGetPriceRanges';
-import { useRouter } from 'next/navigation'
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCateringCuisines, fetchCateringFoodTypes, fetchCateringSearchCards, fetchCateringServingTypes, fetchOccasionCateringTypes, fetchPriceRanges, fetchServiceTypes } from '@/app/features/user/cateringFilterSlice';
 
 
 const page = () => {
-  const router = useRouter(); // Access the router object
   const [checked, setChecked] = useState(true);
-  // const { loading, getSearchCards, getPriceRanges, getFoodTypes, getOccasionTypes, getCuisines, getServiceTypes, getServingTypes, occationsCount, isChecked, updatePriceRangesFilter, updateFoodTypeFilter, onShowAllOccasions, fetchSearchCards  } = useGetPriceRanges();
-
-  const onHandleSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      // Perform any async tasks here, if needed
-      // await fetchSearchCards();
-      // router.push('/catering-search'); // Redirect to the specified page
-    } catch (error) {
-      console.error('Error occurred while processing form submission:', error);
-    }
-  }
-
 
   const dispatch = useDispatch()
   const { getCateringPriceRanges, getCateringFoodTypes, getOccasionCateringTypes, getCateringCuisines, getCateringServiceTypes, getCateringServingTypes, getCateringSearchCards, occasionCount, isLoading } = useSelector((state) => state.cateringFilter)
@@ -53,13 +36,6 @@ const page = () => {
     dispatch(fetchCateringSearchCards());
   }, []);
 
-  // useEffect(() =>{
-  //   dispatch(fetchOccasionCateringTypes());
-  //   fetchOccasionCateringTypes()
-  // }, [occasionCount])
-
-  console.log(getCateringPriceRanges, "getCateringPriceRanges");
-
   return (
     <>
       <section className='nav-bg'>
@@ -68,7 +44,7 @@ const page = () => {
       <div className="search-container">
         <div className="container-search">
           <Container maxWidth="md">
-            <CateringSearchBar onHandleSubmit={onHandleSubmit} />
+            <CateringSearchBar />
           </Container>
         </div>
       </div>
@@ -85,8 +61,6 @@ const page = () => {
                 </div>
               </div>
 
-
-
               <Filters
                 getPriceRanges={getCateringPriceRanges}
                 getFoodTypes={getCateringFoodTypes}
@@ -97,19 +71,16 @@ const page = () => {
                 occationsCount={occasionCount}
                 loading={isLoading}
                 fetchOccasionCateringTypes={fetchOccasionCateringTypes}
-              // onShowAllOccasions={onShowAllOccasions} 
-              // updateFoodTypeFilter={updateFoodTypeFilter} 
-              // updatePriceRangesFilter={updatePriceRangesFilter} 
-              // isChecked={isChecked} 
               />
 
 
             </Grid>
             <Grid item xs={12} md={12} lg={9} xl={9.2}>
-              <Stack direction='row' justifyContent="space-between" style={{ margin: '0px 0px 0px 0px' }}>
-                <h2 className='catering-found'>Chennai: 78 Catering service providers found</h2>
+            {getCateringSearchCards.length > 0 &&  <Stack direction='row' justifyContent="space-between" style={{ margin: '0px 0px 0px 0px' }}>
+             <h2 className='catering-found'>Chennai: {getCateringSearchCards.length} Catering service providers found</h2>
                 <SwitchSearchResult checked={checked} setChecked={setChecked} />
               </Stack>
+              } 
 
               <SelectBox />
 

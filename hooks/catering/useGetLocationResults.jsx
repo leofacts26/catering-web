@@ -1,36 +1,14 @@
-import { setlLocationValuesGlobal } from '@/app/features/user/cateringFilterSlice';
+import { setlLocationValuesGlobal, setLocationPlaceId, setManualLocation, setSelectedLocation } from '@/app/features/user/cateringFilterSlice';
 import React, { useEffect, useState } from 'react'
 import usePlacesService from "react-google-autocomplete/lib/usePlacesAutocompleteService";
 import { useDispatch, useSelector } from 'react-redux';
 
 
-const initialState = {
-    street_name: '',
-    area: '',
-    pincode: '',
-    latitude: '',
-    longitude: '',
-    address: '',
-    city: '',
-    state: '',
-    country: '',
-    formatted_address: '',
-    place_id: '',
-}
-
 
 const useGetLocationResults = () => {
 
-    // const {  } = useSelector((state) => state.cateringFilter)
     const dispatch = useDispatch()
-    const { locationValuesGlobal } = useSelector((state) => state.cateringFilter);
-
-    // select location 
-    // const [locationValues, setLocationValues] = useState(initialState)
-    const [locationPlaceId, setLocationPlaceId] = useState(null)
-    const [manualLocation, setManualLocation] = useState("")
-    const [selectedLocation, setSelectedLocation] = useState(null);
-
+    const { locationValuesGlobal, locationPlaceId, manualLocation, selectedLocation } = useSelector((state) => state.cateringFilter);
 
 
     const {
@@ -92,12 +70,12 @@ const useGetLocationResults = () => {
 
 
     const selectLocation = (item) => {
-        setSelectedLocation(item);
-        setManualLocation(item.description);
-        setLocationPlaceId(item?.place_id)
+        dispatch(setSelectedLocation(item));
+        dispatch(setManualLocation(item.description));
+        dispatch(setLocationPlaceId(item?.place_id));
     }
 
-    return {  manualLocation, isPlacePredictionsLoading, setSelectedLocation, selectedLocation, placePredictions, setManualLocation, getPlacePredictions, selectLocation }
+    return {  manualLocation, isPlacePredictionsLoading, selectedLocation, placePredictions, getPlacePredictions, selectLocation }
 }
 
 export default useGetLocationResults

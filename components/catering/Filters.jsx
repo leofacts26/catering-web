@@ -16,8 +16,7 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useDispatch, useSelector } from 'react-redux';
-import { areEqualRanges, fetchCateringSearchCards, setOccasionTypes, setShowAllOccasions } from '@/app/features/user/cateringFilterSlice';
-import useGetLocationResults from '@/hooks/catering/useGetLocationResults';
+import { fetchCateringSearchCards, setOccasionTypes, setShowAllOccasions } from '@/app/features/user/cateringFilterSlice';
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 const CssTextField = styled(TextField)(({ theme }) => ({
     '& .MuiOutlinedInput-root': {
@@ -48,10 +47,6 @@ const Filters = ({
     occationsCount,
     loading,
     fetchOccasionCateringTypes,
-    // onShowAllOccasions,
-    // updateFoodTypeFilter,
-    // updatePriceRangesFilter,
-    // isChecked
 }) => {
 
 
@@ -64,9 +59,6 @@ const Filters = ({
         dispatch(fetchOccasionCateringTypes(occationsCount));
     }
 
-    const handlePriceRangeClick = (price) => {
-
-    }
 
     // onHandleSelectOccasion 
     const onHandleSelectOccasion = (getOccasionType) => {
@@ -85,7 +77,6 @@ const Filters = ({
 
     }
 
-    console.log(getOccasionTypes, "getOccasionTypes");
     return (
         <>
             <Box sx={{ marginBottom: '10px' }} className="filter-shadow">

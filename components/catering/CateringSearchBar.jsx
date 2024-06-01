@@ -1,24 +1,19 @@
 "use client"
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import { styled } from '@mui/material/styles';
 import MyLocationIcon from '@mui/icons-material/MyLocation';
 import InputAdornment from '@mui/material/InputAdornment';
 import Button from '@mui/material/Button';
 import SearchIcon from '@mui/icons-material/Search';
-// import Grid from '@mui/material/Grid';
-// import Box from '@mui/material/Box';
 import DatePickerSearch from '../search/DatePickerSearch';
-import Link from 'next/link'
 import Stack from '@mui/material/Stack';
-// import DatePickerSearchOrange from '../search/DatePickerSearchOrange';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import LoaderSpinner from '../LoaderSpinner';
 import Card from '@mui/material/Card';
-import useGetPriceRanges from '@/hooks/catering/useGetPriceRanges';
 import useGetLocationResults from '@/hooks/catering/useGetLocationResults';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchCateringSearchCards, setPeople } from '@/app/features/user/cateringFilterSlice';
+import { fetchCateringSearchCards, setManualLocation, setPeople, setSelectedLocation } from '@/app/features/user/cateringFilterSlice';
 import { useRouter } from 'next/navigation'
 
 
@@ -73,10 +68,10 @@ const CssTextFieldRadius = styled(TextField)(({ theme }) => ({
 
 
 const CateringSearchBar = () => {
-    // const {  people, setPeople } = useGetPriceRanges()
-    const { manualLocation, isPlacePredictionsLoading, setSelectedLocation, selectedLocation, placePredictions, setManualLocation, getPlacePredictions, selectLocation } = useGetLocationResults()
+    const { isPlacePredictionsLoading, placePredictions, getPlacePredictions, selectLocation } = useGetLocationResults()
 
-    const { getOccasionCateringTypes, locationValuesGlobal } = useSelector((state) => state.cateringFilter);
+    const { getOccasionCateringTypes, locationValuesGlobal, manualLocation, selectedLocation } = useSelector((state) => state.cateringFilter);
+    // const { startDate, endDate } = useSelector((state) => state.cateringFilter);
 
     const [isAdornmentClicked, setIsAdornmentClicked] = useState(false);
 
@@ -99,11 +94,10 @@ const CateringSearchBar = () => {
             selected: occasion.selected
         }));
 
-
         const data = {
             locationValuesGlobal,
             people,
-            occasions_filter
+            occasions_filter,
         }
         dispatch(fetchCateringSearchCards(data))
         router.push('/catering-search')
@@ -123,8 +117,8 @@ const CateringSearchBar = () => {
                             className='mt-0'
                             style={{ width: '100%' }}
                             onChange={(evt) => {
-                                setSelectedLocation(null);
-                                setManualLocation(evt.target.value);
+                                dispatch(setSelectedLocation(null));
+                                dispatch(setManualLocation(evt.target.value));
                                 getPlacePredictions({ input: evt.target.value });
                             }}
                             value={manualLocation}

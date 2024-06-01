@@ -4,17 +4,22 @@ import { DateRangePicker } from 'react-date-range';
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday'; // MUI calendar icon
+import { useDispatch, useSelector } from 'react-redux';
+import { setDateRange } from '@/app/features/user/cateringFilterSlice';
 
 const DatePickerSearch = () => {
+    const dispatch = useDispatch();
+
+    const { startDate, endDate } = useSelector((state) => state.cateringFilter);
+
     const [showPicker, setShowPicker] = useState(false);
-    const [selectedRange, setSelectedRange] = useState({
-        startDate: new Date(),
-        endDate: new Date(),
+    const selectedRange = {
+        startDate,
+        endDate,
         key: 'selection',
-    });
+    };
 
     const pickerRef = useRef();
-
     const formatDate = (date) => {
         return date.toLocaleDateString('en-US', {
             weekday: 'short',
@@ -31,14 +36,14 @@ const DatePickerSearch = () => {
     };
 
     const handleSelect = (ranges) => {
-        setSelectedRange(ranges.selection);
+        dispatch(setDateRange(ranges.selection));
     };
 
     useEffect(() => {
-        if (selectedRange.startDate !== selectedRange.endDate) {
+        if (startDate !== endDate) {
             setShowPicker(false);
         }
-    }, [selectedRange]);
+    }, [startDate, endDate]);
 
     const togglePicker = () => {
         setShowPicker(!showPicker);
@@ -73,7 +78,7 @@ const DatePickerSearch = () => {
                     width: '100%',
                     padding: '11px 10px',
                     border: '2px solid #C33332',
-                    textTransform: 'capitalize', 
+                    textTransform: 'capitalize',
                 }}
                 startIcon={<CalendarTodayIcon />}
                 onClick={togglePicker}
