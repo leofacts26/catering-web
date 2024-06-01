@@ -12,7 +12,6 @@ const initialState = {
     userDetails: null,
 }
 
-
 export const fetchUserData = createAsyncThunk(
     'user/fetchUserData',
     async (user, thunkAPI) => {
@@ -28,8 +27,6 @@ export const fetchUserData = createAsyncThunk(
         }
     }
 )
-
-
 
 export const userSlice = createSlice({
     name: 'user',
@@ -48,10 +45,7 @@ export const userSlice = createSlice({
             state.loginUserData = action.payload;
         },
         logoutUser: (state) => {
-            state.userData = initialState.userData;
-            state.vendorId = initialState.vendorId;
-            state.accessToken = initialState.accessToken;
-            state.loginUserData = initialState.loginUserData;
+            state = initialState;
         },
     },
     extraReducers: (builder) => {

@@ -6,6 +6,7 @@ import 'react-date-range/dist/theme/default.css'; // theme css file
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday'; // MUI calendar icon
 import { useDispatch, useSelector } from 'react-redux';
 import { setDateRange } from '@/app/features/user/cateringFilterSlice';
+import moment from 'moment';
 
 const DatePickerSearch = () => {
     const dispatch = useDispatch();
@@ -19,8 +20,14 @@ const DatePickerSearch = () => {
         key: 'selection',
     };
 
+    const isValidDate = (date) => {
+        return date instanceof Date && !isNaN(date);
+    };
+
+
     const pickerRef = useRef();
     const formatDate = (date) => {
+        if (!isValidDate(date)) return 'Invalid Date';
         return date.toLocaleDateString('en-US', {
             weekday: 'short',
             month: 'short',
@@ -30,8 +37,8 @@ const DatePickerSearch = () => {
 
     const formatSelectedRange = (range) => {
         const { startDate, endDate } = range;
-        const formattedStart = formatDate(startDate).toLowerCase(); // Capitalize start date
-        const formattedEnd = formatDate(endDate).toLowerCase(); // Capitalize end date
+        const formattedStart = formatDate(moment(startDate).toDate()).toLowerCase(); // Capitalize start date
+        const formattedEnd = formatDate(moment(endDate).toDate()).toLowerCase(); // Capitalize end date
         return `${formattedStart} - ${formattedEnd}`;
     };
 

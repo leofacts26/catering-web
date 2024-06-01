@@ -16,7 +16,7 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchCateringSearchCards, setOccasionFilters, setOccasionTypes, setServiceFilters, setServiceTypesFilter, setShowAllOccasions } from '@/app/features/user/cateringFilterSlice';
+import { fetchCateringSearchCards, setOccasionFilters, setOccasionTypes, setServiceFilters, setServiceTypesFilter, setServingFilters, setServingTypesFilter, setShowAllOccasions } from '@/app/features/user/cateringFilterSlice';
 import FilterSkeleton from '../FilterSkeleton';
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 const CssTextField = styled(TextField)(({ theme }) => ({
@@ -51,7 +51,7 @@ const Filters = ({
 }) => {
 
 
-    const { locationValuesGlobal, people, occasionFilters, serviceFilters, isLoading } = useSelector((state) => state.cateringFilter)
+    const { locationValuesGlobal, people, occasionFilters, serviceFilters, servingFilters } = useSelector((state) => state.cateringFilter)
 
     const dispatch = useDispatch()
 
@@ -66,35 +66,38 @@ const Filters = ({
             locationValuesGlobal,
             occasions_filter: occasionFilters,
             service_filter: serviceFilters,
+            serving_filter: servingFilters,
         }));
-    }, [occasionFilters, serviceFilters, dispatch])
+    }, [occasionFilters, serviceFilters, servingFilters, dispatch])
 
 
     // onHandleSelectOccasion 
     const onHandleSelectOccasion = (getOccasionType) => {
         dispatch(setOccasionTypes(getOccasionType?.occasion_id))
-
         const updatedOccasionsFilter = getOccasionTypes.map(occasion => occasion.occasion_id === getOccasionType.occasion_id
             ? { ...occasion, selected: occasion.selected === 1 ? 0 : 1 }
             : occasion
         )
-
         dispatch(setOccasionFilters(updatedOccasionsFilter));
-
     }
 
 
     // onHandleServiceFilter 
     const onHandleServiceFilter = (getServiceType) => {
         dispatch(setServiceTypesFilter(getServiceType.id))
-
-        const updatedServiceTypes = getServiceTypes.map(serviceType => serviceType.id === getServiceType.id
+        const updatedServiceTypes = getServiceTypes?.map(serviceType => serviceType.id === getServiceType.id
             ? { ...serviceType, selected: serviceType.selected === 1 ? 0 : 1 } : serviceType)
-
         dispatch(setServiceFilters(updatedServiceTypes));
     }
 
-    // console.log(getServiceTypes, "getServiceTypes");
+    // onHandleServingFilter 
+    const onHandleServingFilter = (getServingType) => {
+        dispatch(setServingTypesFilter(getServingType?.id))
+        const updatedServingTypes = getServingTypes?.map(servingType => servingType.id === getServingType.id
+            ? { ...servingType, selectedweb: servingType.selectedweb === 1 ? 0 : 1 } : servingType)
+        dispatch(setServingFilters(updatedServingTypes))
+    }
+
     return (
         <>
             <Box sx={{ marginBottom: '10px' }} className="filter-shadow">
@@ -264,7 +267,12 @@ const Filters = ({
                                 return (
                                     <Stack className='text-muted' direction="row" alignItems="center" sx={{ marginLeft: '-10px', marginTop: '5px' }}
                                         key={getServingType?.id}>
-                                        <Checkbox {...label} size="small" className='checkbox-color' />
+                                        <Checkbox {...label}
+                                            size="small"
+                                            className='checkbox-color'
+                                            checked={getServingType?.selectedweb === 1}
+                                            onChange={() => onHandleServingFilter(getServingType)}
+                                        />
                                         <span className='checkbox-text'>{getServingType?.name}</span>
                                     </Stack>
                                 )

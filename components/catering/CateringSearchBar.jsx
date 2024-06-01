@@ -70,7 +70,7 @@ const CssTextFieldRadius = styled(TextField)(({ theme }) => ({
 const CateringSearchBar = () => {
     const { isPlacePredictionsLoading, placePredictions, getPlacePredictions, selectLocation } = useGetLocationResults()
 
-    const { getOccasionCateringTypes, getCateringServiceTypes, locationValuesGlobal, manualLocation, selectedLocation, isLoading  } = useSelector((state) => state.cateringFilter);
+    const { getOccasionCateringTypes, getCateringServiceTypes, getCateringServingTypes, locationValuesGlobal, manualLocation, selectedLocation, isLoading } = useSelector((state) => state.cateringFilter);
     // const { startDate, endDate } = useSelector((state) => state.cateringFilter);
 
     const [isAdornmentClicked, setIsAdornmentClicked] = useState(false);
@@ -88,24 +88,30 @@ const CateringSearchBar = () => {
     const onHandleSubmit = (e) => {
         e.preventDefault();
 
-        // Creating the occasions_filter array
+        // getOccasionCateringTypes
         const occasions_filter = getOccasionCateringTypes.map(occasion => ({
             occasion_id: occasion.occasion_id,
             selected: occasion.selected
         }));
 
-         // Creating the occasions_filter array
-         const service_filter = getCateringServiceTypes.map(service => ({
+        // getCateringServiceTypes
+        const service_filter = getCateringServiceTypes.map(service => ({
             id: service.id,
             selected: service.selected
         }));
 
+        // getCateringServingTypes 
+        const serving_filter = getCateringServingTypes.map(serving => ({
+            id: serving.id,
+            selectedweb: serving.selectedweb
+        }))
 
         const data = {
             locationValuesGlobal,
             people,
             occasions_filter,
             service_filter,
+            serving_filter
         }
         dispatch(fetchCateringSearchCards(data))
         router.push('/catering-search')

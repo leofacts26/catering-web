@@ -17,6 +17,7 @@ import Fade from '@mui/material/Fade';
 import { useDispatch, useSelector } from 'react-redux';
 import toast from 'react-hot-toast';
 import { fetchUserData, logoutUser } from '@/app/features/user/userSlice';
+import { resetFilters } from '@/app/features/user/cateringFilterSlice';
 
 
 const UserIcon = () => {
@@ -40,6 +41,7 @@ const UserIcon = () => {
     const onLogout = () => {
         localStorage.clear();
         dispatch(logoutUser());
+        dispatch(resetFilters());
         toast.success("Logout Successfull")
     }
 

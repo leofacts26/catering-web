@@ -10,10 +10,11 @@ const persistConfig = {
 };
 
 const persistedUserReducer = persistReducer(persistConfig, userReducer);
+const persistedFilterReducer = persistReducer(persistConfig, cateringFilterReducer);
 
 const rootReducer = {
   user: persistedUserReducer,
-  cateringFilter: cateringFilterReducer,
+  cateringFilter: persistedFilterReducer,
 };
 
 export const store = configureStore({
