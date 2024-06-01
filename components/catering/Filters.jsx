@@ -1,5 +1,5 @@
 "use client"
-import React from 'react'
+import React, { useEffect } from 'react'
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -16,7 +16,8 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchCateringSearchCards, setOccasionTypes, setShowAllOccasions } from '@/app/features/user/cateringFilterSlice';
+import { fetchCateringSearchCards, setOccasionFilters, setOccasionTypes, setServiceFilters, setServiceTypesFilter, setShowAllOccasions } from '@/app/features/user/cateringFilterSlice';
+import FilterSkeleton from '../FilterSkeleton';
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 const CssTextField = styled(TextField)(({ theme }) => ({
     '& .MuiOutlinedInput-root': {
@@ -50,7 +51,7 @@ const Filters = ({
 }) => {
 
 
-    const { locationValuesGlobal, people } = useSelector((state) => state.cateringFilter)
+    const { locationValuesGlobal, people, occasionFilters, serviceFilters, isLoading } = useSelector((state) => state.cateringFilter)
 
     const dispatch = useDispatch()
 
@@ -58,6 +59,15 @@ const Filters = ({
         dispatch(setShowAllOccasions(occationsCount));
         dispatch(fetchOccasionCateringTypes(occationsCount));
     }
+
+    useEffect(() => {
+        dispatch(fetchCateringSearchCards({
+            people: people,
+            locationValuesGlobal,
+            occasions_filter: occasionFilters,
+            service_filter: serviceFilters,
+        }));
+    }, [occasionFilters, serviceFilters, dispatch])
 
 
     // onHandleSelectOccasion 
@@ -69,14 +79,22 @@ const Filters = ({
             : occasion
         )
 
-        dispatch(fetchCateringSearchCards({
-            people: people, // Add necessary data here
-            locationValuesGlobal, // Add necessary data here
-            occasions_filter: updatedOccasionsFilter
-        }));
+        dispatch(setOccasionFilters(updatedOccasionsFilter));
 
     }
 
+
+    // onHandleServiceFilter 
+    const onHandleServiceFilter = (getServiceType) => {
+        dispatch(setServiceTypesFilter(getServiceType.id))
+
+        const updatedServiceTypes = getServiceTypes.map(serviceType => serviceType.id === getServiceType.id
+            ? { ...serviceType, selected: serviceType.selected === 1 ? 0 : 1 } : serviceType)
+
+        dispatch(setServiceFilters(updatedServiceTypes));
+    }
+
+    // console.log(getServiceTypes, "getServiceTypes");
     return (
         <>
             <Box sx={{ marginBottom: '10px' }} className="filter-shadow">
@@ -90,21 +108,25 @@ const Filters = ({
                         <h3 className='font-20 font-weight-500 filter-text'>Your Budget (Per Plate Cost):</h3>
                         <p style={{ margin: '10px 0px', fontSize: '16px' }} className='select-price-range'>Select Price Range</p>
 
-                        {getPriceRanges?.map((price) => (
-                            <Stack className='text-muted' key={price?.id} direction="row" alignItems="center" sx={{ marginLeft: '-10px', marginTop: '5px' }}>
-                                <Checkbox {...label} size="small" className='checkbox-color'
-                                    checked=""
-                                />
-                                <span className='checkbox-text'>{`Rs. ${price?.start_price} - Rs. ${price?.end_price}`}</span>
-                            </Stack>
-                        ))}
+                        {getPriceRanges.length > 0 ? (
+                            getPriceRanges?.map((price) => (
+                                <Stack className='text-muted' key={price?.id} direction="row" alignItems="center" sx={{ marginLeft: '-10px', marginTop: '5px' }}>
+                                    <Checkbox {...label} size="small" className='checkbox-color'
+                                        checked=""
+                                    />
+                                    <span className='checkbox-text'>{`Rs. ${price?.start_price} - Rs. ${price?.end_price}`}</span>
+                                </Stack>
+                            ))
+                        ) : (
+                            <FilterSkeleton />
+                        )}
                     </CardContent>
 
                     <Divider />
 
                     <CardContent>
                         <h3 className='font-20 font-weight-500 filter-text'>Choose Food Type:</h3>
-                        {
+                        {getFoodTypes?.length > 0 ? (
                             getFoodTypes?.map((foodType) => {
                                 return (
                                     <Stack className='text-muted' direction="row" alignItems="center" sx={{ marginLeft: '-10px', marginTop: '5px' }} key={foodType?.id}>
@@ -114,6 +136,9 @@ const Filters = ({
                                     </Stack>
                                 )
                             })
+                        ) : (
+                            <FilterSkeleton />
+                        )
                         }
                     </CardContent>
 
@@ -147,33 +172,37 @@ const Filters = ({
                         />
 
                         <Box sx={{ marginTop: '0px' }}>
-                            {getCuisines?.map((getCuisine) => {
-                                return (
-                                    <Accordion className='m-0 shadow-none' key={getCuisine?.id}>
-                                        <AccordionSummary
-                                            expandIcon={<ExpandMoreIcon />}
-                                            aria-controls="panel1-content"
-                                            id="panel1-header"
-                                            className='m-0 p-0'
-                                        >
-                                            <Stack className='text-muted' direction="row" alignItems="center" sx={{ marginLeft: '-10px' }}>
-                                                <Checkbox {...label} size="small" className='m-0 checkbox-color' />
-                                                <span className='checkbox-text'>{getCuisine?.name}</span>
-                                            </Stack>
-                                        </AccordionSummary>
-                                        <AccordionDetails sx={{ marginLeft: '-20px', padding: '0px 16px' }}>
-                                            {getCuisine?.children?.map((child) => {
-                                                return (
-                                                    <Stack className='text-muted' direction="row" alignItems="center" key={child?.id}>
-                                                        <Checkbox {...label} size="small" className='checkbox-color' />
-                                                        <span className='checkbox-text'>{child?.name}</span>
-                                                    </Stack>
-                                                )
-                                            })}
-                                        </AccordionDetails>
-                                    </Accordion>
-                                )
-                            })
+                            {getCuisines.length > 0 ? (
+                                getCuisines?.map((getCuisine) => {
+                                    return (
+                                        <Accordion className='m-0 shadow-none' key={getCuisine?.id}>
+                                            <AccordionSummary
+                                                expandIcon={<ExpandMoreIcon />}
+                                                aria-controls="panel1-content"
+                                                id="panel1-header"
+                                                className='m-0 p-0'
+                                            >
+                                                <Stack className='text-muted' direction="row" alignItems="center" sx={{ marginLeft: '-10px' }}>
+                                                    <Checkbox {...label} size="small" className='m-0 checkbox-color' />
+                                                    <span className='checkbox-text'>{getCuisine?.name}</span>
+                                                </Stack>
+                                            </AccordionSummary>
+                                            <AccordionDetails sx={{ marginLeft: '-20px', padding: '0px 16px' }}>
+                                                {getCuisine?.children?.map((child) => {
+                                                    return (
+                                                        <Stack className='text-muted' direction="row" alignItems="center" key={child?.id}>
+                                                            <Checkbox {...label} size="small" className='checkbox-color' />
+                                                            <span className='checkbox-text'>{child?.name}</span>
+                                                        </Stack>
+                                                    )
+                                                })}
+                                            </AccordionDetails>
+                                        </Accordion>
+                                    )
+                                })
+                            ) : (
+                                <FilterSkeleton />
+                            )
                             }
                         </Box>
                     </CardContent>
@@ -207,22 +236,30 @@ const Filters = ({
                     <Divider />
                     <CardContent>
                         <h3 className='font-20 font-weight-500 filter-text'>Choose Service Type:</h3>
-                        {
+                        {getServiceTypes.length > 0 ? (
                             getServiceTypes?.map((getServiceType) => {
                                 return (
                                     <Stack className='text-muted' direction="row" alignItems="center" sx={{ marginLeft: '-10px', marginTop: '5px' }} key={getServiceType?.id}>
-                                        <Checkbox {...label} size="small" className='checkbox-color' />
+                                        <Checkbox {...label}
+                                            size="small"
+                                            className='checkbox-color'
+                                            checked={getServiceType?.selected === 1}
+                                            onChange={() => onHandleServiceFilter(getServiceType)}
+                                        />
                                         <span className='checkbox-text'>{getServiceType?.name}</span>
                                     </Stack>
                                 )
                             })
+                        ) : (
+                            <FilterSkeleton />
+                        )
                         }
                     </CardContent>
 
                     <Divider />
                     <CardContent>
                         <h3 className='font-20 font-weight-500 filter-text'>Choose Cater Service:</h3>
-                        {
+                        {getServingTypes.length > 0 ? (
                             getServingTypes?.map((getServingType) => {
                                 return (
                                     <Stack className='text-muted' direction="row" alignItems="center" sx={{ marginLeft: '-10px', marginTop: '5px' }}
@@ -232,6 +269,9 @@ const Filters = ({
                                     </Stack>
                                 )
                             })
+                        ) : (
+                            <FilterSkeleton />
+                        )
                         }
                     </CardContent>
 

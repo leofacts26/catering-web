@@ -3,14 +3,20 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Link from 'next/link'
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
-import LoadingAnimation from '../LoadingAnimation';
+import GridViewSkeleton from '../GridViewSkeleton';
 
 const GridViewList = ({ loading, getSearchCards }) => {
-    console.log(getSearchCards, "Grid view");
 
     if (loading) {
-        return <LoadingAnimation center />
+        return (
+            <Grid container spacing={2}>
+                {getSearchCards.length > 0 && getSearchCards.map((getSearchCard, index) => (
+                    <GridViewSkeleton key={index} />
+                ))}
+            </Grid>
+        );
     }
+
 
     return (
         <>
@@ -56,28 +62,28 @@ const GridViewList = ({ loading, getSearchCards }) => {
                                                 getSearchCard?.cuisines?.slice(0, 3)?.map((cuisine, index, array) => {
                                                     return (
                                                         <span className='me-0' key={index}> {cuisine}
-                                                        {index !== array.length - 1 && <span className='me-0'> | </span>} </span>
+                                                            {index !== array.length - 1 && <span className='me-0'> | </span>} </span>
                                                     )
                                                 })
                                             }
-                                    </h2>
+                                        </h2>
 
-                                    <Stack direction="row" alignItems="center" justifyContent="end" className="mb-4">
-                                        <Stack direction="row" alignItems="center" justifyContent="end" spacing={0}>
-                                            <CurrencyRupeeIcon className="vc-price-one-similar-catering" />
-                                            <span className="vc-price-one-similar-catering"> {getSearchCard?.start_price} / Plate </span>
+                                        <Stack direction="row" alignItems="center" justifyContent="end" className="mb-4">
+                                            <Stack direction="row" alignItems="center" justifyContent="end" spacing={0}>
+                                                <CurrencyRupeeIcon className="vc-price-one-similar-catering" />
+                                                <span className="vc-price-one-similar-catering"> {getSearchCard?.start_price} / Plate </span>
+                                            </Stack>
                                         </Stack>
-                                    </Stack>
 
 
 
+                                    </div>
                                 </div>
-                            </div>
-                        </Link>
+                            </Link>
                         </Grid>
                     ))}
-            </Grid>
-        </Box >
+                </Grid>
+            </Box >
         </>
 
     )

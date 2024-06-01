@@ -9,7 +9,8 @@ import FastfoodIcon from '@mui/icons-material/Fastfood';
 import Link from 'next/link'
 import ShareIcon from '@mui/icons-material/Share';
 // import useGetPriceRanges from '@/hooks/catering/useGetPriceRanges';
-import LoadingAnimation from '../LoadingAnimation';
+// import LoadingAnimation from '../LoadingAnimation';
+import ListViewSkeleton from '../ListViewSkeleton ';
 
 
 const ListView = ({ loading, getSearchCards }) => {
@@ -18,7 +19,11 @@ const ListView = ({ loading, getSearchCards }) => {
     // console.log(getSearchCards, "List View");
 
     if (loading) {
-        return <LoadingAnimation center />
+        return <>
+        {getSearchCards.length > 0 && getSearchCards?.map((getSearchCard) =>(
+            <ListViewSkeleton center />
+        ))}
+        </>
     }
 
     return (

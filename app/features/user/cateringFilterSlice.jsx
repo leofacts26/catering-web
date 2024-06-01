@@ -23,6 +23,9 @@ const initialState = {
     manualLocation: "",
     selectedLocation: "",
     locationValuesGlobal: {},
+    // Filters 
+    occasionFilters: [],
+    serviceFilters: [],
     // left filters  
     selectedPriceRanges: []
 }
@@ -126,17 +129,26 @@ export const fetchCateringServingTypes = createAsyncThunk(
 export const fetchCateringSearchCards = createAsyncThunk(
     'user/fetchCateringSearchCards',
     async (data, thunkAPI) => {
-        const { people, locationValuesGlobal, occasions_filter, dateFilter } = data;
-        const startDate  = thunkAPI.getState().cateringFilter?.startDate;
-        const endDate  = thunkAPI.getState().cateringFilter?.endDate;
+        const { people, locationValuesGlobal, occasions_filter, service_filter } = data;
+        const startDate = thunkAPI.getState().cateringFilter?.startDate;
+        const endDate = thunkAPI.getState().cateringFilter?.endDate;
+        console.log(data, "data22334455");
 
+        // occasions_filter_formatted 
         const occasions_filter_formatted = occasions_filter.map(occasion => ({
             id: occasion.occasion_id,
             selected: occasion.selected
         }));
 
+        // service_filter_formatted
+        const service_filter_formatted = service_filter.map(service => ({
+            id: service.id,
+            selected: service.selected
+        }));
+
+
         try {
-            const response = await api.get(`${BASE_URL}/search-vendors?search_term=${people}&order_by=distance&limit=100&current_page=1&occasions_filter=${JSON.stringify(occasions_filter_formatted)}&latitude=${locationValuesGlobal?.latitude || ""}&longitude=${locationValuesGlobal?.longitude || ""}&city=${locationValuesGlobal?.city?.long_name || ""}&pincode=${locationValuesGlobal?.pincode || ""}&place_id=${locationValuesGlobal?.place_id || ''}&start_date=${moment(startDate).format('YYYY-MM-DD')}&end_date=${moment(endDate).format('YYYY-MM-DD')}&save_filter=1`, {
+            const response = await api.get(`${BASE_URL}/search-vendors?search_term=${people}&order_by=distance&limit=100&current_page=1&save_filter=1&vendor_type=Caterer&app_type=web&service_types_filter=${JSON.stringify(service_filter_formatted)}&occasions_filter=${JSON.stringify(occasions_filter_formatted)}&latitude=${locationValuesGlobal?.latitude || ""}&longitude=${locationValuesGlobal?.longitude || ""}&city=${locationValuesGlobal?.city?.long_name || ""}&pincode=${locationValuesGlobal?.pincode || ""}&place_id=${locationValuesGlobal?.place_id || ''}&start_date=${moment(startDate).format('YYYY-MM-DD')}&end_date=${moment(endDate).format('YYYY-MM-DD')}&save_filter=1`, {
                 headers: {
                     authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
                 },
@@ -171,16 +183,6 @@ export const cateringFilterSlice = createSlice({
         setlLocationValuesGlobal: (state, action) => {
             state.locationValuesGlobal = action.payload;
         },
-        setOccasionTypes: (state, action) => {
-            const updatedOccasions = state.getOccasionCateringTypes.map((occasion) => {
-                if (occasion.occasion_id === action.payload) {
-                    return { ...occasion, selected: occasion.selected === 1 ? 0 : 1 };
-                } else {
-                    return occasion;
-                }
-            });
-            state.getOccasionCateringTypes = updatedOccasions;
-        },
         setStartDate(state, action) {
             state.startDate = action.payload;
         },
@@ -190,6 +192,32 @@ export const cateringFilterSlice = createSlice({
         setDateRange(state, action) {
             state.startDate = action.payload.startDate;
             state.endDate = action.payload.endDate;
+        },
+        setOccasionTypes: (state, action) => {
+            const updatedOccasions = state.getOccasionCateringTypes?.map((occasion) => {
+                if (occasion.occasion_id === action.payload) {
+                    return { ...occasion, selected: occasion.selected === 1 ? 0 : 1 };
+                } else {
+                    return occasion;
+                }
+            });
+            state.getOccasionCateringTypes = updatedOccasions;
+        },
+        setServiceTypesFilter: (state, action) => {
+            const updatedServiceTypes = state.getCateringServiceTypes.map((serviceType) => {
+                if (serviceType.id === action.payload) {
+                    return { ...serviceType, selected: serviceType.selected === 1 ? 0 : 1 }
+                } else {
+                    return serviceType;
+                }
+            })
+            state.getCateringServiceTypes = updatedServiceTypes;
+        },
+        setOccasionFilters: (state, action) => {
+            state.occasionFilters = action.payload;
+        },
+        setServiceFilters: (state, action) => {
+            state.serviceFilters = action.payload;
         },
     },
     extraReducers: (builder) => {
@@ -283,6 +311,6 @@ export const cateringFilterSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { setShowAllOccasions, setPeople, people, setOccasionTypes, setSelectedLocation, setManualLocation, setLocationPlaceId, setlLocationValuesGlobal, locationPlaceId, manualLocation, selectedLocation, setStartDate, setEndDate, setDateRange } = cateringFilterSlice.actions
+export const { setShowAllOccasions, setPeople, people, setOccasionTypes, setSelectedLocation, setManualLocation, setLocationPlaceId, setlLocationValuesGlobal, locationPlaceId, manualLocation, selectedLocation, setStartDate, setEndDate, setDateRange, setServiceTypesFilter, setOccasionFilters, setServiceFilters } = cateringFilterSlice.actions
 
 export default cateringFilterSlice.reducer

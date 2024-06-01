@@ -70,7 +70,7 @@ const CssTextFieldRadius = styled(TextField)(({ theme }) => ({
 const CateringSearchBar = () => {
     const { isPlacePredictionsLoading, placePredictions, getPlacePredictions, selectLocation } = useGetLocationResults()
 
-    const { getOccasionCateringTypes, locationValuesGlobal, manualLocation, selectedLocation } = useSelector((state) => state.cateringFilter);
+    const { getOccasionCateringTypes, getCateringServiceTypes, locationValuesGlobal, manualLocation, selectedLocation, isLoading  } = useSelector((state) => state.cateringFilter);
     // const { startDate, endDate } = useSelector((state) => state.cateringFilter);
 
     const [isAdornmentClicked, setIsAdornmentClicked] = useState(false);
@@ -94,10 +94,18 @@ const CateringSearchBar = () => {
             selected: occasion.selected
         }));
 
+         // Creating the occasions_filter array
+         const service_filter = getCateringServiceTypes.map(service => ({
+            id: service.id,
+            selected: service.selected
+        }));
+
+
         const data = {
             locationValuesGlobal,
             people,
             occasions_filter,
+            service_filter,
         }
         dispatch(fetchCateringSearchCards(data))
         router.push('/catering-search')
@@ -176,7 +184,7 @@ const CateringSearchBar = () => {
                         />
                     </div>
                     <div>
-                        <Button type='submit' className='red-btn' variant="contained" sx={{
+                        <Button disabled={isLoading} type='submit' className='red-btn' variant="contained" sx={{
                             boxShadow: 'none',
                             width: '100%', fontWeight: '600', padding: '11px 20px', fontSize: '14px', backgroundColor: '#C33332', textTransform: 'capitalize', '&:hover': {
                                 backgroundColor: '#C33332',
