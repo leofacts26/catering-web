@@ -74,10 +74,11 @@ const CssTextFieldRadius = styled(TextField)(({ theme }) => ({
 
 const CateringSearchBar = () => {
     // const {  people, setPeople } = useGetPriceRanges()
-    const {locationValues, manualLocation, isPlacePredictionsLoading, setSelectedLocation, selectedLocation, placePredictions, setManualLocation, getPlacePredictions, selectLocation } = useGetLocationResults()
-    const [isAdornmentClicked, setIsAdornmentClicked] = useState(false);
+    const { manualLocation, isPlacePredictionsLoading, setSelectedLocation, selectedLocation, placePredictions, setManualLocation, getPlacePredictions, selectLocation } = useGetLocationResults()
 
-    console.log(locationValues, "ballu");
+    const { getOccasionCateringTypes, locationValuesGlobal } = useSelector((state) => state.cateringFilter);
+
+    const [isAdornmentClicked, setIsAdornmentClicked] = useState(false);
 
     const dispatch = useDispatch();
     const people = useSelector(state => state.cateringFilter.people);
@@ -91,11 +92,18 @@ const CateringSearchBar = () => {
 
     const onHandleSubmit = (e) => {
         e.preventDefault();
-        console.log(locationValues, "locationValues");
-        console.log(people, "people");
+
+        // Creating the occasions_filter array
+        const occasions_filter = getOccasionCateringTypes.map(occasion => ({
+            occasion_id: occasion.occasion_id,
+            selected: occasion.selected
+        }));
+
+
         const data = {
-            locationValues,
-            people
+            locationValuesGlobal,
+            people,
+            occasions_filter
         }
         dispatch(fetchCateringSearchCards(data))
         router.push('/catering-search')

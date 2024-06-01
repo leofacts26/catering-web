@@ -1,5 +1,7 @@
+import { setlLocationValuesGlobal } from '@/app/features/user/cateringFilterSlice';
 import React, { useEffect, useState } from 'react'
 import usePlacesService from "react-google-autocomplete/lib/usePlacesAutocompleteService";
+import { useDispatch, useSelector } from 'react-redux';
 
 
 const initialState = {
@@ -19,11 +21,17 @@ const initialState = {
 
 const useGetLocationResults = () => {
 
+    // const {  } = useSelector((state) => state.cateringFilter)
+    const dispatch = useDispatch()
+    const { locationValuesGlobal } = useSelector((state) => state.cateringFilter);
+
     // select location 
-    const [locationValues, setLocationValues] = useState(initialState)
+    // const [locationValues, setLocationValues] = useState(initialState)
     const [locationPlaceId, setLocationPlaceId] = useState(null)
     const [manualLocation, setManualLocation] = useState("")
     const [selectedLocation, setSelectedLocation] = useState(null);
+
+
 
     const {
         placesService,
@@ -64,8 +72,8 @@ const useGetLocationResults = () => {
         const { geometry: { location } } = places;
         const { lat, lng } = location;
 
-        setLocationValues({
-            ...locationValues,
+        const data = {
+            ...locationValuesGlobal,
             street_name: street_name || "",
             area: area,
             pincode: pincode?.long_name,
@@ -77,7 +85,9 @@ const useGetLocationResults = () => {
             country: country,
             formatted_address: formatted_address,
             place_id: places?.place_id
-        })
+        }
+
+        dispatch(setlLocationValuesGlobal(data))
     }
 
 
@@ -87,7 +97,7 @@ const useGetLocationResults = () => {
         setLocationPlaceId(item?.place_id)
     }
 
-    return {locationValues, manualLocation, isPlacePredictionsLoading, setSelectedLocation, selectedLocation, placePredictions, setManualLocation, getPlacePredictions, selectLocation }
+    return {  manualLocation, isPlacePredictionsLoading, setSelectedLocation, selectedLocation, placePredictions, setManualLocation, getPlacePredictions, selectLocation }
 }
 
 export default useGetLocationResults

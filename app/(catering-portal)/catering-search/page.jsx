@@ -31,19 +31,19 @@ const page = () => {
     e.preventDefault();
 
     try {
-        // Perform any async tasks here, if needed
-        // await fetchSearchCards();
-        // router.push('/catering-search'); // Redirect to the specified page
+      // Perform any async tasks here, if needed
+      // await fetchSearchCards();
+      // router.push('/catering-search'); // Redirect to the specified page
     } catch (error) {
-        console.error('Error occurred while processing form submission:', error);
+      console.error('Error occurred while processing form submission:', error);
     }
-}
+  }
 
 
-const dispatch = useDispatch()
-const { getCateringPriceRanges, getCateringFoodTypes, getOccasionCateringTypes, getCateringCuisines, getCateringServiceTypes, getCateringServingTypes, getCateringSearchCards, occasionCount, isLoading } = useSelector((state) => state.cateringFilter)
+  const dispatch = useDispatch()
+  const { getCateringPriceRanges, getCateringFoodTypes, getOccasionCateringTypes, getCateringCuisines, getCateringServiceTypes, getCateringServingTypes, getCateringSearchCards, occasionCount, isLoading } = useSelector((state) => state.cateringFilter)
 
-useEffect(() => {
+  useEffect(() => {
     dispatch(fetchPriceRanges());
     dispatch(fetchCateringFoodTypes());
     dispatch(fetchOccasionCateringTypes(occasionCount));
@@ -51,14 +51,14 @@ useEffect(() => {
     dispatch(fetchServiceTypes());
     dispatch(fetchCateringServingTypes());
     dispatch(fetchCateringSearchCards());
-}, []);
+  }, []);
 
-// useEffect(() =>{
-//   dispatch(fetchOccasionCateringTypes());
-//   fetchOccasionCateringTypes()
-// }, [occasionCount])
+  // useEffect(() =>{
+  //   dispatch(fetchOccasionCateringTypes());
+  //   fetchOccasionCateringTypes()
+  // }, [occasionCount])
 
-console.log(getCateringPriceRanges, "getCateringPriceRanges");
+  console.log(getCateringPriceRanges, "getCateringPriceRanges");
 
   return (
     <>
@@ -87,16 +87,16 @@ console.log(getCateringPriceRanges, "getCateringPriceRanges");
 
 
 
-              <Filters 
-              getPriceRanges={getCateringPriceRanges} 
-              getFoodTypes={getCateringFoodTypes} 
-              getOccasionTypes={getOccasionCateringTypes} 
-              getCuisines={getCateringCuisines} 
-              getServiceTypes={getCateringServiceTypes} 
-              getServingTypes={getCateringServingTypes} 
-              occationsCount={occasionCount} 
-              loading={isLoading} 
-              fetchOccasionCateringTypes={fetchOccasionCateringTypes}
+              <Filters
+                getPriceRanges={getCateringPriceRanges}
+                getFoodTypes={getCateringFoodTypes}
+                getOccasionTypes={getOccasionCateringTypes}
+                getCuisines={getCateringCuisines}
+                getServiceTypes={getCateringServiceTypes}
+                getServingTypes={getCateringServingTypes}
+                occationsCount={occasionCount}
+                loading={isLoading}
+                fetchOccasionCateringTypes={fetchOccasionCateringTypes}
               // onShowAllOccasions={onShowAllOccasions} 
               // updateFoodTypeFilter={updateFoodTypeFilter} 
               // updatePriceRangesFilter={updatePriceRangesFilter} 

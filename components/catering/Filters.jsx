@@ -16,7 +16,7 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useDispatch, useSelector } from 'react-redux';
-import { areEqualRanges, fetchCateringSearchCards, setShowAllOccasions, updatePriceRanges } from '@/app/features/user/cateringFilterSlice';
+import { areEqualRanges, fetchCateringSearchCards, setOccasionTypes, setShowAllOccasions } from '@/app/features/user/cateringFilterSlice';
 import useGetLocationResults from '@/hooks/catering/useGetLocationResults';
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 const CssTextField = styled(TextField)(({ theme }) => ({
@@ -54,16 +54,10 @@ const Filters = ({
     // isChecked
 }) => {
 
-  
-    const {locationValues} = useGetLocationResults();
-    console.log(locationValues, 'pallu');
+
+    const { locationValuesGlobal, people } = useSelector((state) => state.cateringFilter)
 
     const dispatch = useDispatch()
-    const {selectedPriceRanges, people} = useSelector(state => state.cateringFilter);
-
-    const isChecked = (price) => {
-        return selectedPriceRanges.some(range => areEqualRanges(range, price));
-      }
 
     const onShowAllOccasions = () => {
         dispatch(setShowAllOccasions(occationsCount));
@@ -71,14 +65,27 @@ const Filters = ({
     }
 
     const handlePriceRangeClick = (price) => {
-        dispatch(updatePriceRanges({ price }));
-        dispatch(fetchCateringSearchCards({
-          people: people, // replace with your actual people value
-          locationValues: locationValues, // replace with your actual locationValues
-          formattedPriceRanges: selectedPriceRanges // pass the formattedPriceRanges here
-        }));
-      }
 
+    }
+
+    // onHandleSelectOccasion 
+    const onHandleSelectOccasion = (getOccasionType) => {
+        dispatch(setOccasionTypes(getOccasionType?.occasion_id))
+
+        const updatedOccasionsFilter = getOccasionTypes.map(occasion => occasion.occasion_id === getOccasionType.occasion_id
+            ? { ...occasion, selected: occasion.selected === 1 ? 0 : 1 }
+            : occasion
+        )
+
+        dispatch(fetchCateringSearchCards({
+            people: people, // Add necessary data here
+            locationValuesGlobal, // Add necessary data here
+            occasions_filter: updatedOccasionsFilter
+        }));
+
+    }
+
+    console.log(getOccasionTypes, "getOccasionTypes");
     return (
         <>
             <Box sx={{ marginBottom: '10px' }} className="filter-shadow">
@@ -95,8 +102,8 @@ const Filters = ({
                         {getPriceRanges?.map((price) => (
                             <Stack className='text-muted' key={price?.id} direction="row" alignItems="center" sx={{ marginLeft: '-10px', marginTop: '5px' }}>
                                 <Checkbox {...label} size="small" className='checkbox-color'
-                                    checked={isChecked(price)}
-                                    onClick={() => handlePriceRangeClick(price)} />
+                                    checked=""
+                                />
                                 <span className='checkbox-text'>{`Rs. ${price?.start_price} - Rs. ${price?.end_price}`}</span>
                             </Stack>
                         ))}
@@ -187,7 +194,13 @@ const Filters = ({
                             getOccasionTypes?.map((getOccasionType) => {
                                 return (
                                     <Stack className='text-muted' direction="row" alignItems="center" sx={{ marginLeft: '-10px', marginTop: '5px' }} key={getOccasionType?.id}>
-                                        <Checkbox {...label} size="small" className='checkbox-color' />
+                                        <Checkbox
+                                            {...label}
+                                            size="small"
+                                            className='checkbox-color'
+                                            checked={getOccasionType?.selected === 1}
+                                            onChange={() => onHandleSelectOccasion(getOccasionType)}
+                                        />
                                         <span className='checkbox-text'>{getOccasionType?.occasion_name}</span>
                                     </Stack>
                                 )
