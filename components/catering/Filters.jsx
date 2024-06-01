@@ -16,7 +16,7 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchCateringSearchCards, setOccasionFilters, setOccasionTypes, setServiceFilters, setServiceTypesFilter, setServingFilters, setServingTypesFilter, setShowAllOccasions } from '@/app/features/user/cateringFilterSlice';
+import { fetchCateringSearchCards, setFoodTypeFilter, setFoodTypeFilters, setOccasionFilters, setOccasionTypes, setServiceFilters, setServiceTypesFilter, setServingFilters, setServingTypesFilter, setShowAllOccasions } from '@/app/features/user/cateringFilterSlice';
 import FilterSkeleton from '../FilterSkeleton';
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 const CssTextField = styled(TextField)(({ theme }) => ({
@@ -51,7 +51,7 @@ const Filters = ({
 }) => {
 
 
-    const { locationValuesGlobal, people, occasionFilters, serviceFilters, servingFilters } = useSelector((state) => state.cateringFilter)
+    const { locationValuesGlobal, people, occasionFilters, serviceFilters, servingFilters, occasionCount, foodtypeFilters } = useSelector((state) => state.cateringFilter)
 
     const dispatch = useDispatch()
 
@@ -67,8 +67,9 @@ const Filters = ({
             occasions_filter: occasionFilters,
             service_filter: serviceFilters,
             serving_filter: servingFilters,
+            foodtype_filter: foodtypeFilters,
         }));
-    }, [occasionFilters, serviceFilters, servingFilters, dispatch])
+    }, [occasionFilters, serviceFilters, servingFilters, foodtypeFilters, dispatch])
 
 
     // onHandleSelectOccasion 
@@ -96,6 +97,14 @@ const Filters = ({
         const updatedServingTypes = getServingTypes?.map(servingType => servingType.id === getServingType.id
             ? { ...servingType, selectedweb: servingType.selectedweb === 1 ? 0 : 1 } : servingType)
         dispatch(setServingFilters(updatedServingTypes))
+    }
+
+    // onHandleFoodFilter 
+    const onHandleFoodFilter = (getFoodType) =>{
+        dispatch(setFoodTypeFilter(getFoodType?.id))
+        const updatedFoodTypes = getFoodTypes?.map(foodType => foodType.id === getFoodType.id
+            ? { ...foodType, selectedweb: foodType.selectedweb === 1 ? 0 : 1 } : foodType)
+            dispatch(setFoodTypeFilters(updatedFoodTypes))
     }
 
     return (
@@ -133,8 +142,9 @@ const Filters = ({
                             getFoodTypes?.map((foodType) => {
                                 return (
                                     <Stack className='text-muted' direction="row" alignItems="center" sx={{ marginLeft: '-10px', marginTop: '5px' }} key={foodType?.id}>
-                                        <Checkbox {...label} size="small" className='checkbox-color'
-                                            checked={foodType?.selected === "1"} onChange={() => updateFoodTypeFilter(foodType)} />
+                                        <Checkbox {...label} 
+                                        size="small" className='checkbox-color'
+                                            checked={foodType?.selectedweb === 1} onChange={() => onHandleFoodFilter(foodType)} />
                                         <span className='checkbox-text'>{foodType?.name}</span>
                                     </Stack>
                                 )
@@ -214,7 +224,7 @@ const Filters = ({
                     <CardContent>
                         <h3 className='font-20 font-weight-500 filter-text'>Choose Occasions:</h3>
                         {
-                            getOccasionTypes?.map((getOccasionType) => {
+                            getOccasionTypes?.slice(0, occasionCount)?.map((getOccasionType) => {
                                 return (
                                     <Stack className='text-muted' direction="row" alignItems="center" sx={{ marginLeft: '-10px', marginTop: '5px' }} key={getOccasionType?.id}>
                                         <Checkbox

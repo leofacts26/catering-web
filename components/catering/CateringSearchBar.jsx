@@ -70,7 +70,7 @@ const CssTextFieldRadius = styled(TextField)(({ theme }) => ({
 const CateringSearchBar = () => {
     const { isPlacePredictionsLoading, placePredictions, getPlacePredictions, selectLocation } = useGetLocationResults()
 
-    const { getOccasionCateringTypes, getCateringServiceTypes, getCateringServingTypes, locationValuesGlobal, manualLocation, selectedLocation, isLoading } = useSelector((state) => state.cateringFilter);
+    const { getOccasionCateringTypes, getCateringServiceTypes, getCateringServingTypes, getCateringFoodTypes, locationValuesGlobal, manualLocation, selectedLocation, isLoading } = useSelector((state) => state.cateringFilter);
     // const { startDate, endDate } = useSelector((state) => state.cateringFilter);
 
     const [isAdornmentClicked, setIsAdornmentClicked] = useState(false);
@@ -106,12 +106,20 @@ const CateringSearchBar = () => {
             selectedweb: serving.selectedweb
         }))
 
+        // getCateringFoodTypes 
+        const foodtype_filter = getCateringFoodTypes.map(foodType => ({
+            id: foodType.id,
+            selectedweb: foodType.selectedweb
+        }))
+
+
         const data = {
             locationValuesGlobal,
             people,
             occasions_filter,
             service_filter,
-            serving_filter
+            serving_filter,
+            foodtype_filter
         }
         dispatch(fetchCateringSearchCards(data))
         router.push('/catering-search')

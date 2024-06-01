@@ -27,6 +27,7 @@ const initialState = {
     occasionFilters: [],
     serviceFilters: [],
     servingFilters: [],
+    foodtypeFilters: [],
     // left filters  
     selectedPriceRanges: []
 }
@@ -130,7 +131,7 @@ export const fetchCateringServingTypes = createAsyncThunk(
 export const fetchCateringSearchCards = createAsyncThunk(
     'user/fetchCateringSearchCards',
     async (data, thunkAPI) => {
-        const { people, locationValuesGlobal, occasions_filter, service_filter, serving_filter } = data;
+        const { people, locationValuesGlobal, occasions_filter, service_filter, serving_filter, foodtype_filter } = data;
         const startDate = thunkAPI.getState().cateringFilter?.startDate;
         const endDate = thunkAPI.getState().cateringFilter?.endDate;
         console.log(data, "data22334455");
@@ -153,9 +154,15 @@ export const fetchCateringSearchCards = createAsyncThunk(
             selectedweb: serving.selectedweb
         }))
 
+        // foodtype_filter_formatted 
+        const foodtype_filter_formatted = foodtype_filter.map(foodType => ({
+            id: foodType.id,
+            selectedweb: foodType.selectedweb
+        }))
+
 
         try {
-            const response = await api.get(`${BASE_URL}/search-vendors?search_term=${people}&order_by=distance&limit=100&current_page=1&save_filter=1&vendor_type=Caterer&app_type=web&service_types_filter=${JSON.stringify(service_filter_formatted)}&serving_types_filter=${JSON.stringify(serving_filter_formatted)}&occasions_filter=${JSON.stringify(occasions_filter_formatted)}&latitude=${locationValuesGlobal?.latitude || ""}&longitude=${locationValuesGlobal?.longitude || ""}&city=${locationValuesGlobal?.city?.long_name || ""}&pincode=${locationValuesGlobal?.pincode || ""}&place_id=${locationValuesGlobal?.place_id || ''}&start_date=${moment(startDate).format('YYYY-MM-DD')}&end_date=${moment(endDate).format('YYYY-MM-DD')}&save_filter=1`, {
+            const response = await api.get(`${BASE_URL}/search-vendors?search_term=${people}&order_by=distance&limit=100&current_page=1&save_filter=1&vendor_type=Caterer&app_type=web&service_types_filter=${JSON.stringify(service_filter_formatted)}&serving_types_filter=${JSON.stringify(serving_filter_formatted)}&occasions_filter=${JSON.stringify(occasions_filter_formatted)}&food_types_filter=${JSON.stringify(foodtype_filter_formatted)}&latitude=${locationValuesGlobal?.latitude || ""}&longitude=${locationValuesGlobal?.longitude || ""}&city=${locationValuesGlobal?.city?.long_name || ""}&pincode=${locationValuesGlobal?.pincode || ""}&place_id=${locationValuesGlobal?.place_id || ''}&start_date=${moment(startDate).format('YYYY-MM-DD')}&end_date=${moment(endDate).format('YYYY-MM-DD')}&save_filter=1`, {
                 headers: {
                     authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
                 },
@@ -233,6 +240,16 @@ export const cateringFilterSlice = createSlice({
             })
             state.getCateringServingTypes = updatedServingTypes;
         },
+        setFoodTypeFilter: (state, action) => {
+            const updatedFoodTypes = state.getCateringFoodTypes.map((foodType) => {
+                if (foodType.id === action.payload) {
+                    return { ...foodType, selectedweb: foodType.selectedweb === 1 ? 0 : 1 }
+                } else {
+                    return foodType;
+                }
+            })
+            state.getCateringFoodTypes = updatedFoodTypes;
+        },
         setOccasionFilters: (state, action) => {
             state.occasionFilters = action.payload;
         },
@@ -241,6 +258,9 @@ export const cateringFilterSlice = createSlice({
         },
         setServingFilters: (state, action) => {
             state.servingFilters = action.payload;
+        },
+        setFoodTypeFilters: (state, action) => {
+            state.foodtypeFilters = action.payload;
         },
     },
     extraReducers: (builder) => {
@@ -334,6 +354,6 @@ export const cateringFilterSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const {resetFilters, setShowAllOccasions, setPeople, people, setOccasionTypes, setSelectedLocation, setManualLocation, setLocationPlaceId, setlLocationValuesGlobal, locationPlaceId, manualLocation, selectedLocation, setStartDate, setEndDate, setDateRange, setServiceTypesFilter, setOccasionFilters, setServiceFilters, setServingTypesFilter, setServingFilters, servingFilters } = cateringFilterSlice.actions
+export const { resetFilters, setShowAllOccasions, setPeople, people, setOccasionTypes, setSelectedLocation, setManualLocation, setLocationPlaceId, setlLocationValuesGlobal, locationPlaceId, manualLocation, selectedLocation, setStartDate, setEndDate, setDateRange, setServiceTypesFilter, setOccasionFilters, setServiceFilters, setServingTypesFilter, setServingFilters, servingFilters, setFoodTypeFilter, setFoodTypeFilters, foodtypeFilters } = cateringFilterSlice.actions
 
 export default cateringFilterSlice.reducer
