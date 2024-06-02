@@ -18,6 +18,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import toast from 'react-hot-toast';
 import { fetchUserData, logoutUser } from '@/app/features/user/userSlice';
 import { resetFilters } from '@/app/features/user/cateringFilterSlice';
+import { clearTiffinSlice } from '@/app/features/tiffin/tiffinFilterSlice';
 
 
 const UserIcon = () => {
@@ -42,6 +43,7 @@ const UserIcon = () => {
         localStorage.clear();
         dispatch(logoutUser());
         dispatch(resetFilters());
+        dispatch(clearTiffinSlice());
         toast.success("Logout Successfull")
         // window.location.reload()
     }

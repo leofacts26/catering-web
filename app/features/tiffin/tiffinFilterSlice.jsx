@@ -99,7 +99,9 @@ export const tiffinFilterSlice = createSlice({
     name: 'tiffinFilter',
     initialState,
     reducers: {
-
+        clearTiffinSlice: (state) => {
+            state = initialState;
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -167,6 +169,6 @@ export const tiffinFilterSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { } = tiffinFilterSlice.actions
+export const { clearTiffinSlice } = tiffinFilterSlice.actions
 
 export default tiffinFilterSlice.reducer

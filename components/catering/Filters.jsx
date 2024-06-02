@@ -1,5 +1,5 @@
 "use client"
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -50,12 +50,13 @@ const Filters = ({
     fetchOccasionCateringTypes,
 }) => {
 
-
-    const { locationValuesGlobal, people, occasionFilters, serviceFilters, servingFilters, occasionCount, foodtypeFilters, pricetypeFilters } = useSelector((state) => state.cateringFilter)
+    const [occCount, setoccCount] = useState(false)
+    const { locationValuesGlobal, people, occasionFilters, serviceFilters, servingFilters, foodtypeFilters, pricetypeFilters } = useSelector((state) => state.cateringFilter)
 
     const dispatch = useDispatch()
 
     const onShowAllOccasions = () => {
+        setoccCount(true)
         dispatch(setShowAllOccasions(occationsCount));
         dispatch(fetchOccasionCateringTypes(occationsCount));
     }
@@ -129,6 +130,7 @@ const Filters = ({
 
         dispatch(setPriceTypeFilters(updatedPriceTypes))
     };
+
 
     return (
         <>
@@ -248,7 +250,7 @@ const Filters = ({
                     <CardContent>
                         <h3 className='font-20 font-weight-500 filter-text'>Choose Occasions:</h3>
                         {
-                            getOccasionTypes?.slice(0, occasionCount)?.map((getOccasionType) => {
+                            getOccasionTypes?.slice(0, !occCount ? 5 : occationsCount)?.map((getOccasionType) => {
                                 return (
                                     <Stack className='text-muted' direction="row" alignItems="center" sx={{ marginLeft: '-10px', marginTop: '5px' }} key={getOccasionType?.id}>
                                         <Checkbox
