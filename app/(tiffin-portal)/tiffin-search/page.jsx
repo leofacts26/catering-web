@@ -4,27 +4,35 @@ import Breadcrumb from '@/components/Breadcrumb';
 import Footer from '@/components/Footer';
 import Navbar from '@/components/Navbar'
 import Subscribe from '@/components/Subscribe';
-import CateringSearchBar from '@/components/catering/CateringSearchBar';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import Filters from '@/components/catering/Filters';
 import Stack from '@mui/material/Stack';
-import SwitchSearchResult from '@/components/catering/SwitchSearchResult';
-import { useState } from 'react';
-import SelectBox from '@/components/catering/SelectBox';
-import ListView from '@/components/catering/ListView';
-import GridViewList from '@/components/catering/GridView';
+import { useEffect, useState } from 'react';
 import TiffinSearchBar from '@/components/tiffin/TiffinSearchBar';
 import TiffinSwitchSearchResult from '@/components/tiffin/TiffinSwitchSearchResult';
 import TiffinSelectBox from '@/components/tiffin/TiffinSelectBox';
 import ListViewTiffin from '@/components/tiffin/ListViewTiffin';
 import GridViewTiffin from '@/components/tiffin/GridViewTiffin';
+import { fetchTiffinFoodTypes, fetchTiffinKitchenTypes, fetchTiffinMealTypes, fetchTiffinPriceRanges, fetchTiffinServiceTypes } from '@/app/features/tiffin/tiffinFilterSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import TiffinFilters from '@/components/tiffin/TiffinFilters';
 
 const page = () => {
+  const { getTiffinPriceRanges, getTiffinFoodTypes, getTiffinMealTypes, getTiffinServiceTypes, getTiffinKitchenTypes, isLoading } = useSelector((state) => state.tiffinFilter)
 
   const [checked, setChecked] = useState(true);
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(fetchTiffinPriceRanges());
+    dispatch(fetchTiffinFoodTypes());
+    dispatch(fetchTiffinMealTypes());
+    dispatch(fetchTiffinServiceTypes());
+    dispatch(fetchTiffinKitchenTypes());
+  }, []);
 
 
   return (
@@ -51,7 +59,13 @@ const page = () => {
                   <Button variant="contained" className='show-on-map' sx={{ backgroundColor: '#d9822b', fontSize: '10px', '&:hover': { backgroundColor: '#d9822b' } }}>Show on map</Button>
                 </div>
               </div>
-              <Filters />
+              <TiffinFilters
+                getTiffinPriceRanges={getTiffinPriceRanges}
+                getTiffinFoodTypes={getTiffinFoodTypes}
+                getTiffinMealTypes={getTiffinMealTypes}
+                getTiffinServiceTypes={getTiffinServiceTypes}
+                getTiffinKitchenTypes={getTiffinKitchenTypes}
+              />
             </Grid>
             <Grid item xs={12} md={12} lg={9} xl={9.2}>
               <Stack direction='row' justifyContent="space-between" style={{ margin: '0px 0px 0px 0px' }}>
