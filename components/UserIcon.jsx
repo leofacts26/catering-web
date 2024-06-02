@@ -43,7 +43,7 @@ const UserIcon = () => {
         dispatch(logoutUser());
         dispatch(resetFilters());
         toast.success("Logout Successfull")
-        window.location.reload()
+        // window.location.reload()
     }
 
     return (

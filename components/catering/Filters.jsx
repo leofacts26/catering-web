@@ -16,7 +16,7 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchCateringSearchCards, setFoodTypeFilter, setFoodTypeFilters, setOccasionFilters, setOccasionTypes, setServiceFilters, setServiceTypesFilter, setServingFilters, setServingTypesFilter, setShowAllOccasions } from '@/app/features/user/cateringFilterSlice';
+import { fetchCateringSearchCards, setFoodTypeFilter, setFoodTypeFilters, setOccasionFilters, setOccasionTypes, setPriceTypeFilter, setPriceTypeFilters, setServiceFilters, setServiceTypesFilter, setServingFilters, setServingTypesFilter, setShowAllOccasions } from '@/app/features/user/cateringFilterSlice';
 import FilterSkeleton from '../FilterSkeleton';
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 const CssTextField = styled(TextField)(({ theme }) => ({
@@ -51,7 +51,7 @@ const Filters = ({
 }) => {
 
 
-    const { locationValuesGlobal, people, occasionFilters, serviceFilters, servingFilters, occasionCount, foodtypeFilters } = useSelector((state) => state.cateringFilter)
+    const { locationValuesGlobal, people, occasionFilters, serviceFilters, servingFilters, occasionCount, foodtypeFilters, pricetypeFilters } = useSelector((state) => state.cateringFilter)
 
     const dispatch = useDispatch()
 
@@ -68,8 +68,9 @@ const Filters = ({
             service_filter: serviceFilters,
             serving_filter: servingFilters,
             foodtype_filter: foodtypeFilters,
+            pricetype_filter: pricetypeFilters,
         }));
-    }, [occasionFilters, serviceFilters, servingFilters, foodtypeFilters, dispatch])
+    }, [occasionFilters, serviceFilters, servingFilters, foodtypeFilters, pricetypeFilters, dispatch])
 
 
     // onHandleSelectOccasion 
@@ -100,12 +101,34 @@ const Filters = ({
     }
 
     // onHandleFoodFilter 
-    const onHandleFoodFilter = (getFoodType) =>{
+    const onHandleFoodFilter = (getFoodType) => {
         dispatch(setFoodTypeFilter(getFoodType?.id))
         const updatedFoodTypes = getFoodTypes?.map(foodType => foodType.id === getFoodType.id
             ? { ...foodType, selectedweb: foodType.selectedweb === 1 ? 0 : 1 } : foodType)
-            dispatch(setFoodTypeFilters(updatedFoodTypes))
+        dispatch(setFoodTypeFilters(updatedFoodTypes))
     }
+
+    // handleCheckboxChange 
+    const onHandlePriceRanges = (priceType) => {
+        dispatch(setPriceTypeFilter(priceType?.id))
+        const updatedPriceRanges = getPriceRanges.map(price => {
+            if (price.id === priceType.id) {
+                return { ...price, selectedweb: price.selectedweb === 1 ? 0 : 1 };
+            } else {
+                return price;
+            }
+        });
+
+        const selectedPriceRanges = updatedPriceRanges.filter(price => price.selectedweb === 1);
+
+
+        // Convert the selected price ranges to the required format
+        const updatedPriceTypes = selectedPriceRanges.map(price => {
+            return { id: price.id, start_price: parseFloat(price.start_price), end_price: parseFloat(price.end_price) };
+        });
+
+        dispatch(setPriceTypeFilters(updatedPriceTypes))
+    };
 
     return (
         <>
@@ -124,7 +147,8 @@ const Filters = ({
                             getPriceRanges?.map((price) => (
                                 <Stack className='text-muted' key={price?.id} direction="row" alignItems="center" sx={{ marginLeft: '-10px', marginTop: '5px' }}>
                                     <Checkbox {...label} size="small" className='checkbox-color'
-                                        checked=""
+                                        checked={price.selectedweb === 1}
+                                        onChange={() => onHandlePriceRanges(price)}
                                     />
                                     <span className='checkbox-text'>{`Rs. ${price?.start_price} - Rs. ${price?.end_price}`}</span>
                                 </Stack>
@@ -142,8 +166,8 @@ const Filters = ({
                             getFoodTypes?.map((foodType) => {
                                 return (
                                     <Stack className='text-muted' direction="row" alignItems="center" sx={{ marginLeft: '-10px', marginTop: '5px' }} key={foodType?.id}>
-                                        <Checkbox {...label} 
-                                        size="small" className='checkbox-color'
+                                        <Checkbox {...label}
+                                            size="small" className='checkbox-color'
                                             checked={foodType?.selectedweb === 1} onChange={() => onHandleFoodFilter(foodType)} />
                                         <span className='checkbox-text'>{foodType?.name}</span>
                                     </Stack>
