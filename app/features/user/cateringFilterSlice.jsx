@@ -127,7 +127,7 @@ export const fetchCateringServingTypes = createAsyncThunk(
 export const fetchCateringSearchCards = createAsyncThunk(
     'user/fetchCateringSearchCards',
     async (data, thunkAPI) => {
-        const { people, locationValuesGlobal, occasions_filter, service_filter, serving_filter, foodtype_filter, pricetype_filter } = data;
+        const { people, locationValuesGlobal, occasions_filter, service_filter, serving_filter, foodtype_filter, pricetype_filter, cuisine_filter } = data;
         const startDate = thunkAPI.getState().cateringFilter?.startDate;
         const endDate = thunkAPI.getState().cateringFilter?.endDate;
         console.log(data, "data22334455");
@@ -139,7 +139,13 @@ export const fetchCateringSearchCards = createAsyncThunk(
             selectedweb: occasion.selectedweb
         }));
 
-        console.log(JSON.stringify(occasions_filter_formatted), "occasions_filter_formatted occasions_filter_formatted");
+        // cuisinetype_filter_formatted 
+        function extractChildrenData(data) {
+            return data.flatMap(item => item.children.map(({ id, selectedweb }) => ({ id, selectedweb })));
+        }
+        const cuisinetype_filter_Data = extractChildrenData(cuisine_filter);
+
+        // console.log(JSON.stringify(cuisinetype_filter_Data), "cuisinetype_filter_Data cuisinetype_filter_Data");
 
         // service_filter_formatted
         const service_filter_formatted = service_filter.map(service => ({
@@ -166,7 +172,7 @@ export const fetchCateringSearchCards = createAsyncThunk(
         });
 
         try {
-            const response = await api.get(`${BASE_URL}/search-vendors?search_term=${people}&order_by=distance&limit=100&current_page=1&save_filter=1&vendor_type=Caterer&app_type=web&service_types_filter=${JSON.stringify(service_filter_formatted)}&serving_types_filter=${JSON.stringify(serving_filter_formatted)}&occasions_filter=${JSON.stringify(occasions_filter_formatted)}&price_ranges=${JSON.stringify(updatedPriceTypes_formatted)}&food_types_filter=${JSON.stringify(foodtype_filter_formatted)}&latitude=${locationValuesGlobal?.latitude || ""}&longitude=${locationValuesGlobal?.longitude || ""}&city=${locationValuesGlobal?.city?.long_name || ""}&pincode=${locationValuesGlobal?.pincode || ""}&place_id=${locationValuesGlobal?.place_id || ''}&start_date=${moment(startDate).format('YYYY-MM-DD')}&end_date=${moment(endDate).format('YYYY-MM-DD')}&save_filter=1`, {
+            const response = await api.get(`${BASE_URL}/search-vendors?search_term=${people}&order_by=distance&limit=100&current_page=1&save_filter=1&vendor_type=Caterer&app_type=web&service_types_filter=${JSON.stringify(service_filter_formatted)}&serving_types_filter=${JSON.stringify(serving_filter_formatted)}&occasions_filter=${JSON.stringify(occasions_filter_formatted)}&price_ranges=${JSON.stringify(updatedPriceTypes_formatted)}&food_types_filter=${JSON.stringify(foodtype_filter_formatted)}&cuisines_filter=${JSON.stringify(cuisinetype_filter_Data)}&latitude=${locationValuesGlobal?.latitude || ""}&longitude=${locationValuesGlobal?.longitude || ""}&city=${locationValuesGlobal?.city?.long_name || ""}&pincode=${locationValuesGlobal?.pincode || ""}&place_id=${locationValuesGlobal?.place_id || ''}&start_date=${moment(startDate).format('YYYY-MM-DD')}&end_date=${moment(endDate).format('YYYY-MM-DD')}&save_filter=1`, {
                 headers: {
                     authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
                 },
@@ -213,6 +219,23 @@ export const cateringFilterSlice = createSlice({
         setDateRange(state, action) {
             state.startDate = action.payload.startDate;
             state.endDate = action.payload.endDate;
+        },
+        setCuisineTypeFilter: (state, action) => {
+            const updatedCuisines = state.getCateringCuisines.map((cuisine) => {
+                // if (cuisine.id === action.payload) {
+                //     return { ...cuisine, selectedweb: cuisine.selectedweb === 1 ? 0 : 1 };
+                // }
+                return {
+                    ...cuisine,
+                    children: cuisine.children.map((childCuisine) => {
+                        if (childCuisine.id === action.payload) {
+                            return { ...childCuisine, selectedweb: childCuisine.selectedweb === 1 ? 0 : 1 };
+                        }
+                        return childCuisine;
+                    }),
+                };
+            });
+            state.getCateringCuisines = updatedCuisines;
         },
         setOccasionTypes: (state, action) => {
             const updatedOccasions = state.getOccasionCateringTypes?.map((occasion) => {
@@ -357,6 +380,6 @@ export const cateringFilterSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { resetFilters, setShowAllOccasions, setPeople, people, setOccasionTypes, setSelectedLocation, setManualLocation, setLocationPlaceId, setlLocationValuesGlobal, locationPlaceId, manualLocation, selectedLocation, setStartDate, setEndDate, setDateRange, setServiceTypesFilter, setServingTypesFilter, servingFilters, setFoodTypeFilter, foodtypeFilters, setPriceTypeFilter } = cateringFilterSlice.actions
+export const { resetFilters, setShowAllOccasions, setPeople, people, setOccasionTypes, setSelectedLocation, setManualLocation, setLocationPlaceId, setlLocationValuesGlobal, locationPlaceId, manualLocation, selectedLocation, setStartDate, setEndDate, setDateRange, setServiceTypesFilter, setServingTypesFilter, servingFilters, setFoodTypeFilter, foodtypeFilters, setPriceTypeFilter, setCuisineTypeFilter } = cateringFilterSlice.actions
 
 export default cateringFilterSlice.reducer

@@ -16,7 +16,7 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchCateringSearchCards, setFoodTypeFilter, setFoodTypeFilters, setOccasionFilters, setOccasionTypes, setPriceTypeFilter, setPriceTypeFilters, setServiceFilters, setServiceTypesFilter, setServingFilters, setServingTypesFilter, setShowAllOccasions } from '@/app/features/user/cateringFilterSlice';
+import { fetchCateringSearchCards, setCuisineTypeFilter, setFoodTypeFilter, setFoodTypeFilters, setOccasionFilters, setOccasionTypes, setPriceTypeFilter, setPriceTypeFilters, setServiceFilters, setServiceTypesFilter, setServingFilters, setServingTypesFilter, setShowAllOccasions } from '@/app/features/user/cateringFilterSlice';
 import FilterSkeleton from '../FilterSkeleton';
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 const CssTextField = styled(TextField)(({ theme }) => ({
@@ -66,12 +66,13 @@ const Filters = ({
             people: people,
             locationValuesGlobal,
             occasions_filter: getOccasionTypes,
+            cuisine_filter: getCuisines,
             service_filter: getServiceTypes,
             serving_filter: getServingTypes,
             foodtype_filter: getFoodTypes,
             pricetype_filter: getPriceRanges,
         }));
-    }, [getOccasionTypes, getServiceTypes, getServingTypes, getFoodTypes, getPriceRanges, dispatch])
+    }, [getOccasionTypes, getCuisines, getServiceTypes, getServingTypes, getFoodTypes, getPriceRanges, dispatch])
 
 
     // onHandleSelectOccasion 
@@ -99,6 +100,11 @@ const Filters = ({
     const onHandlePriceRanges = (priceType) => {
         dispatch(setPriceTypeFilter(priceType?.id))
     };
+
+    // onHandleCuisineFilter 
+    const onHandleCuisineFilter = (cuisineChildType) => {
+        dispatch(setCuisineTypeFilter(cuisineChildType?.id))
+    }
 
 
     return (
@@ -199,7 +205,8 @@ const Filters = ({
                                                 {getCuisine?.children?.map((child) => {
                                                     return (
                                                         <Stack className='text-muted' direction="row" alignItems="center" key={child?.id}>
-                                                            <Checkbox {...label} size="small" className='checkbox-color' />
+                                                            <Checkbox {...label} size="small" className='checkbox-color' checked={child?.selectedweb === 1}
+                                                                onChange={() => onHandleCuisineFilter(child)} />
                                                             <span className='checkbox-text'>{child?.name}</span>
                                                         </Stack>
                                                     )

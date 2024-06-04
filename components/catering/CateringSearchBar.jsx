@@ -70,7 +70,7 @@ const CssTextFieldRadius = styled(TextField)(({ theme }) => ({
 const CateringSearchBar = () => {
     const { isPlacePredictionsLoading, placePredictions, getPlacePredictions, selectLocation } = useGetLocationResults()
 
-    const { getOccasionCateringTypes, getCateringServiceTypes, getCateringServingTypes, getCateringFoodTypes, locationValuesGlobal, manualLocation, selectedLocation, isLoading, getCateringPriceRanges } = useSelector((state) => state.cateringFilter);
+    const { getOccasionCateringTypes, getCateringCuisines, getCateringServiceTypes, getCateringServingTypes, getCateringFoodTypes, locationValuesGlobal, manualLocation, selectedLocation, isLoading, getCateringPriceRanges } = useSelector((state) => state.cateringFilter);
     // const { startDate, endDate } = useSelector((state) => state.cateringFilter);
 
     const [isAdornmentClicked, setIsAdornmentClicked] = useState(false);
@@ -91,6 +91,7 @@ const CateringSearchBar = () => {
             locationValuesGlobal,
             people,
             occasions_filter: getOccasionCateringTypes,
+            cuisine_filter: getCateringCuisines,
             service_filter: getCateringServiceTypes,
             serving_filter: getCateringServingTypes,
             foodtype_filter: getCateringFoodTypes,
