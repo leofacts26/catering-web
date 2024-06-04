@@ -112,10 +112,10 @@ const CateringSearchBar = () => {
             selectedweb: foodType.selectedweb
         }))
 
-         // getCatering pricerangeTypes 
-         const pricetype_filter = getCateringPriceRanges?.map(price => {
-            return { id: price.id, start_price: parseFloat(price.start_price), end_price: parseFloat(price.end_price) };
-        });
+        // getCatering pricerangeTypes 
+        //  const pricetype_filter = getCateringPriceRanges?.map(price => {
+        //     return { id: price.id, start_price: parseFloat(price.start_price), end_price: parseFloat(price.end_price) };
+        // });
 
 
         const data = {
@@ -125,7 +125,7 @@ const CateringSearchBar = () => {
             service_filter,
             serving_filter,
             foodtype_filter,
-            pricetype_filter
+            pricetype_filter: getCateringPriceRanges
         }
         dispatch(fetchCateringSearchCards(data))
         router.push('/catering-search')

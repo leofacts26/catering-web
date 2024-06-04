@@ -69,9 +69,9 @@ const Filters = ({
             service_filter: serviceFilters,
             serving_filter: servingFilters,
             foodtype_filter: foodtypeFilters,
-            pricetype_filter: pricetypeFilters,
+            pricetype_filter: getPriceRanges,
         }));
-    }, [occasionFilters, serviceFilters, servingFilters, foodtypeFilters, pricetypeFilters, dispatch])
+    }, [occasionFilters, serviceFilters, servingFilters, foodtypeFilters, getPriceRanges, dispatch])
 
 
     // onHandleSelectOccasion 
@@ -112,23 +112,23 @@ const Filters = ({
     // handleCheckboxChange 
     const onHandlePriceRanges = (priceType) => {
         dispatch(setPriceTypeFilter(priceType?.id))
-        const updatedPriceRanges = getPriceRanges?.map(price => {
-            if (price?.id === priceType?.id) {
-                return { ...price, selectedweb: price?.selectedweb === 1 ? 0 : 1 };
-            } else {
-                return price;
-            }
-        });
+        // const updatedPriceRanges = getPriceRanges?.map(price => {
+        //     if (price?.id === priceType?.id) {
+        //         return { ...price, selectedweb: price?.selectedweb === 1 ? 0 : 1 };
+        //     } else {
+        //         return price;
+        //     }
+        // });
 
-        const selectedPriceRanges = updatedPriceRanges?.filter(price => price?.selectedweb === 1);
+        // const selectedPriceRanges = updatedPriceRanges?.filter(price => price?.selectedweb === 1);
 
 
         // Convert the selected price ranges to the required format
-        const updatedPriceTypes = selectedPriceRanges.map(price => {
-            return { id: price.id, start_price: parseFloat(price.start_price), end_price: parseFloat(price.end_price) };
-        });
+        // const updatedPriceTypes = selectedPriceRanges.map(price => {
+        //     return { id: price.id, start_price: parseFloat(price.start_price), end_price: parseFloat(price.end_price) };
+        // });
 
-        dispatch(setPriceTypeFilters(updatedPriceTypes))
+        // dispatch(setPriceTypeFilters(updatedPriceTypes))
     };
 
 
