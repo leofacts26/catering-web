@@ -84,46 +84,15 @@ const CateringSearchBar = () => {
 
     const router = useRouter()
 
-
     const onHandleSubmit = (e) => {
         e.preventDefault();
-
-        // getOccasionCateringTypes
-        const occasions_filter = getOccasionCateringTypes.map(occasion => ({
-            occasion_id: occasion.occasion_id,
-            selected: occasion.selected
-        }));
-
-        // getCateringServiceTypes
-        const service_filter = getCateringServiceTypes.map(service => ({
-            id: service.id,
-            selected: service.selected
-        }));
-
-        // getCateringServingTypes 
-        const serving_filter = getCateringServingTypes.map(serving => ({
-            id: serving.id,
-            selectedweb: serving.selectedweb
-        }))
-
-        // getCateringFoodTypes 
-        // const foodtype_filter = getCateringFoodTypes.map(foodType => ({
-        //     id: foodType.id,
-        //     selectedweb: foodType.selectedweb
-        // }))
-
-        // getCatering pricerangeTypes 
-        //  const pricetype_filter = getCateringPriceRanges?.map(price => {
-        //     return { id: price.id, start_price: parseFloat(price.start_price), end_price: parseFloat(price.end_price) };
-        // });
-
 
         const data = {
             locationValuesGlobal,
             people,
             occasions_filter: getOccasionCateringTypes,
-            service_filter,
-            serving_filter,
+            service_filter: getCateringServiceTypes,
+            serving_filter: getCateringServingTypes,
             foodtype_filter: getCateringFoodTypes,
             pricetype_filter: getCateringPriceRanges
         }

@@ -24,11 +24,6 @@ const initialState = {
     selectedLocation: "",
     locationValuesGlobal: {},
     // Filters 
-    occasionFilters: [],
-    serviceFilters: [],
-    servingFilters: [],
-    foodtypeFilters: [],
-    pricetypeFilters: [],
     // left filters  
     selectedPriceRanges: []
 }
@@ -149,7 +144,7 @@ export const fetchCateringSearchCards = createAsyncThunk(
         // service_filter_formatted
         const service_filter_formatted = service_filter.map(service => ({
             id: service.id,
-            selected: service.selected
+            selectedweb: service.selectedweb
         }));
 
         // serving_filter_formatted 
@@ -232,7 +227,7 @@ export const cateringFilterSlice = createSlice({
         setServiceTypesFilter: (state, action) => {
             const updatedServiceTypes = state.getCateringServiceTypes.map((serviceType) => {
                 if (serviceType.id === action.payload) {
-                    return { ...serviceType, selected: serviceType.selected === 1 ? 0 : 1 }
+                    return { ...serviceType, selectedweb: serviceType.selectedweb === 1 ? 0 : 1 }
                 } else {
                     return serviceType;
                 }
@@ -269,22 +264,7 @@ export const cateringFilterSlice = createSlice({
             })
 
             state.getCateringPriceRanges = updatedPriceRanges;
-        },
-        setOccasionFilters: (state, action) => {
-            state.occasionFilters = action.payload;
-        },
-        setServiceFilters: (state, action) => {
-            state.serviceFilters = action.payload;
-        },
-        setServingFilters: (state, action) => {
-            state.servingFilters = action.payload;
-        },
-        setFoodTypeFilters: (state, action) => {
-            state.foodtypeFilters = action.payload;
-        },
-        setPriceTypeFilters: (state, action) => {
-            state.pricetypeFilters = action.payload;
-        },
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -377,6 +357,6 @@ export const cateringFilterSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { resetFilters, setShowAllOccasions, setPeople, people, setOccasionTypes, setSelectedLocation, setManualLocation, setLocationPlaceId, setlLocationValuesGlobal, locationPlaceId, manualLocation, selectedLocation, setStartDate, setEndDate, setDateRange, setServiceTypesFilter, setOccasionFilters, setServiceFilters, setServingTypesFilter, setServingFilters, servingFilters, setFoodTypeFilter, setFoodTypeFilters, foodtypeFilters, setPriceTypeFilter, setPriceTypeFilters } = cateringFilterSlice.actions
+export const { resetFilters, setShowAllOccasions, setPeople, people, setOccasionTypes, setSelectedLocation, setManualLocation, setLocationPlaceId, setlLocationValuesGlobal, locationPlaceId, manualLocation, selectedLocation, setStartDate, setEndDate, setDateRange, setServiceTypesFilter, setServingTypesFilter, servingFilters, setFoodTypeFilter, foodtypeFilters, setPriceTypeFilter } = cateringFilterSlice.actions
 
 export default cateringFilterSlice.reducer

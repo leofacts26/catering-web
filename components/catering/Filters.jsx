@@ -51,7 +51,7 @@ const Filters = ({
 }) => {
 
     const [occCount, setoccCount] = useState(false)
-    const { locationValuesGlobal, people, occasionFilters, serviceFilters, servingFilters, foodtypeFilters, pricetypeFilters } = useSelector((state) => state.cateringFilter)
+    const { locationValuesGlobal, people } = useSelector((state) => state.cateringFilter)
 
     const dispatch = useDispatch()
 
@@ -66,69 +66,38 @@ const Filters = ({
             people: people,
             locationValuesGlobal,
             occasions_filter: getOccasionTypes,
-            service_filter: serviceFilters,
-            serving_filter: servingFilters,
+            service_filter: getServiceTypes,
+            serving_filter: getServingTypes,
             foodtype_filter: getFoodTypes,
             pricetype_filter: getPriceRanges,
         }));
-    }, [getOccasionTypes, serviceFilters, servingFilters, getFoodTypes, getPriceRanges, dispatch])
+    }, [getOccasionTypes, getServiceTypes, getServingTypes, getFoodTypes, getPriceRanges, dispatch])
 
 
     // onHandleSelectOccasion 
     const onHandleSelectOccasion = (getOccasionType) => {
         dispatch(setOccasionTypes(getOccasionType?.occasion_id))
-        // const updatedOccasionsFilter = getOccasionTypes.map(occasion => occasion.occasion_id === getOccasionType.occasion_id
-        //     ? { ...occasion, selected: occasion.selected === 1 ? 0 : 1 }
-        //     : occasion
-        // )
-        // dispatch(setOccasionFilters(updatedOccasionsFilter));
     }
 
 
     // onHandleServiceFilter 
     const onHandleServiceFilter = (getServiceType) => {
         dispatch(setServiceTypesFilter(getServiceType.id))
-        const updatedServiceTypes = getServiceTypes?.map(serviceType => serviceType.id === getServiceType.id
-            ? { ...serviceType, selected: serviceType.selected === 1 ? 0 : 1 } : serviceType)
-        dispatch(setServiceFilters(updatedServiceTypes));
     }
 
     // onHandleServingFilter 
     const onHandleServingFilter = (getServingType) => {
         dispatch(setServingTypesFilter(getServingType?.id))
-        const updatedServingTypes = getServingTypes?.map(servingType => servingType.id === getServingType.id
-            ? { ...servingType, selectedweb: servingType.selectedweb === 1 ? 0 : 1 } : servingType)
-        dispatch(setServingFilters(updatedServingTypes))
     }
 
     // onHandleFoodFilter 
     const onHandleFoodFilter = (getFoodType) => {
         dispatch(setFoodTypeFilter(getFoodType?.id))
-        // const updatedFoodTypes = getFoodTypes?.map(foodType => foodType.id === getFoodType.id
-        //     ? { ...foodType, selectedweb: foodType.selectedweb === 1 ? 0 : 1 } : foodType)
-        // dispatch(setFoodTypeFilters(updatedFoodTypes))
     }
 
     // handleCheckboxChange 
     const onHandlePriceRanges = (priceType) => {
         dispatch(setPriceTypeFilter(priceType?.id))
-        // const updatedPriceRanges = getPriceRanges?.map(price => {
-        //     if (price?.id === priceType?.id) {
-        //         return { ...price, selectedweb: price?.selectedweb === 1 ? 0 : 1 };
-        //     } else {
-        //         return price;
-        //     }
-        // });
-
-        // const selectedPriceRanges = updatedPriceRanges?.filter(price => price?.selectedweb === 1);
-
-
-        // Convert the selected price ranges to the required format
-        // const updatedPriceTypes = selectedPriceRanges.map(price => {
-        //     return { id: price.id, start_price: parseFloat(price.start_price), end_price: parseFloat(price.end_price) };
-        // });
-
-        // dispatch(setPriceTypeFilters(updatedPriceTypes))
     };
 
 
@@ -282,7 +251,7 @@ const Filters = ({
                                         <Checkbox {...label}
                                             size="small"
                                             className='checkbox-color'
-                                            checked={getServiceType?.selected === 1}
+                                            checked={getServiceType?.selectedweb === 1}
                                             onChange={() => onHandleServiceFilter(getServiceType)}
                                         />
                                         <span className='checkbox-text'>{getServiceType?.name}</span>
