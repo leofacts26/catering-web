@@ -52,6 +52,7 @@ const Filters = ({
 
     const [occCount, setoccCount] = useState(false)
     const { locationValuesGlobal, people } = useSelector((state) => state.cateringFilter)
+    const [searchQuery, setSearchQuery] = useState('');
 
     const dispatch = useDispatch()
 
@@ -107,6 +108,17 @@ const Filters = ({
     }
 
     // console.log(getCuisines, "getCuisines RRR");
+
+
+    const handleSearchChange = (event) => {
+        setSearchQuery(event.target.value);
+    };
+
+    const filteredCuisines = getCuisines?.filter(cuisine =>
+    cuisine?.name?.toLowerCase().includes(searchQuery.toLowerCase()) || // Check parent name
+    cuisine?.children?.some(child => child?.name?.toLowerCase().includes(searchQuery.toLowerCase())) // Check children names
+);
+
 
 
     return (
@@ -171,6 +183,8 @@ const Filters = ({
                             InputLabelProps={{
                                 style: { color: '#777777', fontSize: '12px' },
                             }}
+                            value={searchQuery}
+                            onChange={handleSearchChange}
                             InputProps={{
                                 style: {
                                     borderRadius: '8px',
@@ -188,8 +202,8 @@ const Filters = ({
                         />
 
                         <Box sx={{ marginTop: '0px' }}>
-                            {getCuisines?.length > 0 ? (
-                                getCuisines?.map((getCuisine) => {
+                            {filteredCuisines?.length > 0 ? (
+                                filteredCuisines?.map((getCuisine) => {
                                     return (
                                         <Accordion className='m-0 shadow-none' key={getCuisine?.id}>
                                             <AccordionSummary
