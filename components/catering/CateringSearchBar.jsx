@@ -107,10 +107,10 @@ const CateringSearchBar = () => {
         }))
 
         // getCateringFoodTypes 
-        const foodtype_filter = getCateringFoodTypes.map(foodType => ({
-            id: foodType.id,
-            selectedweb: foodType.selectedweb
-        }))
+        // const foodtype_filter = getCateringFoodTypes.map(foodType => ({
+        //     id: foodType.id,
+        //     selectedweb: foodType.selectedweb
+        // }))
 
         // getCatering pricerangeTypes 
         //  const pricetype_filter = getCateringPriceRanges?.map(price => {
@@ -121,10 +121,10 @@ const CateringSearchBar = () => {
         const data = {
             locationValuesGlobal,
             people,
-            occasions_filter,
+            occasions_filter: getOccasionCateringTypes,
             service_filter,
             serving_filter,
-            foodtype_filter,
+            foodtype_filter: getCateringFoodTypes,
             pricetype_filter: getCateringPriceRanges
         }
         dispatch(fetchCateringSearchCards(data))

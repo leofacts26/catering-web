@@ -65,23 +65,23 @@ const Filters = ({
         dispatch(fetchCateringSearchCards({
             people: people,
             locationValuesGlobal,
-            occasions_filter: occasionFilters,
+            occasions_filter: getOccasionTypes,
             service_filter: serviceFilters,
             serving_filter: servingFilters,
-            foodtype_filter: foodtypeFilters,
+            foodtype_filter: getFoodTypes,
             pricetype_filter: getPriceRanges,
         }));
-    }, [occasionFilters, serviceFilters, servingFilters, foodtypeFilters, getPriceRanges, dispatch])
+    }, [getOccasionTypes, serviceFilters, servingFilters, getFoodTypes, getPriceRanges, dispatch])
 
 
     // onHandleSelectOccasion 
     const onHandleSelectOccasion = (getOccasionType) => {
         dispatch(setOccasionTypes(getOccasionType?.occasion_id))
-        const updatedOccasionsFilter = getOccasionTypes.map(occasion => occasion.occasion_id === getOccasionType.occasion_id
-            ? { ...occasion, selected: occasion.selected === 1 ? 0 : 1 }
-            : occasion
-        )
-        dispatch(setOccasionFilters(updatedOccasionsFilter));
+        // const updatedOccasionsFilter = getOccasionTypes.map(occasion => occasion.occasion_id === getOccasionType.occasion_id
+        //     ? { ...occasion, selected: occasion.selected === 1 ? 0 : 1 }
+        //     : occasion
+        // )
+        // dispatch(setOccasionFilters(updatedOccasionsFilter));
     }
 
 
@@ -104,9 +104,9 @@ const Filters = ({
     // onHandleFoodFilter 
     const onHandleFoodFilter = (getFoodType) => {
         dispatch(setFoodTypeFilter(getFoodType?.id))
-        const updatedFoodTypes = getFoodTypes?.map(foodType => foodType.id === getFoodType.id
-            ? { ...foodType, selectedweb: foodType.selectedweb === 1 ? 0 : 1 } : foodType)
-        dispatch(setFoodTypeFilters(updatedFoodTypes))
+        // const updatedFoodTypes = getFoodTypes?.map(foodType => foodType.id === getFoodType.id
+        //     ? { ...foodType, selectedweb: foodType.selectedweb === 1 ? 0 : 1 } : foodType)
+        // dispatch(setFoodTypeFilters(updatedFoodTypes))
     }
 
     // handleCheckboxChange 
@@ -257,7 +257,7 @@ const Filters = ({
                                             {...label}
                                             size="small"
                                             className='checkbox-color'
-                                            checked={getOccasionType?.selected === 1}
+                                            checked={getOccasionType?.selectedweb === 1}
                                             onChange={() => onHandleSelectOccasion(getOccasionType)}
                                         />
                                         <span className='checkbox-text'>{getOccasionType?.occasion_name}</span>

@@ -138,10 +138,13 @@ export const fetchCateringSearchCards = createAsyncThunk(
         console.log(data, "data22334455");
 
         // occasions_filter_formatted 
-        const occasions_filter_formatted = occasions_filter.map(occasion => ({
+        const occasions_filter_formatted_selected = occasions_filter?.filter(occasion => occasion?.selectedweb === 1);
+        const occasions_filter_formatted = occasions_filter_formatted_selected.map(occasion => ({
             id: occasion.occasion_id,
-            selected: occasion.selected
+            selectedweb: occasion.selectedweb
         }));
+
+        console.log(JSON.stringify(occasions_filter_formatted), "occasions_filter_formatted occasions_filter_formatted");
 
         // service_filter_formatted
         const service_filter_formatted = service_filter.map(service => ({
@@ -219,7 +222,7 @@ export const cateringFilterSlice = createSlice({
         setOccasionTypes: (state, action) => {
             const updatedOccasions = state.getOccasionCateringTypes?.map((occasion) => {
                 if (occasion.occasion_id === action.payload) {
-                    return { ...occasion, selected: occasion.selected === 1 ? 0 : 1 };
+                    return { ...occasion, selectedweb: occasion.selectedweb === 1 ? 0 : 1 };
                 } else {
                     return occasion;
                 }
