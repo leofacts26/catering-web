@@ -25,7 +25,7 @@ const initialState = {
     locationValuesGlobal: {},
     // Filters 
     // left filters  
-    selectedPriceRanges: []
+    // selectedPriceRanges: [],
 }
 
 export const fetchPriceRanges = createAsyncThunk(
@@ -171,6 +171,8 @@ export const fetchCateringSearchCards = createAsyncThunk(
             return { id: price.id, start_price: parseFloat(price.start_price), end_price: parseFloat(price.end_price) };
         });
 
+        // &cuisines_filter=${JSON.stringify(cuisinetype_filter_Data)} 
+
         try {
             const response = await api.get(`${BASE_URL}/search-vendors?search_term=${people}&order_by=distance&limit=100&current_page=1&save_filter=1&vendor_type=Caterer&app_type=web&service_types_filter=${JSON.stringify(service_filter_formatted)}&serving_types_filter=${JSON.stringify(serving_filter_formatted)}&occasions_filter=${JSON.stringify(occasions_filter_formatted)}&price_ranges=${JSON.stringify(updatedPriceTypes_formatted)}&food_types_filter=${JSON.stringify(foodtype_filter_formatted)}&cuisines_filter=${JSON.stringify(cuisinetype_filter_Data)}&latitude=${locationValuesGlobal?.latitude || ""}&longitude=${locationValuesGlobal?.longitude || ""}&city=${locationValuesGlobal?.city?.long_name || ""}&pincode=${locationValuesGlobal?.pincode || ""}&place_id=${locationValuesGlobal?.place_id || ''}&start_date=${moment(startDate).format('YYYY-MM-DD')}&end_date=${moment(endDate).format('YYYY-MM-DD')}&save_filter=1`, {
                 headers: {
@@ -221,19 +223,40 @@ export const cateringFilterSlice = createSlice({
             state.endDate = action.payload.endDate;
         },
         setCuisineTypeFilter: (state, action) => {
+            const { cuisineId, isParent } = action.payload;
             const updatedCuisines = state.getCateringCuisines.map((cuisine) => {
-                // if (cuisine.id === action.payload) {
-                //     return { ...cuisine, selectedweb: cuisine.selectedweb === 1 ? 0 : 1 };
-                // }
-                return {
-                    ...cuisine,
-                    children: cuisine.children.map((childCuisine) => {
-                        if (childCuisine.id === action.payload) {
-                            return { ...childCuisine, selectedweb: childCuisine.selectedweb === 1 ? 0 : 1 };
-                        }
-                        return childCuisine;
-                    }),
-                };
+                if (cuisine.id === cuisineId) {
+                    // Toggle selectedweb of parent cuisine
+                    const updatedCuisine = {
+                        ...cuisine,
+                        selectedweb: cuisine.selectedweb === 1 ? 0 : 1
+                    };
+        
+                    // Toggle selectedweb of all children based on parent's selectedweb
+                    const updatedChildren = updatedCuisine.children.map(childCuisine => ({
+                        ...childCuisine,
+                        selectedweb: updatedCuisine.selectedweb
+                    }));
+        
+                    return {
+                        ...updatedCuisine,
+                        children: updatedChildren
+                    };
+                } else {
+                    // If the selected cuisine is a child, update its selectedweb directly
+                    return {
+                        ...cuisine,
+                        children: cuisine.children.map(childCuisine => {
+                            if (childCuisine.id === cuisineId) {
+                                return {
+                                    ...childCuisine,
+                                    selectedweb: childCuisine.selectedweb === 1 ? 0 : 1
+                                };
+                            }
+                            return childCuisine;
+                        })
+                    };
+                }
             });
             state.getCateringCuisines = updatedCuisines;
         },

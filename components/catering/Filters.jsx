@@ -102,9 +102,11 @@ const Filters = ({
     };
 
     // onHandleCuisineFilter 
-    const onHandleCuisineFilter = (cuisineChildType) => {
-        dispatch(setCuisineTypeFilter(cuisineChildType?.id))
+    const onHandleCuisineFilter = (cuisineId, isParent) => {
+        dispatch(setCuisineTypeFilter({ cuisineId, isParent }));
     }
+
+    // console.log(getCuisines, "getCuisines RRR");
 
 
     return (
@@ -197,7 +199,9 @@ const Filters = ({
                                                 className='m-0 p-0'
                                             >
                                                 <Stack className='text-muted' direction="row" alignItems="center" sx={{ marginLeft: '-10px' }}>
-                                                    <Checkbox {...label} size="small" className='m-0 checkbox-color' />
+                                                    <Checkbox {...label} size="small" className='m-0 checkbox-color'
+                                                        checked={getCuisine.selectedweb === 1}
+                                                        onChange={() => onHandleCuisineFilter(getCuisine.id, true)} />
                                                     <span className='checkbox-text'>{getCuisine?.name}</span>
                                                 </Stack>
                                             </AccordionSummary>
@@ -206,7 +210,7 @@ const Filters = ({
                                                     return (
                                                         <Stack className='text-muted' direction="row" alignItems="center" key={child?.id}>
                                                             <Checkbox {...label} size="small" className='checkbox-color' checked={child?.selectedweb === 1}
-                                                                onChange={() => onHandleCuisineFilter(child)} />
+                                                                onChange={() => onHandleCuisineFilter(child.id, false)} />
                                                             <span className='checkbox-text'>{child?.name}</span>
                                                         </Stack>
                                                     )
