@@ -19,11 +19,13 @@ import toast from 'react-hot-toast';
 import { fetchUserData, logoutUser } from '@/app/features/user/userSlice';
 import { resetFilters } from '@/app/features/user/cateringFilterSlice';
 import { clearTiffinSlice } from '@/app/features/tiffin/tiffinFilterSlice';
+import { useRouter } from 'next/navigation'
 
 
 const UserIcon = () => {
     const dispatch = useDispatch()
     const { userDetails } = useSelector((state) => state.user)
+    const router = useRouter()
 
     useEffect(() => {
         dispatch(fetchUserData());
@@ -45,7 +47,8 @@ const UserIcon = () => {
         dispatch(resetFilters());
         dispatch(clearTiffinSlice());
         toast.success("Logout Successfull")
-        // window.location.reload()
+        router.push('/catering')
+        window.location.reload();
     }
 
     return (

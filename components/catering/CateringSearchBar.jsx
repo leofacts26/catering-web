@@ -84,9 +84,8 @@ const CateringSearchBar = () => {
 
     const router = useRouter()
 
-    const onHandleSubmit = (e) => {
-        e.preventDefault();
-
+    const onHandleSubmit = (event) => {
+        event.preventDefault();
         const data = {
             locationValuesGlobal,
             people,
