@@ -4,11 +4,14 @@ import storage from 'redux-persist/lib/storage';
 import userReducer from './features/user/userSlice';
 import cateringFilterReducer from './features/user/cateringFilterSlice';
 import tiffinFilterReducer from './features/tiffin/tiffinFilterSlice';
+import homeSliceReducer from './features/user/homeSlice';
+
 
 const rootReducer = combineReducers({
   user: userReducer,
   cateringFilter: cateringFilterReducer,
   tiffinFilter: tiffinFilterReducer,
+  homepage: homeSliceReducer
 });
 
 const persistConfig = {
