@@ -78,12 +78,12 @@ const OtpInput = ({ length = 6, user, setShowOtp, handleClose, loginUserData }) 
         }
     }
 
-        // onOtpSubmit 
-        console.log('Login Successfully', otp.join(""));
-        const onOtpSubmit = (e) => {
-            e.preventDefault()
-            verifyLoginOtp(otp.join(""), loginUserData, setOtp, setShowOtp, handleClose);
-        }
+    // onOtpSubmit 
+    console.log('Login Successfully', otp.join(""));
+    const onOtpSubmit = (e) => {
+        e.preventDefault()
+        verifyLoginOtp(otp.join(""), loginUserData, setOtp, setShowOtp, handleClose);
+    }
 
     return (
         <div className='otp-input-fields'>
@@ -246,6 +246,7 @@ const LoginModal = () => {
                                                     )
                                                 }}
                                             />
+                                            {errors.phone_number && <small className='text-white mb-2 ms-1'>{errors.phone_number}</small>}
                                         </DialogContentText>
                                     </DialogContent>
                                     <Stack direction="row" justifyContent='center'>

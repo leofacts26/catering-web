@@ -144,7 +144,7 @@ const OtpInput = ({ length = 6, user, setShowOtp, handleClose }) => {
 
 
 
-    
+
     // onOtpSubmit 
     console.log('Login Successfully', otp.join(""));
     const onOtpSubmit = (e) => {
@@ -295,6 +295,8 @@ const RegisterModal = () => {
                                                     )
                                                 }}
                                             />
+                                            {errors.name && <small className='text-white mb-2 ms-1'>{errors.name}</small>}
+
 
                                             <TextField
                                                 id="filled-basic"
@@ -327,6 +329,8 @@ const RegisterModal = () => {
                                                     )
                                                 }}
                                             />
+                                            {errors.phone_number && <small className='text-white mb-2 ms-1'>{errors.phone_number}</small>}
+
                                         </DialogContentText>
                                     </DialogContent>
                                     <Stack direction="row" justifyContent='center'>
