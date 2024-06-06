@@ -84,9 +84,11 @@ h5,
 h6 {
   font-family: var(--fontPrimary);
 }
-.cursor-pointer{
+
+.cursor-pointer {
   cursor: pointer;
 }
+
 .text-decoration-none {
   text-decoration: none;
 }
@@ -156,9 +158,10 @@ h6 {
   overflow: hidden;
 }
 
-.text-white{
+.text-white {
   color: var(--alternate);
 }
+
 /* bootstrap */
 .m-0 {
   margin: 0 !important
@@ -2213,10 +2216,12 @@ h6 {
   font-size: 20px;
   border-radius: 8px;
 }
+
 .enter-otp {
   color: var(--alternate) !important;
   font-family: var(--fontPrimary);
 }
+
 .ct-box-btn-catering {
   background-color: var(--accent2) !important;
   font-size: 12px !important;
@@ -2236,9 +2241,11 @@ h6 {
   color: var(--alternate);
   font-family: var(--fontPrimary) !important;
 }
-.otp__digit{
+
+.otp__digit {
   color: var(--alternate) !important;
 }
+
 /* otp end */
 
 /* register Modal end */
@@ -2690,4 +2697,10 @@ textarea:-webkit-autofill:active {
   color: var(--primarytext);
   font-weight: 400;
   font-family: var(--fontPrimary);
+}
+
+/* maps */
+.map-box-contaier{
+  width: 100% !important;
+  height: 100% !important;
 }
