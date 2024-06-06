@@ -1900,6 +1900,16 @@ h6 {
 } */
 
 /* listview cards */
+.not-fount-vendors{
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  height: 50vh;
+}
+.not-fount-vendors h2{
+  font-size: 2.5em;
+  color: #00000071;
+}
 .filter-shadow {
   box-shadow: rgba(0, 0, 0, 0.012) 0px 10px 36px 0px, rgba(0, 0, 0, 0.012) 0px 0px 0px 1px;
   border-radius: 8px !important;
