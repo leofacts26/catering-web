@@ -1,5 +1,5 @@
 "use client"
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
@@ -158,4 +158,4 @@ const ListView = ({ loading, getSearchCards }) => {
     )
 }
 
-export default ListView
+export default memo(ListView)

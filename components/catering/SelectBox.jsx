@@ -1,51 +1,32 @@
 "use client"
-import { useState } from "react";
-import { Select, MenuItem, FormControl, Stack, Button, TextField } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import { Stack, Button } from '@mui/material';
 import ReactSelectRed from "./ReactSelectRed";
+import { useDispatch, useSelector } from "react-redux";
+import { setCateringSort } from "@/app/features/user/cateringFilterSlice";
+import { memo, useEffect } from 'react';
 
 
-const CssSelect = styled(Select)(({ theme }) => ({
-    '& .MuiOutlinedInput-root': {
-        '& fieldset': {
-            border: '2px solid #C33332',
-        },
-        '&:hover fieldset': {
-            border: '2px solid #C33332',
-        },
-        '&.Mui-focused fieldset': {
-            border: '2px solid #C33332',
-            outline: 'none',
-        },
-    },
-    '& .MuiSelect-select:focus': {
-        backgroundColor: 'transparent',
-    },
-    '& input': {
-        border: '2px solid #C33332',
-        fontSize: '16px',
-        padding: '0px 20px',
-    },
+const SelectBox = () => {
+    const dispatch = useDispatch();
+    const { cateringSortBy } = useSelector((state) => state.cateringFilter);
 
-}));
-
-
-
-
-const SelectBox = ({ catering }) => {
-
-    const [sortBy, setSortBy] = useState('');
-
-    const handleChange = (event) => {
-        setSortBy(event.target.value);
+    const handleSortChange = (selectedOption) => {
+        if (selectedOption) {
+            const formattedValue = [{
+                value: selectedOption.value.toLowerCase().replace(/\s/g, '_')
+            }];
+            dispatch(setCateringSort(formattedValue));
+        } else {
+            dispatch(setCateringSort([]));
+        }
     };
 
 
     return (
         <>
             <Stack direction="row" alignItems="center" flexWrap="wrap" spacing={2} style={{ margin: '10px 0px 15px 0px' }}>
-              <ReactSelectRed text1="Sort by" /> 
-                <Stack direction="row" alignItems="center" flexWrap="wrap" spacing={2} style={{marginTop: '15px'}}>
+                <ReactSelectRed text1="Sort by" onChange={handleSortChange} />
+                <Stack direction="row" alignItems="center" flexWrap="wrap" spacing={2} style={{ marginTop: '15px' }}>
                     <Button size="small" className={'btn-pill btn-pill-active'}>All Caterers</Button>
                     <Button size="small" className="btn-pill" style={{ color: '#726e6e', fontSize: '12px' }}>Branded Caterers</Button>
                     <Button size="small" className="btn-pill" style={{ color: '#726e6e', fontSize: '12px' }}>Popular Caterers</Button>
@@ -56,4 +37,4 @@ const SelectBox = ({ catering }) => {
     )
 }
 
-export default SelectBox;
+export default memo(SelectBox);

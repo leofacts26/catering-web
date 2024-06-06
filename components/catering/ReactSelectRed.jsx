@@ -1,26 +1,39 @@
-import React from 'react'
+import React, { memo } from 'react'
 import Select, { components } from 'react-select';
 import SearchIcon from '@mui/icons-material/Search';
 
 const names = [
-  'Price Low to High',
-  'Price High to Low',
-  'A - Z',
-  'Z - A',
+   {
+    id:1,
+    name: 'Price Low to High',
+    value: 'low_to_high',
+   },
+   {
+    id:2,
+    name: 'Price High to Low',
+    value: 'hign_to_low',
+   },
+   {
+    id:3,
+    name: 'A - Z',
+    value: 'a_z',
+   },
+   {
+    id:4,
+    name: 'Z - A',
+    value: 'z_a',
+   },
 ];
 
 
-// const DropdownIndicator = (props) => {
-//     return (
-//       <components.DropdownIndicator {...props}>
-//         <SearchIcon />
-//       </components.DropdownIndicator>
-//     );
-//   };
 
+const ReactSelectRed = ({ text1, onChange }) => {
+  const options = names.map((name) => ({ value: name.value, label: name.name }));
 
-const ReactSelectRed = ({ text1 }) => {
-  const options = names.map((name) => ({ value: name, label: name }));
+  const handleChange = (selectedOption) => {
+    onChange(selectedOption);
+  };
+
   return (
     <Select
       className='mt-3'
@@ -28,7 +41,7 @@ const ReactSelectRed = ({ text1 }) => {
       isSearchable
       // isMulti
       placeholder={text1}
-      // components={{ DropdownIndicator }}
+      onChange={handleChange}
       styles={{
         control: (baseStyles, { isFocused }) => ({
           ...baseStyles,
@@ -74,4 +87,4 @@ const ReactSelectRed = ({ text1 }) => {
   )
 }
 
-export default ReactSelectRed
+export default memo(ReactSelectRed)

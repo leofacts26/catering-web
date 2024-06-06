@@ -15,6 +15,7 @@ const initialState = {
     getCateringServingTypes: [],
     getCateringSearchCards: [],
     occasionCount: 5,
+    cateringSortBy: [],
     // Global Nav 
     startDate: new Date(),
     endDate: new Date(),
@@ -130,6 +131,8 @@ export const fetchCateringSearchCards = createAsyncThunk(
         const { people, locationValuesGlobal, occasions_filter, service_filter, serving_filter, foodtype_filter, pricetype_filter, cuisine_filter } = data;
         const startDate = thunkAPI.getState().cateringFilter?.startDate;
         const endDate = thunkAPI.getState().cateringFilter?.endDate;
+        const cateringSortBy = thunkAPI.getState().cateringFilter?.cateringSortBy;
+        console.log(cateringSortBy, "cateringSortBy ppppppppppppppppppppppppp");
         console.log(data, "data22334455");
 
         // occasions_filter_formatted 
@@ -231,13 +234,13 @@ export const cateringFilterSlice = createSlice({
                         ...cuisine,
                         selectedweb: cuisine.selectedweb === 1 ? 0 : 1
                     };
-        
+
                     // Toggle selectedweb of all children based on parent's selectedweb
                     const updatedChildren = updatedCuisine.children.map(childCuisine => ({
                         ...childCuisine,
                         selectedweb: updatedCuisine.selectedweb
                     }));
-        
+
                     return {
                         ...updatedCuisine,
                         children: updatedChildren
@@ -310,6 +313,9 @@ export const cateringFilterSlice = createSlice({
             })
 
             state.getCateringPriceRanges = updatedPriceRanges;
+        },
+        setCateringSort: (state, action) => {
+            state.cateringSortBy = action.payload;
         }
     },
     extraReducers: (builder) => {
@@ -403,6 +409,6 @@ export const cateringFilterSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { resetFilters, setShowAllOccasions, setPeople, people, setOccasionTypes, setSelectedLocation, setManualLocation, setLocationPlaceId, setlLocationValuesGlobal, locationPlaceId, manualLocation, selectedLocation, setStartDate, setEndDate, setDateRange, setServiceTypesFilter, setServingTypesFilter, servingFilters, setFoodTypeFilter, foodtypeFilters, setPriceTypeFilter, setCuisineTypeFilter } = cateringFilterSlice.actions
+export const { resetFilters, setShowAllOccasions, setPeople, people, setOccasionTypes, setSelectedLocation, setManualLocation, setLocationPlaceId, setlLocationValuesGlobal, locationPlaceId, manualLocation, selectedLocation, setStartDate, setEndDate, setDateRange, setServiceTypesFilter, setServingTypesFilter, servingFilters, setFoodTypeFilter, foodtypeFilters, setPriceTypeFilter, setCuisineTypeFilter, setCateringSort } = cateringFilterSlice.actions
 
 export default cateringFilterSlice.reducer
