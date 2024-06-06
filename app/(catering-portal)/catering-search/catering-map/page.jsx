@@ -3,13 +3,16 @@ import React, { useState } from 'react'
 import { GoogleMap, InfoWindow, Marker, useLoadScript } from "@react-google-maps/api";
 import { useMemo } from "react";
 import { useSelector } from 'react-redux';
+import { useRouter } from 'next/navigation';
 
 const page = () => {
     const { getCateringSearchCards, isLoading } = useSelector((state) => state.cateringFilter)
-console.log(getCateringSearchCards, "getCateringSearchCards");
+    console.log(getCateringSearchCards, "getCateringSearchCards");
     const [mapRef, setMapRef] = useState();
     const [isOpen, setIsOpen] = useState(false);
     const [infoWindowData, setInfoWindowData] = useState();
+    const router = useRouter()
+
 
     const { isLoaded } = useLoadScript({
         googleMapsApiKey: "AIzaSyBf22eHEMxKk_9x0XWag-oCFTXkdClnPw8",
@@ -45,6 +48,9 @@ console.log(getCateringSearchCards, "getCateringSearchCards");
 
     return (
         <div className="map-box-contaier">
+            <button className='btn-close' onClick={()=> router.push('/catering-search')}>
+                Close Map
+            </button>
             <div style={{ width: '100%', height: '100vh' }}>
                 {!isLoaded ? (
                     <h1>Loading...</h1>
