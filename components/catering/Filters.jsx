@@ -63,17 +63,19 @@ const Filters = ({
     }
 
     useEffect(() => {
-        dispatch(fetchCateringSearchCards({
-            people: people,
-            locationValuesGlobal,
-            occasions_filter: getOccasionTypes,
-            cuisine_filter: getCuisines,
-            service_filter: getServiceTypes,
-            serving_filter: getServingTypes,
-            foodtype_filter: getFoodTypes,
-            pricetype_filter: getPriceRanges,
-        }));
-    }, [getOccasionTypes, getCuisines, getServiceTypes, getServingTypes, getFoodTypes, getPriceRanges, dispatch])
+        dispatch(fetchCateringSearchCards(
+            // {
+            // locationValuesGlobal,
+            // people: people,
+            // occasions_filter: getOccasionTypes,
+            // cuisine_filter: getCuisines,
+            // service_filter: getServiceTypes,
+            // serving_filter: getServingTypes,
+            // foodtype_filter: getFoodTypes,
+            // pricetype_filter: getPriceRanges,
+        // }
+    ));
+    }, [getOccasionTypes, getCuisines, getServiceTypes, getServingTypes, getFoodTypes, getPriceRanges, people, locationValuesGlobal, dispatch])
 
 
     // onHandleSelectOccasion 
@@ -115,9 +117,9 @@ const Filters = ({
     };
 
     const filteredCuisines = getCuisines?.filter(cuisine =>
-    cuisine?.name?.toLowerCase().includes(searchQuery.toLowerCase()) || // Check parent name
-    cuisine?.children?.some(child => child?.name?.toLowerCase().includes(searchQuery.toLowerCase())) // Check children names
-);
+        cuisine?.name?.toLowerCase().includes(searchQuery.toLowerCase()) || // Check parent name
+        cuisine?.children?.some(child => child?.name?.toLowerCase().includes(searchQuery.toLowerCase())) // Check children names
+    );
 
 
 

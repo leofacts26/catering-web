@@ -4,18 +4,30 @@ import { DateRangePicker } from 'react-date-range';
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday'; // MUI calendar icon
+import { useDispatch, useSelector } from 'react-redux';
+import { setDateRange } from '@/app/features/user/cateringFilterSlice';
+import moment from 'moment';
 
 const DatePickerSearchTiffin = () => {
+    const dispatch = useDispatch();
+
+    const { startDate, endDate } = useSelector((state) => state.cateringFilter);
+
     const [showPicker, setShowPicker] = useState(false);
-    const [selectedRange, setSelectedRange] = useState({
-        startDate: new Date(),
-        endDate: new Date(),
+    const selectedRange = {
+        startDate,
+        endDate,
         key: 'selection',
-    });
+    };
+
+    const isValidDate = (date) => {
+        return date instanceof Date && !isNaN(date);
+    };
+
 
     const pickerRef = useRef();
-
     const formatDate = (date) => {
+        if (!isValidDate(date)) return 'Invalid Date';
         return date.toLocaleDateString('en-US', {
             weekday: 'short',
             month: 'short',
@@ -25,20 +37,20 @@ const DatePickerSearchTiffin = () => {
 
     const formatSelectedRange = (range) => {
         const { startDate, endDate } = range;
-        const formattedStart = formatDate(startDate).toLowerCase(); // Capitalize start date
-        const formattedEnd = formatDate(endDate).toLowerCase(); // Capitalize end date
+        const formattedStart = formatDate(moment(startDate).toDate()).toLowerCase(); // Capitalize start date
+        const formattedEnd = formatDate(moment(endDate).toDate()).toLowerCase(); // Capitalize end date
         return `${formattedStart} - ${formattedEnd}`;
     };
 
     const handleSelect = (ranges) => {
-        setSelectedRange(ranges.selection);
+        dispatch(setDateRange(ranges.selection));
     };
 
     useEffect(() => {
-        if (selectedRange.startDate !== selectedRange.endDate) {
+        if (startDate !== endDate) {
             setShowPicker(false);
         }
-    }, [selectedRange]);
+    }, [startDate, endDate]);
 
     const togglePicker = () => {
         setShowPicker(!showPicker);
@@ -73,7 +85,7 @@ const DatePickerSearchTiffin = () => {
                     width: '100%',
                     padding: '11px 10px',
                     border: '2px solid #d9822b',
-                    textTransform: 'capitalize', 
+                    textTransform: 'capitalize',
                 }}
                 startIcon={<CalendarTodayIcon />}
                 onClick={togglePicker}

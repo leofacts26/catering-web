@@ -2,7 +2,7 @@
 import { Stack, Button } from '@mui/material';
 import ReactSelectRed from "./ReactSelectRed";
 import { useDispatch, useSelector } from "react-redux";
-import { setCateringSort } from "@/app/features/user/cateringFilterSlice";
+import { fetchCateringSearchCards, setCateringSort } from "@/app/features/user/cateringFilterSlice";
 import { memo, useEffect } from 'react';
 
 
@@ -20,6 +20,11 @@ const SelectBox = () => {
             dispatch(setCateringSort([]));
         }
     };
+
+
+    useEffect(() => {
+        dispatch(fetchCateringSearchCards())
+    }, [cateringSortBy])
 
 
     return (

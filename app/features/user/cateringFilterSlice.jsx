@@ -128,15 +128,28 @@ export const fetchCateringServingTypes = createAsyncThunk(
 export const fetchCateringSearchCards = createAsyncThunk(
     'user/fetchCateringSearchCards',
     async (data, thunkAPI) => {
-        const { people, locationValuesGlobal, occasions_filter, service_filter, serving_filter, foodtype_filter, pricetype_filter, cuisine_filter } = data;
+        // const { locationValuesGlobal } = data;
         const startDate = thunkAPI.getState().cateringFilter?.startDate;
         const endDate = thunkAPI.getState().cateringFilter?.endDate;
         const cateringSortBy = thunkAPI.getState().cateringFilter?.cateringSortBy;
+        const getCateringPriceRanges = thunkAPI.getState().cateringFilter?.getCateringPriceRanges;
+        const getCateringFoodTypes = thunkAPI.getState().cateringFilter?.getCateringFoodTypes;
+        const getCateringServingTypes = thunkAPI.getState().cateringFilter?.getCateringServingTypes;
+        const getCateringServiceTypes = thunkAPI.getState().cateringFilter?.getCateringServiceTypes;
+        const getCateringCuisines = thunkAPI.getState().cateringFilter?.getCateringCuisines;
+        const getOccasionCateringTypes = thunkAPI.getState().cateringFilter?.getOccasionCateringTypes;
+        const people = thunkAPI.getState().cateringFilter?.people;
+        const locationValuesGlobal = thunkAPI.getState().cateringFilter?.locationValuesGlobal;
+        
         console.log(cateringSortBy, "cateringSortBy ppppppppppppppppppppppppp");
         console.log(data, "data22334455");
+        console.log(getCateringPriceRanges, "getCateringPriceRanges");
+
+        // cateringSortBy_filter
+        const cateringSortBy_filter = JSON.stringify(cateringSortBy) 
 
         // occasions_filter_formatted 
-        const occasions_filter_formatted_selected = occasions_filter?.filter(occasion => occasion?.selectedweb === 1);
+        const occasions_filter_formatted_selected = getOccasionCateringTypes?.filter(occasion => occasion?.selectedweb === 1);
         const occasions_filter_formatted = occasions_filter_formatted_selected.map(occasion => ({
             id: occasion.occasion_id,
             selectedweb: occasion.selectedweb
@@ -146,30 +159,30 @@ export const fetchCateringSearchCards = createAsyncThunk(
         function extractChildrenData(data) {
             return data.flatMap(item => item.children.map(({ id, selectedweb }) => ({ id, selectedweb })));
         }
-        const cuisinetype_filter_Data = extractChildrenData(cuisine_filter);
+        const cuisinetype_filter_Data = extractChildrenData(getCateringCuisines);
 
         // console.log(JSON.stringify(cuisinetype_filter_Data), "cuisinetype_filter_Data cuisinetype_filter_Data");
 
         // service_filter_formatted
-        const service_filter_formatted = service_filter.map(service => ({
+        const service_filter_formatted = getCateringServiceTypes.map(service => ({
             id: service.id,
             selectedweb: service.selectedweb
         }));
 
         // serving_filter_formatted 
-        const serving_filter_formatted = serving_filter.map(serving => ({
+        const serving_filter_formatted = getCateringServingTypes.map(serving => ({
             id: serving.id,
             selectedweb: serving.selectedweb
         }))
 
         // foodtype_filter_formatted 
-        const foodtype_filter_formatted = foodtype_filter.map(foodType => ({
+        const foodtype_filter_formatted = getCateringFoodTypes.map(foodType => ({
             id: foodType.id,
             selectedweb: foodType.selectedweb
         }))
 
         // pricetype_filter_formatted 
-        const selectedPriceRanges = pricetype_filter?.filter(price => price?.selectedweb === 1);
+        const selectedPriceRanges = getCateringPriceRanges?.filter(price => price?.selectedweb === 1);
         const updatedPriceTypes_formatted = selectedPriceRanges.map(price => {
             return { id: price.id, start_price: parseFloat(price.start_price), end_price: parseFloat(price.end_price) };
         });
@@ -177,7 +190,7 @@ export const fetchCateringSearchCards = createAsyncThunk(
         // &cuisines_filter=${JSON.stringify(cuisinetype_filter_Data)} 
 
         try {
-            const response = await api.get(`${BASE_URL}/search-vendors?search_term=${people}&order_by=distance&limit=100&current_page=1&save_filter=1&vendor_type=Caterer&app_type=web&service_types_filter=${JSON.stringify(service_filter_formatted)}&serving_types_filter=${JSON.stringify(serving_filter_formatted)}&occasions_filter=${JSON.stringify(occasions_filter_formatted)}&price_ranges=${JSON.stringify(updatedPriceTypes_formatted)}&food_types_filter=${JSON.stringify(foodtype_filter_formatted)}&cuisines_filter=${JSON.stringify(cuisinetype_filter_Data)}&latitude=${locationValuesGlobal?.latitude || ""}&longitude=${locationValuesGlobal?.longitude || ""}&city=${locationValuesGlobal?.city?.long_name || ""}&pincode=${locationValuesGlobal?.pincode || ""}&place_id=${locationValuesGlobal?.place_id || ''}&start_date=${moment(startDate).format('YYYY-MM-DD')}&end_date=${moment(endDate).format('YYYY-MM-DD')}&save_filter=1`, {
+            const response = await api.get(`${BASE_URL}/search-vendors?search_term=${people}&order_by=distance&limit=100&current_page=1&save_filter=1&vendor_type=Caterer&app_type=web&service_types_filter=${JSON.stringify(service_filter_formatted)}&order_by_filter=${cateringSortBy_filter}&serving_types_filter=${JSON.stringify(serving_filter_formatted)}&occasions_filter=${JSON.stringify(occasions_filter_formatted)}&price_ranges=${JSON.stringify(updatedPriceTypes_formatted)}&food_types_filter=${JSON.stringify(foodtype_filter_formatted)}&cuisines_filter=${JSON.stringify(cuisinetype_filter_Data)}&latitude=${locationValuesGlobal?.latitude || ""}&longitude=${locationValuesGlobal?.longitude || ""}&city=${locationValuesGlobal?.city?.long_name || ""}&pincode=${locationValuesGlobal?.pincode || ""}&place_id=${locationValuesGlobal?.place_id || ''}&start_date=${moment(startDate).format('YYYY-MM-DD')}&end_date=${moment(endDate).format('YYYY-MM-DD')}&save_filter=1`, {
                 headers: {
                     authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
                 },

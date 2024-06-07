@@ -86,17 +86,17 @@ const CateringSearchBar = () => {
 
     const onHandleSubmit = (event) => {
         event.preventDefault();
-        const data = {
-            locationValuesGlobal,
-            people,
-            occasions_filter: getOccasionCateringTypes,
-            cuisine_filter: getCateringCuisines,
-            service_filter: getCateringServiceTypes,
-            serving_filter: getCateringServingTypes,
-            foodtype_filter: getCateringFoodTypes,
-            pricetype_filter: getCateringPriceRanges
-        }
-        dispatch(fetchCateringSearchCards(data))
+        // const data = {
+            // locationValuesGlobal,
+            // people,
+            // occasions_filter: getOccasionCateringTypes,
+            // cuisine_filter: getCateringCuisines,
+            // service_filter: getCateringServiceTypes,
+            // serving_filter: getCateringServingTypes,
+            // foodtype_filter: getCateringFoodTypes,
+            // pricetype_filter: getCateringPriceRanges
+        // }
+        dispatch(fetchCateringSearchCards())
         router.push('/catering-search')
     }
 
