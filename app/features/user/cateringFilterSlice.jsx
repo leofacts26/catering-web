@@ -16,6 +16,7 @@ const initialState = {
     getCateringSearchCards: [],
     occasionCount: 5,
     cateringSortBy: [],
+    getAllSortOrders: [],
     // Global Nav 
     startDate: new Date(),
     endDate: new Date(),
@@ -70,6 +71,7 @@ export const fetchOccasionCateringTypes = createAsyncThunk(
                     authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
                 },
             });
+            console.log(response, "response");
             return response?.data;
         } catch (error) {
             return thunkAPI.rejectWithValue(error.response.data.msg);
@@ -125,6 +127,22 @@ export const fetchCateringServingTypes = createAsyncThunk(
     }
 )
 
+export const fetchGetAllSortOrders = createAsyncThunk(
+    'user/fetchGetAllSortOrders',
+    async (user, thunkAPI) => {
+        try {
+            const response = await api.get(`${BASE_URL}/get-all-sort-orders?limit=10&current_page=1`, {
+                headers: {
+                    authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
+                },
+            });
+            return response?.data?.data;
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error.response.data.msg);
+        }
+    }
+)
+
 export const fetchCateringSearchCards = createAsyncThunk(
     'user/fetchCateringSearchCards',
     async (data, thunkAPI) => {
@@ -141,23 +159,23 @@ export const fetchCateringSearchCards = createAsyncThunk(
         const people = thunkAPI.getState().cateringFilter?.people;
         const locationValuesGlobal = thunkAPI.getState().cateringFilter?.locationValuesGlobal;
         
-        console.log(cateringSortBy, "cateringSortBy ppppppppppppppppppppppppp");
-        console.log(data, "data22334455");
-        console.log(getCateringPriceRanges, "getCateringPriceRanges");
+        // console.log(cateringSortBy, "cateringSortBy ppppppppppppppppppppppppp");
+        // console.log(data, "data22334455");
+        // console.log(getCateringPriceRanges, "getCateringPriceRanges");
 
         // cateringSortBy_filter
         const cateringSortBy_filter = JSON.stringify(cateringSortBy) 
 
         // occasions_filter_formatted 
-        const occasions_filter_formatted_selected = getOccasionCateringTypes?.filter(occasion => occasion?.selectedweb === 1);
+        const occasions_filter_formatted_selected = getOccasionCateringTypes?.filter(occasion => occasion?.selected === 1);
         const occasions_filter_formatted = occasions_filter_formatted_selected.map(occasion => ({
             id: occasion.occasion_id,
-            selectedweb: occasion.selectedweb
+            selected: occasion.selected
         }));
 
         // cuisinetype_filter_formatted 
         function extractChildrenData(data) {
-            return data.flatMap(item => item.children.map(({ id, selectedweb }) => ({ id, selectedweb })));
+            return data.flatMap(item => item.children.map(({ id, selected }) => ({ id, selected })));
         }
         const cuisinetype_filter_Data = extractChildrenData(getCateringCuisines);
 
@@ -166,23 +184,23 @@ export const fetchCateringSearchCards = createAsyncThunk(
         // service_filter_formatted
         const service_filter_formatted = getCateringServiceTypes.map(service => ({
             id: service.id,
-            selectedweb: service.selectedweb
+            selected: service.selected
         }));
 
         // serving_filter_formatted 
         const serving_filter_formatted = getCateringServingTypes.map(serving => ({
             id: serving.id,
-            selectedweb: serving.selectedweb
+            selected: serving.selected
         }))
 
         // foodtype_filter_formatted 
         const foodtype_filter_formatted = getCateringFoodTypes.map(foodType => ({
             id: foodType.id,
-            selectedweb: foodType.selectedweb
+            selected: foodType.selected
         }))
 
         // pricetype_filter_formatted 
-        const selectedPriceRanges = getCateringPriceRanges?.filter(price => price?.selectedweb === 1);
+        const selectedPriceRanges = getCateringPriceRanges?.filter(price => price?.selected === 1);
         const updatedPriceTypes_formatted = selectedPriceRanges.map(price => {
             return { id: price.id, start_price: parseFloat(price.start_price), end_price: parseFloat(price.end_price) };
         });
@@ -242,16 +260,16 @@ export const cateringFilterSlice = createSlice({
             const { cuisineId, isParent } = action.payload;
             const updatedCuisines = state.getCateringCuisines.map((cuisine) => {
                 if (cuisine.id === cuisineId) {
-                    // Toggle selectedweb of parent cuisine
+                    // Toggle selected of parent cuisine
                     const updatedCuisine = {
                         ...cuisine,
-                        selectedweb: cuisine.selectedweb === 1 ? 0 : 1
+                        selected: cuisine.selected === 1 ? 0 : 1
                     };
 
-                    // Toggle selectedweb of all children based on parent's selectedweb
+                    // Toggle selected of all children based on parent's selected
                     const updatedChildren = updatedCuisine.children.map(childCuisine => ({
                         ...childCuisine,
-                        selectedweb: updatedCuisine.selectedweb
+                        selected: updatedCuisine.selected
                     }));
 
                     return {
@@ -259,14 +277,14 @@ export const cateringFilterSlice = createSlice({
                         children: updatedChildren
                     };
                 } else {
-                    // If the selected cuisine is a child, update its selectedweb directly
+                    // If the selected cuisine is a child, update its selected directly
                     return {
                         ...cuisine,
                         children: cuisine.children.map(childCuisine => {
                             if (childCuisine.id === cuisineId) {
                                 return {
                                     ...childCuisine,
-                                    selectedweb: childCuisine.selectedweb === 1 ? 0 : 1
+                                    selected: childCuisine.selected === 1 ? 0 : 1
                                 };
                             }
                             return childCuisine;
@@ -279,7 +297,7 @@ export const cateringFilterSlice = createSlice({
         setOccasionTypes: (state, action) => {
             const updatedOccasions = state.getOccasionCateringTypes?.map((occasion) => {
                 if (occasion.occasion_id === action.payload) {
-                    return { ...occasion, selectedweb: occasion.selectedweb === 1 ? 0 : 1 };
+                    return { ...occasion, selected: occasion.selected === 1 ? 0 : 1 };
                 } else {
                     return occasion;
                 }
@@ -289,7 +307,7 @@ export const cateringFilterSlice = createSlice({
         setServiceTypesFilter: (state, action) => {
             const updatedServiceTypes = state.getCateringServiceTypes.map((serviceType) => {
                 if (serviceType.id === action.payload) {
-                    return { ...serviceType, selectedweb: serviceType.selectedweb === 1 ? 0 : 1 }
+                    return { ...serviceType, selected: serviceType.selected === 1 ? 0 : 1 }
                 } else {
                     return serviceType;
                 }
@@ -299,7 +317,7 @@ export const cateringFilterSlice = createSlice({
         setServingTypesFilter: (state, action) => {
             const updatedServingTypes = state.getCateringServingTypes.map((servingType) => {
                 if (servingType.id === action.payload) {
-                    return { ...servingType, selectedweb: servingType.selectedweb === 1 ? 0 : 1 }
+                    return { ...servingType, selected: servingType.selected === 1 ? 0 : 1 }
                 } else {
                     return servingType;
                 }
@@ -309,7 +327,7 @@ export const cateringFilterSlice = createSlice({
         setFoodTypeFilter: (state, action) => {
             const updatedFoodTypes = state.getCateringFoodTypes.map((foodType) => {
                 if (foodType.id === action.payload) {
-                    return { ...foodType, selectedweb: foodType.selectedweb === 1 ? 0 : 1 }
+                    return { ...foodType, selected: foodType.selected === 1 ? 0 : 1 }
                 } else {
                     return foodType;
                 }
@@ -319,7 +337,7 @@ export const cateringFilterSlice = createSlice({
         setPriceTypeFilter: (state, action) => {
             const updatedPriceRanges = state.getCateringPriceRanges.map((priceRange) => {
                 if (priceRange.id === action.payload) {
-                    return { ...priceRange, selectedweb: priceRange.selectedweb === 1 ? 0 : 1 }
+                    return { ...priceRange, selected: priceRange.selected === 1 ? 0 : 1 }
                 } else {
                     return priceRange;
                 }
@@ -418,10 +436,23 @@ export const cateringFilterSlice = createSlice({
                 state.isLoading = false;
                 // toast.error(datavalidationerror(payload));
             })
+             // fetchGetAllSortOrders
+             .addCase(fetchGetAllSortOrders.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(fetchGetAllSortOrders.fulfilled, (state, { payload }) => {
+                state.isLoading = false;
+                state.getAllSortOrders = payload;
+            })
+            .addCase(fetchGetAllSortOrders.rejected, (state, { payload }) => {
+                state.isLoading = false;
+                // toast.error(datavalidationerror(payload));
+            })
+            
     }
 })
 
 // Action creators are generated for each case reducer function
-export const { resetFilters, setShowAllOccasions, setPeople, people, setOccasionTypes, setSelectedLocation, setManualLocation, setLocationPlaceId, setlLocationValuesGlobal, locationPlaceId, manualLocation, selectedLocation, setStartDate, setEndDate, setDateRange, setServiceTypesFilter, setServingTypesFilter, servingFilters, setFoodTypeFilter, foodtypeFilters, setPriceTypeFilter, setCuisineTypeFilter, setCateringSort } = cateringFilterSlice.actions
+export const { resetFilters, setShowAllOccasions, getAllSortOrders, setPeople, people, setOccasionTypes, setSelectedLocation, setManualLocation, setLocationPlaceId, setlLocationValuesGlobal, locationPlaceId, manualLocation, selectedLocation, setStartDate, setEndDate, setDateRange, setServiceTypesFilter, setServingTypesFilter, servingFilters, setFoodTypeFilter, foodtypeFilters, setPriceTypeFilter, setCuisineTypeFilter, setCateringSort } = cateringFilterSlice.actions
 
 export default cateringFilterSlice.reducer

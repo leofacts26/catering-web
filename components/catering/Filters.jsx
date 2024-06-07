@@ -63,18 +63,7 @@ const Filters = ({
     }
 
     useEffect(() => {
-        dispatch(fetchCateringSearchCards(
-            // {
-            // locationValuesGlobal,
-            // people: people,
-            // occasions_filter: getOccasionTypes,
-            // cuisine_filter: getCuisines,
-            // service_filter: getServiceTypes,
-            // serving_filter: getServingTypes,
-            // foodtype_filter: getFoodTypes,
-            // pricetype_filter: getPriceRanges,
-        // }
-    ));
+        dispatch(fetchCateringSearchCards());
     }, [getOccasionTypes, getCuisines, getServiceTypes, getServingTypes, getFoodTypes, getPriceRanges, people, locationValuesGlobal, dispatch])
 
 
@@ -140,7 +129,7 @@ const Filters = ({
                             getPriceRanges?.map((price) => (
                                 <Stack className='text-muted' key={price?.id} direction="row" alignItems="center" sx={{ marginLeft: '-10px', marginTop: '5px' }}>
                                     <Checkbox {...label} size="small" className='checkbox-color'
-                                        checked={price.selectedweb === 1}
+                                        checked={price.selected === 1}
                                         onChange={() => onHandlePriceRanges(price)}
                                     />
                                     <span className='checkbox-text'>{`Rs. ${price?.start_price} - Rs. ${price?.end_price}`}</span>
@@ -161,7 +150,7 @@ const Filters = ({
                                     <Stack className='text-muted' direction="row" alignItems="center" sx={{ marginLeft: '-10px', marginTop: '5px' }} key={foodType?.id}>
                                         <Checkbox {...label}
                                             size="small" className='checkbox-color'
-                                            checked={foodType?.selectedweb === 1} onChange={() => onHandleFoodFilter(foodType)} />
+                                            checked={foodType?.selected === 1} onChange={() => onHandleFoodFilter(foodType)} />
                                         <span className='checkbox-text'>{foodType?.name}</span>
                                     </Stack>
                                 )
@@ -216,7 +205,7 @@ const Filters = ({
                                             >
                                                 <Stack className='text-muted' direction="row" alignItems="center" sx={{ marginLeft: '-10px' }}>
                                                     <Checkbox {...label} size="small" className='m-0 checkbox-color'
-                                                        checked={getCuisine.selectedweb === 1}
+                                                        checked={getCuisine.selected === 1}
                                                         onChange={() => onHandleCuisineFilter(getCuisine.id, true)} />
                                                     <span className='checkbox-text'>{getCuisine?.name}</span>
                                                 </Stack>
@@ -225,7 +214,7 @@ const Filters = ({
                                                 {getCuisine?.children?.map((child) => {
                                                     return (
                                                         <Stack className='text-muted' direction="row" alignItems="center" key={child?.id}>
-                                                            <Checkbox {...label} size="small" className='checkbox-color' checked={child?.selectedweb === 1}
+                                                            <Checkbox {...label} size="small" className='checkbox-color' checked={child?.selected === 1}
                                                                 onChange={() => onHandleCuisineFilter(child.id, false)} />
                                                             <span className='checkbox-text'>{child?.name}</span>
                                                         </Stack>
@@ -253,7 +242,7 @@ const Filters = ({
                                             {...label}
                                             size="small"
                                             className='checkbox-color'
-                                            checked={getOccasionType?.selectedweb === 1}
+                                            checked={getOccasionType?.selected === 1}
                                             onChange={() => onHandleSelectOccasion(getOccasionType)}
                                         />
                                         <span className='checkbox-text'>{getOccasionType?.occasion_name}</span>
@@ -278,7 +267,7 @@ const Filters = ({
                                         <Checkbox {...label}
                                             size="small"
                                             className='checkbox-color'
-                                            checked={getServiceType?.selectedweb === 1}
+                                            checked={getServiceType?.selected === 1}
                                             onChange={() => onHandleServiceFilter(getServiceType)}
                                         />
                                         <span className='checkbox-text'>{getServiceType?.name}</span>
@@ -302,7 +291,7 @@ const Filters = ({
                                         <Checkbox {...label}
                                             size="small"
                                             className='checkbox-color'
-                                            checked={getServingType?.selectedweb === 1}
+                                            checked={getServingType?.selected === 1}
                                             onChange={() => onHandleServingFilter(getServingType)}
                                         />
                                         <span className='checkbox-text'>{getServingType?.name}</span>
