@@ -20,8 +20,6 @@ const ReactSelectRed = ({ text1, onChange }) => {
     onChange(selectedOption);
   };
 
-  console.log(getAllSortOrders, "getAllSortOrders");
-
   return (
     <Select
       className='mt-3'

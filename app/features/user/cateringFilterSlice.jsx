@@ -17,6 +17,7 @@ const initialState = {
     occasionCount: 5,
     cateringSortBy: [],
     getAllSortOrders: [],
+    subscriptionTypes: [],
     // Global Nav 
     startDate: new Date(),
     endDate: new Date(),
@@ -143,6 +144,23 @@ export const fetchGetAllSortOrders = createAsyncThunk(
     }
 )
 
+export const fetchGetAllSubscriptionTypes = createAsyncThunk(
+    'user/fetchGetAllSubscriptionTypes',
+    async (user, thunkAPI) => {
+        try {
+            const response = await api.get(`${BASE_URL}/user-get-subscription-types?current_page=1&limit=2`, {
+                headers: {
+                    authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
+                },
+            });
+            console.log(response, "response response response response");
+            return response?.data?.subscription_types;
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error.response.data.msg);
+        }
+    }
+)
+
 export const fetchCateringSearchCards = createAsyncThunk(
     'user/fetchCateringSearchCards',
     async (data, thunkAPI) => {
@@ -158,6 +176,7 @@ export const fetchCateringSearchCards = createAsyncThunk(
         const getOccasionCateringTypes = thunkAPI.getState().cateringFilter?.getOccasionCateringTypes;
         const people = thunkAPI.getState().cateringFilter?.people;
         const locationValuesGlobal = thunkAPI.getState().cateringFilter?.locationValuesGlobal;
+        const subscriptionTypes = thunkAPI.getState().cateringFilter?.subscriptionTypes;
         
         // console.log(cateringSortBy, "cateringSortBy ppppppppppppppppppppppppp");
         // console.log(data, "data22334455");
@@ -199,6 +218,12 @@ export const fetchCateringSearchCards = createAsyncThunk(
             selected: foodType.selected
         }))
 
+        // subscription_Types_formatted 
+        const subscriptionTypes_formatted = subscriptionTypes.map(subscriptionType => ({
+            id: subscriptionType.id,
+            selected: subscriptionType.selected
+        }))
+
         // pricetype_filter_formatted 
         const selectedPriceRanges = getCateringPriceRanges?.filter(price => price?.selected === 1);
         const updatedPriceTypes_formatted = selectedPriceRanges.map(price => {
@@ -208,7 +233,7 @@ export const fetchCateringSearchCards = createAsyncThunk(
         // &cuisines_filter=${JSON.stringify(cuisinetype_filter_Data)} 
 
         try {
-            const response = await api.get(`${BASE_URL}/search-vendors?search_term=${people}&order_by=distance&limit=100&current_page=1&save_filter=1&vendor_type=Caterer&app_type=web&service_types_filter=${JSON.stringify(service_filter_formatted)}&order_by_filter=${cateringSortBy_filter}&serving_types_filter=${JSON.stringify(serving_filter_formatted)}&occasions_filter=${JSON.stringify(occasions_filter_formatted)}&price_ranges=${JSON.stringify(updatedPriceTypes_formatted)}&food_types_filter=${JSON.stringify(foodtype_filter_formatted)}&cuisines_filter=${JSON.stringify(cuisinetype_filter_Data)}&latitude=${locationValuesGlobal?.latitude || ""}&longitude=${locationValuesGlobal?.longitude || ""}&city=${locationValuesGlobal?.city?.long_name || ""}&pincode=${locationValuesGlobal?.pincode || ""}&place_id=${locationValuesGlobal?.place_id || ''}&start_date=${moment(startDate).format('YYYY-MM-DD')}&end_date=${moment(endDate).format('YYYY-MM-DD')}&save_filter=1`, {
+            const response = await api.get(`${BASE_URL}/search-vendors?search_term=${people}&order_by=distance&limit=100&current_page=1&save_filter=1&vendor_type=Caterer&app_type=web&service_types_filter=${JSON.stringify(service_filter_formatted)}&order_by_filter=${cateringSortBy_filter}&serving_types_filter=${JSON.stringify(serving_filter_formatted)}&subscription_types_filter=${JSON.stringify(subscriptionTypes_formatted)}&occasions_filter=${JSON.stringify(occasions_filter_formatted)}&price_ranges=${JSON.stringify(updatedPriceTypes_formatted)}&food_types_filter=${JSON.stringify(foodtype_filter_formatted)}&cuisines_filter=${JSON.stringify(cuisinetype_filter_Data)}&latitude=${locationValuesGlobal?.latitude || ""}&longitude=${locationValuesGlobal?.longitude || ""}&city=${locationValuesGlobal?.city?.long_name || ""}&pincode=${locationValuesGlobal?.pincode || ""}&place_id=${locationValuesGlobal?.place_id || ''}&start_date=${moment(startDate).format('YYYY-MM-DD')}&end_date=${moment(endDate).format('YYYY-MM-DD')}&save_filter=1`, {
                 headers: {
                     authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
                 },
@@ -345,6 +370,17 @@ export const cateringFilterSlice = createSlice({
 
             state.getCateringPriceRanges = updatedPriceRanges;
         },
+        setSubscriptionFilter: (state, action) => {
+            const updatedSubscriptionFilter = state.subscriptionTypes.map((subscription) => {
+                if (subscription.id === action.payload) {
+                    return { ...subscription, selected: subscription.selected === 1 ? 0 : 1 }
+                } else {
+                    return subscription;
+                }
+            })
+
+            state.subscriptionTypes = updatedSubscriptionFilter;
+        },
         setCateringSort: (state, action) => {
             state.cateringSortBy = action.payload;
         }
@@ -446,13 +482,23 @@ export const cateringFilterSlice = createSlice({
             })
             .addCase(fetchGetAllSortOrders.rejected, (state, { payload }) => {
                 state.isLoading = false;
-                // toast.error(datavalidationerror(payload));
+            })
+            // fetchGetAllSubscriptionTypes 
+            .addCase(fetchGetAllSubscriptionTypes.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(fetchGetAllSubscriptionTypes.fulfilled, (state, { payload }) => {
+                state.isLoading = false;
+                state.subscriptionTypes = payload;
+            })
+            .addCase(fetchGetAllSubscriptionTypes.rejected, (state, { payload }) => {
+                state.isLoading = false;
             })
             
     }
 })
 
 // Action creators are generated for each case reducer function
-export const { resetFilters, setShowAllOccasions, getAllSortOrders, setPeople, people, setOccasionTypes, setSelectedLocation, setManualLocation, setLocationPlaceId, setlLocationValuesGlobal, locationPlaceId, manualLocation, selectedLocation, setStartDate, setEndDate, setDateRange, setServiceTypesFilter, setServingTypesFilter, servingFilters, setFoodTypeFilter, foodtypeFilters, setPriceTypeFilter, setCuisineTypeFilter, setCateringSort } = cateringFilterSlice.actions
+export const { resetFilters, setShowAllOccasions, getAllSortOrders, subscriptionTypes, setPeople, people, setOccasionTypes, setSelectedLocation, setManualLocation, setLocationPlaceId, setlLocationValuesGlobal, locationPlaceId, manualLocation, selectedLocation, setStartDate, setEndDate, setDateRange, setServiceTypesFilter, setServingTypesFilter, servingFilters, setFoodTypeFilter, foodtypeFilters, setPriceTypeFilter, setCuisineTypeFilter, setCateringSort, setSubscriptionFilter } = cateringFilterSlice.actions
 
 export default cateringFilterSlice.reducer
