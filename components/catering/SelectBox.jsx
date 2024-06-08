@@ -22,9 +22,9 @@ const SelectBox = () => {
     };
 
 
-    useEffect(() => {
-        dispatch(fetchCateringSearchCards())
-    }, [cateringSortBy, subscriptionTypes])
+    // useEffect(() => {
+        // dispatch(fetchCateringSearchCards())
+    // }, [cateringSortBy, subscriptionTypes])
 
     useEffect(() => {
         dispatch(fetchGetAllSubscriptionTypes())

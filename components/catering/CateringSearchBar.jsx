@@ -96,7 +96,7 @@ const CateringSearchBar = () => {
             // foodtype_filter: getCateringFoodTypes,
             // pricetype_filter: getCateringPriceRanges
         // }
-        dispatch(fetchCateringSearchCards())
+        // dispatch(fetchCateringSearchCards())
         router.push('/catering-search')
     }
 

@@ -18,6 +18,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCateringSearchCards, setCuisineTypeFilter, setFoodTypeFilter, setFoodTypeFilters, setOccasionFilters, setOccasionTypes, setPriceTypeFilter, setPriceTypeFilters, setServiceFilters, setServiceTypesFilter, setServingFilters, setServingTypesFilter, setShowAllOccasions } from '@/app/features/user/cateringFilterSlice';
 import FilterSkeleton from '../FilterSkeleton';
+import { selectCateringFilter } from '@/hooks/selectCateringFilter';
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 const CssTextField = styled(TextField)(({ theme }) => ({
     '& .MuiOutlinedInput-root': {
@@ -61,10 +62,16 @@ const Filters = ({
         dispatch(setShowAllOccasions(occationsCount));
         dispatch(fetchOccasionCateringTypes(occationsCount));
     }
+    const filterState = useSelector(selectCateringFilter);
 
-    useEffect(() => {
+   useEffect(() => {
         dispatch(fetchCateringSearchCards());
-    }, [getOccasionTypes, getCuisines, getServiceTypes, getServingTypes, getFoodTypes, getPriceRanges, people, locationValuesGlobal, dispatch])
+    }, [JSON.stringify(filterState), dispatch]);
+
+
+    // useEffect(() => {
+    //     dispatch(fetchCateringSearchCards()); 
+    // }, [getOccasionTypes, getCuisines, getServiceTypes, getServingTypes, getFoodTypes, getPriceRanges, people, locationValuesGlobal, dispatch])
 
 
     // onHandleSelectOccasion 
