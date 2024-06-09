@@ -1,6 +1,5 @@
 import React, { memo, useEffect } from 'react'
-import Select, { components } from 'react-select';
-import SearchIcon from '@mui/icons-material/Search';
+import Select from 'react-select';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchGetAllSortOrders } from '@/app/features/user/cateringFilterSlice';
 

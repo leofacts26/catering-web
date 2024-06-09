@@ -1,26 +1,23 @@
-import React from 'react'
-import Select, { components } from 'react-select';
-import SearchIcon from '@mui/icons-material/Search';
+import React, { useEffect } from 'react'
+import Select from 'react-select';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchGetAllSortOrders } from '@/app/features/user/cateringFilterSlice';
 
-const names = [
-  'Price Low to High',
-  'Price High to Low',
-  'A - Z',
-  'Z - A',
-];
+const ReactSelectTiffin = ({ text1, onChange }) => {
 
+  const { isLoading, getAllSortOrders } = useSelector((state) => state.cateringFilter)
+  const dispatch = useDispatch();
 
-// const DropdownIndicator = (props) => {
-//     return (
-//       <components.DropdownIndicator {...props}>
-//         <SearchIcon />
-//       </components.DropdownIndicator>
-//     );
-//   };
+  useEffect(() => {
+    dispatch(fetchGetAllSortOrders())
+  }, [])
 
+  const options = getAllSortOrders.map((name) => ({ value: name.sort_text, label: name.name }));
 
-const ReactSelectTiffin = ({ text1 }) => {
-  const options = names.map((name) => ({ value: name, label: name }));
+  const handleChange = (selectedOption) => {
+    onChange(selectedOption);
+  };
+
   return (
     <Select
       className='mt-3'
@@ -28,7 +25,7 @@ const ReactSelectTiffin = ({ text1 }) => {
       isSearchable
       // isMulti
       placeholder={text1}
-      // components={{ DropdownIndicator }}
+      onChange={handleChange}
       styles={{
         control: (baseStyles, { isFocused }) => ({
           ...baseStyles,

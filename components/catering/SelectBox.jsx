@@ -49,7 +49,6 @@ const SelectBox = () => {
                 <Stack direction="row" alignItems="center" flexWrap="wrap" spacing={2} style={{ marginTop: '15px' }}>
                     {
                         subscriptionTypes?.map((subscriptionType) => {
-                            console.log(subscriptionType, "subscriptionType");
                             return (
                                 <Button size="small" className={`btn-pill ${subscriptionType.selected === 1 && 'btn-pill-active'}`} key={subscriptionType?.id}
                                     onClick={() => onHandlesubscriptionTypes(subscriptionType?.id)}

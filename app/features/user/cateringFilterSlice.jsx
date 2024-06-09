@@ -170,7 +170,6 @@ export const fetchGetAllSubscriptionTypes = createAsyncThunk(
                     authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
                 },
             });
-            console.log(response, "response response response response");
             return response?.data?.subscription_types;
         } catch (error) {
             return thunkAPI.rejectWithValue(error.response.data.msg);

@@ -102,6 +102,8 @@ export const fetchtiffinSearchCards = createAsyncThunk(
         const endDate = thunkAPI.getState().cateringFilter?.endDate;
         const people = thunkAPI.getState().cateringFilter?.people;
         const locationValuesGlobal = thunkAPI.getState().cateringFilter?.locationValuesGlobal;
+        const subscriptionTypes = thunkAPI.getState().cateringFilter?.subscriptionTypes;
+        const cateringSortBy = thunkAPI.getState().cateringFilter?.cateringSortBy;
         const getTiffinPriceRanges = thunkAPI.getState().tiffinFilter?.getTiffinPriceRanges;
         const getTiffinFoodTypes = thunkAPI.getState().tiffinFilter?.getTiffinFoodTypes;
         const getTiffinMealTypes = thunkAPI.getState().tiffinFilter?.getTiffinMealTypes;
@@ -139,8 +141,17 @@ export const fetchtiffinSearchCards = createAsyncThunk(
             selected: kitchenType.selected
         }))
 
+         // subscription_Types_formatted 
+         const subscriptionTypes_formatted = subscriptionTypes.map(subscriptionType => ({
+            subscription_type_id: subscriptionType.id,
+            selected: subscriptionType.selected
+        }))
 
-        console.log({ startDate, endDate, people, locationValuesGlobal, updatedPriceTypes_formatted, foodtype_filter_formatted, mealtype_filter_formatted, servicetype_filter_formatted, kitchentype_filter_formatted }, "startDate, endDate, people, locationValuesGlobal");
+          // cateringSortBy_filter
+          const cateringSortBy_filter = JSON.stringify(cateringSortBy)
+
+
+        console.log({ startDate, endDate, people, locationValuesGlobal, updatedPriceTypes_formatted, foodtype_filter_formatted, mealtype_filter_formatted, servicetype_filter_formatted, kitchentype_filter_formatted, subscriptionTypes_formatted, cateringSortBy_filter }, "startDate, endDate, people, locationValuesGlobal");
 
         // try {
         //     const response = await api.get(`${BASE_URL}/search-vendors?search_term=${people}&order_by=distance&limit=7&current_page=1&save_filter=1&vendor_type=Caterer&app_type=web&service_types_filter=${JSON.stringify(service_filter_formatted)}&order_by_filter=${cateringSortBy_filter}&serving_types_filter=${JSON.stringify(serving_filter_formatted)}&subscription_types_filter=${JSON.stringify(subscriptionTypes_formatted)}&occasions_filter=${JSON.stringify(occasions_filter_formatted)}&price_ranges=${JSON.stringify(updatedPriceTypes_formatted)}&food_types_filter=${JSON.stringify(foodtype_filter_formatted)}&cuisines_filter=${JSON.stringify(cuisinetype_filter_Data)}&latitude=${locationValuesGlobal?.latitude || ""}&longitude=${locationValuesGlobal?.longitude || ""}&city=${locationValuesGlobal?.city?.long_name || ""}&pincode=${locationValuesGlobal?.pincode || ""}&place_id=${locationValuesGlobal?.place_id || ''}&start_date=${moment(startDate).format('YYYY-MM-DD')}&end_date=${moment(endDate).format('YYYY-MM-DD')}&save_filter=1`, {
