@@ -74,15 +74,15 @@ const page = () => {
 
               <TiffinSelectBox />
 
-              {/* {checked ? <ListViewTiffin /> : <GridViewTiffin />} */}
+              {checked ? <ListViewTiffin /> : <GridViewTiffin />}
             </Grid>
           </Grid>
         </Box>
       </Container>
 
 
-      {/* <Subscribe />
-      <Footer /> */}
+      <Subscribe />
+      <Footer />
     </>
   )
 }
