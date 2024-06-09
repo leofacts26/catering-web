@@ -15,6 +15,7 @@ import useGetLocationResults from '@/hooks/catering/useGetLocationResults';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCateringSearchCards, setManualLocation, setPeople, setSelectedLocation } from '@/app/features/user/cateringFilterSlice';
 import { useRouter } from 'next/navigation'
+import useDebounce from '@/hooks/useDebounce';
 
 
 const CssTextField = styled(TextField)(({ theme }) => ({
@@ -70,32 +71,24 @@ const CssTextFieldRadius = styled(TextField)(({ theme }) => ({
 const CateringSearchBar = () => {
     const { isPlacePredictionsLoading, placePredictions, getPlacePredictions, selectLocation } = useGetLocationResults()
 
-    const { getOccasionCateringTypes, getCateringCuisines, getCateringServiceTypes, getCateringServingTypes, getCateringFoodTypes, locationValuesGlobal, manualLocation, selectedLocation, isLoading, getCateringPriceRanges } = useSelector((state) => state.cateringFilter);
+    const { manualLocation, selectedLocation, isLoading } = useSelector((state) => state.cateringFilter);
     // const { startDate, endDate } = useSelector((state) => state.cateringFilter);
 
     const [isAdornmentClicked, setIsAdornmentClicked] = useState(false);
-
+    
     const dispatch = useDispatch();
     const people = useSelector(state => state.cateringFilter.people);
+    const [localPeople, setLocalPeople] = useState(people);
 
     const handlePeopleChange = (e) => {
-        dispatch(setPeople(e.target.value));
+        setLocalPeople(e.target.value);
     };
 
     const router = useRouter()
 
     const onHandleSubmit = (event) => {
         event.preventDefault();
-        // const data = {
-            // locationValuesGlobal,
-            // people,
-            // occasions_filter: getOccasionCateringTypes,
-            // cuisine_filter: getCateringCuisines,
-            // service_filter: getCateringServiceTypes,
-            // serving_filter: getCateringServingTypes,
-            // foodtype_filter: getCateringFoodTypes,
-            // pricetype_filter: getCateringPriceRanges
-        // }
+        dispatch(setPeople(localPeople));
         dispatch(fetchCateringSearchCards())
         router.push('/catering-search')
     }
@@ -146,12 +139,11 @@ const CateringSearchBar = () => {
                     <div className="three w-100">
                         <CssTextField
                             required
-                            value={people}
+                            value={localPeople}
                             onChange={handlePeopleChange}
                             id="outlined-number"
                             placeholder="How many people attending?"
                             variant="outlined"
-                            // label="How many people attending?"
                             className='mt-0'
                             style={{ width: '100%' }}
                             InputLabelProps={{

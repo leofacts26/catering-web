@@ -1857,6 +1857,7 @@ h6 {
   padding: 2px 10px !important;
   text-transform: capitalize !important;
   font-size: 12px;
+  color: var(--secondarytext) !important;
 }
 
 .btn-pill-active {

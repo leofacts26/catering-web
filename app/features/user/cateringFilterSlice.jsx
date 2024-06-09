@@ -237,7 +237,7 @@ export const fetchCateringSearchCards = createAsyncThunk(
 
         // subscription_Types_formatted 
         const subscriptionTypes_formatted = subscriptionTypes.map(subscriptionType => ({
-            id: subscriptionType.id,
+            subscription_type_id: subscriptionType.id,
             selected: subscriptionType.selected
         }))
 
