@@ -1,29 +1,49 @@
-import React from 'react'
+"use client"
+import React, { useEffect } from 'react'
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import explorecaters from '../../data/explorecaterers.json'
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchHomepageOccasions } from '@/app/features/user/homeSlice';
+import ExploreCaterersShimmer from '../shimmer/ExploreCaterersShimmer';
 
 
 const ExploreCaters = () => {
+
+    const { getAllCities, isLoading } = useSelector((state) => state.homepage)
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(fetchHomepageOccasions())
+    }, [])
+
+    console.log(getAllCities, "getAllCities");
+
     return (
         <>
+
             <Container maxWidth="lg">
-                <Box sx={{ flexGrow: 1 }} className="mb-4"  style={{marginTop: '20px'}}>
+                <Box sx={{ flexGrow: 1 }} className="mb-4" style={{ marginTop: '20px' }}>
                     <Grid container spacing={2}>
-                        {explorecaters.map((explorecater) => (
-                            <Grid item xs={12} sm={6} md={4} lg={4} xl={4} key={explorecater.id}>
-                                <Box sx={{ position: 'relative' }} className="image-shadow explore-caters-box">
-                                    <img src={explorecater.url} alt="" className="img-fluid w-100 explore-caters-img" />
-                                    <Box sx={{ position: 'absolute', top: '4%', right: '4%' }}>
-                                        <h4 className='explore-caters-heading'>{explorecater.name}</h4>
+                        {isLoading ? (
+                            <ExploreCaterersShimmer count={6} />
+                        ) : (
+                            getAllCities?.map((explorecater) => (
+                                <Grid item xs={12} sm={6} md={4} lg={4} xl={4} key={explorecater?.city_id}>
+                                    <Box sx={{ position: 'relative' }} className="image-shadow explore-caters-box">
+                                        <div className="explore-shadow"></div>
+                                        <img src={explorecater?.file_name?.original ? explorecater?.file_name?.original : '/img/no-image.jpg'} alt={explorecater?.city_name} className="img-fluid w-100 explore-caters-img" />
+                                        <Box sx={{ position: 'absolute', top: '4%', right: '4%' }}>
+                                            <h4 className='explore-caters-heading'>{explorecater?.city_name}</h4>
+                                        </Box>
                                     </Box>
-                                </Box>
-                            </Grid>
-                        ))}
+                                </Grid>
+                            ))
+                        )}
                     </Grid>
                 </Box>
-            </Container >
+            </Container>
         </>
     )
 }

@@ -2,7 +2,7 @@
 import { Stack, Button } from '@mui/material';
 import ReactSelectRed from "./ReactSelectRed";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCateringSearchCards, fetchGetAllSubscriptionTypes, setCateringSort, setSubscriptionFilter } from "@/app/features/user/cateringFilterSlice";
+import { clearFilters, fetchCateringSearchCards, fetchGetAllSubscriptionTypes, setCateringSort, setSubscriptionFilter } from "@/app/features/user/cateringFilterSlice";
 import { memo, useEffect } from 'react';
 
 
@@ -23,7 +23,7 @@ const SelectBox = () => {
 
 
     // useEffect(() => {
-        // dispatch(fetchCateringSearchCards())
+    // dispatch(fetchCateringSearchCards())
     // }, [cateringSortBy, subscriptionTypes])
 
     useEffect(() => {
@@ -35,7 +35,12 @@ const SelectBox = () => {
         dispatch(setSubscriptionFilter(id))
     }
 
-    console.log(subscriptionTypes, "subscriptionTypes");
+    // console.log(subscriptionTypes, "subscriptionTypes");
+
+    // const onHandleclearFilters = () => {
+    //     dispatch(clearFilters())
+    // }
+
 
     return (
         <>
@@ -46,11 +51,12 @@ const SelectBox = () => {
                         subscriptionTypes?.map((subscriptionType) => {
                             return (
                                 <Button size="small" className={'btn-pill btn-pill-active'} key={subscriptionType?.id}
-                                onClick={()=> onHandlesubscriptionTypes(subscriptionType?.id)}
+                                    onClick={() => onHandlesubscriptionTypes(subscriptionType?.id)}
                                 >{subscriptionType?.name}</Button>
                             )
                         })
                     }
+                    {/* <button onClick={() => onHandleclearFilters()} style={{ cursor: 'pointer' }}>clear filters</button> */}
                     {/* <Button size="small" className="btn-pill" style={{ color: '#726e6e', fontSize: '12px' }}>Branded Caterers</Button>
                     <Button size="small" className="btn-pill" style={{ color: '#726e6e', fontSize: '12px' }}>Popular Caterers</Button> */}
                 </Stack>

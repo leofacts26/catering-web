@@ -1,5 +1,5 @@
 import { api, BASE_URL } from '@/api/apiConfig';
-import { datavalidationerror } from '@/utils';
+import { datavalidationerror, successToast } from '@/utils';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import toast from 'react-hot-toast';
 import moment from 'moment';
@@ -30,6 +30,23 @@ const initialState = {
     // left filters  
     // selectedPriceRanges: [],
 }
+
+export const clearFilters = createAsyncThunk(
+    'user/clearFilters',
+    async (user, thunkAPI) => {
+        try {
+           const response =  await api.post(`${BASE_URL}/clear-all-filters-web`, { is_notification_allowed: 1 }, {
+                headers: {
+                    authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
+                },
+            });
+            toast.success(successToast(response))
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error.response.data.msg);
+        }
+    }
+)
+
 
 export const fetchPriceRanges = createAsyncThunk(
     'user/fetchPriceRanges',
@@ -177,13 +194,13 @@ export const fetchCateringSearchCards = createAsyncThunk(
         const people = thunkAPI.getState().cateringFilter?.people;
         const locationValuesGlobal = thunkAPI.getState().cateringFilter?.locationValuesGlobal;
         const subscriptionTypes = thunkAPI.getState().cateringFilter?.subscriptionTypes;
-        
+
         // console.log(cateringSortBy, "cateringSortBy ppppppppppppppppppppppppp");
         // console.log(data, "data22334455");
         // console.log(getCateringPriceRanges, "getCateringPriceRanges");
 
         // cateringSortBy_filter
-        const cateringSortBy_filter = JSON.stringify(cateringSortBy) 
+        const cateringSortBy_filter = JSON.stringify(cateringSortBy)
 
         // occasions_filter_formatted 
         const occasions_filter_formatted_selected = getOccasionCateringTypes?.filter(occasion => occasion?.selected === 1);
@@ -472,8 +489,8 @@ export const cateringFilterSlice = createSlice({
                 state.isLoading = false;
                 // toast.error(datavalidationerror(payload));
             })
-             // fetchGetAllSortOrders
-             .addCase(fetchGetAllSortOrders.pending, (state) => {
+            // fetchGetAllSortOrders
+            .addCase(fetchGetAllSortOrders.pending, (state) => {
                 state.isLoading = true;
             })
             .addCase(fetchGetAllSortOrders.fulfilled, (state, { payload }) => {
@@ -494,7 +511,7 @@ export const cateringFilterSlice = createSlice({
             .addCase(fetchGetAllSubscriptionTypes.rejected, (state, { payload }) => {
                 state.isLoading = false;
             })
-            
+
     }
 })
 

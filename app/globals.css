@@ -948,6 +948,15 @@ h6 {
 
 .explore-caters-box {
   border-radius: var(--radiusTwo) !important;
+  position: relative;
+}
+.explore-shadow{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: block;
+  background-color: #00000031;
+  border-radius: var(--radiusTwo) !important;
 }
 
 /* explore Caters end */
