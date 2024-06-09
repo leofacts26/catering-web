@@ -21,18 +21,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import TiffinFilters from '@/components/tiffin/TiffinFilters';
 
 const page = () => {
-  const { getTiffinPriceRanges, getTiffinFoodTypes, getTiffinMealTypes, getTiffinServiceTypes, getTiffinKitchenTypes, isLoading } = useSelector((state) => state.tiffinFilter)
+  // const { getTiffinPriceRanges, getTiffinFoodTypes, getTiffinMealTypes, getTiffinServiceTypes, getTiffinKitchenTypes, isLoading } = useSelector((state) => state.tiffinFilter)
 
   const [checked, setChecked] = useState(true);
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
 
-  useEffect(() => {
-    dispatch(fetchTiffinPriceRanges());
-    dispatch(fetchTiffinFoodTypes());
-    dispatch(fetchTiffinMealTypes());
-    dispatch(fetchTiffinServiceTypes());
-    dispatch(fetchTiffinKitchenTypes());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(fetchTiffinFoodTypes());
+  //   dispatch(fetchTiffinMealTypes());
+  //   dispatch(fetchTiffinServiceTypes());
+  //   dispatch(fetchTiffinKitchenTypes());
+  // }, []);
 
 
   return (
@@ -60,11 +59,11 @@ const page = () => {
                 </div>
               </div>
               <TiffinFilters
-                getTiffinPriceRanges={getTiffinPriceRanges}
-                getTiffinFoodTypes={getTiffinFoodTypes}
-                getTiffinMealTypes={getTiffinMealTypes}
-                getTiffinServiceTypes={getTiffinServiceTypes}
-                getTiffinKitchenTypes={getTiffinKitchenTypes}
+              // getTiffinPriceRanges={getTiffinPriceRanges}
+              // getTiffinFoodTypes={getTiffinFoodTypes}
+              // getTiffinMealTypes={getTiffinMealTypes}
+              // getTiffinServiceTypes={getTiffinServiceTypes}
+              // getTiffinKitchenTypes={getTiffinKitchenTypes}
               />
             </Grid>
             <Grid item xs={12} md={12} lg={9} xl={9.2}>
@@ -75,15 +74,15 @@ const page = () => {
 
               <TiffinSelectBox />
 
-              {checked ? <ListViewTiffin /> : <GridViewTiffin />}
+              {/* {checked ? <ListViewTiffin /> : <GridViewTiffin />} */}
             </Grid>
           </Grid>
         </Box>
       </Container>
 
 
-      <Subscribe />
-      <Footer />
+      {/* <Subscribe />
+      <Footer /> */}
     </>
   )
 }

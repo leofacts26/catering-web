@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setManualLocation, setPeople, setSelectedLocation } from '@/app/features/user/cateringFilterSlice';
 import { useRouter } from 'next/navigation'
 import DatePickerSearchTiffin from '../search/DatePickerSearchTiffin';
+import { fetchtiffinSearchCards } from '@/app/features/tiffin/tiffinFilterSlice';
 
 
 const CssTextField = styled(TextField)(({ theme }) => ({
@@ -78,20 +79,18 @@ const TiffinSearchBar = () => {
 
     const dispatch = useDispatch();
     const people = useSelector(state => state.cateringFilter.people);
+    const [localPeople, setLocalPeople] = useState(people);
 
     const handlePeopleChange = (e) => {
-        dispatch(setPeople(e.target.value));
+        setLocalPeople(e.target.value);
     };
 
     const router = useRouter()
 
     const onHandleSubmit = (event) => {
         event.preventDefault();
-        const data = {
-            locationValuesGlobal,
-            people
-        }
-        console.log(data, "data");
+        dispatch(setPeople(localPeople));
+        dispatch(fetchtiffinSearchCards())
         router.push('/tiffin-search')
     }
 
@@ -133,7 +132,6 @@ const TiffinSearchBar = () => {
                                 ),
                             }}
                         />
-
                     </div>
                     <div className="w-100">
                     <DatePickerSearchTiffin />
@@ -141,7 +139,7 @@ const TiffinSearchBar = () => {
                     <div className="three w-100">
                         <CssTextField
                             required
-                            value={people}
+                            value={localPeople}
                             onChange={handlePeopleChange}
                             id="outlined-number"
                             placeholder="How many people attending?"
