@@ -1,13 +1,18 @@
 import React, { memo, useEffect } from 'react'
 import Select from 'react-select';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchGetAllSortOrders } from '@/app/features/user/cateringFilterSlice';
+import { fetchCateringSearchCards, fetchGetAllSortOrders } from '@/app/features/user/cateringFilterSlice';
 
 
 
 const ReactSelectRed = ({ text1, onChange }) => {
   const { isLoading, getAllSortOrders } = useSelector((state) => state.cateringFilter)
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchCateringSearchCards());
+}, [dispatch])
+
 
   useEffect(() =>{
     dispatch(fetchGetAllSortOrders())
@@ -17,7 +22,10 @@ const ReactSelectRed = ({ text1, onChange }) => {
 
   const handleChange = (selectedOption) => {
     onChange(selectedOption);
+    dispatch(fetchCateringSearchCards());
   };
+
+
 
   return (
     <Select

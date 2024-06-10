@@ -1,35 +1,30 @@
 "use client"
-import { memo, useState } from 'react';
-import Pagination from '@mui/material/Pagination';
+import React, { memo } from 'react';
 import Stack from '@mui/material/Stack';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import BrunchDiningIcon from '@mui/icons-material/BrunchDining';
-import FastfoodIcon from '@mui/icons-material/Fastfood';
 import Link from 'next/link'
 import ShareIcon from '@mui/icons-material/Share';
-// import useGetPriceRanges from '@/hooks/catering/useGetPriceRanges';
-// import LoadingAnimation from '../LoadingAnimation';
 import ListViewSkeleton from '../ListViewSkeleton ';
+import { useDispatch, useSelector } from 'react-redux';
 
 
-const ListView = ({ loading, getSearchCards }) => {
+const ListView = () => {
 
-    // const { getSearchCards, loading } = useGetPriceRanges();
-    // console.log(getSearchCards, "List View");
+    const { getCateringSearchCards, isLoading } = useSelector((state) => state.cateringFilter)
 
-    if (loading) {
+    if (isLoading) {
         return <>
-            {getSearchCards.length > 0 && getSearchCards?.map((getSearchCard) => (
+            {getCateringSearchCards.length > 0 && getCateringSearchCards?.map((getSearchCard) => (
                 <ListViewSkeleton center />
             ))}
         </>
     }
-    console.log(getSearchCards, "getSearchCards");
+    // console.log(getCateringSearchCards, "getCateringSearchCards");
     return (
         <>
-            {getSearchCards.length > 0 ? (
-                getSearchCards?.map((getSearchCard) => (
+            {getCateringSearchCards.length > 0 ? (
+                getCateringSearchCards?.map((getSearchCard) => (
                     <div className="list-view-card" key={getSearchCard?.id}>
                         <Stack spacing={{ xs: 1, sm: 2, md: 0 }} direction={{ xs: 'column', sm: 'row', md: 'row', lg: "row" }} justifyContent="space-between" flexWrap="wrap">
 
@@ -153,9 +148,9 @@ const ListView = ({ loading, getSearchCards }) => {
             )
             }
 
-            {getSearchCards?.length > 0 && <>
+            {getCateringSearchCards?.length > 0 && <>
                 <Stack direction="row" justifyContent="space-between" style={{ marginBottom: '20px 0px 0px 0px' }} className='mb-5 mt-5'>
-                    <h2 className='pagination-heading'>Chennai: {getSearchCards?.length} Catering service providers found</h2>
+                    <h2 className='pagination-heading'>Chennai: {getCateringSearchCards?.length} Catering service providers found</h2>
                     <p className='pagination-showing'>Showing 20 - 30</p>
                 </Stack>
             </>}
@@ -165,4 +160,4 @@ const ListView = ({ loading, getSearchCards }) => {
     )
 }
 
-export default memo(ListView)
+export default React.memo(ListView)

@@ -5,12 +5,15 @@ import Link from 'next/link'
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import GridViewSkeleton from '../GridViewSkeleton';
 
-const GridViewList = ({ loading, getSearchCards }) => {
+const GridViewList = () => {
 
-    if (loading) {
+    const { getCateringSearchCards, isLoading } = useSelector((state) => state.cateringFilter)
+
+
+    if (isLoading) {
         return (
             <Grid container spacing={2}>
-                {getSearchCards.length > 0 && getSearchCards.map((getSearchCard, index) => (
+                {getCateringSearchCards.length > 0 && getCateringSearchCards.map((getSearchCard, index) => (
                     <GridViewSkeleton key={index} />
                 ))}
             </Grid>
@@ -22,7 +25,7 @@ const GridViewList = ({ loading, getSearchCards }) => {
         <>
             <Box sx={{ flexGrow: 1 }}>
                 <Grid container spacing={2}>
-                    {getSearchCards?.map((getSearchCard) => (
+                    {getCateringSearchCards?.map((getSearchCard) => (
                         <Grid item xs={12} sm={6} md={4} lg={4}>
                             <Link href="/catering-view" className='text-decoration-none'>
                                 <div className="vc-similar-card">

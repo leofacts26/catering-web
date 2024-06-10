@@ -12,31 +12,17 @@ import Button from '@mui/material/Button';
 import Filters from '@/components/catering/Filters';
 import Stack from '@mui/material/Stack';
 import SwitchSearchResult from '@/components/catering/SwitchSearchResult';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import SelectBox from '@/components/catering/SelectBox';
 import ListView from '@/components/catering/ListView';
 import GridViewList from '@/components/catering/GridView';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchCateringCuisines, fetchCateringFoodTypes, fetchCateringSearchCards, fetchCateringServingTypes, fetchOccasionCateringTypes, fetchPriceRanges, fetchServiceTypes } from '@/app/features/user/cateringFilterSlice';
+import { useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
-
 
 const page = () => {
   const [checked, setChecked] = useState(true);
   const router = useRouter()
-
-  const dispatch = useDispatch()
-  const { getCateringPriceRanges, getCateringFoodTypes, getOccasionCateringTypes, getCateringCuisines, getCateringServiceTypes, getCateringServingTypes, getCateringSearchCards, occasionCount, isLoading } = useSelector((state) => state.cateringFilter)
-
-  useEffect(() => {
-    dispatch(fetchPriceRanges());
-    dispatch(fetchCateringFoodTypes());
-    dispatch(fetchOccasionCateringTypes(occasionCount));
-    dispatch(fetchCateringCuisines());
-    dispatch(fetchServiceTypes());
-    dispatch(fetchCateringServingTypes());
-    dispatch(fetchCateringSearchCards());
-  }, []);
+  const { getCateringSearchCards, isLoading } = useSelector((state) => state.cateringFilter)
 
   return (
     <>
@@ -59,40 +45,28 @@ const page = () => {
               <div className="position-relative">
                 <img src="/img/Search-Result-View-Page-Images/01-map.png" alt="" className="img-fluid" style={{ borderRadius: '5px', marginBottom: '4px' }} />
                 <div className="position-absolute map-box">
-                  <Button onClick={()=> router.push('/catering-search/catering-map')} variant="contained" className='show-on-map' sx={{ backgroundColor: '#C33332', fontSize: '10px', '&:hover': { backgroundColor: '#C33332' } }}>Show on map</Button>
+                  <Button onClick={() => router.push('/catering-search/catering-map')} variant="contained" className='show-on-map' sx={{ backgroundColor: '#C33332', fontSize: '10px', '&:hover': { backgroundColor: '#C33332' } }}>Show on map</Button>
                 </div>
               </div>
 
-              <Filters
-                getPriceRanges={getCateringPriceRanges}
-                getFoodTypes={getCateringFoodTypes}
-                getOccasionTypes={getOccasionCateringTypes}
-                getCuisines={getCateringCuisines}
-                getServiceTypes={getCateringServiceTypes}
-                getServingTypes={getCateringServingTypes}
-                occationsCount={occasionCount}
-                loading={isLoading}
-                fetchOccasionCateringTypes={fetchOccasionCateringTypes}
-              />
-
+              <Filters />
 
             </Grid>
             <Grid item xs={12} md={12} lg={9} xl={9.2}>
-            {getCateringSearchCards.length > 0 &&  <Stack direction='row' justifyContent="space-between" style={{ margin: '0px 0px 0px 0px' }}>
-             <h2 className='catering-found'>Chennai: {getCateringSearchCards.length} Catering service providers found</h2>
+              {getCateringSearchCards.length > 0 && <Stack direction='row' justifyContent="space-between" style={{ margin: '0px 0px 0px 0px' }}>
+                <h2 className='catering-found'>Chennai: {getCateringSearchCards.length} Catering service providers found</h2>
                 <SwitchSearchResult checked={checked} setChecked={setChecked} />
               </Stack>
-              } 
+              }
 
               <SelectBox />
 
-              {checked ? <ListView loading={isLoading} getSearchCards={getCateringSearchCards} /> : <GridViewList loading={isLoading} getSearchCards={getCateringSearchCards} />}
+              {checked ? <ListView /> : <GridViewList loading={isLoading} getSearchCards={getCateringSearchCards} />}
             </Grid>
           </Grid>
         </Box>
       </Container>
-
-
+      
       <Subscribe />
       <Footer />
     </>

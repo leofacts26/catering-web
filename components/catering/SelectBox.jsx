@@ -22,9 +22,10 @@ const SelectBox = () => {
     };
 
 
-    // useEffect(() => {
-    // dispatch(fetchCateringSearchCards())
-    // }, [cateringSortBy, subscriptionTypes])
+    
+    useEffect(() => {
+        dispatch(fetchCateringSearchCards());
+    }, [dispatch])
 
     useEffect(() => {
         dispatch(fetchGetAllSubscriptionTypes())
@@ -33,13 +34,8 @@ const SelectBox = () => {
     // onHandlesubscriptionTypes 
     const onHandlesubscriptionTypes = (id) => {
         dispatch(setSubscriptionFilter(id))
+        dispatch(fetchCateringSearchCards());
     }
-
-    // console.log(subscriptionTypes, "subscriptionTypes");
-
-    // const onHandleclearFilters = () => {
-    //     dispatch(clearFilters())
-    // }
 
 
     return (
