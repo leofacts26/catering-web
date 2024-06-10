@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { memo, useCallback, useEffect, useState } from 'react'
 import Checkbox from '@mui/material/Checkbox';
 import Stack from '@mui/material/Stack';
 import FilterSkeleton from '../FilterSkeleton';
@@ -40,19 +40,19 @@ const CaterCuisineFilter = () => {
     const { getCateringCuisines, isLoading } = useSelector((state) => state.cateringFilter)
     const dispatch = useDispatch()
 
-    useEffect(() => {
-        dispatch(fetchCateringSearchCards());
-    }, [dispatch])
+    // useEffect(() => {
+    //     dispatch(fetchCateringSearchCards());
+    // }, [dispatch])
 
     useEffect(() => {
         dispatch(fetchCateringCuisines());
     }, []);
 
     // onHandleCuisineFilter 
-    const onHandleCuisineFilter = (cuisineId, isParent) => {
+    const onHandleCuisineFilter = useCallback((cuisineId, isParent) => {
         dispatch(setCuisineTypeFilter({ cuisineId, isParent }));
         dispatch(fetchCateringSearchCards());
-    }
+    }, [dispatch])
 
     const [searchQuery, setSearchQuery] = useState('');
 
@@ -138,4 +138,4 @@ const CaterCuisineFilter = () => {
     )
 }
 
-export default CaterCuisineFilter
+export default memo(CaterCuisineFilter)

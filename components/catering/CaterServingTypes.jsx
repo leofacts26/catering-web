@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { memo, useCallback, useEffect } from 'react'
 import Checkbox from '@mui/material/Checkbox';
 import Stack from '@mui/material/Stack';
 import FilterSkeleton from '../FilterSkeleton';
@@ -14,19 +14,19 @@ const CaterServingTypes = () => {
     const dispatch = useDispatch()
 
 
-    useEffect(() => {
-        dispatch(fetchCateringSearchCards());
-    }, [dispatch])
-    
+    // useEffect(() => {
+    //     dispatch(fetchCateringSearchCards());
+    // }, [dispatch])
+
     useEffect(() => {
         dispatch(fetchCateringServingTypes());
     }, []);
 
     // onHandleServingFilter 
-    const onHandleServingFilter = (getServingType) => {
+    const onHandleServingFilter = useCallback((getServingType) => {
         dispatch(setServingTypesFilter(getServingType?.id))
         dispatch(fetchCateringSearchCards());
-    }
+    }, [dispatch])
 
     console.log(getCateringServingTypes, "getCateringServingTypes");
 
@@ -56,4 +56,4 @@ const CaterServingTypes = () => {
     )
 }
 
-export default CaterServingTypes
+export default memo(CaterServingTypes)

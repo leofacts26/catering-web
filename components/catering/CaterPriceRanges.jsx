@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { memo, useCallback, useEffect } from 'react'
 import Checkbox from '@mui/material/Checkbox';
 import Stack from '@mui/material/Stack';
 import FilterSkeleton from '../FilterSkeleton';
@@ -17,9 +17,9 @@ const CaterPriceRanges = () => {
     const dispatch = useDispatch()
 
     
-    useEffect(() => {
-        dispatch(fetchCateringSearchCards());
-    }, [dispatch])
+    // useEffect(() => {
+    //     dispatch(fetchCateringSearchCards());
+    // }, [dispatch])
 
   
     console.log(getCateringPriceRanges, "getCateringPriceRanges");
@@ -29,10 +29,10 @@ const CaterPriceRanges = () => {
     }, [dispatch, getCateringPriceRanges.length]);
 
     // handleCheckboxChange 
-    const onHandlePriceRanges = (priceType) => {
+    const onHandlePriceRanges = useCallback((priceType) => {
         dispatch(setPriceTypeFilter(priceType?.id))
         dispatch(fetchCateringSearchCards());
-    };
+    }, [dispatch]);
 
 
     return (
@@ -54,4 +54,4 @@ const CaterPriceRanges = () => {
     )
 }
 
-export default CaterPriceRanges
+export default memo(CaterPriceRanges)

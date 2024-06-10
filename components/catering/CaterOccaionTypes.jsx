@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { memo, useCallback, useEffect, useState } from 'react'
 import Checkbox from '@mui/material/Checkbox';
 import Stack from '@mui/material/Stack';
 import FilterSkeleton from '../FilterSkeleton';
@@ -14,9 +14,9 @@ const CaterOccaionTypes = () => {
     const [occCount, setoccCount] = useState(false)
     const dispatch = useDispatch()
 
-    useEffect(() => {
-        dispatch(fetchCateringSearchCards());
-    }, [dispatch])
+    // useEffect(() => {
+    //     dispatch(fetchCateringSearchCards());
+    // }, [dispatch])
 
     useEffect(() => {
         dispatch(fetchOccasionCateringTypes(occasionCount));
@@ -28,11 +28,11 @@ const CaterOccaionTypes = () => {
         dispatch(fetchCateringSearchCards());
     }
 
-    const onShowAllOccasions = () => {
+    const onShowAllOccasions = useCallback(() => {
         setoccCount(true)
         dispatch(setShowAllOccasions(occasionCount));
         dispatch(fetchOccasionCateringTypes(occasionCount));
-    }
+    }, [dispatch])
 
     return (
         <>
@@ -60,4 +60,4 @@ const CaterOccaionTypes = () => {
     )
 }
 
-export default CaterOccaionTypes
+export default memo(CaterOccaionTypes)
