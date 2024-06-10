@@ -2,7 +2,7 @@ import React, { memo, useCallback, useEffect } from 'react'
 import Checkbox from '@mui/material/Checkbox';
 import Stack from '@mui/material/Stack';
 import FilterSkeleton from '../FilterSkeleton';
-import { fetchCateringSearchCards, fetchCateringServingTypes, fetchPriceRanges, setServiceTypesFilter } from '@/app/features/user/cateringFilterSlice';
+import { fetchCateringSearchCards, fetchServiceTypes, setServiceTypesFilter } from '@/app/features/user/cateringFilterSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
@@ -17,7 +17,7 @@ const CaterServiceTypes = () => {
     // }, [dispatch])
 
     useEffect(() => {
-        dispatch(fetchCateringServingTypes());
+        dispatch(fetchServiceTypes());
     }, []);
 
     // onHandleServiceFilter 

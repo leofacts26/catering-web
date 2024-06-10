@@ -10,6 +10,7 @@ const initialState = {
     loginUserData: null,
     isLoading: false,
     userDetails: null,
+    regData: null,
 }
 
 export const fetchUserData = createAsyncThunk(
@@ -32,6 +33,9 @@ export const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
+        setRegisterData: (state, { payload }) => {
+            state.regData = payload;
+        },
         setData: (state, action) => {
             state.userData = action.payload;
         },
@@ -69,7 +73,7 @@ export const userSlice = createSlice({
 
 
 // Action creators are generated for each case reducer function
-export const { setVendorId, setData, setAccessToken, logoutUser, setLoginUserData } = userSlice.actions
+export const { setVendorId, setData, setAccessToken, logoutUser, setLoginUserData, setRegisterData } = userSlice.actions
 
 export default userSlice.reducer
 

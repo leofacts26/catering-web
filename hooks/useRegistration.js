@@ -7,6 +7,8 @@ import { setAccessToken, setData, setVendorId } from '@/app/features/user/userSl
 import { vendor_type } from '@/constant';
 
 const useRegistration = () => {
+    const { regData } = useSelector((state) => state.user)
+    console.log(regData, "regData");
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
     const [open, setOpen] = useState(false);
@@ -45,7 +47,9 @@ const useRegistration = () => {
         const data = {
             phone_number: user?.phone_number,
             otp_code: otp,
-            vendor_type: vendor_type
+            vendor_type: vendor_type,
+            phone_extension: '+91',
+            name: regData.name
         };
         setLoading(true);
         try {
@@ -54,10 +58,10 @@ const useRegistration = () => {
             dispatch(setAccessToken(response?.data?.data?.token));
             console.log(response, "response");
             toast.success(successToast(response));
-            setLoading(false);  
+            setLoading(false);
             setOtp(['', '', '', '', '', '']);
             setShowOtp(true)
-            if(response.status === 200){
+            if (response.status === 200) {
                 handleClose()
             }
         } catch (error) {
@@ -83,8 +87,8 @@ const useRegistration = () => {
         }
     }
 
-     // registerVendor 
-     const loginVendor = async (loginData, setShowOtp) => {
+    // registerVendor 
+    const loginVendor = async (loginData, setShowOtp) => {
         setLoading(true);
         try {
             const response = await api.post('/login-send-user-otp', loginData);
@@ -98,8 +102,8 @@ const useRegistration = () => {
         }
     };
 
-     // verifyOtp 
-     const verifyLoginOtp = async (otp, loginUserData, setOtp, setShowOtp, handleClose) => {
+    // verifyOtp 
+    const verifyLoginOtp = async (otp, loginUserData, setOtp, setShowOtp, handleClose) => {
         const data = {
             phone_number: loginUserData?.phone_number,
             otp_code: otp,
@@ -111,10 +115,10 @@ const useRegistration = () => {
             dispatch(setAccessToken(response?.data?.data?.token));
             // console.log(response, "response");
             toast.success(successToast(response));
-            setLoading(false);  
+            setLoading(false);
             setOtp(['', '', '', '', '', '']);
             setShowOtp(true)
-            if(response.status === 200){
+            if (response.status === 200) {
                 handleClose()
             }
         } catch (error) {
@@ -124,8 +128,8 @@ const useRegistration = () => {
         }
     };
 
-     // Resend otp 
-     const resendLoginOtp = async (loginUserData) => {
+    // Resend otp 
+    const resendLoginOtp = async (loginUserData) => {
         try {
             const data = {
                 // company_id: loginUserData?.company_id,

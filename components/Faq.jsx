@@ -15,6 +15,8 @@ const Faq = ({ tiffin }) => {
     const { faqs } = useSelector((state) => state.homepage);
     console.log(faqs, "faq");
 
+
+
     useEffect(() => {
         dispatch(fetchFaq())
     }, [dispatch])

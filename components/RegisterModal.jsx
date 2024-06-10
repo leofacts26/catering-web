@@ -15,7 +15,8 @@ import * as Yup from 'yup';
 import useRegistration from '@/hooks/useRegistration';
 import { useEffect, useRef, useState } from 'react';
 import Box from '@mui/material/Box';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setRegisterData } from '@/app/features/user/userSlice';
 
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -184,6 +185,7 @@ const OtpInput = ({ length = 6, user, setShowOtp, handleClose }) => {
 const RegisterModal = () => {
     const { loading, registerVendor, verifyOtp, resendOtp, open, setOpen, handleClickOpen, handleClose } = useRegistration();
 
+    const dispatch = useDispatch();
     const [showOtp, setShowOtp] = useState(true);
     const [minutes, setMinutes] = useState(0);
     const [seconds, setSeconds] = useState(30);
@@ -202,6 +204,7 @@ const RegisterModal = () => {
 
     // onHandleRegisterSubmit 
     const handleSubmit = async (regData, resetForm) => {
+        dispatch(setRegisterData(regData))
         registerVendor(regData, setShowOtp);
         resetForm(initialState);
     }
