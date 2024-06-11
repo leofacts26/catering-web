@@ -25,7 +25,6 @@ const page = () => {
                     </Container>
                 </div>
             </div>
-            <Heading title="Your Recent Searches" />
             <RecentSearchCard />
             <Heading title="Explore Cuisines" subHeading />
             <ExpoloreCuisinesCard />

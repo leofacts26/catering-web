@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Stack from '@mui/material/Stack';
 import Checkbox from '@mui/material/Checkbox';
 import FilterSkeleton from '../FilterSkeleton';
-import { fetchTiffinPriceRanges, setPriceTypeFilter } from '@/app/features/tiffin/tiffinFilterSlice';
+import { fetchTiffinPriceRanges, fetchtiffinSearchCards, setPriceTypeFilter } from '@/app/features/tiffin/tiffinFilterSlice';
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 
@@ -18,15 +18,16 @@ const TiffinPriceRanges = () => {
     }, [dispatch, getTiffinPriceRanges.length]);
 
     // handleCheckboxChange 
-    const onHandlePriceRanges = (priceType) => {
+    const onHandlePriceRanges = useCallback((priceType) => {
         dispatch(setPriceTypeFilter(priceType?.id))
-    };
+        dispatch(fetchtiffinSearchCards())
+    }, [dispatch]);
 
     console.log(getTiffinPriceRanges, "getTiffinPriceRanges");
 
     return (
         <>
-            {getTiffinPriceRanges?.length > 0 ? (
+            {!isLoading ? (
                 getTiffinPriceRanges?.map((price) => (
                     <Stack className='text-muted' key={price?.id} direction="row" alignItems="center" sx={{ marginLeft: '-10px', marginTop: '5px' }}>
                         <Checkbox {...label} size="small" className='checkbox-color'

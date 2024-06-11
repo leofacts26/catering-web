@@ -1,5 +1,4 @@
 "use client"
-
 import Breadcrumb from '@/components/Breadcrumb';
 import Footer from '@/components/Footer';
 import Navbar from '@/components/Navbar'
@@ -8,32 +7,19 @@ import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
-import Filters from '@/components/catering/Filters';
 import Stack from '@mui/material/Stack';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import TiffinSearchBar from '@/components/tiffin/TiffinSearchBar';
 import TiffinSwitchSearchResult from '@/components/tiffin/TiffinSwitchSearchResult';
 import TiffinSelectBox from '@/components/tiffin/TiffinSelectBox';
 import ListViewTiffin from '@/components/tiffin/ListViewTiffin';
 import GridViewTiffin from '@/components/tiffin/GridViewTiffin';
-import { fetchTiffinFoodTypes, fetchTiffinKitchenTypes, fetchTiffinMealTypes, fetchTiffinPriceRanges, fetchTiffinServiceTypes } from '@/app/features/tiffin/tiffinFilterSlice';
-import { useDispatch, useSelector } from 'react-redux';
 import TiffinFilters from '@/components/tiffin/TiffinFilters';
+import { useSelector } from 'react-redux';
 
 const page = () => {
-  // const { getTiffinPriceRanges, getTiffinFoodTypes, getTiffinMealTypes, getTiffinServiceTypes, getTiffinKitchenTypes, isLoading } = useSelector((state) => state.tiffinFilter)
-
+  const { getTiffinSearchCards, isLoading } = useSelector((state) => state.tiffinFilter)
   const [checked, setChecked] = useState(true);
-  // const dispatch = useDispatch()
-
-  // useEffect(() => {
-  //   dispatch(fetchTiffinFoodTypes());
-  //   dispatch(fetchTiffinMealTypes());
-  //   dispatch(fetchTiffinServiceTypes());
-  //   dispatch(fetchTiffinKitchenTypes());
-  // }, []);
-
-
   return (
     <>
       <section className='nav-bg-tiffin'>
@@ -58,19 +44,14 @@ const page = () => {
                   <Button variant="contained" className='show-on-map' sx={{ backgroundColor: '#d9822b', fontSize: '10px', '&:hover': { backgroundColor: '#d9822b' } }}>Show on map</Button>
                 </div>
               </div>
-              <TiffinFilters
-              // getTiffinPriceRanges={getTiffinPriceRanges}
-              // getTiffinFoodTypes={getTiffinFoodTypes}
-              // getTiffinMealTypes={getTiffinMealTypes}
-              // getTiffinServiceTypes={getTiffinServiceTypes}
-              // getTiffinKitchenTypes={getTiffinKitchenTypes}
-              />
+              <TiffinFilters />
             </Grid>
             <Grid item xs={12} md={12} lg={9} xl={9.2}>
-              <Stack direction='row' justifyContent="space-between" style={{ margin: '0px 0px 0px 0px' }}>
-                <h2 className='catering-found'>Chennai: 78 Catering service providers found</h2>
+
+              {getTiffinSearchCards?.length > 0 && <Stack direction='row' justifyContent="space-between" style={{ margin: '0px 0px 0px 0px' }}>
+                <h2 className='catering-found'>Chennai: {`${getTiffinSearchCards.length}`} Tiffin service providers found</h2>
                 <TiffinSwitchSearchResult checked={checked} setChecked={setChecked} />
-              </Stack>
+              </Stack>}
 
               <TiffinSelectBox />
 

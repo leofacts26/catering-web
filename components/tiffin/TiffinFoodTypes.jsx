@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Stack from '@mui/material/Stack';
 import Checkbox from '@mui/material/Checkbox';
 import FilterSkeleton from '../FilterSkeleton';
-import { fetchTiffinFoodTypes, setFoodTypeFilter } from '@/app/features/tiffin/tiffinFilterSlice';
+import { fetchTiffinFoodTypes, fetchtiffinSearchCards, setFoodTypeFilter } from '@/app/features/tiffin/tiffinFilterSlice';
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 
@@ -19,9 +19,10 @@ const TiffinFoodTypes = () => {
     }, [dispatch, getTiffinFoodTypes.length]);
 
     // handleCheckboxChange 
-    const onHandleFoodFilter = (foodType) => {
+    const onHandleFoodFilter = useCallback((foodType) => {
         dispatch(setFoodTypeFilter(foodType?.id))
-    };
+        dispatch(fetchtiffinSearchCards())
+    }, [dispatch]);
 
     console.log(getTiffinFoodTypes, "getTiffinFoodTypes");
 

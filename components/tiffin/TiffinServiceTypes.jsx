@@ -1,5 +1,5 @@
-import { fetchTiffinServiceTypes, setServiceTypeFilter } from '@/app/features/tiffin/tiffinFilterSlice';
-import React, { useEffect } from 'react'
+import { fetchtiffinSearchCards, fetchTiffinServiceTypes, setServiceTypeFilter } from '@/app/features/tiffin/tiffinFilterSlice';
+import React, { useCallback, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import FilterSkeleton from '../FilterSkeleton';
 import Stack from '@mui/material/Stack';
@@ -20,9 +20,10 @@ const TiffinServiceTypes = () => {
     }, [dispatch, getTiffinServiceTypes.length]);
 
     // handleCheckboxChange 
-    const onHandleServiceFilter = (priceType) => {
+    const onHandleServiceFilter = useCallback((priceType) => {
         dispatch(setServiceTypeFilter(priceType?.id))
-    };
+        dispatch(fetchtiffinSearchCards())
+    }, [dispatch]);
 
     console.log(getTiffinServiceTypes, "getTiffinServiceTypes");
 

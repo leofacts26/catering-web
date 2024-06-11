@@ -5,6 +5,7 @@ import { styled } from '@mui/material/styles';
 import ReactSelectTiffin from "./ReactSelectTiffin";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchGetAllSubscriptionTypes, setCateringSort, setSubscriptionFilter } from "@/app/features/user/cateringFilterSlice";
+import { fetchtiffinSearchCards } from "@/app/features/tiffin/tiffinFilterSlice";
 
 
 const TiffinSelectBox = ( ) => {
@@ -29,6 +30,7 @@ const TiffinSelectBox = ( ) => {
     // onHandlesubscriptionTypes 
     const onHandlesubscriptionTypes = (id) => {
         dispatch(setSubscriptionFilter(id))
+        dispatch(fetchtiffinSearchCards())
     }
 
     console.log(subscriptionTypes, "subscriptionTypes");

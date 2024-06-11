@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import Select from 'react-select';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchGetAllSortOrders } from '@/app/features/user/cateringFilterSlice';
+import { fetchtiffinSearchCards } from '@/app/features/tiffin/tiffinFilterSlice';
 
 const ReactSelectTiffin = ({ text1, onChange }) => {
 
@@ -16,6 +17,7 @@ const ReactSelectTiffin = ({ text1, onChange }) => {
 
   const handleChange = (selectedOption) => {
     onChange(selectedOption);
+    dispatch(fetchtiffinSearchCards())
   };
 
   return (

@@ -13,7 +13,7 @@ const CaterPriceRanges = () => {
     // const getCateringPriceRanges = useSelector(makeSelectCateringPriceRanges);
     
     
-    const { getCateringPriceRanges } = useSelector((state) => state.cateringFilter)
+    const { getCateringPriceRanges, isLoading } = useSelector((state) => state.cateringFilter)
     const dispatch = useDispatch()
 
     
