@@ -13,10 +13,11 @@ import LoaderSpinner from '../LoaderSpinner';
 import Card from '@mui/material/Card';
 import useGetLocationResults from '@/hooks/catering/useGetLocationResults';
 import { useDispatch, useSelector } from 'react-redux';
-import { setManualLocation, setPeople, setSelectedLocation } from '@/app/features/user/cateringFilterSlice';
+// import { setManualLocation, setPeople, setSelectedLocation } from '@/app/features/user/cateringFilterSlice';
 import { useRouter } from 'next/navigation'
 import DatePickerSearchTiffin from '../search/DatePickerSearchTiffin';
 import { fetchtiffinSearchCards } from '@/app/features/tiffin/tiffinFilterSlice';
+import { setManualLocation, setPeople, setSelectedLocation } from '@/app/features/user/globalNavSlice';
 
 
 const CssTextField = styled(TextField)(({ theme }) => ({
@@ -72,13 +73,13 @@ const CssTextFieldRadius = styled(TextField)(({ theme }) => ({
 const TiffinSearchBar = () => {
     const { isPlacePredictionsLoading, placePredictions, getPlacePredictions, selectLocation } = useGetLocationResults()
 
-    const { locationValuesGlobal, manualLocation, selectedLocation } = useSelector((state) => state.cateringFilter);
+    const { locationValuesGlobal, manualLocation, selectedLocation } = useSelector((state) => state.globalnavbar);
     // const { startDate, endDate } = useSelector((state) => state.cateringFilter);
 
     const [isAdornmentClicked, setIsAdornmentClicked] = useState(false);
 
     const dispatch = useDispatch();
-    const people = useSelector(state => state.cateringFilter.people);
+    const people = useSelector(state => state.globalnavbar.people);
     const [localPeople, setLocalPeople] = useState(people);
 
     const handlePeopleChange = (e) => {
