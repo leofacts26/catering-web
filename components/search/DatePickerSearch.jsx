@@ -5,13 +5,14 @@ import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday'; // MUI calendar icon
 import { useDispatch, useSelector } from 'react-redux';
-import { setDateRange } from '@/app/features/user/cateringFilterSlice';
+// import { setDateRange } from '@/app/features/user/cateringFilterSlice';
 import moment from 'moment';
+import { setDateRange } from '@/app/features/user/globalNavSlice';
 
 const DatePickerSearch = () => {
     const dispatch = useDispatch();
 
-    const { startDate, endDate } = useSelector((state) => state.cateringFilter);
+    const { startDate, endDate } = useSelector((state) => state.globalnavbar);
 
     const [showPicker, setShowPicker] = useState(false);
     const selectedRange = {

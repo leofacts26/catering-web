@@ -35,7 +35,7 @@ export const clearFilters = createAsyncThunk(
     'user/clearFilters',
     async (user, thunkAPI) => {
         try {
-           const response =  await api.post(`${BASE_URL}/clear-all-filters-web`, { is_notification_allowed: 1 }, {
+            const response = await api.post(`${BASE_URL}/clear-all-filters-web`, { is_notification_allowed: 1 }, {
                 headers: {
                     authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
                 },
@@ -181,8 +181,10 @@ export const fetchCateringSearchCards = createAsyncThunk(
     'user/fetchCateringSearchCards',
     async (data, thunkAPI) => {
         // const { locationValuesGlobal } = data;
-        const startDate = thunkAPI.getState().cateringFilter?.startDate;
-        const endDate = thunkAPI.getState().cateringFilter?.endDate;
+        const startDate = thunkAPI.getState().globalnavbar?.startDate;
+        const endDate = thunkAPI.getState().globalnavbar?.endDate;
+        const people = thunkAPI.getState().globalnavbar?.people;
+        const locationValuesGlobal = thunkAPI.getState().globalnavbar?.locationValuesGlobal;
         const cateringSortBy = thunkAPI.getState().cateringFilter?.cateringSortBy;
         const getCateringPriceRanges = thunkAPI.getState().cateringFilter?.getCateringPriceRanges;
         const getCateringFoodTypes = thunkAPI.getState().cateringFilter?.getCateringFoodTypes;
@@ -190,8 +192,6 @@ export const fetchCateringSearchCards = createAsyncThunk(
         const getCateringServiceTypes = thunkAPI.getState().cateringFilter?.getCateringServiceTypes;
         const getCateringCuisines = thunkAPI.getState().cateringFilter?.getCateringCuisines;
         const getOccasionCateringTypes = thunkAPI.getState().cateringFilter?.getOccasionCateringTypes;
-        const people = thunkAPI.getState().cateringFilter?.people;
-        const locationValuesGlobal = thunkAPI.getState().cateringFilter?.locationValuesGlobal;
         const subscriptionTypes = thunkAPI.getState().cateringFilter?.subscriptionTypes;
 
         // console.log(cateringSortBy, "cateringSortBy ppppppppppppppppppppppppp");
@@ -272,31 +272,31 @@ export const cateringFilterSlice = createSlice({
         setShowAllOccasions: (state, action) => {
             state.occasionCount = action.payload;
         },
-        setPeople: (state, action) => {
-            state.people = action.payload;
-        },
-        setLocationPlaceId(state, action) {
-            state.locationPlaceId = action.payload;
-        },
-        setManualLocation(state, action) {
-            state.manualLocation = action.payload;
-        },
-        setSelectedLocation(state, action) {
-            state.selectedLocation = action.payload;
-        },
-        setlLocationValuesGlobal: (state, action) => {
-            state.locationValuesGlobal = action.payload;
-        },
-        setStartDate(state, action) {
-            state.startDate = action.payload;
-        },
-        setEndDate(state, action) {
-            state.endDate = action.payload;
-        },
-        setDateRange(state, action) {
-            state.startDate = action.payload.startDate;
-            state.endDate = action.payload.endDate;
-        },
+        // setPeople: (state, action) => {
+        //     state.people = action.payload;
+        // },
+        // setLocationPlaceId(state, action) {
+        //     state.locationPlaceId = action.payload;
+        // },
+        // setManualLocation(state, action) {
+        //     state.manualLocation = action.payload;
+        // },
+        // setSelectedLocation(state, action) {
+        //     state.selectedLocation = action.payload;
+        // },
+        // setlLocationValuesGlobal: (state, action) => {
+        //     state.locationValuesGlobal = action.payload;
+        // },
+        // setStartDate(state, action) {
+        //     state.startDate = action.payload;
+        // },
+        // setEndDate(state, action) {
+        //     state.endDate = action.payload;
+        // },
+        // setDateRange(state, action) {
+        //     state.startDate = action.payload.startDate;
+        //     state.endDate = action.payload.endDate;
+        // },
         setCuisineTypeFilter: (state, action) => {
             const { cuisineId, isParent } = action.payload;
             const updatedCuisines = state.getCateringCuisines.map((cuisine) => {
@@ -515,6 +515,36 @@ export const cateringFilterSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { resetFilters, setShowAllOccasions, getAllSortOrders, subscriptionTypes, setPeople, people, setOccasionTypes, setSelectedLocation, setManualLocation, setLocationPlaceId, setlLocationValuesGlobal, locationPlaceId, manualLocation, selectedLocation, setStartDate, setEndDate, setDateRange, setServiceTypesFilter, setServingTypesFilter, servingFilters, setFoodTypeFilter, foodtypeFilters, setPriceTypeFilter, setCuisineTypeFilter, setCateringSort, setSubscriptionFilter } = cateringFilterSlice.actions
+export const {
+    resetFilters,
+    setShowAllOccasions,
+    getAllSortOrders,
+    subscriptionTypes,
+    setOccasionTypes,
+
+    // setPeople,
+    // people,
+    // setSelectedLocation,
+    // setManualLocation,
+    // setLocationPlaceId,
+    // setlLocationValuesGlobal,
+    // locationPlaceId,
+    // manualLocation,
+    // selectedLocation,
+    // setStartDate,
+    // setEndDate,
+    // setDateRange,
+
+
+    setServiceTypesFilter,
+    setServingTypesFilter,
+    servingFilters,
+    setFoodTypeFilter,
+    foodtypeFilters,
+    setPriceTypeFilter,
+    setCuisineTypeFilter,
+    setCateringSort,
+    setSubscriptionFilter
+} = cateringFilterSlice.actions
 
 export default cateringFilterSlice.reducer

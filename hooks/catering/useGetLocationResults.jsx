@@ -1,4 +1,5 @@
-import { setlLocationValuesGlobal, setLocationPlaceId, setManualLocation, setSelectedLocation } from '@/app/features/user/cateringFilterSlice';
+// import { setlLocationValuesGlobal, setLocationPlaceId, setManualLocation, setSelectedLocation } from '@/app/features/user/cateringFilterSlice';
+import { setlLocationValuesGlobal, setLocationPlaceId, setManualLocation, setSelectedLocation } from '@/app/features/user/globalNavSlice';
 import React, { useEffect, useState } from 'react'
 import usePlacesService from "react-google-autocomplete/lib/usePlacesAutocompleteService";
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 const useGetLocationResults = () => {
 
     const dispatch = useDispatch()
-    const { locationValuesGlobal, locationPlaceId, manualLocation, selectedLocation } = useSelector((state) => state.cateringFilter);
+    const { locationValuesGlobal, locationPlaceId, manualLocation, selectedLocation } = useSelector((state) => state.globalnavbar);
 
 
     const {

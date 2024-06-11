@@ -6,6 +6,7 @@ import cateringFilterReducer from './features/user/cateringFilterSlice';
 import tiffinFilterReducer from './features/tiffin/tiffinFilterSlice';
 import homeSliceReducer from './features/user/homeSlice';
 import settingReducer from './features/user/settingSlice';
+import globalNavReducer from './features/user/globalNavSlice';
 
 
 const rootReducer = combineReducers({
@@ -14,12 +15,13 @@ const rootReducer = combineReducers({
   tiffinFilter: tiffinFilterReducer,
   homepage: homeSliceReducer,
   settings: settingReducer,
+  globalnavbar: globalNavReducer,
 });
 
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['user'], // Specify which reducers you want to persist
+  whitelist: ['user', 'globalnavbar'], // Specify which reducers you want to persist
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

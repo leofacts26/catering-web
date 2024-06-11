@@ -13,9 +13,12 @@ import LoaderSpinner from '../LoaderSpinner';
 import Card from '@mui/material/Card';
 import useGetLocationResults from '@/hooks/catering/useGetLocationResults';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchCateringSearchCards, setManualLocation, setPeople, setSelectedLocation } from '@/app/features/user/cateringFilterSlice';
+import { fetchCateringSearchCards, 
+    // setManualLocation, setPeople, setSelectedLocation 
+} from '@/app/features/user/cateringFilterSlice';
 import { useRouter } from 'next/navigation'
-import useDebounce from '@/hooks/useDebounce';
+// import useDebounce from '@/hooks/useDebounce';
+import { setManualLocation, setPeople, setSelectedLocation } from '@/app/features/user/globalNavSlice';
 
 
 const CssTextField = styled(TextField)(({ theme }) => ({
@@ -71,13 +74,12 @@ const CssTextFieldRadius = styled(TextField)(({ theme }) => ({
 const CateringSearchBar = () => {
     const { isPlacePredictionsLoading, placePredictions, getPlacePredictions, selectLocation } = useGetLocationResults()
 
-    const { manualLocation, selectedLocation, isLoading } = useSelector((state) => state.cateringFilter);
-    // const { startDate, endDate } = useSelector((state) => state.cateringFilter);
+    const { manualLocation, selectedLocation, isLoading } = useSelector((state) => state.globalnavbar);
 
     const [isAdornmentClicked, setIsAdornmentClicked] = useState(false);
     
     const dispatch = useDispatch();
-    const people = useSelector(state => state.cateringFilter.people);
+    const people = useSelector(state => state.globalnavbar.people);
     const [localPeople, setLocalPeople] = useState(people);
 
     const handlePeopleChange = (e) => {
