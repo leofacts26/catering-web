@@ -7,13 +7,14 @@ import Stack from '@mui/material/Stack';
 import Link from 'next/link'
 import Divider from '@mui/material/Divider';
 import { useActivePathProfile } from '@/helper';
+import EditIcon from '@mui/icons-material/Edit';
 
 const dataLinks = [
     {
         id: 1,
         name: 'Edit Profile',
         url: '/user-profile',
-        icon: <FavoriteBorderIcon className='user-profile-icon' />
+        icon: <EditIcon className='user-profile-icon' />
     },
     {
         id: 2,
