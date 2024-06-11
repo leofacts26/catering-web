@@ -9,6 +9,8 @@ const initialState = {
     homeOccasions: [],
     getAllCities: [],
     popularCaterer: [],
+    recentSearches: [],
+    brandedList: [],
 }
 
 export const fetchFaq = createAsyncThunk(
@@ -59,11 +61,11 @@ export const fetchAllCities = createAsyncThunk(
     }
 )
 
-export const fetchPopularCaterers = createAsyncThunk(
-    'homepage/fetchPopularCaterers',
+export const fetchRecentSearches = createAsyncThunk(
+    'homepage/fetchRecentSearches',
     async (user, thunkAPI) => {
         try {
-            const response = await api.get(`${BASE_URL}/get-vendors-home-page?vendor_type=Tiffin&subscription_type_id=1`, {
+            const response = await api.get(`${BASE_URL}/get-user-recent-searches?limit=10&current_page=1&vendor_type=Caterer`, {
                 headers: {
                     authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
                 },
@@ -74,6 +76,39 @@ export const fetchPopularCaterers = createAsyncThunk(
         }
     }
 )
+
+export const fetchBrandedCaterers = createAsyncThunk(
+    'homepage/fetchBrandedCaterers',
+    async (user, thunkAPI) => {
+        try {
+            const response = await api.get(`${BASE_URL}/get-vendors-home-page?vendor_type=Caterer&subscription_type_id=3`, {
+                headers: {
+                    authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
+                },
+            });
+            return response?.data?.data;
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error.response.data.msg);
+        }
+    }
+)
+
+export const fetchPopularCaterers = createAsyncThunk(
+    'homepage/fetchPopularCaterers',
+    async (user, thunkAPI) => {
+        try {
+            const response = await api.get(`${BASE_URL}/get-vendors-home-page?vendor_type=Caterer&subscription_type_id=2`, {
+                headers: {
+                    authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
+                },
+            });
+            return response?.data?.data;
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error.response.data.msg);
+        }
+    }
+)
+
 
 export const homeSlice = createSlice({
     name: 'homepage',
@@ -86,7 +121,7 @@ export const homeSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-        // fetchFaq 
+            // fetchFaq 
             .addCase(fetchFaq.pending, (state) => {
                 state.isLoading = true;
             })
@@ -109,7 +144,7 @@ export const homeSlice = createSlice({
             .addCase(fetchHomepageOccasions.rejected, (state, { payload }) => {
                 state.isLoading = false;
                 toast.error(datavalidationerror(payload));
-            }) 
+            })
             // fetchAllCities 
             .addCase(fetchAllCities.pending, (state) => {
                 state.isLoading = true;
@@ -121,7 +156,7 @@ export const homeSlice = createSlice({
             .addCase(fetchAllCities.rejected, (state, { payload }) => {
                 state.isLoading = false;
                 toast.error(datavalidationerror(payload));
-            }) 
+            })
             // fetchPopularCaterers 
             .addCase(fetchPopularCaterers.pending, (state) => {
                 state.isLoading = true;
@@ -133,7 +168,31 @@ export const homeSlice = createSlice({
             .addCase(fetchPopularCaterers.rejected, (state, { payload }) => {
                 state.isLoading = false;
                 toast.error(datavalidationerror(payload));
-            }) 
+            })
+            // fetchRecentSearches 
+            .addCase(fetchRecentSearches.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(fetchRecentSearches.fulfilled, (state, { payload }) => {
+                state.isLoading = false;
+                state.recentSearches = payload;
+            })
+            .addCase(fetchRecentSearches.rejected, (state, { payload }) => {
+                state.isLoading = false;
+                toast.error(datavalidationerror(payload));
+            })
+            // fetchBrandedCaterers 
+            .addCase(fetchBrandedCaterers.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(fetchBrandedCaterers.fulfilled, (state, { payload }) => {
+                state.isLoading = false;
+                state.brandedList = payload;
+            })
+            .addCase(fetchBrandedCaterers.rejected, (state, { payload }) => {
+                state.isLoading = false;
+                toast.error(datavalidationerror(payload));
+            })
     }
 })
 

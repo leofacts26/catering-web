@@ -1,5 +1,5 @@
 "use client"
-import React, { memo } from 'react';
+import React, { memo, useState } from 'react';
 import Stack from '@mui/material/Stack';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -7,11 +7,26 @@ import Link from 'next/link'
 import ShareIcon from '@mui/icons-material/Share';
 import ListViewSkeleton from '../ListViewSkeleton ';
 import { useDispatch, useSelector } from 'react-redux';
+import { addchWishlist } from '@/app/features/user/settingSlice';
 
 
 const ListView = () => {
 
+    const dispatch = useDispatch()
     const { getCateringSearchCards, isLoading } = useSelector((state) => state.cateringFilter)
+
+    const [whishlistStatus, setWhishlistStatus] = useState(0)
+
+
+    const onHandleAddFavourite = (branchId) => {
+        let data = {
+            branchId,
+            whishlistStatus
+        }
+        dispatch(addchWishlist(data))
+        setWhishlistStatus((prevStatus) => (prevStatus === 0 ? 1 : 0));
+    }
+
 
     if (isLoading) {
         return <>
@@ -103,7 +118,8 @@ const ListView = () => {
                             <Stack className="list-card-end" direction="column" justifyContent="space-between">
                                 <div>
                                     <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} className='mb-2'>
-                                        <ShareIcon className='lse-icons' style={{ marginRight: '10px' }} /> <FavoriteBorderIcon className='lse-icons' />
+                                        <ShareIcon className='lse-icons' style={{ marginRight: '10px', cursor: 'pointer' }} />
+                                        <FavoriteBorderIcon style={{ cursor: 'pointer' }} className='lse-icons' onClick={() => onHandleAddFavourite(getSearchCard?.id)} />
                                     </Stack>
                                     <Stack direction="row" alignItems="center" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} style={{ marginTop: '8px' }}>
                                         <span className='cat-red' style={{ fontSize: '14px' }}>

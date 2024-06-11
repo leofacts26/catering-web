@@ -11,13 +11,26 @@ import 'swiper/css';
 import 'swiper/css/free-mode';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-
-
 import { Autoplay, FreeMode, Navigation } from 'swiper/modules';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { fetchBrandedCaterers } from '@/app/features/user/homeSlice';
+import BrandedCaterersShimmer from '../shimmer/BrandedCaterersShimmer';
 
 const BrandedCaters = () => {
+
+  const { brandedList, isLoading } = useSelector((state) => state.homepage)
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(fetchBrandedCaterers())
+  }, [])
+
+  console.log(brandedList, "brandedList 666");
+
   return (
-    <Container maxWidth="lg" className="branded-cater-slider" style={{marginTop: '25px'}}>
+    <Container maxWidth="lg" className="branded-cater-slider" style={{ marginTop: '25px' }}>
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
           <Swiper
@@ -48,19 +61,17 @@ const BrandedCaters = () => {
             }}
 
           >
-            {
-              brandedcaterers.map((brandedcaterer) => (
-                <>
-                  <SwiperSlide>
-                    <CardContent key={brandedcaterer.id} style={{ padding: '10px 20px' }}>
-                      <Stack direction="row" justifyContent="center" className='recent-search-card w-100'>
-                        <img src={brandedcaterer.url} alt="" className="img-fluid explore-cuisine-img" />
-                      </Stack>
-                    </CardContent>
-                  </SwiperSlide>
-                </>
-              ))
-            }
+            {brandedList?.length > 0 && brandedList?.map((brandedcaterer) => (
+              <>
+                <SwiperSlide key={brandedcaterer?.id}>
+                  <CardContent key={brandedcaterer?.id} style={{ padding: '10px 20px' }}>
+                    <Stack direction="row" justifyContent="center" className='recent-search-card w-100'>
+                      <img src={brandedcaterer?.gallery_images['vendor-brand-logo']?.[0]?.image_name[0]?.original ? brandedcaterer?.gallery_images['vendor-brand-logo']?.[0]?.image_name[0]?.original : '/img/no-image.jpg'} alt="" className="img-fluid explore-cuisine-img" />
+                    </Stack>
+                  </CardContent>
+                </SwiperSlide>
+              </>
+            ))}
           </Swiper>
         </Grid>
       </Box>

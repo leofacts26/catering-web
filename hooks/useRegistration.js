@@ -54,7 +54,7 @@ const useRegistration = () => {
         setLoading(true);
         try {
             const response = await api.post('/register-user-verify-otp', data);
-            console.log(response, "response ****000");
+            // console.log(response, "response ****000");
             dispatch(setAccessToken(response?.data?.data?.token));
             console.log(response, "response");
             toast.success(successToast(response));
