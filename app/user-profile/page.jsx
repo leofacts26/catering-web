@@ -30,7 +30,7 @@ const page = () => {
 
     return (
         <>
-            <h2 className="user-profile-title" style={{marginTop: '30px'}}>Edit Profile</h2>
+            <h2 className="user-profile-title" style={{ marginTop: '30px' }}>Edit Profile</h2>
 
             <Grid container spacing={2}>
                 <Grid item xs={6}>
@@ -55,9 +55,9 @@ const page = () => {
                 <Grid item xs={6}>
                     <CssTextField
                         id="outlined-number"
-                        placeholder="Email Address..."
+                        placeholder="Phone Number..."
                         variant="outlined"
-                        label="Email Address..."
+                        label="Phone Number..."
                         className='mt-0'
                         style={{ width: '100%' }}
                         InputLabelProps={{
@@ -73,67 +73,18 @@ const page = () => {
                 </Grid>
             </Grid>
 
-            <div style={{ marginTop: '20px' }}>
-                <Grid container spacing={2}>
-                    <Grid item xs={12} lg={10}>
-                        <CssTextField
-                            id="outlined-number"
-                            placeholder="Phone Number..."
-                            variant="outlined"
-                            label="Phone Number..."
-                            className='mt-0'
-                            style={{ width: '100%' }}
-                            InputLabelProps={{
-                                style: { color: '#777777', fontSize: '14px' },
-                            }}
-                            InputProps={{
-                                style: {
-                                    borderRadius: '8px',
-                                    backgroundColor: '#FFFFFF',
-                                }
-                            }}
-                        />
-                    </Grid>
-                    <Grid item xs={12} lg={2}>
-                        <Stack direction="row" justifyContent="end">
-                            <Button size="small" variant="contained" sx={{
-                                width: 'auto', fontWeight: '600', padding: '10px 30px', fontSize: '16px',
-                                backgroundColor: '#D9822B', borderRadius: '8px', textTransform: 'capitalize',
-                                '&:hover': {
-                                    backgroundColor: '#C33332',
-                                },
-                            }}>
-                                Change
-                            </Button>
-                        </Stack>
-                    </Grid>
-                </Grid>
-            </div>
 
-
-            <div style={{ marginTop: '20px' }}>
-                <Grid container spacing={2}>
-                    <Grid item xs={12} lg={10}>
-                        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                            <textarea placeholder="Write your answer here" rows="20" name="comment[text]" id="comment_text" cols="40"
-                                className="job-textarea" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true"></textarea>
-                        </Box>
-                    </Grid>
-                    <Grid item xs={12} lg={2}>
-                        <Stack direction="row" justifyContent="end" alignItems="center" sx={{height: '100%'}}>
-                            <Button size="small" variant="contained" sx={{
-                                width: 'auto', fontWeight: '600', padding: '10px 30px', fontSize: '16px',
-                                backgroundColor: '#D9822B', borderRadius: '8px', textTransform: 'capitalize',
-                                '&:hover': {
-                                    backgroundColor: '#C33332',
-                                },
-                            }}>
-                               <EditIcon style={{color: '#ffffff', fontSize: '18px', marginRight: '10px'}} /> Edit
-                            </Button>
-                        </Stack>
-                    </Grid>
-                </Grid>
-            </div>
+            <Stack direction="row" justifyContent="end" alignItems="center" className='mt-4'>
+                <Button size="small" variant="contained" sx={{
+                    width: 'auto', fontWeight: '600', padding: '10px 30px', fontSize: '16px',
+                    backgroundColor: '#D9822B', borderRadius: '8px', textTransform: 'capitalize',
+                    '&:hover': {
+                        backgroundColor: '#C33332',
+                    },
+                }}>
+                    Submit
+                </Button>
+            </Stack>
 
 
         </>
