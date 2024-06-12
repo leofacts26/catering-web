@@ -11,6 +11,8 @@ const initialState = {
     popularCaterer: [],
     recentSearches: [],
     brandedList: [],
+    tiffinList: [],
+    popularTiffins: [],
 }
 
 export const fetchFaq = createAsyncThunk(
@@ -94,11 +96,44 @@ export const fetchBrandedCaterers = createAsyncThunk(
     }
 )
 
+export const fetchBrandedTiffins = createAsyncThunk(
+    'homepage/fetchBrandedTiffins',
+    async (data, thunkAPI) => {
+        try {
+            const response = await api.get(`${BASE_URL}/get-vendors-home-page?vendor_type=Tiffin&subscription_type_id=3`, {
+                headers: {
+                    authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
+                },
+            });
+            return response?.data?.data;
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error.response.data.msg);
+        }
+    }
+)
+
 export const fetchPopularCaterers = createAsyncThunk(
     'homepage/fetchPopularCaterers',
     async (user, thunkAPI) => {
         try {
             const response = await api.get(`${BASE_URL}/get-vendors-home-page?vendor_type=Caterer&subscription_type_id=2`, {
+                headers: {
+                    authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
+                },
+            });
+            return response?.data?.data;
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error.response.data.msg);
+        }
+    }
+)
+
+
+export const fetchPopularTiffins = createAsyncThunk(
+    'homepage/fetchPopularTiffins',
+    async (user, thunkAPI) => {
+        try {
+            const response = await api.get(`${BASE_URL}/get-vendors-home-page?vendor_type=Tiffin&subscription_type_id=2`, {
                 headers: {
                     authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
                 },
@@ -191,6 +226,30 @@ export const homeSlice = createSlice({
                 state.brandedList = payload;
             })
             .addCase(fetchBrandedCaterers.rejected, (state, { payload }) => {
+                state.isLoading = false;
+                toast.error(datavalidationerror(payload));
+            })
+            // fetchBrandedTiffins 
+            .addCase(fetchBrandedTiffins.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(fetchBrandedTiffins.fulfilled, (state, { payload }) => {
+                state.isLoading = false;
+                state.tiffinList = payload;
+            })
+            .addCase(fetchBrandedTiffins.rejected, (state, { payload }) => {
+                state.isLoading = false;
+                toast.error(datavalidationerror(payload));
+            })
+            // fetchPopularTiffins 
+            .addCase(fetchPopularTiffins.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(fetchPopularTiffins.fulfilled, (state, { payload }) => {
+                state.isLoading = false;
+                state.popularTiffins = payload;
+            })
+            .addCase(fetchPopularTiffins.rejected, (state, { payload }) => {
                 state.isLoading = false;
                 toast.error(datavalidationerror(payload));
             })

@@ -11,6 +11,7 @@ import PopularCaters from '@/components/cards/PopularCaters';
 import RecentSearchCard from '@/components/cards/RecentSearchCard';
 import Container from '@mui/material/Container';
 import TiffinSearchBar from '@/components/tiffin/TiffinSearchBar';
+import BrandedTiffenCaters from '@/components/cards/BrandedTiffenCaters';
 
 const page = () => {
     return (
@@ -28,13 +29,13 @@ const page = () => {
             <RecentSearchCard />
             <Heading title="Explore Cuisines" subHeading />
             <ExpoloreCuisinesCard />
-            <Heading title="Explore Caterers around INDIA" subHeading />
+            <Heading title="Explore Tiffins around INDIA" subHeading />
             <ExploreCaters />
-            <Heading title="Branded Caterers in Chennai" subHeading />
-            <BrandedCaters />
-            <Heading title="Popular Caterers in Chennai" center subHeading />
+            <Heading title="Branded Tiffins in Chennai" subHeading />
+            <BrandedTiffenCaters />
+            <Heading title="Popular Tiffins in Chennai" center subHeading />
             <PopularCaters />
-            <Heading title="Explore Caterers by Occasions" subHeading />
+            <Heading title="Explore Tiffins by Occasions" subHeading />
             <ExploreCaterersByOccasion />
             <Heading title="FAQ's" center subHeading />
             <Faq tiffin />
