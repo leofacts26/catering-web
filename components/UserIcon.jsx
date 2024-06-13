@@ -44,8 +44,8 @@ const UserIcon = () => {
     const onLogout = () => {
         localStorage.clear();
         dispatch(logoutUser());
-        dispatch(resetFilters());
-        dispatch(clearTiffinSlice());
+        // dispatch(resetFilters());
+        // dispatch(clearTiffinSlice());
         toast.success("Logout Successfull")
         router.push('/catering')
         window.location.reload();

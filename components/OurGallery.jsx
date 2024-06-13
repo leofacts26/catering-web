@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Container from '@mui/material/Container';
 import { useState } from "react";
 import Lightbox from "yet-another-react-lightbox";
@@ -25,7 +25,9 @@ const OurGallery = ({ galleryImages, bennerMenuMixGalleryImages }) => {
             alt: `image ${image.id}`,
             width: '100%',
         }
-    })
+    });
+
+    console.log(slides, "slides");
 
     return (
         <>
@@ -37,38 +39,24 @@ const OurGallery = ({ galleryImages, bennerMenuMixGalleryImages }) => {
                 slides={slides}
             />
             <Container maxWidth="xl" style={{ marginTop: '30px', marginBottom: '30px' }}>
-                <div>
-                    <h2 className="text-center mx-auto vc-gallery"> Our Gallery </h2>
-                    <div className="vc-row" onClick={() => setOpen(true)}>
-                        <div className="vc-column">
-                            <img src="/img/occasions/03.jpg" className='occasion-top-left-radius' />
-                            <img src="/img/occasions/04.jpg" />
-                            <img src="/img/occasions/05.jpg" />
-                            <img src="/img/occasions/06.jpg" className='occasion-bottom-left-radius' />
-                        </div>
-                        <div className="vc-column">
-                            <img src="/img/occasions/01.jpg" />
-                            <img src="/img/occasions/09.jpg" />
-                            <img src="/img/occasions/02.jpg" />
-                            <img src="/img/occasions/07.jpg" />
-                        </div>
-                        <div className="vc-column">
-                            <img src="/img/occasions/03.jpg" />
-                            <img src="/img/occasions/04.jpg" />
-                            <img src="/img/occasions/05.jpg" />
-                            <img src="/img/occasions/06.jpg" />
-                        </div>
-                        <div className="vc-column">
-                            <img src="/img/occasions/10.jpg" className='occasion-top-right-radius' />
-                            <img src="/img/occasions/09.jpg" />
-                            <img src="/img/occasions/11.jpg" />
-                            <img src="/img/occasions/07.jpg" className='occasion-bottom-right-radius' />
-                        </div>
-                    </div>
+                <div className='cursor-pointer'>
+                    <h2 className="text-center mx-auto vc-gallery">Our Gallery</h2>
+                    <Grid container spacing={2} onClick={() => setOpen(true)}>
+                        {combinedImages.map((image, index) => (
+                            <Grid item xs={6} sm={4} md={3} key={index}>
+                                <img
+                                    src={image.image_names[0].original || '/img/no-image.jpg'}
+                                    alt={`image ${image.id}`}
+                                    style={{ width: '100%' }}
+                                    className={index === 0 ? 'occasion-top-left-radius' : index === combinedImages.length - 1 ? 'occasion-bottom-right-radius' : ''}
+                                />
+                            </Grid>
+                        ))}
+                    </Grid>
                 </div>
             </Container>
         </>
-    )
-}
+    );
+};
 
-export default OurGallery
+export default OurGallery;
