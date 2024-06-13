@@ -7,7 +7,7 @@ import tiffinFilterReducer from './features/tiffin/tiffinFilterSlice';
 import homeSliceReducer from './features/user/homeSlice';
 import settingReducer from './features/user/settingSlice';
 import globalNavReducer from './features/user/globalNavSlice';
-
+import vendorDetailsReducer from './features/user/vendorDetailSlice';
 
 const rootReducer = combineReducers({
   user: userReducer,
@@ -16,6 +16,7 @@ const rootReducer = combineReducers({
   homepage: homeSliceReducer,
   settings: settingReducer,
   globalnavbar: globalNavReducer,
+  vendorDetails: vendorDetailsReducer,
 });
 
 const persistConfig = {

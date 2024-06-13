@@ -23,6 +23,9 @@ import ReciewCards from '@/components/cards/ReciewCards';
 import Subscribe from '@/components/Subscribe';
 import Footer from '@/components/Footer';
 import CateringSearchBar from '@/components/catering/CateringSearchBar';
+import OurGallery from "@/components/OurGallery";
+
+
 
 const getData = async (id) => {
     try {
@@ -35,7 +38,7 @@ const getData = async (id) => {
 
 export default async function Page({ params: { slug } }) {
     const data = await getData(slug)
-    console.log(data, "Data");
+    console.log(data?.foodTypes, "Data");
     return <>
         <section className='nav-bg'>
             <Navbar cateringHome />
@@ -68,19 +71,35 @@ export default async function Page({ params: { slug } }) {
             </Stack>
 
             <Box sx={{ marginTop: '20px', marginBottom: '20px' }}>
-                <ShowAllImages galleryImages={data?.galleryImages} />
+                <ShowAllImages galleryImages={data?.galleryImages} bennerMenuMixGalleryImages={data?.bennerMenuMixGalleryImages} />
             </Box>
 
             <Box sx={{ flexGrow: 1 }} className="mb-4">
                 <Grid container spacing={2}>
                     <Grid item sm={12} lg={7}>
-                        <Stack direction="row" alignItems="center" spacing={1} className="mb-4">
-                            <h2 className="food-type">Food Type : </h2> <Stack direction="row" spacing={1}>
-                                <img src="/img/icons/list-card-veg.png" className='list-card-veg' alt="" />
-                                <span className="veg-green" style={{ marginRight: '6px' }}>
-                                    Veg</span> &   <img src="/img/icons/list-card-non-veg.png" className='list-card-veg' alt="" />
-                                <span className="food-type-non-veg font-16">Non-Veg</span> </Stack>
+
+                        <Stack direction="row" spacing={1} sx={{ marginTop: '15px', marginBottom: '15px' }}>
+                            <h2 className="food-type">Food Type : </h2>
+                            {
+                                data?.foodTypes?.map((food_type, index) => {
+                                    let iconSrc = '';
+                                    if (food_type?.food_type_name === 'Veg') {
+                                        iconSrc = '/img/icons/list-card-veg.png';
+                                    } else if (food_type?.food_type_name === 'Non Veg') {
+                                        iconSrc = '/img/icons/list-card-non-veg.png';
+                                    } else {
+                                        iconSrc = '/img/icons/list-card-veg.png';
+                                    }
+                                    return (
+                                        <Stack direction="row" alignItems="center" spacing={0} key={index}>
+                                            <img src={iconSrc} className='list-card-veg' alt="" />
+                                            <p className='list-card-veg-font'> {food_type?.food_type_name} </p>
+                                        </Stack>
+                                    )
+                                })
+                            }
                         </Stack>
+
                         <h2 className="vc-cater">Cuisines We Cater</h2>
                         <h2 className="vc-locations">South Indian | North Indian | Hyderabadi | Mangalorean | Chettinad | Chinese</h2>
                     </Grid>
@@ -166,46 +185,18 @@ export default async function Page({ params: { slug } }) {
 
         <Container maxWidth="xl" style={{ marginTop: '30px', marginBottom: '30px' }}>
             <h3 className="vc-about-us">About Us</h3>
-            <p className="vc-para">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Earum sit corrupti laboriosam eum inventore delectus. Ea placeat temporibus perferendis voluptatibus! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Earum sit corrupti laboriosam eum inventore delectus. Ea placeat temporibus perferendis voluptatibus!</p>
+            <p className="vc-para">{data?.about_description}</p>
 
             <h3 className="vc-about-us" style={{ marginTop: '20px' }}>Our Branches</h3>
-            <p className="vc-para"> Chennai, Madurai, Coaimbatore, Theni, Dindugal, Kerala... <span className="text-red view-all">View all</span> </p>
+            <p className="vc-para"> {data?.branches.map((item) => item?.city).join(", ")} <span className="text-red view-all">View all</span> </p>
         </Container>
 
-        <Container maxWidth="xl" style={{ marginTop: '30px', marginBottom: '30px' }}>
-            <div>
-                <h2 className="text-center mx-auto vc-gallery"> Our Gallery </h2>
-                <div className="vc-row">
-                    <div className="vc-column">
-                        <img src="/img/occasions/03.jpg" className='occasion-top-left-radius' />
-                        <img src="/img/occasions/04.jpg" />
-                        <img src="/img/occasions/05.jpg" />
-                        <img src="/img/occasions/06.jpg" className='occasion-bottom-left-radius' />
-                    </div>
-                    <div className="vc-column">
-                        <img src="/img/occasions/01.jpg" />
-                        <img src="/img/occasions/09.jpg" />
-                        <img src="/img/occasions/02.jpg" />
-                        <img src="/img/occasions/07.jpg" />
-                    </div>
-                    <div className="vc-column">
-                        <img src="/img/occasions/03.jpg" />
-                        <img src="/img/occasions/04.jpg" />
-                        <img src="/img/occasions/05.jpg" />
-                        <img src="/img/occasions/06.jpg" />
-                    </div>
-                    <div className="vc-column">
-                        <img src="/img/occasions/10.jpg" className='occasion-top-right-radius' />
-                        <img src="/img/occasions/09.jpg" />
-                        <img src="/img/occasions/11.jpg" />
-                        <img src="/img/occasions/07.jpg" className='occasion-bottom-right-radius' />
-                    </div>
-                </div>
-            </div>
-        </Container>
+        <OurGallery galleryImages={data?.galleryImages} bennerMenuMixGalleryImages={data?.bennerMenuMixGalleryImages} />
 
         <SimilarCaterers />
         <ReciewCards />
+
+
         <Subscribe />
         <Footer />
     </>

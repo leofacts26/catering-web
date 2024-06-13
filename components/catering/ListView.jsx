@@ -142,14 +142,16 @@ const ListView = () => {
                                         <span className='lse-starting-price'>Inclusive All Taxes</span>
                                     </Stack>
                                     <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} sx={{ marginBottom: '5px' }}>
-                                        <Link href={`/catering-search/${getSearchCard?.vendor_id}`} className='text-decoration-none' variant="contained" style={{
-                                            color: '#ffffff', padding: '8px 14px', marginTop: '8px', fontWeight: '500',
-                                            backgroundColor: '#C33332', borderRadius: '8px', fontSize: '14px',
-                                            fontFamily: "Readex Pro, sans-serif",
-                                            textTransform: 'capitalize', '&:hover': {
-                                                backgroundColor: '#C33332',
-                                            }
-                                        }}>Enquire Now</Link>
+                                        <Link
+                                            href={`/catering-search/${getSearchCard?.vendor_id}`}
+                                            className='text-decoration-none' variant="contained" style={{
+                                                color: '#ffffff', padding: '8px 14px', marginTop: '8px', fontWeight: '500',
+                                                backgroundColor: '#C33332', borderRadius: '8px', fontSize: '14px',
+                                                fontFamily: "Readex Pro, sans-serif",
+                                                textTransform: 'capitalize', '&:hover': {
+                                                    backgroundColor: '#C33332',
+                                                }
+                                            }}>Enquire Now</Link>
                                     </Stack>
                                 </div>
 
