@@ -147,7 +147,7 @@ const OtpInput = ({ length = 6, user, setShowOtp, handleClose }) => {
 
 
     // onOtpSubmit 
-    console.log('Login Successfully', otp.join(""));
+    // console.log('Login Successfully', otp.join(""));
     const onOtpSubmit = (e) => {
         e.preventDefault()
         verifyOtp(otp.join(""), user, setOtp, setShowOtp, handleClose);

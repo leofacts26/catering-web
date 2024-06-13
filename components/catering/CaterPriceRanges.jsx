@@ -22,7 +22,7 @@ const CaterPriceRanges = () => {
     // }, [dispatch])
 
   
-    console.log(getCateringPriceRanges, "getCateringPriceRanges");
+    // console.log(getCateringPriceRanges, "getCateringPriceRanges"); 
 
     useEffect(() => {
         dispatch(fetchPriceRanges());

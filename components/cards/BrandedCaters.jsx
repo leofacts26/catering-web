@@ -27,7 +27,7 @@ const BrandedCaters = () => {
     dispatch(fetchBrandedCaterers())
   }, [])
 
-  console.log(brandedList, "brandedList 666");
+  // console.log(brandedList, "brandedList 666"); 
 
   return (
     <Container maxWidth="lg" className="branded-cater-slider" style={{ marginTop: '25px' }}>

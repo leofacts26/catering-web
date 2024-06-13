@@ -22,7 +22,7 @@ const TiffinMealtypes = () => {
         dispatch(setMealTypeFilter(mealtype?.id))
     }
 
-    console.log(getTiffinMealTypes, "getTiffinMealTypes");
+    // console.log(getTiffinMealTypes, "getTiffinMealTypes"); 
 
     return (
         <>

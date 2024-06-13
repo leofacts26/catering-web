@@ -23,7 +23,8 @@ const page = () => {
   const [checked, setChecked] = useState(true);
   const router = useRouter()
   const { getCateringSearchCards, isLoading } = useSelector((state) => state.cateringFilter)
-
+  // console.log(getCateringSearchCards, "getCateringSearchCards");
+  
   return (
     <>
       <section className='nav-bg'>

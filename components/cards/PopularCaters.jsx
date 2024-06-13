@@ -17,7 +17,7 @@ const PopularCaters = () => {
         dispatch(fetchPopularCaterers())
     }, [])
 
-    console.log(popularCaterer, "popularCaterer");
+    // console.log(popularCaterer, "popularCaterer"); 
     // PopularCaterersShimmer 
     return (
         <>

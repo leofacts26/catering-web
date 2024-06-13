@@ -18,7 +18,7 @@ const ExploreCaters = () => {
         dispatch(fetchHomepageOccasions())
     }, [])
 
-    console.log(getAllCities, "getAllCities");
+    // console.log(getAllCities, "getAllCities"); 
 
     return (
         <>

@@ -23,7 +23,7 @@ const TiffinkitchenTypes = () => {
         dispatch(setKitchenTypeFilter(kitchenType?.id))
     };
 
-    console.log(getTiffinKitchenTypes, "getTiffinKitchenTypes");
+    // console.log(getTiffinKitchenTypes, "getTiffinKitchenTypes"); 
 
     return (
         <>

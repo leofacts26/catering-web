@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 
 const page = () => {
     const { getCateringSearchCards, isLoading } = useSelector((state) => state.cateringFilter)
-    console.log(getCateringSearchCards, "getCateringSearchCards");
+    // console.log(getCateringSearchCards, "getCateringSearchCards");
     const [mapRef, setMapRef] = useState();
     const [isOpen, setIsOpen] = useState(false);
     const [infoWindowData, setInfoWindowData] = useState();

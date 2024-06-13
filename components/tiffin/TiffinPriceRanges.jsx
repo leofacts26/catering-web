@@ -23,7 +23,7 @@ const TiffinPriceRanges = () => {
         dispatch(fetchtiffinSearchCards())
     }, [dispatch]);
 
-    console.log(getTiffinPriceRanges, "getTiffinPriceRanges");
+    // console.log(getTiffinPriceRanges, "getTiffinPriceRanges"); 
 
     return (
         <>

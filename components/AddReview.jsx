@@ -27,7 +27,7 @@ const AddReview = () => {
     const { isLoading } = useSelector((state) => state.vendorDetails)
     const dispatch = useDispatch()
     const { slug } = useParams()
-    console.log(accessToken, "accessToken");
+    // console.log(accessToken, "accessToken");
 
 
     // validation schema

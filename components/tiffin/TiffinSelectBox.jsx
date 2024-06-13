@@ -33,7 +33,7 @@ const TiffinSelectBox = ( ) => {
         dispatch(fetchtiffinSearchCards())
     }
 
-    console.log(subscriptionTypes, "subscriptionTypes");
+    // console.log(subscriptionTypes, "subscriptionTypes"); 
 
     return (
         <>

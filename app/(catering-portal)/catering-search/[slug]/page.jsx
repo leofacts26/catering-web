@@ -38,7 +38,7 @@ const getData = async (id) => {
 
 export default async function Page({ params: { slug } }) {
     const data = await getData(slug)
-    console.log(data?.foodTypes, "Data");
+    // console.log(data?.foodTypes, "Data");
     return <>
         <section className='nav-bg'>
             <Navbar cateringHome />

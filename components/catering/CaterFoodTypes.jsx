@@ -15,7 +15,7 @@ const CaterFoodTypes = () => {
     // useEffect(() => {
     //     dispatch(fetchCateringSearchCards());
     // }, [dispatch])
-    console.log(getCateringFoodTypes, "getCateringFoodTypes");
+    // console.log(getCateringFoodTypes, "getCateringFoodTypes"); 
 
     useEffect(() => {
         dispatch(fetchCateringFoodTypes());

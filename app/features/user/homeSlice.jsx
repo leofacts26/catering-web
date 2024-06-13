@@ -82,7 +82,7 @@ export const fetchRecentSearches = createAsyncThunk(
 export const fetchBrandedCaterers = createAsyncThunk(
     'homepage/fetchBrandedCaterers',
     async (data, thunkAPI) => {
-        console.log(data, "GTTTTTTT");
+        // console.log(data, "GTTTTTTT");
         try {
             const response = await api.get(`${BASE_URL}/get-vendors-home-page?vendor_type=Caterer&subscription_type_id=3`, {
                 headers: {

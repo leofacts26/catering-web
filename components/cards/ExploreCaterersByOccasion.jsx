@@ -18,7 +18,7 @@ const ExploreCaterersByOccasion = () => {
         dispatch(fetchAllCities())
     }, [])
 
-    console.log(homeOccasions, "homeOccasions");
+    // console.log(homeOccasions, "homeOccasions"); 
 
     return (
         <>

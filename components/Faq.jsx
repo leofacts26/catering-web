@@ -13,7 +13,7 @@ import { fetchFaq } from '@/app/features/user/homeSlice';
 const Faq = ({ tiffin }) => {
     const dispatch = useDispatch()
     const { faqs } = useSelector((state) => state.homepage);
-    console.log(faqs, "faq");
+    // console.log(faqs, "faq");
 
 
 

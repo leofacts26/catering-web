@@ -27,7 +27,7 @@ const BrandedTiffenCaters = () => {
     dispatch(fetchBrandedTiffins())
   }, [])
 
-  console.log(tiffinList, "tiffinList 666");
+  // console.log(tiffinList, "tiffinList 666");
 
   return (
     <Container maxWidth="lg" className="branded-cater-slider" style={{ marginTop: '25px' }}>

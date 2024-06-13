@@ -18,6 +18,9 @@ const initialState = {
     cateringSortBy: [],
     getAllSortOrders: [],
     subscriptionTypes: [],
+    current_page: 1,
+    limit: 7,
+    total_count: null,
     // Global Nav 
     startDate: new Date(),
     endDate: new Date(),
@@ -89,7 +92,7 @@ export const fetchOccasionCateringTypes = createAsyncThunk(
                     authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
                 },
             });
-            console.log(response, "response");
+            // console.log(response, "response");
             return response?.data;
         } catch (error) {
             return thunkAPI.rejectWithValue(error.response.data.msg);
@@ -193,6 +196,8 @@ export const fetchCateringSearchCards = createAsyncThunk(
         const getCateringCuisines = thunkAPI.getState().cateringFilter?.getCateringCuisines;
         const getOccasionCateringTypes = thunkAPI.getState().cateringFilter?.getOccasionCateringTypes;
         const subscriptionTypes = thunkAPI.getState().cateringFilter?.subscriptionTypes;
+        const current_page = thunkAPI.getState().cateringFilter?.current_page;
+        const limit = thunkAPI.getState().cateringFilter?.limit;
 
         // console.log(cateringSortBy, "cateringSortBy ppppppppppppppppppppppppp");
         // console.log(data, "data22334455");
@@ -249,12 +254,12 @@ export const fetchCateringSearchCards = createAsyncThunk(
         // &cuisines_filter=${JSON.stringify(cuisinetype_filter_Data)} 
 
         try {
-            const response = await api.get(`${BASE_URL}/search-vendors?search_term=${people}&order_by=distance&limit=7&current_page=1&save_filter=1&vendor_type=Caterer&app_type=web&service_types_filter=${JSON.stringify(service_filter_formatted)}&order_by_filter=${cateringSortBy_filter}&serving_types_filter=${JSON.stringify(serving_filter_formatted)}&subscription_types_filter=${JSON.stringify(subscriptionTypes_formatted)}&occasions_filter=${JSON.stringify(occasions_filter_formatted)}&price_ranges=${JSON.stringify(updatedPriceTypes_formatted)}&food_types_filter=${JSON.stringify(foodtype_filter_formatted)}&cuisines_filter=${JSON.stringify(cuisinetype_filter_Data)}&latitude=${locationValuesGlobal?.latitude || ""}&longitude=${locationValuesGlobal?.longitude || ""}&city=${locationValuesGlobal?.city?.long_name || ""}&pincode=${locationValuesGlobal?.pincode || ""}&place_id=${locationValuesGlobal?.place_id || ''}&start_date=${moment(startDate).format('YYYY-MM-DD')}&end_date=${moment(endDate).format('YYYY-MM-DD')}`, {
+            const response = await api.get(`${BASE_URL}/search-vendors?search_term=${people}&order_by=distance&limit=${limit}&current_page=${current_page}&save_filter=1&vendor_type=Caterer&app_type=web&service_types_filter=${JSON.stringify(service_filter_formatted)}&order_by_filter=${cateringSortBy_filter}&serving_types_filter=${JSON.stringify(serving_filter_formatted)}&subscription_types_filter=${JSON.stringify(subscriptionTypes_formatted)}&occasions_filter=${JSON.stringify(occasions_filter_formatted)}&price_ranges=${JSON.stringify(updatedPriceTypes_formatted)}&food_types_filter=${JSON.stringify(foodtype_filter_formatted)}&cuisines_filter=${JSON.stringify(cuisinetype_filter_Data)}&latitude=${locationValuesGlobal?.latitude || ""}&longitude=${locationValuesGlobal?.longitude || ""}&city=${locationValuesGlobal?.city?.long_name || ""}&pincode=${locationValuesGlobal?.pincode || ""}&place_id=${locationValuesGlobal?.place_id || ''}&start_date=${moment(startDate).format('YYYY-MM-DD')}&end_date=${moment(endDate).format('YYYY-MM-DD')}`, {
                 headers: {
                     authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
                 },
             });
-            return response?.data?.data?.vendors;
+            return response?.data?.data;
         } catch (error) {
             return thunkAPI.rejectWithValue(error.response.data.msg);
         }
@@ -480,9 +485,13 @@ export const cateringFilterSlice = createSlice({
             .addCase(fetchCateringSearchCards.pending, (state) => {
                 state.isLoading = true;
             })
-            .addCase(fetchCateringSearchCards.fulfilled, (state, { payload }) => {
+            .addCase(fetchCateringSearchCards.fulfilled, (state, action) => {
+                // console.log(action, "payloadpayloadpayloadpayload");
                 state.isLoading = false;
-                state.getCateringSearchCards = payload;
+                state.getCateringSearchCards = action.payload.vendors;
+                state.limit = action.payload.limit;
+                state.current_page = action.payload.current_page;
+                state.total_count = action.payload.total_count;
             })
             .addCase(fetchCateringSearchCards.rejected, (state, { payload }) => {
                 state.isLoading = false;

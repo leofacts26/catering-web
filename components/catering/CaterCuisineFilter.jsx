@@ -66,7 +66,7 @@ const CaterCuisineFilter = () => {
     );
 
 
-    console.log(getCateringCuisines, "getCateringCuisines");
+    // console.log(getCateringCuisines, "getCateringCuisines"); 
 
     return (
         <>

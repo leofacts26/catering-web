@@ -8,7 +8,7 @@ import { vendor_type } from '@/constant';
 
 const useRegistration = () => {
     const { regData } = useSelector((state) => state.user)
-    console.log(regData, "regData");
+    // console.log(regData, "regData"); 
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
     const [open, setOpen] = useState(false);
@@ -56,7 +56,7 @@ const useRegistration = () => {
             const response = await api.post('/register-user-verify-otp', data);
             // console.log(response, "response ****000");
             dispatch(setAccessToken(response?.data?.data?.token));
-            console.log(response, "response");
+            // console.log(response, "response"); 
             toast.success(successToast(response));
             setLoading(false);
             setOtp(['', '', '', '', '', '']);

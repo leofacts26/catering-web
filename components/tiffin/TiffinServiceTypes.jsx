@@ -25,7 +25,7 @@ const TiffinServiceTypes = () => {
         dispatch(fetchtiffinSearchCards())
     }, [dispatch]);
 
-    console.log(getTiffinServiceTypes, "getTiffinServiceTypes");
+    // console.log(getTiffinServiceTypes, "getTiffinServiceTypes"); 
 
     return (
         <>

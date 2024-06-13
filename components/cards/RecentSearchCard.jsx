@@ -23,7 +23,7 @@ const RecentSearchCard = () => {
         }
     }, [])
 
-    console.log(recentSearches, "recentSearches");
+    // console.log(recentSearches, "recentSearches"); 
     // Feb 13 - Feb 15 , 600 people
 
     const formatDateRange = (startDate, endDate, peopleCount) => {

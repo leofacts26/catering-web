@@ -28,7 +28,7 @@ const CaterServingTypes = () => {
         dispatch(fetchCateringSearchCards());
     }, [dispatch])
 
-    console.log(getCateringServingTypes, "getCateringServingTypes");
+    // console.log(getCateringServingTypes, "getCateringServingTypes"); 
 
 
     return (

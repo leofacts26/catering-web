@@ -17,7 +17,7 @@ const PopularTiffins = () => {
         dispatch(fetchPopularTiffins())
     }, [])
 
-    console.log(popularTiffins, "popularTiffins");
+    // console.log(popularTiffins, "popularTiffins"); 
     // popularTiffinssShimmer 
     return (
         <>
