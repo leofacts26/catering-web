@@ -10,7 +10,7 @@ const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 const CaterOccaionTypes = () => {
 
-    const { getOccasionCateringTypes, occasionCount, isLoading } = useSelector((state) => state.cateringFilter)
+    const { getOccasionCateringTypes, occasionCount, occasionTotalCount, isLoading } = useSelector((state) => state.cateringFilter)
     const [occCount, setoccCount] = useState(false)
     const dispatch = useDispatch()
 
@@ -20,7 +20,7 @@ const CaterOccaionTypes = () => {
 
     useEffect(() => {
         dispatch(fetchOccasionCateringTypes(occasionCount));
-    }, []);
+    }, [occasionCount]);
 
     // onHandleSelectOccasion 
     const onHandleSelectOccasion = (getOccasionType) => {
@@ -30,9 +30,11 @@ const CaterOccaionTypes = () => {
 
     const onShowAllOccasions = useCallback(() => {
         setoccCount(true)
-        dispatch(setShowAllOccasions(occasionCount));
+        dispatch(setShowAllOccasions(occasionTotalCount));
         dispatch(fetchOccasionCateringTypes(occasionCount));
     }, [dispatch])
+
+    console.log(occasionCount, "occasionCount");
 
     return (
         <>

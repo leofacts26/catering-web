@@ -15,6 +15,7 @@ const initialState = {
     getCateringServingTypes: [],
     getCateringSearchCards: [],
     occasionCount: 5,
+    occasionTotalCount: 5,
     cateringSortBy: [],
     getAllSortOrders: [],
     subscriptionTypes: [],
@@ -439,6 +440,7 @@ export const cateringFilterSlice = createSlice({
             .addCase(fetchOccasionCateringTypes.fulfilled, (state, { payload }) => {
                 state.isLoading = false;
                 state.occasionCount = payload.total_count;
+                state.occasionTotalCount = payload.total_count;
                 state.getOccasionCateringTypes = payload.data;
             })
             .addCase(fetchOccasionCateringTypes.rejected, (state, { payload }) => {
