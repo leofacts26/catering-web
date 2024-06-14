@@ -29,7 +29,7 @@ const UserIcon = () => {
 
     useEffect(() => {
         dispatch(fetchUserData());
-    }, []);
+    }, [dispatch]);
 
     // dropdown 
     const [anchorEl, setAnchorEl] = React.useState(null);

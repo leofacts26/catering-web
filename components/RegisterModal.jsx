@@ -18,11 +18,9 @@ import Box from '@mui/material/Box';
 import { useDispatch, useSelector } from 'react-redux';
 import { setRegisterData } from '@/app/features/user/userSlice';
 
-
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
-
 
 const initialState = {
     name: '',
@@ -78,11 +76,7 @@ const OtpInput = ({ length = 6, user, setShowOtp, handleClose }) => {
         }
     }
 
-
-
-
-    // test loc 
-
+    // loc 
     const successCallback = async (position) => {
         const latitude = position.coords.latitude;
         const longitude = position.coords.longitude;
@@ -137,14 +131,10 @@ const OtpInput = ({ length = 6, user, setShowOtp, handleClose }) => {
         return component ? component.long_name : '';
     };
 
-
     const getCurrentLocation = () => {
         const id = navigator.geolocation.getCurrentPosition(successCallback, errorCallback, options)
         navigator.geolocation.clearWatch(id);
     };
-
-
-
 
     // onOtpSubmit 
     // console.log('Login Successfully', otp.join(""));
@@ -385,10 +375,6 @@ const RegisterModal = () => {
                             </div>
                         </>
                     )}
-
-
-
-
                 </div>
             </Dialog>
         </React.Fragment>

@@ -6,6 +6,7 @@ import Brightness2Icon from '@mui/icons-material/Brightness2';
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import Select, { components } from 'react-select';
 
+
 const names = [
     'English',
     'Tamil',
@@ -14,6 +15,8 @@ const names = [
     'Hindi',
     'Telugu'
 ];
+
+
 
 const ReactSelect = ({ text1 }) => {
     const options = names.map((name) => ({ value: name, label: name }));

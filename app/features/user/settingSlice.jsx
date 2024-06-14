@@ -2,10 +2,13 @@ import { api, BASE_URL } from '@/api/apiConfig';
 import { datavalidationerror, successToast } from '@/utils';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import toast from 'react-hot-toast';
+import { fetchUserData } from './userSlice';
 
 const initialState = {
     isLoading: true,
     caterWishlist: [],
+    editProfileData: null,
+    showOtp: true,
 }
 
 export const fetchWishlist = createAsyncThunk(
@@ -38,26 +41,79 @@ export const addchWishlist = createAsyncThunk(
                     authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
                 },
             });
-            // console.log(response, "response wishlist");
             toast.success(successToast(response))
-            // return response?.data?.data;
         } catch (error) {
             return thunkAPI.rejectWithValue(error.response.data.msg);
         }
     }
 )
 
+export const sendUpdateProfileOTP = createAsyncThunk(
+    'user/sendUpdateProfileOTP',
+    async (data, thunkAPI) => {
+        const newData = {
+            ...data,
+            phone_extension: '+91'
+        }
+        // console.log(newData, "newData");
+        try {
+            const response = await api.post(`${BASE_URL}/send-update-profile-otp`, newData, {
+                headers: {
+                    authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
+                },
+            });
+            thunkAPI.dispatch(setShowOtp(false));
+            toast.success(successToast(response))
+        } catch (error) {
+            toast.error(datavalidationerror(error))
+            return thunkAPI.rejectWithValue(error.response.data.msg);
+        }
+    }
+)
+
+export const sendUpdateUserProfile = createAsyncThunk(
+    'user/sendUpdateUserProfile',
+    async (data, thunkAPI) => {
+        const { editProfileData, otp } = data;
+        const { username, phone_number, phone_extension } = editProfileData;
+        const newOTP = otp.join('');
+        const updatedData = {
+            name: username,
+            phone_number: phone_number,
+            phone_extension: phone_extension,
+            otp: newOTP,
+        }
+        console.log(updatedData, "5+6956845 newData");
+        try {
+            const response = await api.post(`${BASE_URL}/update-user-profile`, updatedData, {
+                headers: {
+                    authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
+                },
+            });
+            thunkAPI.dispatch(setShowOtp(true));
+            toast.success(successToast(response))
+            fetchUserData()
+        } catch (error) {
+            toast.error(datavalidationerror(error))
+            return thunkAPI.rejectWithValue(error.response.data.msg);
+        }
+    }
+)
 
 export const settingSlice = createSlice({
     name: 'settings',
     initialState,
     reducers: {
-        // setWishList: (state, { payload }) => {
-
-        // }
+        setEditProfile: (state, { payload }) => {
+            state.editProfileData = payload;
+        },
+        setShowOtp: (state, { payload }) => {
+            state.showOtp = payload;
+        }
     },
     extraReducers: (builder) => {
         builder
+            // fetchWishlist 
             .addCase(fetchWishlist.pending, (state) => {
                 state.isLoading = true;
             })
@@ -69,16 +125,12 @@ export const settingSlice = createSlice({
                 state.isLoading = false;
                 toast.error(datavalidationerror(payload));
             })
+
     }
 })
 
 
-
-
-
 // Action creators are generated for each case reducer function
-export const { } = settingSlice.actions
+export const { setEditProfile, setShowOtp } = settingSlice.actions
 
 export default settingSlice.reducer
-
-
