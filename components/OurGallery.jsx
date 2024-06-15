@@ -47,7 +47,7 @@ const OurGallery = ({ galleryImages, bennerMenuMixGalleryImages }) => {
                                 <img
                                     src={image.image_names[0].original || '/img/no-image.jpg'}
                                     alt={`image ${image.id}`}
-                                    style={{ width: '100%' }}
+                                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                                     className={index === 0 ? 'occasion-top-left-radius' : index === combinedImages.length - 1 ? 'occasion-bottom-right-radius' : ''}
                                 />
                             </Grid>

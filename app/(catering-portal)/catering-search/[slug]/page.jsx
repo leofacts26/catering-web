@@ -24,6 +24,7 @@ import Subscribe from '@/components/Subscribe';
 import Footer from '@/components/Footer';
 import CateringSearchBar from '@/components/catering/CateringSearchBar';
 import OurGallery from "@/components/OurGallery";
+import TimeRange from "@/components/TimeRange";
 
 
 
@@ -57,7 +58,7 @@ export default async function Page({ params: { slug } }) {
                 <div>
                     <Stack direction="row" alignItems="center" spacing={2}>
                         <h2 className="vc-heading"> {data?.vendor_service_name} </h2>
-                        <span className='vc-chip'>Branded Caterer</span>
+                        <span className='vc-chip'>Branded {data?.vendor_type}</span>
                     </Stack>
                     <h3 className="vc-address">{data?.formatted_address}</h3>
                 </div>
@@ -142,7 +143,7 @@ export default async function Page({ params: { slug } }) {
                             <div className="text-center">
                                 <EditNoteIcon className="vc-icon-label" />
                                 <p className="vc-service-type">Min & Max Order Quantity</p>
-                                <h3 className="vc-service-heading">100 - 7000 Plates</h3>
+                                <h3 className="vc-service-heading"> {data?.minimum_capacity} - {data?.maximum_capacity} Plates</h3>
                             </div>
                         </CardContent>
                     </div>
@@ -153,7 +154,8 @@ export default async function Page({ params: { slug } }) {
                             <div className="text-center">
                                 <AccessTimeIcon className="vc-icon-label" />
                                 <p className="vc-service-type">Working Hours</p>
-                                <h3 className="vc-service-heading">Monday - Saturday 8am - 10pm</h3>
+                                <h3 className="vc-service-heading"> {data?.start_day}  - {data?.end_day}  {" "}
+                                     <TimeRange startTime={data?.start_time} endTime={data?.end_time} /> </h3>
                             </div>
                         </CardContent>
                     </div>
@@ -164,7 +166,7 @@ export default async function Page({ params: { slug } }) {
                             <div className="text-center">
                                 <GroupIcon className="vc-icon-label" />
                                 <p className="vc-service-type">Total No. of Staffs</p>
-                                <h3 className="vc-service-heading">50</h3>
+                                <h3 className="vc-service-heading">{data?.total_staffs_approx}</h3>
                             </div>
                         </CardContent>
                     </div>
@@ -175,7 +177,7 @@ export default async function Page({ params: { slug } }) {
                             <div className="text-center">
                                 <TimelineIcon className="vc-icon-label" />
                                 <p className="vc-service-type">Working Since</p>
-                                <h3 className="vc-service-heading">1987</h3>
+                                <h3 className="vc-service-heading">{data?.working_since}</h3>
                             </div>
                         </CardContent>
                     </div>
@@ -188,7 +190,7 @@ export default async function Page({ params: { slug } }) {
             <p className="vc-para">{data?.about_description}</p>
 
             <h3 className="vc-about-us" style={{ marginTop: '20px' }}>Our Branches</h3>
-            <p className="vc-para"> {data?.branches.map((item) => item?.city).join(", ")} <span className="text-red view-all">View all</span> </p>
+            <p className="vc-para"> {data?.branches?.map((item) => item?.city).join(", ")} <span className="text-red view-all">View all</span> </p>
         </Container>
 
         <OurGallery galleryImages={data?.galleryImages} bennerMenuMixGalleryImages={data?.bennerMenuMixGalleryImages} />
