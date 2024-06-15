@@ -4,6 +4,7 @@ import Grid from '@mui/material/Grid';
 import Link from 'next/link'
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import GridViewSkeleton from '../GridViewSkeleton';
+import { useSelector } from 'react-redux';
 
 const GridViewList = () => {
 

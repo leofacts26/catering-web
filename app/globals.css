@@ -1915,6 +1915,12 @@ h6 {
 } */
 
 /* listview cards */
+.fill-heart-tiffin{
+   color: var(--primary) !important;
+}
+.fill-heart-catering{
+  color: var(--accent2) !important;
+}
 .not-fount-vendors {
   display: flex;
   justify-content: center;

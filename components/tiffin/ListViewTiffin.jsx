@@ -8,18 +8,33 @@ import BrunchDiningIcon from '@mui/icons-material/BrunchDining';
 import FastfoodIcon from '@mui/icons-material/Fastfood';
 import Link from 'next/link'
 import ShareIcon from '@mui/icons-material/Share';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ListViewSkeleton from '../ListViewSkeleton ';
-
+import { addchWishlist } from '@/app/features/user/settingSlice';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 const ListViewTiffin = () => {
 
     const { getTiffinSearchCards, isLoading } = useSelector((state) => state.tiffinFilter)
+    const dispatch = useDispatch()
 
     const [page, setPage] = useState(1);
     const handleChange = (event, value) => {
         setPage(value);
     };
+
+
+    const [whishlistStatus, setWhishlistStatus] = useState(0)
+    const onHandleAddFavourite = (branchId) => {
+        let data = {
+            branchId,
+            whishlistStatus
+        }
+        dispatch(addchWishlist(data))
+        setWhishlistStatus((prevStatus) => (prevStatus === 0 ? 1 : 0));
+    }
+
+
 
     if (isLoading) {
         return <>
@@ -29,7 +44,7 @@ const ListViewTiffin = () => {
         </>
     }
 
-    // console.log(getTiffinSearchCards, "getTiffinSearchCards getTiffinSearchCards"); 
+    console.log(getTiffinSearchCards, "getTiffinSearchCards getTiffinSearchCards"); 
 
     return (
         <>
@@ -49,7 +64,7 @@ const ListViewTiffin = () => {
                                         </div>
                                         <div className="list-card-center">
                                             <h2 className='list-card-title'>{item?.catering_service_name}</h2>
-                                            <p className='list-card-desc'> {item?.area} {item?.street_name}</p>
+                                            <p className='list-card-desc'> {item?.area}, {item?.street_name}</p>
                                             <Stack direction="row" spacing={1} sx={{ marginTop: '15px', marginBottom: '15px' }}>
                                                 {
                                                     item?.food_types?.map((food_type, index) => {
@@ -74,24 +89,46 @@ const ListViewTiffin = () => {
                                     <span>South Indian | </span>  <span>North Indian | </span>  <span>hyderabadi | </span>  <span>Mughlai | </span>  <span>Kerala </span>
                                 </Stack> */}
                                             <Stack direction={{ xs: 'row', sm: 'row', md: 'row', lg: "row" }} flexWrap="wrap" spacing={0} sx={{ marginTop: '15px' }}>
-                                                <span className='list-card-chip-tiffin'>Breakfast |</span>
-                                                <span className='list-card-chip-tiffin'>Lunch | </span>
-                                                <span className='list-card-chip-tiffin'>Dinner | </span>
-                                                <span className='list-card-chip-tiffin'>Snacks | </span>
+                                                {
+                                                    item?.meal_times?.map((mealtime, index) => {
+                                                        const isLast = index === item.meal_times.length - 1;
+                                                        return (
+                                                            <span className='list-card-chip-tiffin'>    {mealtime}{!isLast && ' |'}</span>
+                                                        )
+                                                    })
+                                                }
                                             </Stack>
                                             <Stack direction={{ xs: 'row', sm: 'row', md: 'row', lg: "row" }} className='cat-types' spacing={2}>
-                                                <Stack direction="row" alignItems="center">
-                                                    <img src="/img/icons/delivery-tiffin.png" alt="" className="img-fluid list-view-icons" />
-                                                    <span className='list-view-icon-text'>Delivery</span>
-                                                </Stack>
-                                                <Stack direction="row" alignItems="center" spacing={1} className='tablet-second'>
+
+                                                {item?.service_types?.map((serviceType) => {
+                                                    let iconSrc = '';
+                                                    if (serviceType.toLowerCase() === 'delivery') {
+                                                        iconSrc = '/img/icons/delivery.png';
+                                                    } else if (serviceType.toLowerCase() === 'dine in') { // Corrected to all lowercase
+                                                        iconSrc = '/img/icons/Dine-In.png';
+                                                    } else if (serviceType.toLowerCase() === 'takeaway') {
+                                                        iconSrc = '/img/icons/Takeaway.png';
+                                                    } else {
+                                                        iconSrc = '/img/icons/delivery.png';
+                                                    }
+                                                    return (
+                                                        <Stack direction="row" alignItems="center">
+
+                                                            <img src={iconSrc} alt={serviceType} className="img-fluid list-view-icons" />
+                                                            <span className='list-view-icon-text'> {serviceType} </span>
+                                                        </Stack>
+                                                    )
+                                                })}
+
+
+                                                {/* <Stack direction="row" alignItems="center" spacing={1} className='tablet-second'>
                                                     <img src="/img/icons/Dine-In.png" alt="" className="img-fluid list-view-icons" />
                                                     <span className='list-view-icon-text'>Dine In</span>
                                                 </Stack>
                                                 <Stack direction="row" alignItems="center" spacing={1} className='tablet-second'>
                                                     <img src="/img/icons/Takeaway.png" alt="" className="img-fluid list-view-icons" />
                                                     <span className='list-view-icon-text'>Takeaway</span>
-                                                </Stack>
+                                                </Stack> */}
                                             </Stack>
                                         </div>
                                     </Stack>
@@ -100,7 +137,10 @@ const ListViewTiffin = () => {
                                     <Stack className="list-card-end" direction="column" justifyContent="space-between">
                                         <div>
                                             <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} className='mb-2'>
-                                                <ShareIcon className='lse-icons' style={{ marginRight: '10px' }} /> <FavoriteBorderIcon className='lse-icons' />
+                                                <ShareIcon className='lse-icons' style={{ marginRight: '10px' }} />
+                                                {
+                                                    item?.is_wishlisted ? <FavoriteIcon className='lse-icons cursor-pointer fill-heart-tiffin' onClick={() => onHandleAddFavourite(item?.id)} /> : <FavoriteBorderIcon className='lse-icons cursor-pointer' onClick={() => onHandleAddFavourite(item?.id)} />
+                                                }
                                             </Stack>
                                             <Stack direction="row" alignItems="center" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} style={{ marginTop: '8px' }}>
                                                 <span className='cat-yellow' style={{ fontSize: '14px' }}>
@@ -117,7 +157,7 @@ const ListViewTiffin = () => {
 
                                         <div>
                                             <Stack className="lv-price mb-2" direction="row" justifyContent={{ xs: 'start', sm: 'start', lg: "end" }}>
-                                                <span className='lse-starting-price'>Starting Price - <span className='lse-rupees-orange'>₹ {item?.start_price}/- </span> </span>
+                                                <span className='lse-starting-price'>Monyhly plan Cost - <span className='lse-rupees-orange'>₹ {item?.start_price}/- </span> </span>
                                             </Stack>
                                             <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} style={{ marginTop: '6px' }}>
                                                 <span className='lse-starting-price'>Inclusive All Taxes</span>

@@ -7,23 +7,25 @@ import Container from '@mui/material/Container';
 import Link from 'next/link'
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutUser } from '@/app/features/user/userSlice';
-import { resetFilters } from '@/app/features/user/cateringFilterSlice';
-import { clearTiffinSlice } from '@/app/features/tiffin/tiffinFilterSlice';
+// import { resetFilters } from '@/app/features/user/cateringFilterSlice';
+// import { clearTiffinSlice } from '@/app/features/tiffin/tiffinFilterSlice';
 import toast from 'react-hot-toast';
-import { useRouter } from 'next/navigation'
+// import { useRouter } from 'next/navigation'
+
 
 const UserProfileComponent = () => {
     const { userDetails } = useSelector((state) => state.user)
     const dispatch = useDispatch()
-    const router = useRouter()
+    // const router = useRouter()
 
     const onLogout = () => {
         localStorage.clear();
         dispatch(logoutUser());
         // dispatch(resetFilters());
         // dispatch(clearTiffinSlice());
+
         toast.success("Logout Successfull")
-        router.push('/catering')
+        // router.push('/catering')
         window.location.reload();
     }
 
@@ -48,7 +50,7 @@ const UserProfileComponent = () => {
                         </div>
                     </Stack>
 
-                    <Stack direction="row" alignItems="center" style={{cursor: 'pointer'}} onClick={() => onLogout()}>
+                    <Stack direction="row" alignItems="center" style={{ cursor: 'pointer' }} onClick={() => onLogout()}>
                         <LogoutIcon style={{ color: '#ffffff', fontWeight: '500', fontSize: '25px' }} />
                         <h6 className='up-signout'>Sign Out</h6>
                     </Stack>

@@ -8,6 +8,7 @@ import ShareIcon from '@mui/icons-material/Share';
 import ListViewSkeleton from '../ListViewSkeleton ';
 import { useDispatch, useSelector } from 'react-redux';
 import { addchWishlist } from '@/app/features/user/settingSlice';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 
 const ListView = () => {
@@ -16,7 +17,6 @@ const ListView = () => {
     const { getCateringSearchCards, isLoading } = useSelector((state) => state.cateringFilter)
 
     const [whishlistStatus, setWhishlistStatus] = useState(0)
-
 
     const onHandleAddFavourite = (branchId) => {
         let data = {
@@ -119,7 +119,9 @@ const ListView = () => {
                                 <div>
                                     <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} className='mb-2'>
                                         <ShareIcon className='lse-icons' style={{ marginRight: '10px', cursor: 'pointer' }} />
-                                        <FavoriteBorderIcon style={{ cursor: 'pointer' }} className='lse-icons' onClick={() => onHandleAddFavourite(getSearchCard?.id)} />
+                                        {
+                                            getSearchCard?.is_wishlisted ? <FavoriteIcon className='lse-icons cursor-pointer fill-heart-catering' onClick={() => onHandleAddFavourite(getSearchCard?.id)} /> : <FavoriteBorderIcon className='lse-icons cursor-pointer' onClick={() => onHandleAddFavourite(getSearchCard?.id)} />
+                                        }
                                     </Stack>
                                     <Stack direction="row" alignItems="center" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} style={{ marginTop: '8px' }}>
                                         <span className='cat-red' style={{ fontSize: '14px' }}>

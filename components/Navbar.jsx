@@ -14,24 +14,21 @@ import UserIcon from './UserIcon';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import Notification from './Notification';
 import Container from '@mui/material/Container';
-import { useDispatch, useSelector } from 'react-redux';
-import LogoutIcon from '@mui/icons-material/Logout';
-import { logoutUser } from '@/app/features/user/userSlice';
+import { useSelector } from 'react-redux';
 import LoginModal from './LoginModal';
+
 
 
 const Navbar = () => {
     const checkActivePath = useActivePath()
     const [drawerOpen, setDrawerOpen] = useState(false);
-    const [login, setLogin] = useState(false)
+    // const [login, setLogin] = useState(false)
 
     const toggleDrawer = () => {
         setDrawerOpen(!drawerOpen);
     };
 
     const accessToken = useSelector((state) => state.user.accessToken)
-    // console.log(accessToken, "user, rrrr");
-
 
     return (
         <>
@@ -43,7 +40,7 @@ const Navbar = () => {
                             <h2 className='nav-heading'> Caterings & Tiffins</h2></Link>
                     </Stack>
                     <Stack direction="row" flexWrap="wrap" spacing={1}>
-                        {navlinks.map((navlink) => {
+                        {navlinks?.map((navlink) => {
                             return (
                                 <Link href={navlink.url} key={navlink.id} className={checkActivePath(navlink.url) ? 'active nav-link' : 'nav-link'}
                                 >{navlink.name}</Link>
