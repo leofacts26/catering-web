@@ -1,29 +1,43 @@
-"use client"
-import React, { useEffect, useState } from 'react'
+"use client";
+import React, { useEffect, useState, useMemo } from 'react';
 import { GoogleMap, InfoWindow, Marker, useLoadScript } from "@react-google-maps/api";
-import { useMemo } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import { fetchTiffinMapviewSearchCards } from '@/app/features/tiffin/tiffinFilterSlice';
 
-const page = () => {
-    const { getTiffinMapviewSearchCards, isLoading } = useSelector((state) => state.tiffinFilter)
-    const dispatch = useDispatch()
-    console.log(getTiffinMapviewSearchCards, "getTiffinMapviewSearchCards");
+const Page = () => {
+    const { getTiffinMapviewSearchCards, isLoading } = useSelector((state) => state.tiffinFilter);
+    const dispatch = useDispatch();
     const [mapRef, setMapRef] = useState();
     const [isOpen, setIsOpen] = useState(false);
-    const [infoWindowData, setInfoWindowData] = useState();
-    const router = useRouter()
+    const [infoWindowData, setInfoWindowData] = useState(null);
+    const router = useRouter();
 
     useEffect(() => {
-        dispatch(fetchTiffinMapviewSearchCards())
-    }, [])
-
+        dispatch(fetchTiffinMapviewSearchCards());
+    }, [dispatch]);
 
     const { isLoaded } = useLoadScript({
         googleMapsApiKey: "AIzaSyBf22eHEMxKk_9x0XWag-oCFTXkdClnPw8",
     });
-    const center = useMemo(() => ({ lat: 18.52043, lng: 73.856743 }), []);
+
+    const markers = useMemo(() => {
+        if (!getTiffinMapviewSearchCards || !Array.isArray(getTiffinMapviewSearchCards)) {
+            return [];
+        }
+        return getTiffinMapviewSearchCards.map(card => ({
+            lat: card.latitude,
+            lng: card.longitude,
+            address: card.catering_service_name,
+        }));
+    }, [getTiffinMapviewSearchCards]);
+
+    const defaultCenter = useMemo(() => {
+        if (markers.length > 0) {
+            return { lat: markers[0].lat, lng: markers[0].lng };
+        }
+        return { lat: 18.52043, lng: 73.856743 }; // Default center if no markers are available
+    }, [markers]);
 
     const customMarker = {
         url: '/img/map/location.png', // Replace with your image URL or path
@@ -32,35 +46,23 @@ const page = () => {
         anchor: new window.google.maps.Point(25, 50) // Adjust anchor as needed
     };
 
-
-
-    const markers = getTiffinMapviewSearchCards?.map((getCateringSearchCard) => {
-        if (!getTiffinMapviewSearchCards || !Array.isArray(getTiffinMapviewSearchCards)) {
-            return [];
-        }
-        return {
-            lat: getCateringSearchCard?.latitude,
-            lng: getCateringSearchCard?.longitude,
-            address: getCateringSearchCard?.catering_service_name,
-        }
-    })
-
-
     const onMapLoad = (map) => {
         setMapRef(map);
-        const bounds = new google.maps.LatLngBounds();
-        markers?.forEach(({ lat, lng }) => bounds?.extend({ lat, lng }));
-        map.fitBounds(bounds);
+        if (markers.length > 0) {
+            const bounds = new window.google.maps.LatLngBounds();
+            markers.forEach(({ lat, lng }) => bounds.extend({ lat, lng }));
+            map.fitBounds(bounds);
+        }
     };
 
-    const handleMarkerClick = (id, lat, lng, address) => {
-        mapRef?.panTo({ lat, lng });
-        setInfoWindowData({ id, address });
+    const handleMarkerClick = (index, lat, lng, address) => {
+        mapRef.panTo({ lat, lng });
+        setInfoWindowData({ index, address });
         setIsOpen(true);
     };
 
     return (
-        <div className="map-box-contaier">
+        <div className="map-box-container">
             <button className='btn-close' onClick={() => router.push('/tiffin-search')}>
                 Close Map
             </button>
@@ -70,7 +72,7 @@ const page = () => {
                 ) : (
                     <GoogleMap
                         mapContainerClassName="map-container"
-                        center={center}
+                        center={defaultCenter}
                         zoom={10}
                         mapContainerStyle={{
                             width: "100%",
@@ -79,32 +81,27 @@ const page = () => {
                         onLoad={onMapLoad}
                         onClick={() => setIsOpen(false)}
                     >
-                        {markers?.map(({ address, lat, lng }, ind) => (
+                        {markers.map(({ address, lat, lng }, index) => (
                             <Marker
-                                key={ind}
+                                key={index}
                                 position={{ lat, lng }}
-                                onClick={() => {
-                                    handleMarkerClick(ind, lat, lng, address);
-                                }}
+                                onClick={() => handleMarkerClick(index, lat, lng, address)}
                                 icon={customMarker}
                             >
-                                {isOpen && infoWindowData?.id === ind && (
+                                {isOpen && infoWindowData?.index === index && (
                                     <InfoWindow
-                                        onCloseClick={() => {
-                                            setIsOpen(false);
-                                        }}
+                                        onCloseClick={() => setIsOpen(false)}
                                     >
                                         <h3>{infoWindowData.address}</h3>
                                     </InfoWindow>
                                 )}
                             </Marker>
                         ))}
-
                     </GoogleMap>
                 )}
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default page
+export default Page;
