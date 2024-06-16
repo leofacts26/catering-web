@@ -23,6 +23,8 @@ const initialState = {
     current_page: 1,
     limit: 7,
     total_count: null,
+     // detail page 
+     getCateringSimilarTypes: [],
     // Global Nav 
     startDate: new Date(),
     endDate: new Date(),
@@ -295,6 +297,28 @@ export const fetchCateringMapviewSearchCards = createAsyncThunk(
 )
 
 
+export const fetchCatererSimilarCaterer = createAsyncThunk(
+    'user/fetchCatererSimilarCaterer',
+    async (data, thunkAPI) => {
+        // const { locationValuesGlobal } = data;
+        const startDate = thunkAPI.getState().globalnavbar?.startDate;
+        const endDate = thunkAPI.getState().globalnavbar?.endDate;
+        const people = thunkAPI.getState().globalnavbar?.people;
+        const locationValuesGlobal = thunkAPI.getState().globalnavbar?.locationValuesGlobal;
+
+        try {
+            const response = await api.get(`${BASE_URL}/search-vendors?search_term=${people}&order_by=distance&limit=100&save_filter=1&vendor_type=Caterer&app_type=web&latitude=${locationValuesGlobal?.latitude || ""}&longitude=${locationValuesGlobal?.longitude || ""}&city=${locationValuesGlobal?.city?.long_name || ""}&pincode=${locationValuesGlobal?.pincode || ""}&place_id=${locationValuesGlobal?.place_id || ''}&start_date=${moment(startDate).format('YYYY-MM-DD')}&end_date=${moment(endDate).format('YYYY-MM-DD')}&shuffled=1`, {
+                headers: {
+                    authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
+                },
+            });
+            return response?.data?.data;
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error.response.data.msg);
+        }
+    }
+)
+
 
 export const cateringFilterSlice = createSlice({
     name: 'cateringFilter',
@@ -561,6 +585,17 @@ export const cateringFilterSlice = createSlice({
                 state.subscriptionTypes = payload;
             })
             .addCase(fetchGetAllSubscriptionTypes.rejected, (state, { payload }) => {
+                state.isLoading = false;
+            })
+            // fetchCatererSimilarCaterer 
+            .addCase(fetchCatererSimilarCaterer.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(fetchCatererSimilarCaterer.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.getCateringSimilarTypes = action.payload.vendors;
+            })
+            .addCase(fetchCatererSimilarCaterer.rejected, (state, { payload }) => {
                 state.isLoading = false;
             })
 

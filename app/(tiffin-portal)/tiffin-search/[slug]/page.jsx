@@ -27,6 +27,7 @@ import { api, BASE_URL } from '@/api/apiConfig';
 import TimeRange from '@/components/TimeRange';
 import OurGallery from '@/components/OurGallery';
 import ContactBtn from '@/components/ContactBtn';
+import SimilarCaterersTiffin from '@/components/cards/SimilarCaterersTiffin';
 
 const getData = async (id) => {
   try {
@@ -200,7 +201,7 @@ export default async function Page({ params: { slug } }) {
 
       <OurGallery galleryImages={data?.galleryImages} bennerMenuMixGalleryImages={data?.bennerMenuMixGalleryImages} />
 
-      <SimilarCaterers tiffin />
+      <SimilarCaterersTiffin tiffin />
       <ReciewCards tiffin />
       <Subscribe />
       <Footer />

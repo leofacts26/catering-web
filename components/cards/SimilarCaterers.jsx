@@ -11,19 +11,18 @@ import { Navigation, Autoplay } from 'swiper/modules';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { fetchTiffinSimilarCaterer } from '@/app/features/tiffin/tiffinFilterSlice';
+import { fetchCatererSimilarCaterer } from '@/app/features/user/cateringFilterSlice';
 
 
 const SimilarCaterers = ({ tiffin }) => {
 
-    const { getTiffinSimilarTypes } = useSelector((state) => state.tiffinFilter)
+    const { getCateringSimilarTypes } = useSelector((state) => state.cateringFilter)
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(fetchTiffinSimilarCaterer())
+        dispatch(fetchCatererSimilarCaterer())
     }, [])
 
-    console.log(getTiffinSimilarTypes, "getTiffinSimilarTypes");
 
     return (
         <Container maxWidth="xl" style={{ marginTop: '30px', marginBottom: '30px' }}>
@@ -63,7 +62,7 @@ const SimilarCaterers = ({ tiffin }) => {
                     },
                 }}
             >
-                {getTiffinSimilarTypes?.map((item) => (
+                {getCateringSimilarTypes?.map((item) => (
                     <SwiperSlide>
                         <div className="vc-similar-card" key={item}>
                             <img src="/img/occasions/03.jpg" alt="" className="img-fluid vc-similar-card-img" />
