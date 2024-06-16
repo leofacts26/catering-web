@@ -1,5 +1,5 @@
 "use client"
-import React, { memo, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import Stack from '@mui/material/Stack';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -9,12 +9,15 @@ import ListViewSkeleton from '../ListViewSkeleton ';
 import { useDispatch, useSelector } from 'react-redux';
 import { addchWishlist } from '@/app/features/user/settingSlice';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import { fetchCateringSearchCards, incrementPage } from '@/app/features/user/cateringFilterSlice';
 
 
 const ListView = () => {
 
     const dispatch = useDispatch()
-    const { getCateringSearchCards, isLoading } = useSelector((state) => state.cateringFilter)
+    const { getCateringSearchCards, isLoading, current_page, limit, total_count } = useSelector((state) => state.cateringFilter)
+
+    console.log({ current_page, total_count }, "current_page, total_count");
 
     const [whishlistStatus, setWhishlistStatus] = useState(0)
 
@@ -28,6 +31,38 @@ const ListView = () => {
     }
 
 
+    // test 
+    const myThrottle = (cb, d) => {
+        let last = 0;
+        return (...args) => {
+            let now = new Date().getTime();
+            if (now - last < d) return;
+            last = now;
+            return cb(...args)
+        }
+    }
+
+    const handleScroll = myThrottle(() => {
+        if (
+            window.innerHeight + document.documentElement.scrollTop + 1500 >
+            document.documentElement.offsetHeight && !isLoading &&
+            ((current_page - 1) * limit) < total_count // Adjust condition here
+        ) {
+            dispatch(fetchCateringSearchCards()).then(() => {
+                dispatch(incrementPage());
+            });
+        }
+    }, 500);
+
+    useEffect(() => {
+        window.addEventListener("scroll", handleScroll)
+        return () => {
+            window.removeEventListener("scroll", handleScroll)
+        }
+    }, [handleScroll])
+
+
+
     if (isLoading) {
         return <>
             {getCateringSearchCards.length > 0 && getCateringSearchCards?.map((getSearchCard) => (
@@ -36,6 +71,9 @@ const ListView = () => {
         </>
     }
     // console.log(getCateringSearchCards, "getCateringSearchCards");
+
+
+
     return (
         <>
             {getCateringSearchCards.length > 0 ? (
@@ -170,7 +208,7 @@ const ListView = () => {
 
             {getCateringSearchCards?.length > 0 && <>
                 <Stack direction="row" justifyContent="space-between" style={{ marginBottom: '20px 0px 0px 0px' }} className='mb-5 mt-5'>
-                    <h2 className='pagination-heading'>Chennai: {getCateringSearchCards?.length} Catering service providers found</h2>
+                    <h2 className='pagination-heading'>Chennai: {total_count} Catering service providers found</h2>
                     <p className='pagination-showing'>Showing 20 - 30</p>
                 </Stack>
             </>}

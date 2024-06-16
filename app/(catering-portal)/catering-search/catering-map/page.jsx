@@ -1,17 +1,23 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { GoogleMap, InfoWindow, Marker, useLoadScript } from "@react-google-maps/api";
 import { useMemo } from "react";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
+import { fetchCateringSearchCards } from '@/app/features/user/cateringFilterSlice';
 
 const page = () => {
     const { getCateringSearchCards, isLoading } = useSelector((state) => state.cateringFilter)
+    const dispatch = useDispatch()
     // console.log(getCateringSearchCards, "getCateringSearchCards");
     const [mapRef, setMapRef] = useState();
     const [isOpen, setIsOpen] = useState(false);
     const [infoWindowData, setInfoWindowData] = useState();
     const router = useRouter()
+
+    useEffect(() => {
+        dispatch(fetchCateringSearchCards())
+    }, [])
 
 
     const { isLoaded } = useLoadScript({
@@ -27,11 +33,25 @@ const page = () => {
     };
 
 
-    const markers = [
-        { address: "Address1", lat: 18.5204, lng: 73.8567 },
-        { address: "Address2", lat: 18.5314, lng: 73.8446 },
-        { address: "Address3", lat: 18.5642, lng: 73.7769 },
-    ];
+
+    const markers = getCateringSearchCards?.map((getCateringSearchCard) => {
+        if (!getCateringSearchCards || !Array.isArray(getCateringSearchCards)) {
+            return [];
+        }
+        return {
+            lat: getCateringSearchCard?.latitude,
+            lng: getCateringSearchCard?.longitude,
+            address: getCateringSearchCard?.catering_service_name,
+        }
+    })
+
+    console.log(getCateringSearchCards, "getCateringSearchCards 888");
+
+    // const markers = [
+    //     { address: "Address1", lat: 18.5204, lng: 73.8567 },
+    //     { address: "Address2", lat: 18.5314, lng: 73.8446 },
+    //     { address: "Address3", lat: 18.5642, lng: 73.7769 },
+    // ];
 
     const onMapLoad = (map) => {
         setMapRef(map);
@@ -48,7 +68,7 @@ const page = () => {
 
     return (
         <div className="map-box-contaier">
-            <button className='btn-close' onClick={()=> router.push('/catering-search')}>
+            <button className='btn-close' onClick={() => router.push('/catering-search')}>
                 Close Map
             </button>
             <div style={{ width: '100%', height: '100vh' }}>
