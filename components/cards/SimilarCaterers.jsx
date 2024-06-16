@@ -9,9 +9,22 @@ import 'swiper/css/navigation';
 import { Navigation, Autoplay } from 'swiper/modules';
 // import Button from '@mui/material/Button';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { fetchTiffinSimilarCaterer } from '@/app/features/tiffin/tiffinFilterSlice';
 
 
 const SimilarCaterers = ({ tiffin }) => {
+
+    const { getTiffinSimilarTypes } = useSelector((state) => state.tiffinFilter)
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(fetchTiffinSimilarCaterer())
+    }, [])
+
+    console.log(getTiffinSimilarTypes, "getTiffinSimilarTypes");
+
     return (
         <Container maxWidth="xl" style={{ marginTop: '30px', marginBottom: '30px' }}>
             <Stack sx={{ marginBottom: '10px' }} alignItems="center" justifyContent="space-between" direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 1, sm: 2, md: 4 }}>
@@ -27,13 +40,13 @@ const SimilarCaterers = ({ tiffin }) => {
                     clickable: true,
                 }}
                 loop={true}
-                
+
                 autoplay={{
                     delay: 26666500,
                     disableOnInteraction: false,
                 }}
                 modules={[Navigation, Autoplay]}
-                style={{padding: '0px 5px'}}
+                style={{ padding: '0px 5px' }}
                 className="mySwiper branded-cater-slider"
                 breakpoints={{
                     0: {
@@ -50,31 +63,49 @@ const SimilarCaterers = ({ tiffin }) => {
                     },
                 }}
             >
-                {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((item) => (
+                {getTiffinSimilarTypes?.map((item) => (
                     <SwiperSlide>
                         <div className="vc-similar-card" key={item}>
                             <img src="/img/occasions/03.jpg" alt="" className="img-fluid vc-similar-card-img" />
                             <div className="vc-similar-card-description">
                                 <Stack direction="row" justifyContent="space-between" alignItems="start" style={{ marginTop: '10px', marginBottom: '10px' }}>
                                     <div className="text-start">
-                                        <h3 className='sc-title'>Balaji Catering Service</h3>
-                                        <p className='vc-similar-card-small text-left'>Adyar, Chennai</p>
+                                        <h3 className='sc-title'>{item?.catering_service_name}</h3>
+                                        <p className='vc-similar-card-small text-left'> {item?.city}, {item?.area} </p>
                                     </div>
                                     {/* <span className='vc-similar-card-cost' style={{ color: tiffin ? '#D9822B' : '#C33332' }}>270 / Plate</span> */}
                                 </Stack>
 
-                                <Stack direction="row" spacing={1}>
-                                    <img src="/img/icons/list-card-veg.png" className='list-similar-veg' alt="" />
-                                    <span className="veg-green-similar" style={{ marginRight: '6px' }}>
-                                        Veg</span> &   <img src="/img/icons/list-card-non-veg.png" className='list-similar-veg' alt="" />
-                                    <span className="food-type-non-veg-similar font-16">Non-Veg</span> </Stack>
+                                <Stack direction="row" spacing={1} sx={{ marginTop: '15px', marginBottom: '15px' }}>
+                                    {
+                                        item?.food_types?.map((food_type, index) => {
+                                            let iconSrc = '';
+                                            if (food_type === 'Veg') {
+                                                iconSrc = '/img/icons/list-card-veg.png';
+                                            } else if (food_type === 'Non Veg') {
+                                                iconSrc = '/img/icons/list-card-non-veg.png';
+                                            } else {
+                                                iconSrc = '/img/icons/list-card-veg.png';
+                                            }
+                                            return (
+                                                <Stack direction="row" alignItems="center" spacing={0} key={index}>
+                                                    <img src={iconSrc} className='list-card-veg' alt="" />
+                                                    <p className='list-card-veg-font'> {food_type} </p>
+                                                </Stack>
+                                            )
+                                        })
+                                    }
+                                </Stack>
 
-                                <h2 className="vc-similar-blue">South Indian | North Indian | Mughlai | Kerala</h2>
+
+
+                                <span className="vc-similar-blue">    {item?.cuisines?.slice(0, 6)?.map((item) => item).join(" | ")} </span>
+
 
                                 <Stack direction="row" alignItems="center" justifyContent="end" className="mb-4">
                                     <Stack direction="row" alignItems="center" justifyContent="end" spacing={0}>
                                         <CurrencyRupeeIcon className={tiffin ? 'vc-price-one-similar-tiffin' : 'vc-price-one-similar-catering'} />
-                                        <span className={tiffin ? 'vc-price-one-similar-tiffin' : 'vc-price-one-similar-catering'}> 250 / Plate </span>
+                                        <span className={tiffin ? 'vc-price-one-similar-tiffin' : 'vc-price-one-similar-catering'}> {`${item?.start_price}`} / Plate </span>
                                     </Stack>
                                 </Stack>
 

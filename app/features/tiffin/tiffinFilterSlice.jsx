@@ -14,6 +14,9 @@ const initialState = {
     getTiffinServiceTypes: [],
     getTiffinKitchenTypes: [],
 
+    // detail page 
+    getTiffinSimilarTypes: [],
+
     // listview 
     getTiffinSearchCards: [],
     getTiffinMapviewSearchCards: [],
@@ -251,6 +254,28 @@ export const fetchTiffinMapviewSearchCards = createAsyncThunk(
     }
 )
 
+export const fetchTiffinSimilarCaterer = createAsyncThunk(
+    'user/fetchTiffinSimilarCaterer',
+    async (data, thunkAPI) => {
+        // const { locationValuesGlobal } = data;
+        const startDate = thunkAPI.getState().globalnavbar?.startDate;
+        const endDate = thunkAPI.getState().globalnavbar?.endDate;
+        const people = thunkAPI.getState().globalnavbar?.people;
+        const locationValuesGlobal = thunkAPI.getState().globalnavbar?.locationValuesGlobal;
+
+        try {
+            const response = await api.get(`${BASE_URL}/search-vendors?search_term=${people}&order_by=distance&limit=100&save_filter=1&vendor_type=Tiffin&app_type=web&latitude=${locationValuesGlobal?.latitude || ""}&longitude=${locationValuesGlobal?.longitude || ""}&city=${locationValuesGlobal?.city?.long_name || ""}&pincode=${locationValuesGlobal?.pincode || ""}&place_id=${locationValuesGlobal?.place_id || ''}&start_date=${moment(startDate).format('YYYY-MM-DD')}&end_date=${moment(endDate).format('YYYY-MM-DD')}&shuffled=1`, {
+                headers: {
+                    authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
+                },
+            });
+            return response?.data?.data;
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error.response.data.msg);
+        }
+    }
+)
+
 
 
 
@@ -261,7 +286,6 @@ export const tiffinFilterSlice = createSlice({
         incrementTiffinPage(state) {
             state.current_page += 1;
         },
-
         clearTiffinSlice: (state) => {
             state = initialState;
         },
@@ -405,6 +429,17 @@ export const tiffinFilterSlice = createSlice({
                 state.total_count = action.payload.total_count;
             })
             .addCase(fetchTiffinMapviewSearchCards.rejected, (state, { payload }) => {
+                state.isLoading = false;
+            })
+            // fetchTiffinSimilarCaterer 
+            .addCase(fetchTiffinSimilarCaterer.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(fetchTiffinSimilarCaterer.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.getTiffinSimilarTypes = action.payload.vendors;
+            })
+            .addCase(fetchTiffinSimilarCaterer.rejected, (state, { payload }) => {
                 state.isLoading = false;
             })
     }
