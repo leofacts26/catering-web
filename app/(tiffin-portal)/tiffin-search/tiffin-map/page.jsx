@@ -45,13 +45,6 @@ const page = () => {
         }
     })
 
-    console.log(getTiffinMapviewSearchCards, "getTiffinMapviewSearchCards 888");
-
-    // const markers = [
-    //     { address: "Address1", lat: 18.5204, lng: 73.8567 },
-    //     { address: "Address2", lat: 18.5314, lng: 73.8446 },
-    //     { address: "Address3", lat: 18.5642, lng: 73.7769 },
-    // ];
 
     const onMapLoad = (map) => {
         setMapRef(map);
@@ -68,7 +61,7 @@ const page = () => {
 
     return (
         <div className="map-box-contaier">
-            <button className='btn-close' onClick={() => router.push('/catering-search')}>
+            <button className='btn-close' onClick={() => router.push('/tiffin-search')}>
                 Close Map
             </button>
             <div style={{ width: '100%', height: '100vh' }}>
