@@ -4,19 +4,19 @@ import { GoogleMap, InfoWindow, Marker, useLoadScript } from "@react-google-maps
 import { useMemo } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
-import { fetchCateringSearchCards } from '@/app/features/user/cateringFilterSlice';
+import { fetchCateringMapviewSearchCards, fetchCateringSearchCards } from '@/app/features/user/cateringFilterSlice';
 
 const page = () => {
-    const { getCateringSearchCards, isLoading } = useSelector((state) => state.cateringFilter)
+    const { getCateringMapviewSearchCards, isLoading } = useSelector((state) => state.cateringFilter)
     const dispatch = useDispatch()
-    // console.log(getCateringSearchCards, "getCateringSearchCards");
+    // console.log(getCateringMapviewSearchCards, "getCateringMapviewSearchCards");
     const [mapRef, setMapRef] = useState();
     const [isOpen, setIsOpen] = useState(false);
     const [infoWindowData, setInfoWindowData] = useState();
     const router = useRouter()
 
     useEffect(() => {
-        dispatch(fetchCateringSearchCards())
+        dispatch(fetchCateringMapviewSearchCards())
     }, [])
 
 
@@ -34,8 +34,8 @@ const page = () => {
 
 
 
-    const markers = getCateringSearchCards?.map((getCateringSearchCard) => {
-        if (!getCateringSearchCards || !Array.isArray(getCateringSearchCards)) {
+    const markers = getCateringMapviewSearchCards?.map((getCateringSearchCard) => {
+        if (!getCateringMapviewSearchCards || !Array.isArray(getCateringMapviewSearchCards)) {
             return [];
         }
         return {
@@ -45,7 +45,7 @@ const page = () => {
         }
     })
 
-    console.log(getCateringSearchCards, "getCateringSearchCards 888");
+    console.log(getCateringMapviewSearchCards, "getCateringMapviewSearchCards 888");
 
     // const markers = [
     //     { address: "Address1", lat: 18.5204, lng: 73.8567 },
@@ -56,7 +56,7 @@ const page = () => {
     const onMapLoad = (map) => {
         setMapRef(map);
         const bounds = new google.maps.LatLngBounds();
-        markers?.forEach(({ lat, lng }) => bounds.extend({ lat, lng }));
+        markers?.forEach(({ lat, lng }) => bounds?.extend({ lat, lng }));
         map.fitBounds(bounds);
     };
 

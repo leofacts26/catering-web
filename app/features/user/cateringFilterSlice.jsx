@@ -14,6 +14,7 @@ const initialState = {
     getCateringServiceTypes: [],
     getCateringServingTypes: [],
     getCateringSearchCards: [],
+    getCateringMapviewSearchCards: [],
     occasionCount: 5,
     occasionTotalCount: 5,
     cateringSortBy: [],
@@ -268,6 +269,32 @@ export const fetchCateringSearchCards = createAsyncThunk(
     }
 )
 
+export const fetchCateringMapviewSearchCards = createAsyncThunk(
+    'user/fetchCateringMapviewSearchCards',
+    async (data, thunkAPI) => {
+        // const { locationValuesGlobal } = data;
+        const startDate = thunkAPI.getState().globalnavbar?.startDate;
+        const endDate = thunkAPI.getState().globalnavbar?.endDate;
+        const people = thunkAPI.getState().globalnavbar?.people;
+        const locationValuesGlobal = thunkAPI.getState().globalnavbar?.locationValuesGlobal;
+        const current_page = thunkAPI.getState().cateringFilter?.current_page;
+        const limit = thunkAPI.getState().cateringFilter?.limit;
+        const total_count = thunkAPI.getState().cateringFilter?.total_count;
+
+        try {
+            const response = await api.get(`${BASE_URL}/search-vendors?search_term=${people}&order_by=distance&limit=100&save_filter=1&vendor_type=Caterer&app_type=web&latitude=${locationValuesGlobal?.latitude || ""}&longitude=${locationValuesGlobal?.longitude || ""}&city=${locationValuesGlobal?.city?.long_name || ""}&pincode=${locationValuesGlobal?.pincode || ""}&place_id=${locationValuesGlobal?.place_id || ''}&start_date=${moment(startDate).format('YYYY-MM-DD')}&end_date=${moment(endDate).format('YYYY-MM-DD')}`, {
+                headers: {
+                    authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
+                },
+            });
+            return response?.data?.data;
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error.response.data.msg);
+        }
+    }
+)
+
+
 
 export const cateringFilterSlice = createSlice({
     name: 'cateringFilter',
@@ -279,7 +306,7 @@ export const cateringFilterSlice = createSlice({
         incrementPage(state) {
             state.current_page += 1;
         },
-        
+
         setShowAllOccasions: (state, action) => {
             state.occasionCount = action.payload;
         },
@@ -493,7 +520,6 @@ export const cateringFilterSlice = createSlice({
                 state.isLoading = true;
             })
             .addCase(fetchCateringSearchCards.fulfilled, (state, action) => {
-                // console.log(action, "payloadpayloadpayloadpayload");
                 state.isLoading = false;
                 state.getCateringSearchCards = action.payload.vendors;
                 state.limit = action.payload.limit;
@@ -502,7 +528,18 @@ export const cateringFilterSlice = createSlice({
             })
             .addCase(fetchCateringSearchCards.rejected, (state, { payload }) => {
                 state.isLoading = false;
-                // toast.error(datavalidationerror(payload));
+            })
+            // fetchCateringMapviewSearchCards 
+            .addCase(fetchCateringMapviewSearchCards.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(fetchCateringMapviewSearchCards.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.getCateringMapviewSearchCards = action.payload.vendors;
+                state.total_count = action.payload.total_count;
+            })
+            .addCase(fetchCateringMapviewSearchCards.rejected, (state, { payload }) => {
+                state.isLoading = false;
             })
             // fetchGetAllSortOrders
             .addCase(fetchGetAllSortOrders.pending, (state) => {
