@@ -16,8 +16,12 @@ import ListViewTiffin from '@/components/tiffin/ListViewTiffin';
 import GridViewTiffin from '@/components/tiffin/GridViewTiffin';
 import TiffinFilters from '@/components/tiffin/TiffinFilters';
 import { useSelector } from 'react-redux';
+import { useRouter } from 'next/navigation';
+
+
 
 const page = () => {
+  const router = useRouter()
   const { getTiffinSearchCards, isLoading } = useSelector((state) => state.tiffinFilter)
   const [checked, setChecked] = useState(true);
   return (
@@ -41,7 +45,7 @@ const page = () => {
               <div className="position-relative">
                 <img src="/img/Search-Result-View-Page-Images/01-map.png" alt="" className="img-fluid" style={{ borderRadius: '5px', marginBottom: '4px' }} />
                 <div className="position-absolute map-box">
-                  <Button variant="contained" className='show-on-map' sx={{ backgroundColor: '#d9822b', fontSize: '10px', '&:hover': { backgroundColor: '#d9822b' } }}>Show on map</Button>
+                  <Button onClick={() => router.push('/tiffin-search/tiffin-map')} variant="contained" className='show-on-map' sx={{ backgroundColor: '#d9822b', fontSize: '10px', '&:hover': { backgroundColor: '#d9822b' } }}>Show on map</Button>
                 </div>
               </div>
               <TiffinFilters />

@@ -14,12 +14,15 @@ const initialState = {
     getTiffinServiceTypes: [],
     getTiffinKitchenTypes: [],
 
+    // listview 
+    getTiffinSearchCards: [],
+    getTiffinMapviewSearchCards: [],
+
     // filter 
     current_page: 1,
     limit: 6,
     total_count: null,
-    // listview 
-    getTiffinSearchCards: [],
+
 }
 
 export const fetchTiffinPriceRanges = createAsyncThunk(
@@ -190,6 +193,34 @@ export const fetchtiffinSearchCards = createAsyncThunk(
 )
 
 
+export const fetchTiffinMapviewSearchCards = createAsyncThunk(
+    'user/fetchTiffinMapviewSearchCards',
+    async (data, thunkAPI) => {
+        // const { locationValuesGlobal } = data;
+        const startDate = thunkAPI.getState().globalnavbar?.startDate;
+        const endDate = thunkAPI.getState().globalnavbar?.endDate;
+        const people = thunkAPI.getState().globalnavbar?.people;
+        const locationValuesGlobal = thunkAPI.getState().globalnavbar?.locationValuesGlobal;
+        // const current_page = thunkAPI.getState().tiffinFilter?.current_page;
+        // const limit = thunkAPI.getState().tiffinFilter?.limit;
+        // const total_count = thunkAPI.getState().tiffinFilter?.total_count;
+
+        try {
+            const response = await api.get(`${BASE_URL}/search-vendors?search_term=${people}&order_by=distance&limit=100&save_filter=1&vendor_type=Tiffin&app_type=web&latitude=${locationValuesGlobal?.latitude || ""}&longitude=${locationValuesGlobal?.longitude || ""}&city=${locationValuesGlobal?.city?.long_name || ""}&pincode=${locationValuesGlobal?.pincode || ""}&place_id=${locationValuesGlobal?.place_id || ''}&start_date=${moment(startDate).format('YYYY-MM-DD')}&end_date=${moment(endDate).format('YYYY-MM-DD')}`, {
+                headers: {
+                    authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
+                },
+            });
+            return response?.data?.data;
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error.response.data.msg);
+        }
+    }
+)
+
+
+
+
 export const tiffinFilterSlice = createSlice({
     name: 'tiffinFilter',
     initialState,
@@ -329,6 +360,19 @@ export const tiffinFilterSlice = createSlice({
             .addCase(fetchtiffinSearchCards.rejected, (state, { payload }) => {
                 state.isLoading = false;
                 toast.error(datavalidationerror(payload));
+            })
+            // fetchTiffinMapviewSearchCards 
+            .addCase(fetchTiffinMapviewSearchCards.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(fetchTiffinMapviewSearchCards.fulfilled, (state, action) => {
+                console.log(action, "action bbbbbbbbbbbbbbbbbbb");
+                state.isLoading = false;
+                state.getTiffinMapviewSearchCards = action.payload.vendors;
+                state.total_count = action.payload.total_count;
+            })
+            .addCase(fetchTiffinMapviewSearchCards.rejected, (state, { payload }) => {
+                state.isLoading = false;
             })
     }
 })
