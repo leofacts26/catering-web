@@ -17,7 +17,7 @@ const ListView = () => {
     const dispatch = useDispatch()
     const { getCateringSearchCards, isLoading, current_page, limit, total_count } = useSelector((state) => state.cateringFilter)
 
-    console.log({ current_page, total_count }, "current_page, total_count");
+    // console.log({ current_page, total_count }, "current_page, total_count");
 
     const [whishlistStatus, setWhishlistStatus] = useState(0)
 
@@ -31,7 +31,7 @@ const ListView = () => {
     }
 
 
-    // test 
+    // Infinite Scroll 
     const myThrottle = (cb, d) => {
         let last = 0;
         return (...args) => {

@@ -4,11 +4,44 @@ import Grid from '@mui/material/Grid';
 import Link from 'next/link'
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import GridViewSkeleton from '../GridViewSkeleton';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { fetchCateringSearchCards, incrementPage } from '@/app/features/user/cateringFilterSlice';
 
 const GridViewList = () => {
+    const dispatch = useDispatch()
+    const { getCateringSearchCards, isLoading, current_page, limit, total_count } = useSelector((state) => state.cateringFilter)
 
-    const { getCateringSearchCards, isLoading } = useSelector((state) => state.cateringFilter)
+     // Infinite Scroll 
+     const myThrottle = (cb, d) => {
+        let last = 0;
+        return (...args) => {
+            let now = new Date().getTime();
+            if (now - last < d) return;
+            last = now;
+            return cb(...args)
+        }
+    }
+
+    const handleScroll = myThrottle(() => {
+        if (
+            window.innerHeight + document.documentElement.scrollTop + 2000 >
+            document.documentElement.offsetHeight && !isLoading &&
+            ((current_page - 1) * limit) < total_count // Adjust condition here
+        ) {
+            dispatch(fetchCateringSearchCards()).then(() => {
+                dispatch(incrementPage());
+            });
+        }
+    }, 500);
+
+    useEffect(() => {
+        window.addEventListener("scroll", handleScroll)
+        return () => {
+            window.removeEventListener("scroll", handleScroll)
+        }
+    }, [handleScroll])
+
 
 
     if (isLoading) {
@@ -20,7 +53,6 @@ const GridViewList = () => {
             </Grid>
         );
     }
-
 
     return (
         <>
