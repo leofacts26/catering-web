@@ -3,12 +3,50 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Link from 'next/link'
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import GridViewSkeleton from '../GridViewSkeleton';
+import { fetchtiffinSearchCards, incrementTiffinPage } from '@/app/features/tiffin/tiffinFilterSlice';
+import { useEffect } from 'react';
 
 
 const GridViewTiffin = () => {
-    const { getTiffinSearchCards, isLoading } = useSelector((state) => state.tiffinFilter)
+    const dispatch = useDispatch()
+    const { getTiffinSearchCards, isLoading, current_page, limit, total_count } = useSelector((state) => state.tiffinFilter)
+
+
+    // Infinite Scroll 
+    const myThrottle = (cb, d) => {
+        let last = 0;
+        return (...args) => {
+            let now = new Date().getTime();
+            if (now - last < d) return;
+            last = now;
+            return cb(...args)
+        }
+    }
+
+    const handleScroll = myThrottle(() => {
+        if (
+            window.innerHeight + document.documentElement.scrollTop + 2000 >
+            document.documentElement.offsetHeight && !isLoading &&
+            ((current_page - 1) * limit) < total_count 
+        ) {
+            dispatch(fetchtiffinSearchCards()).then(() => {
+                dispatch(incrementTiffinPage());
+            });
+        }
+    }, 500);
+
+    useEffect(() => {
+        window.addEventListener("scroll", handleScroll)
+        return () => {
+            window.removeEventListener("scroll", handleScroll)
+        }
+    }, [handleScroll])
+
+
+
+
 
     if (isLoading) {
         return (
@@ -19,8 +57,6 @@ const GridViewTiffin = () => {
             </Grid>
         );
     }
-
-
 
     return (
         <>

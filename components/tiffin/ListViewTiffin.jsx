@@ -1,5 +1,5 @@
 "use client"
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
@@ -12,10 +12,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import ListViewSkeleton from '../ListViewSkeleton ';
 import { addchWishlist } from '@/app/features/user/settingSlice';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import { fetchtiffinSearchCards, incrementTiffinPage } from '@/app/features/tiffin/tiffinFilterSlice';
 
 const ListViewTiffin = () => {
 
-    const { getTiffinSearchCards, isLoading } = useSelector((state) => state.tiffinFilter)
+    const { getTiffinSearchCards, isLoading, current_page, limit, total_count } = useSelector((state) => state.tiffinFilter)
     const dispatch = useDispatch()
 
     const [page, setPage] = useState(1);
@@ -35,6 +36,38 @@ const ListViewTiffin = () => {
     }
 
 
+    // Infinite Scroll 
+    const myThrottle = (cb, d) => {
+        let last = 0;
+        return (...args) => {
+            let now = new Date().getTime();
+            if (now - last < d) return;
+            last = now;
+            return cb(...args)
+        }
+    }
+
+    const handleScroll = myThrottle(() => {
+        if (
+            window.innerHeight + document.documentElement.scrollTop + 1000 >
+            document.documentElement.offsetHeight && !isLoading &&
+            ((current_page - 1) * limit) < total_count 
+        ) {
+            dispatch(fetchtiffinSearchCards()).then(() => {
+                dispatch(incrementTiffinPage());
+            });
+        }
+    }, 500);
+
+    useEffect(() => {
+        window.addEventListener("scroll", handleScroll)
+        return () => {
+            window.removeEventListener("scroll", handleScroll)
+        }
+    }, [handleScroll])
+
+
+
 
     if (isLoading) {
         return <>
@@ -44,7 +77,7 @@ const ListViewTiffin = () => {
         </>
     }
 
-    console.log(getTiffinSearchCards, "getTiffinSearchCards getTiffinSearchCards"); 
+    console.log(getTiffinSearchCards, "getTiffinSearchCards getTiffinSearchCards");
 
     return (
         <>
@@ -163,7 +196,7 @@ const ListViewTiffin = () => {
                                                 <span className='lse-starting-price'>Inclusive All Taxes</span>
                                             </Stack>
                                             <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} sx={{ marginBottom: '5px' }}>
-                                                <Link href='/tiffin-view' className='text-decoration-none' variant="contained" style={{
+                                                <Link href={`/tiffin-search/${item?.vendor_id}`} className='text-decoration-none' variant="contained" style={{
                                                     color: '#ffffff', padding: '8px 14px', marginTop: '8px', fontWeight: '500',
                                                     backgroundColor: '#d9822b', borderRadius: '8px', fontSize: '14px',
                                                     fontFamily: "Readex Pro, sans-serif",
