@@ -25,6 +25,7 @@ import Footer from '@/components/Footer';
 import CateringSearchBar from '@/components/catering/CateringSearchBar';
 import OurGallery from "@/components/OurGallery";
 import TimeRange from "@/components/TimeRange";
+import ContactBtn from "@/components/ContactBtn";
 
 
 
@@ -115,7 +116,7 @@ export default async function Page({ params: { slug } }) {
                             <p className="vc-reviews">See Reviews (352)</p>
                             <Stack direction="row" spacing={2} style={{ marginTop: '10px' }}>
                                 {/* <Button variant="contained" className="vt-whatsapp-btn"> <WhatsAppIcon style={{ marginRight: '3px' }} /> Whatsapp</Button> */}
-                                <Button variant="contained" className="vc-contact-btn">Contact Now</Button>
+                                <ContactBtn number={data?.business_phone_number} />
                             </Stack>
                         </Stack>
                     </Grid>

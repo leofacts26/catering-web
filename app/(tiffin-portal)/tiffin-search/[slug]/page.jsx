@@ -26,6 +26,7 @@ import TiffinSearchBar from '@/components/tiffin/TiffinSearchBar';
 import { api, BASE_URL } from '@/api/apiConfig';
 import TimeRange from '@/components/TimeRange';
 import OurGallery from '@/components/OurGallery';
+import ContactBtn from '@/components/ContactBtn';
 
 const getData = async (id) => {
   try {
@@ -114,7 +115,7 @@ export default async function Page({ params: { slug } }) {
                 <p className="vc-reviews-tiffin">See Reviews (352)</p>
                 <Stack direction="row" spacing={2} style={{ marginTop: '10px' }}>
                   {/* <Button variant="contained" className="vt-whatsapp-btn"> <WhatsAppIcon style={{ marginRight: '3px' }} /> Whatsapp</Button> */}
-                  <Button variant="contained" className="vc-contact-btn-tiffin">Contact Now</Button>
+                  <ContactBtn number={data?.business_phone_number} />
                 </Stack>
               </Stack>
             </Grid>
