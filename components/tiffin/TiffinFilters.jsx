@@ -42,14 +42,14 @@ const CssTextField = styled(TextField)(({ theme }) => ({
     },
 }));
 
-const Filters = () => {
+const TiffinFilters = () => {
 
     return (
         <>
             <Box sx={{ marginBottom: '10px' }} className="filter-shadow">
                 <Card>
                     <CardContent>
-                        <h3 className='filter-text'>Filter by:</h3>
+                        <h3 className='filter-text'>Tiffin Filter:</h3>
                     </CardContent>
                     <Divider />
 
@@ -93,4 +93,4 @@ const Filters = () => {
     )
 }
 
-export default Filters
+export default TiffinFilters

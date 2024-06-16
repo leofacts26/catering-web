@@ -1,4 +1,4 @@
-import { fetchtiffinSearchCards, fetchTiffinServiceTypes, setServiceTypeFilter } from '@/app/features/tiffin/tiffinFilterSlice';
+import { fetchTiffinMapviewSearchCards, fetchtiffinSearchCards, fetchTiffinServiceTypes, setServiceTypeFilter } from '@/app/features/tiffin/tiffinFilterSlice';
 import React, { useCallback, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import FilterSkeleton from '../FilterSkeleton';
@@ -23,6 +23,7 @@ const TiffinServiceTypes = () => {
     const onHandleServiceFilter = useCallback((priceType) => {
         dispatch(setServiceTypeFilter(priceType?.id))
         dispatch(fetchtiffinSearchCards())
+        dispatch(fetchTiffinMapviewSearchCards())
     }, [dispatch]);
 
     // console.log(getTiffinServiceTypes, "getTiffinServiceTypes"); 

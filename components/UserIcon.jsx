@@ -24,12 +24,12 @@ import { useRouter } from 'next/navigation'
 
 const UserIcon = () => {
     const dispatch = useDispatch()
-    const { userDetails } = useSelector((state) => state.user)
+    const { userDetails, accessToken } = useSelector((state) => state.user)
     const router = useRouter()
 
     useEffect(() => {
         dispatch(fetchUserData());
-    }, [dispatch]);
+    }, [dispatch, accessToken]);
 
     // dropdown 
     const [anchorEl, setAnchorEl] = React.useState(null);

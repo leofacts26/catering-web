@@ -45,7 +45,7 @@ export const fetchTiffinFoodTypes = createAsyncThunk(
     'user/fetchTiffinFoodTypes',
     async (user, thunkAPI) => {
         try {
-            const response = await api.get(`${BASE_URL}/get-all-food-types?current_page=1&limit=2`, {
+            const response = await api.get(`${BASE_URL}/get-all-food-types?current_page=1&limit=3`, {
                 headers: {
                     authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
                 },
@@ -201,12 +201,45 @@ export const fetchTiffinMapviewSearchCards = createAsyncThunk(
         const endDate = thunkAPI.getState().globalnavbar?.endDate;
         const people = thunkAPI.getState().globalnavbar?.people;
         const locationValuesGlobal = thunkAPI.getState().globalnavbar?.locationValuesGlobal;
-        // const current_page = thunkAPI.getState().tiffinFilter?.current_page;
-        // const limit = thunkAPI.getState().tiffinFilter?.limit;
-        // const total_count = thunkAPI.getState().tiffinFilter?.total_count;
+        const getTiffinPriceRanges = thunkAPI.getState().tiffinFilter?.getTiffinPriceRanges;
+        const getTiffinFoodTypes = thunkAPI.getState().tiffinFilter?.getTiffinFoodTypes;
+        const getTiffinMealTypes = thunkAPI.getState().tiffinFilter?.getTiffinMealTypes;
+        const getTiffinServiceTypes = thunkAPI.getState().tiffinFilter?.getTiffinServiceTypes;
+        const getTiffinKitchenTypes = thunkAPI.getState().tiffinFilter?.getTiffinKitchenTypes;
+
+        // pricetype_filter_formatted 
+        const selectedPriceRanges = getTiffinPriceRanges?.filter(price => price?.selected === 1);
+        const updatedPriceTypes_formatted = selectedPriceRanges?.map(price => {
+            return { id: price.id, start_price: parseFloat(price.start_price), end_price: parseFloat(price.end_price) }
+        })
+
+        // foodtype_filter_formatted 
+        const foodtype_filter_formatted = getTiffinFoodTypes.map(foodType => ({
+            id: foodType.id,
+            selected: foodType.selected
+        }))
+
+        // mealtype_filter_formatted 
+        const mealtype_filter_formatted = getTiffinMealTypes.map(mealType => ({
+            id: mealType.id,
+            selected: mealType.selected
+        }))
+
+        // servicetype_filter_formatted 
+        const servicetype_filter_formatted = getTiffinServiceTypes.map(serviceType => ({
+            id: serviceType.id,
+            selected: serviceType.selected
+        }))
+
+        // kitchentype_filter_formatted 
+        const kitchentype_filter_formatted = getTiffinKitchenTypes.map(kitchenType => ({
+            id: kitchenType.id,
+            selected: kitchenType.selected
+        }))
+
 
         try {
-            const response = await api.get(`${BASE_URL}/search-vendors?search_term=${people}&order_by=distance&limit=100&save_filter=1&vendor_type=Tiffin&app_type=web&latitude=${locationValuesGlobal?.latitude || ""}&longitude=${locationValuesGlobal?.longitude || ""}&city=${locationValuesGlobal?.city?.long_name || ""}&pincode=${locationValuesGlobal?.pincode || ""}&place_id=${locationValuesGlobal?.place_id || ''}&start_date=${moment(startDate).format('YYYY-MM-DD')}&end_date=${moment(endDate).format('YYYY-MM-DD')}`, {
+            const response = await api.get(`${BASE_URL}/search-vendors?search_term=${people}&order_by=distance&limit=100&save_filter=1&vendor_type=Tiffin&app_type=web&latitude=${locationValuesGlobal?.latitude || ""}&longitude=${locationValuesGlobal?.longitude || ""}&city=${locationValuesGlobal?.city?.long_name || ""}&pincode=${locationValuesGlobal?.pincode || ""}&service_types_filter=${JSON.stringify(servicetype_filter_formatted)}&price_ranges=${JSON.stringify(updatedPriceTypes_formatted)}&meal_times_filter=${JSON.stringify(mealtype_filter_formatted)}&kitchen_types_filter=${JSON.stringify(kitchentype_filter_formatted)}&food_types_filter=${JSON.stringify(foodtype_filter_formatted)}&place_id=${locationValuesGlobal?.place_id || ''}&start_date=${moment(startDate).format('YYYY-MM-DD')}&end_date=${moment(endDate).format('YYYY-MM-DD')}`, {
                 headers: {
                     authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
                 },

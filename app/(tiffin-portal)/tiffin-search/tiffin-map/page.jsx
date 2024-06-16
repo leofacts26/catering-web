@@ -4,12 +4,17 @@ import { GoogleMap, InfoWindow, Marker, useLoadScript } from "@react-google-maps
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import { fetchTiffinMapviewSearchCards } from '@/app/features/tiffin/tiffinFilterSlice';
+import TiffinFilters from '@/components/tiffin/TiffinFilters';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import LoaderSpinner from '@/components/LoaderSpinner';
 
 const Page = () => {
     const { getTiffinMapviewSearchCards, isLoading } = useSelector((state) => state.tiffinFilter);
     const dispatch = useDispatch();
     const [mapRef, setMapRef] = useState();
     const [isOpen, setIsOpen] = useState(false);
+    const [hoveredMarker, setHoveredMarker] = useState(null);
     const [infoWindowData, setInfoWindowData] = useState(null);
     const router = useRouter();
 
@@ -28,7 +33,9 @@ const Page = () => {
         return getTiffinMapviewSearchCards.map(card => ({
             lat: card.latitude,
             lng: card.longitude,
-            address: card.catering_service_name,
+            catering_service_name: card.catering_service_name,
+            start_price: card.start_price,
+            id: card.vendor_id,
         }));
     }, [getTiffinMapviewSearchCards]);
 
@@ -55,52 +62,76 @@ const Page = () => {
         }
     };
 
-    const handleMarkerClick = (index, lat, lng, address) => {
-        mapRef.panTo({ lat, lng });
-        setInfoWindowData({ index, address });
+    const handleMarkerHover = (index, lat, lng, catering_service_name, start_price, id) => {
+        setHoveredMarker(index);
+        setInfoWindowData({ index, catering_service_name, start_price, id });
         setIsOpen(true);
     };
 
+    const handleMarkerHoverOut = () => {
+        setHoveredMarker(null);
+        setIsOpen(false);
+    };
+
     return (
-        <div className="map-box-container">
-            <button className='btn-close' onClick={() => router.push('/tiffin-search')}>
-                Close Map
-            </button>
-            <div style={{ width: '100%', height: '100vh' }}>
-                {!isLoaded ? (
-                    <h1>Loading...</h1>
-                ) : (
-                    <GoogleMap
-                        mapContainerClassName="map-container"
-                        center={defaultCenter}
-                        zoom={10}
-                        mapContainerStyle={{
-                            width: "100%",
-                            height: '100vh'
-                        }}
-                        onLoad={onMapLoad}
-                        onClick={() => setIsOpen(false)}
-                    >
-                        {markers.map(({ address, lat, lng }, index) => (
-                            <Marker
-                                key={index}
-                                position={{ lat, lng }}
-                                onClick={() => handleMarkerClick(index, lat, lng, address)}
-                                icon={customMarker}
-                            >
-                                {isOpen && infoWindowData?.index === index && (
-                                    <InfoWindow
-                                        onCloseClick={() => setIsOpen(false)}
+        <>
+            <Box sx={{ flexGrow: 1 }}>
+                <Grid container spacing={2}>
+                    <Grid item xs={2}>
+                        <div className="map-left-container">
+                            <TiffinFilters />
+                        </div>
+                    </Grid>
+                    <Grid item xs={10}>
+                        <div className="map-box-container">
+                            <button className='btn-close' onClick={() => router.push('/tiffin-search')}>
+                                Close Map
+                            </button>
+
+                            <div style={{ width: '100%', height: '100vh' }}>
+                                {!isLoaded ? (
+                                    <LoaderSpinner />
+                                ) : (
+                                    <GoogleMap
+                                        mapContainerClassName="map-container"
+                                        center={defaultCenter}
+                                        zoom={10}
+                                        mapContainerStyle={{
+                                            width: "100%",
+                                            height: '100vh'
+                                        }}
+                                        onLoad={onMapLoad}
+                                        onClick={() => setIsOpen(false)}
                                     >
-                                        <h3>{infoWindowData.address}</h3>
-                                    </InfoWindow>
+                                        {markers.map(({ catering_service_name, lat, lng, start_price, id }, index) => (
+                                            <Marker
+                                                key={index}
+                                                position={{ lat, lng }}
+                                                onMouseOver={() => handleMarkerHover(index, lat, lng, catering_service_name, start_price, id)}
+                                                onMouseOut={handleMarkerHoverOut}
+                                                icon={customMarker}
+                                                onClick={() => router.push(`/tiffin-search/${id}`)}
+                                            >
+                                                {isOpen && infoWindowData?.index === index && (
+                                                    <InfoWindow
+                                                        onCloseClick={() => setIsOpen(false)}
+                                                    >
+                                                        <div>
+                                                            <p> <b>Name:-</b> {infoWindowData.catering_service_name}</p>
+                                                            <p className='mt-2'> <b>Start Price:-</b> {infoWindowData.start_price}</p>
+                                                        </div>
+                                                    </InfoWindow>
+                                                )}
+                                            </Marker>
+                                        ))}
+                                    </GoogleMap>
                                 )}
-                            </Marker>
-                        ))}
-                    </GoogleMap>
-                )}
-            </div>
-        </div>
+                            </div>
+                        </div>
+                    </Grid>
+                </Grid>
+            </Box>
+        </>
     );
 };
 

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Stack from '@mui/material/Stack';
 import Checkbox from '@mui/material/Checkbox';
 import FilterSkeleton from '../FilterSkeleton';
-import { fetchTiffinKitchenTypes, fetchtiffinSearchCards, setKitchenTypeFilter } from '@/app/features/tiffin/tiffinFilterSlice';
+import { fetchTiffinKitchenTypes, fetchTiffinMapviewSearchCards, fetchtiffinSearchCards, setKitchenTypeFilter } from '@/app/features/tiffin/tiffinFilterSlice';
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 
@@ -22,6 +22,7 @@ const TiffinkitchenTypes = () => {
     const onHandlekitchenFilter = useCallback((kitchenType) => {
         dispatch(setKitchenTypeFilter(kitchenType?.id))
         dispatch(fetchtiffinSearchCards())
+        dispatch(fetchTiffinMapviewSearchCards())
     }, [dispatch]);
 
     // console.log(getTiffinKitchenTypes, "getTiffinKitchenTypes"); 

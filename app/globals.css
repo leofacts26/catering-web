@@ -2810,3 +2810,34 @@ textarea:-webkit-autofill:active {
   z-index: 999 !important;
   cursor: pointer !important;
 }
+
+.map-left-container{
+  height: 100vh;
+  overflow-y: scroll;
+}
+
+.map-left-container::-webkit-scrollbar {
+  width: 3px;
+}
+
+/* Track */
+.map-left-container::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+.map-left-container::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+.map-left-container::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
+.gm-ui-hover-effect {
+  display: none !important;
+  border: none !important;
+  outline: none !important;
+  outline-width: 0px !important;
+}

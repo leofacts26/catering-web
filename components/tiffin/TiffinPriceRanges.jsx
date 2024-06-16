@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Stack from '@mui/material/Stack';
 import Checkbox from '@mui/material/Checkbox';
 import FilterSkeleton from '../FilterSkeleton';
-import { fetchTiffinPriceRanges, fetchtiffinSearchCards, setPriceTypeFilter } from '@/app/features/tiffin/tiffinFilterSlice';
+import { fetchTiffinMapviewSearchCards, fetchTiffinPriceRanges, fetchtiffinSearchCards, setPriceTypeFilter } from '@/app/features/tiffin/tiffinFilterSlice';
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 
@@ -21,6 +21,7 @@ const TiffinPriceRanges = () => {
     const onHandlePriceRanges = useCallback((priceType) => {
         dispatch(setPriceTypeFilter(priceType?.id))
         dispatch(fetchtiffinSearchCards())
+        dispatch(fetchTiffinMapviewSearchCards())
     }, [dispatch]);
 
     // console.log(getTiffinPriceRanges, "getTiffinPriceRanges"); 

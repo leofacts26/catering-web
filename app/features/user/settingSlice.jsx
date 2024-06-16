@@ -2,7 +2,8 @@ import { api, BASE_URL } from '@/api/apiConfig';
 import { datavalidationerror, successToast } from '@/utils';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import toast from 'react-hot-toast';
-import { fetchUserData } from './userSlice';
+import { fetchUserData, setAccessToken } from './userSlice';
+// import { fetchUserData } from './userSlice';
 
 const initialState = {
     isLoading: true,
@@ -90,9 +91,11 @@ export const sendUpdateUserProfile = createAsyncThunk(
                     authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
                 },
             });
+            // console.log(response.data.data.updated_token, "response.data.updated_token response.data.updated_token");
+            thunkAPI.dispatch(setAccessToken(response?.data?.data?.updated_token));
             thunkAPI.dispatch(setShowOtp(true));
             toast.success(successToast(response))
-            fetchUserData()
+            thunkAPI.dispatch(fetchUserData());
         } catch (error) {
             toast.error(datavalidationerror(error))
             return thunkAPI.rejectWithValue(error.response.data.msg);
