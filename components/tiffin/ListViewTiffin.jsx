@@ -89,7 +89,7 @@ const ListViewTiffin = () => {
                         {getTiffinSearchCards?.map((item) => {
                             const brandLogo = item?.brand_logo?.[0]?.original;
                             const bannerImage = item?.banner_images?.[0]?.original;
-                            const imageSrc = item?.subscription_type_name === "branded" && brandLogo || bannerImage || 'img/no-image.jpg';
+                            const imageSrc = item?.subscription_type_name === "branded" && brandLogo || item?.brand_logo?.original || bannerImage || 'img/no-image.jpg';
                             return (
                                 <div className="list-view-card" key={item?.vendor_id}>
                                     <Stack spacing={{ xs: 1, sm: 2, md: 0 }} direction={{ xs: 'column', sm: 'row', md: 'row', lg: "row" }} justifyContent="space-between" flexWrap="wrap">

@@ -60,7 +60,7 @@ const UserIcon = () => {
                     aria-haspopup="true"
                     aria-expanded={open ? 'true' : undefined}
                     onClick={handleClick}>
-                    <Avatar sx={{ bgcolor: '#a81e1e' }}>{userDetails?.username?.slice(0, 1).toUpperCase()}</Avatar>
+                    <Avatar sx={{ bgcolor: '#ffffff', color: '#57636c' }}>{userDetails?.username?.slice(0, 1).toUpperCase()}</Avatar>
 
                     <p className='avatar-text'>{userDetails?.username}</p>
                 </Stack>
