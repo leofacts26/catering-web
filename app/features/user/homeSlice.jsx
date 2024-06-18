@@ -13,6 +13,7 @@ const initialState = {
     brandedList: [],
     tiffinList: [],
     popularTiffins: [],
+    getAllcuisines: [],
 }
 
 export const fetchFaq = createAsyncThunk(
@@ -146,6 +147,23 @@ export const fetchPopularTiffins = createAsyncThunk(
 )
 
 
+export const fetchCuisines = createAsyncThunk(
+    'homepage/fetchCuisines',
+    async (user, thunkAPI) => {
+        try {
+            const response = await api.get(`${BASE_URL}/get-all-cuisines`, {
+                headers: {
+                    authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
+                },
+            });
+            return response?.data?.data;
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error.response.data.msg);
+        }
+    }
+)
+
+
 export const homeSlice = createSlice({
     name: 'homepage',
     initialState,
@@ -250,6 +268,18 @@ export const homeSlice = createSlice({
                 state.popularTiffins = payload;
             })
             .addCase(fetchPopularTiffins.rejected, (state, { payload }) => {
+                state.isLoading = false;
+                toast.error(datavalidationerror(payload));
+            })
+            // fetchCuisines 
+            .addCase(fetchCuisines.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(fetchCuisines.fulfilled, (state, { payload }) => {
+                state.isLoading = false;
+                state.getAllcuisines = payload;
+            })
+            .addCase(fetchCuisines.rejected, (state, { payload }) => {
                 state.isLoading = false;
                 toast.error(datavalidationerror(payload));
             })
