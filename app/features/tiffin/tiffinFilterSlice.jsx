@@ -159,7 +159,7 @@ export const fetchtiffinSearchCards = createAsyncThunk(
 
         // subscription_Types_formatted 
         const subscriptionTypes_formatted = subscriptionTypes.map(subscriptionType => ({
-            subscription_type_id: subscriptionType.id,
+            subscription_type_id: Number(subscriptionType.id),
             selected: subscriptionType.selected
         }))
 

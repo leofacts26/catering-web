@@ -1688,6 +1688,7 @@ h6 {
 
 .vc-similar-card-img {
   border-radius: 8px;
+  height: 200px !important;
 }
 
 .vc-similar-card-cost {

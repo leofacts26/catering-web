@@ -33,7 +33,7 @@ const CaterFoodTypes = () => {
     return (
         <>
             {getCateringFoodTypes?.length > 0 ? (
-                getCateringFoodTypes?.map((foodType) => {
+                getCateringFoodTypes?.slice(1,3)?.map((foodType) => {
                     return (
                         <Stack className='text-muted' direction="row" alignItems="center" sx={{ marginLeft: '-10px', marginTop: '5px' }} key={foodType?.id}>
                             <Checkbox {...label}

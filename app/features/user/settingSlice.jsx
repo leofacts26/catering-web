@@ -16,7 +16,7 @@ export const fetchWishlist = createAsyncThunk(
     'user/fetchWishlist',
     async (user, thunkAPI) => {
         try {
-            const response = await api.get(`${BASE_URL}/user-get-wishlist?limit=10&current_page=1&vendor_type=Caterer`, {
+            const response = await api.get(`${BASE_URL}/user-get-wishlist?limit=10&current_page=1&vendor_type=Tiffin`, {
                 headers: {
                     authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
                 },
@@ -31,10 +31,11 @@ export const fetchWishlist = createAsyncThunk(
 export const addchWishlist = createAsyncThunk(
     'user/addchWishlist',
     async (data, thunkAPI) => {
-        const { branchId, whishlistStatus } = data;
+        const { branchId, whishlistStatus, vendor_type } = data;
         let body = {
             branch_id: branchId,
-            status: whishlistStatus
+            status: whishlistStatus,
+            vendor_type: vendor_type
         }
         try {
             const response = await api.post(`${BASE_URL}/user-add-update-wishlist`, body, {

@@ -75,7 +75,7 @@ export const fetchCateringFoodTypes = createAsyncThunk(
     'user/fetchCateringFoodTypes',
     async (user, thunkAPI) => {
         try {
-            const response = await api.get(`${BASE_URL}/get-all-food-types?current_page=1&limit=2`, {
+            const response = await api.get(`${BASE_URL}/get-all-food-types?current_page=1&limit=3`, {
                 headers: {
                     authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
                 },
@@ -246,7 +246,7 @@ export const fetchCateringSearchCards = createAsyncThunk(
 
         // subscription_Types_formatted 
         const subscriptionTypes_formatted = subscriptionTypes.map(subscriptionType => ({
-            subscription_type_id: subscriptionType.id,
+            subscription_type_id: Number(subscriptionType.id),
             selected: subscriptionType.selected
         }))
 

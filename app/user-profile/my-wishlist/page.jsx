@@ -17,7 +17,7 @@ const page = () => {
     dispatch(fetchWishlist())
   }, [])
 
-  // console.log(caterWishlist, "caterWishlist");
+  console.log(caterWishlist, "caterWishlist");
 
   return (
     <>
