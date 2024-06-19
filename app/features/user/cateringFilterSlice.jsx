@@ -23,8 +23,8 @@ const initialState = {
     current_page: 1,
     limit: 7,
     total_count: null,
-     // detail page 
-     getCateringSimilarTypes: [],
+    // detail page 
+    getCateringSimilarTypes: [],
     // Global Nav 
     startDate: new Date(),
     endDate: new Date(),
@@ -238,8 +238,9 @@ export const fetchCateringSearchCards = createAsyncThunk(
             selected: serving.selected
         }))
 
+
         // foodtype_filter_formatted 
-        const foodtype_filter_formatted = getCateringFoodTypes.map(foodType => ({
+        const foodtype_filter_formatted = getCateringFoodTypes.filter(item => item.id !== "1").map(foodType => ({
             id: foodType.id,
             selected: foodType.selected
         }))

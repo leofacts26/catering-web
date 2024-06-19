@@ -22,7 +22,7 @@ const SelectBox = () => {
     };
 
 
-    
+
     useEffect(() => {
         dispatch(fetchCateringSearchCards());
     }, [dispatch])
@@ -52,9 +52,7 @@ const SelectBox = () => {
                             )
                         })
                     }
-                    {/* <button onClick={() => onHandleclearFilters()} style={{ cursor: 'pointer' }}>clear filters</button> */}
-                    {/* <Button size="small" className="btn-pill" style={{ color: '#726e6e', fontSize: '12px' }}>Branded Caterers</Button>
-                    <Button size="small" className="btn-pill" style={{ color: '#726e6e', fontSize: '12px' }}>Popular Caterers</Button> */}
+
                 </Stack>
             </Stack>
 

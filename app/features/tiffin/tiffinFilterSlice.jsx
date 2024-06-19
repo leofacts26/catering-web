@@ -133,8 +133,10 @@ export const fetchtiffinSearchCards = createAsyncThunk(
             return { id: price.id, start_price: parseFloat(price.start_price), end_price: parseFloat(price.end_price) }
         })
 
+        // console.log(getTiffinFoodTypes, "getTiffinFoodTypes");
+
         // foodtype_filter_formatted 
-        const foodtype_filter_formatted = getTiffinFoodTypes.map(foodType => ({
+        const foodtype_filter_formatted = getTiffinFoodTypes?.filter(item => item.id !== "1").map(foodType => ({
             id: foodType.id,
             selected: foodType.selected
         }))
@@ -217,7 +219,7 @@ export const fetchTiffinMapviewSearchCards = createAsyncThunk(
         })
 
         // foodtype_filter_formatted 
-        const foodtype_filter_formatted = getTiffinFoodTypes.map(foodType => ({
+        const foodtype_filter_formatted = getTiffinFoodTypes.filter(item => item.id !== "1").map(foodType => ({
             id: foodType.id,
             selected: foodType.selected
         }))
