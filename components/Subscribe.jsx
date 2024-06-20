@@ -7,7 +7,10 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
-
+import { Formik } from 'formik';
+import * as Yup from 'yup';
+import { useDispatch, useSelector } from 'react-redux';
+import { userSubscribeEmail } from '@/app/features/user/homeSlice';
 
 const CssTextField = styled(TextField)(({ theme }) => ({
     '& .MuiOutlinedInput-root': {
@@ -39,14 +42,33 @@ const CssTextField = styled(TextField)(({ theme }) => ({
 }));
 
 
+const initialState = {
+    email: '',
+}
+
 const Subscribe = () => {
+    const dispatch = useDispatch();
     const [checked, setChecked] = useState(true);
     const [name, setName] = useState('Cat in the Hat');
+    const { isLoading } = useSelector((state) => state.homepage)
 
     const handleChange = (event) => {
         setChecked(event.target.checked);
     };
 
+    // validation schema
+    const schema = Yup.object().shape({
+        email: Yup.string()
+            .email('Invalid email format')
+            .required('Email is required'),
+    });
+
+    const handleSubmit = (data, resetForm) => {
+        console.log(data, "data");
+        const { email } = data;
+        dispatch(userSubscribeEmail(email))
+        resetForm(initialState);
+    }
 
     return (
         <section className='subscribe-bg'>
@@ -69,34 +91,46 @@ const Subscribe = () => {
                     </Box>
 
                     <Container maxWidth="md" >
-                        <Stack direction="row" justifyContent="center">
-                            <Stack direction={{ xs: 'column', sm: 'column', md: "row" }} justifyContent="center" alignItems="center" className='subscribe-input'>
+                        <Formik initialValues={initialState} validationSchema={schema} onSubmit={(values, { resetForm }) => handleSubmit(values, resetForm)}>
+                            {({ values, errors, handleChange, handleSubmit }) => (
+                                <form onSubmit={handleSubmit} className="px-4" autocomplete="off">
+                                    <Stack direction="row" justifyContent="center">
+                                        <Stack direction={{ xs: 'column', sm: 'column', md: "row" }} justifyContent="center" alignItems="center" className='subscribe-input'>
 
-                                <CssTextField
-                                    id="outlined-number"
-                                    variant="outlined"
-                                    // label="Enter Email ID"
-                                    placeholder='Enter Email ID'
-                                    className='mt-0'
-                                    style={{ width: '75%' }}
-                                    InputLabelProps={{
-                                        style: { color: '#ffffff' },
-                                    }}
-                                    InputProps={{
-                                        style: {
-                                            borderRadius: '8px'
-                                        }
-                                    }}
-                                />
-                                <Button variant="contained" sx={{ height: '40px',
-                                    backgroundColor: '#c33332', padding: '10px 30px',
-                                    fontSize: '14px', fontWeight: '500', textTransform: 'capitalize', marginLeft: '10px',
-                                    borderRadius: '8px', '&:hover': {
-                                        backgroundColor: '#c33332',
-                                    }
-                                }}>Sign Up</Button>
-                            </Stack>
-                        </Stack>
+                                            <CssTextField
+                                                id="outlined-number"
+                                                variant="outlined"
+                                                value={values?.email}
+                                                name="email"
+                                                onChange={handleChange}
+                                                placeholder='Enter Email ID'
+                                                className='mt-0'
+                                                style={{ width: '75%' }}
+                                                InputLabelProps={{
+                                                    style: { color: '#ffffff' },
+                                                }}
+                                                InputProps={{
+                                                    style: {
+                                                        borderRadius: '8px'
+                                                    }
+                                                }}
+                                            />
+
+                                            <Button type="submit" variant="contained" sx={{
+                                                height: '40px',
+                                                backgroundColor: '#c33332', padding: '10px 30px',
+                                                fontSize: '14px', fontWeight: '500', textTransform: 'capitalize', marginLeft: '10px',
+                                                borderRadius: '8px', '&:hover': {
+                                                    backgroundColor: '#c33332',
+                                                }
+                                            }}> {isLoading ? 'Loading...' : 'Sign Up'} </Button>
+
+                                        </Stack>
+                                    </Stack>
+                                    {errors.email && <small className='text-white mb-2 ms-1'>{errors.email}</small>}
+                                </form>
+                            )}
+                        </Formik>
                     </Container>
                 </Box>
             </Container>

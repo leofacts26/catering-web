@@ -1,5 +1,5 @@
 import { api, BASE_URL } from '@/api/apiConfig';
-import { datavalidationerror } from '@/utils';
+import { datavalidationerror, successToast } from '@/utils';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import toast from 'react-hot-toast';
 
@@ -163,6 +163,28 @@ export const fetchCuisines = createAsyncThunk(
     }
 )
 
+// user-subscribe-email 
+export const userSubscribeEmail = createAsyncThunk(
+    'homepage/userSubscribeEmail',
+    async (email, thunkAPI) => {
+        const data = {
+            email: email
+        }
+        try {
+            const response = await api.post(`${BASE_URL}/user-subscribe-email`, data, {
+                headers: {
+                    authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
+                },
+            });
+            toast.success(successToast(response))
+        } catch (error) {
+            toast.error(datavalidationerror(error))
+            return thunkAPI.rejectWithValue(error.response.data.msg);
+        }
+    }
+)
+
+
 
 export const homeSlice = createSlice({
     name: 'homepage',
@@ -283,6 +305,17 @@ export const homeSlice = createSlice({
                 state.isLoading = false;
                 toast.error(datavalidationerror(payload));
             })
+            // userSubscribeEmail 
+            .addCase(userSubscribeEmail.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(userSubscribeEmail.fulfilled, (state, { payload }) => {
+                state.isLoading = false;
+            })
+            .addCase(userSubscribeEmail.rejected, (state, { payload }) => {
+                state.isLoading = false;
+                toast.error(datavalidationerror(payload));
+            })
     }
 })
 
@@ -294,5 +327,3 @@ export const homeSlice = createSlice({
 export const { } = homeSlice.actions
 
 export default homeSlice.reducer
-
-
