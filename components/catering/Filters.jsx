@@ -10,16 +10,21 @@ import CaterCuisineFilter from './CaterCuisineFilter';
 import CaterOccaionTypes from './CaterOccaionTypes';
 import CaterServiceTypes from './CaterServiceTypes';
 import CaterServingTypes from './CaterServingTypes';
+import { useDispatch } from 'react-redux';
+import { resetFilters } from '@/app/features/user/cateringFilterSlice';
+import toast from 'react-hot-toast';
 
 
 const Filters = () => {
+
+  
 
     return (
         <>
             <Box sx={{ marginBottom: '10px' }} className="filter-shadow">
                 <Card>
                     <CardContent>
-                        <h3 className='filter-text'>Filter by:</h3>
+                        <h3 onClick={() => clearLocalFilter()} className='filter-text'>Filter by:</h3>
                     </CardContent>
                     <Divider />
 
@@ -38,7 +43,7 @@ const Filters = () => {
 
                     <CardContent>
                         <h3 className='font-20 font-weight-500 filter-text mb-2'>Choose Cuisine</h3>
-                       <CaterCuisineFilter />
+                        <CaterCuisineFilter />
                     </CardContent>
                     <Divider />
 
@@ -56,7 +61,7 @@ const Filters = () => {
 
                     <CardContent>
                         <h3 className='font-20 font-weight-500 filter-text'>Choose Cater Service:</h3>
-                       <CaterServingTypes />
+                        <CaterServingTypes />
                     </CardContent>
 
                 </Card>

@@ -22,7 +22,7 @@ const rootReducer = combineReducers({
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['user', 'globalnavbar'], // Specify which reducers you want to persist
+  whitelist: ['user', 'globalnavbar', 'cateringFilter'], // Specify which reducers you want to persist
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

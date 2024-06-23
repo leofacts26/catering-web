@@ -34,7 +34,7 @@ const CaterOccaionTypes = () => {
         dispatch(fetchOccasionCateringTypes(occasionCount));
     }, [dispatch])
 
-    console.log(occasionCount, "occasionCount");
+    // console.log(occasionCount, "occasionCount");
 
     return (
         <>
@@ -46,7 +46,7 @@ const CaterOccaionTypes = () => {
                                 {...label}
                                 size="small"
                                 className='checkbox-color'
-                                checked={getOccasionType?.selected === 1}
+                                checked={getOccasionType?.selectedweb === 1}
                                 onChange={() => onHandleSelectOccasion(getOccasionType)}
                             />
                             <span className='checkbox-text'>{getOccasionType?.occasion_name}</span>

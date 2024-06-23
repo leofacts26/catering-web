@@ -41,7 +41,7 @@ const CaterServingTypes = () => {
                             <Checkbox {...label}
                                 size="small"
                                 className='checkbox-color'
-                                checked={getServingType?.selected === 1}
+                                checked={getServingType?.selectedweb === 1}
                                 onChange={() => onHandleServingFilter(getServingType)}
                             />
                             <span className='checkbox-text'>{getServingType?.name}</span>

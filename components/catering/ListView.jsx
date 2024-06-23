@@ -13,7 +13,7 @@ import { fetchCateringSearchCards, incrementPage } from '@/app/features/user/cat
 
 
 const ListView = () => {
-
+    const accessToken = useSelector((state) => state.user.accessToken);
     const dispatch = useDispatch()
     const { getCateringSearchCards, isLoading, current_page, limit, total_count } = useSelector((state) => state.cateringFilter)
 
@@ -23,7 +23,9 @@ const ListView = () => {
     const [whishlistStatus, setWhishlistStatus] = useState(0)
 
     useEffect(() => {
-        dispatch(fetchWishlist())
+        if(accessToken){
+            dispatch(fetchWishlist())
+        }
     }, [whishlistStatus])
 
     const onHandleAddFavourite = (branchId) => {

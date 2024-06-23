@@ -102,7 +102,7 @@ const TiffinSearchBar = () => {
                 <Stack className='search-bg' direction={{ xs: 'column', sm: 'column', md: 'column', lg: "row" }} justifyContent="space-between" spacing={0.2}>
                     <div className='w-100'>
                         <CssTextFieldRadius
-                            required
+                            // required
                             id="outlined-number"
                             placeholder="Enter your location..."
                             variant="outlined"
@@ -139,7 +139,7 @@ const TiffinSearchBar = () => {
                     </div>
                     <div className="three w-100">
                         <CssTextField
-                            required
+                            // required
                             value={localPeople}
                             onChange={handlePeopleChange}
                             id="outlined-number"

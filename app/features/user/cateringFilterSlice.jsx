@@ -172,7 +172,7 @@ export const fetchGetAllSubscriptionTypes = createAsyncThunk(
     'user/fetchGetAllSubscriptionTypes',
     async (user, thunkAPI) => {
         try {
-            const response = await api.get(`${BASE_URL}/user-get-subscription-types?current_page=1&limit=2`, {
+            const response = await api.get(`${BASE_URL}/user-get-subscription-types?current_page=1&limit=2&vendor_type=Caterer`, {
                 headers: {
                     authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
                 },
@@ -212,10 +212,10 @@ export const fetchCateringSearchCards = createAsyncThunk(
         const cateringSortBy_filter = JSON.stringify(cateringSortBy)
 
         // occasions_filter_formatted 
-        const occasions_filter_formatted_selected = getOccasionCateringTypes?.filter(occasion => occasion?.selected === 1);
+        const occasions_filter_formatted_selected = getOccasionCateringTypes?.filter(occasion => occasion?.selectedweb === 1);
         const occasions_filter_formatted = occasions_filter_formatted_selected.map(occasion => ({
-            id: occasion.occasion_id,
-            selected: occasion.selected
+            id: Number(occasion.occasion_id),
+            selected: occasion.selectedweb
         }));
 
         // cuisinetype_filter_formatted 
@@ -229,13 +229,13 @@ export const fetchCateringSearchCards = createAsyncThunk(
         // service_filter_formatted
         const service_filter_formatted = getCateringServiceTypes.map(service => ({
             id: service.id,
-            selected: service.selected
+            selected: service.selectedweb
         }));
 
         // serving_filter_formatted 
         const serving_filter_formatted = getCateringServingTypes.map(serving => ({
-            id: serving.id,
-            selected: serving.selected
+            id: Number(serving.id),
+            selected: serving.selectedweb
         }))
 
 
@@ -248,7 +248,7 @@ export const fetchCateringSearchCards = createAsyncThunk(
         // subscription_Types_formatted 
         const subscriptionTypes_formatted = subscriptionTypes.map(subscriptionType => ({
             subscription_type_id: Number(subscriptionType.id),
-            selected: subscriptionType.selected
+            selected: subscriptionType.selectedweb
         }))
 
         // pricetype_filter_formatted 
@@ -325,9 +325,7 @@ export const cateringFilterSlice = createSlice({
     name: 'cateringFilter',
     initialState,
     reducers: {
-        resetFilters: (state) => {
-            state = initialState;
-        },
+        resetFilters: () => initialState,
         incrementPage(state) {
             state.current_page += 1;
         },
@@ -401,7 +399,7 @@ export const cateringFilterSlice = createSlice({
         setOccasionTypes: (state, action) => {
             const updatedOccasions = state.getOccasionCateringTypes?.map((occasion) => {
                 if (occasion.occasion_id === action.payload) {
-                    return { ...occasion, selected: occasion.selected === 1 ? 0 : 1 };
+                    return { ...occasion, selectedweb: occasion.selectedweb === 1 ? 0 : 1 };
                 } else {
                     return occasion;
                 }
@@ -411,7 +409,7 @@ export const cateringFilterSlice = createSlice({
         setServiceTypesFilter: (state, action) => {
             const updatedServiceTypes = state.getCateringServiceTypes.map((serviceType) => {
                 if (serviceType.id === action.payload) {
-                    return { ...serviceType, selected: serviceType.selected === 1 ? 0 : 1 }
+                    return { ...serviceType, selectedweb: serviceType.selectedweb === 1 ? 0 : 1 }
                 } else {
                     return serviceType;
                 }
@@ -421,7 +419,7 @@ export const cateringFilterSlice = createSlice({
         setServingTypesFilter: (state, action) => {
             const updatedServingTypes = state.getCateringServingTypes.map((servingType) => {
                 if (servingType.id === action.payload) {
-                    return { ...servingType, selected: servingType.selected === 1 ? 0 : 1 }
+                    return { ...servingType, selectedweb: servingType.selectedweb === 1 ? 0 : 1 }
                 } else {
                     return servingType;
                 }
@@ -450,16 +448,35 @@ export const cateringFilterSlice = createSlice({
             state.getCateringPriceRanges = updatedPriceRanges;
         },
         setSubscriptionFilter: (state, action) => {
-            const updatedSubscriptionFilter = state.subscriptionTypes.map((subscription) => {
+            // First, update the selected subscription type
+            let updatedSubscriptionFilter = state.subscriptionTypes.map((subscription) => {
                 if (subscription.id === action.payload) {
-                    return { ...subscription, selected: subscription.selected === 1 ? 0 : 1 }
+                    return { ...subscription, selectedweb: subscription.selectedweb === 1 ? 0 : 1 };
+                } else if (["1", "2", "3"].includes(action.payload) && subscription.id === "9999") {
+                    return { ...subscription, selectedweb: 0 };
                 } else {
                     return subscription;
                 }
-            })
+            });
+
+            // Then, check if all "Free", "Popular", and "Branded" are deselected
+            const allDeselected = updatedSubscriptionFilter
+                .filter(sub => ["1", "2", "3"].includes(sub.id))
+                .every(sub => sub.selectedweb === 0);
+
+            if (allDeselected) {
+                updatedSubscriptionFilter = updatedSubscriptionFilter.map(subscription => {
+                    if (subscription.id === "9999") {
+                        return { ...subscription, selectedweb: 1 };
+                    }
+                    return subscription;
+                });
+            }
 
             state.subscriptionTypes = updatedSubscriptionFilter;
         },
+
+
         setCateringSort: (state, action) => {
             state.cateringSortBy = action.payload;
         }

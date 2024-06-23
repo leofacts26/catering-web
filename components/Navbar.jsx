@@ -16,6 +16,7 @@ import Notification from './Notification';
 import Container from '@mui/material/Container';
 import { useSelector } from 'react-redux';
 import LoginModal from './LoginModal';
+import useResetCateringFilter from '@/hooks/useResetCateringFilter';
 
 
 
@@ -27,6 +28,8 @@ const Navbar = () => {
     const toggleDrawer = () => {
         setDrawerOpen(!drawerOpen);
     };
+
+    const clearCateringFilter = useResetCateringFilter()
 
     const accessToken = useSelector((state) => state.user.accessToken)
 
@@ -42,7 +45,7 @@ const Navbar = () => {
                     <Stack direction="row" flexWrap="wrap" spacing={1}>
                         {navlinks?.map((navlink) => {
                             return (
-                                <Link href={navlink.url} key={navlink.id} className={checkActivePath(navlink.url) ? 'active nav-link' : 'nav-link'}
+                                <Link onClick={clearCateringFilter} href={navlink.url} key={navlink.id} className={checkActivePath(navlink.url) ? 'active nav-link' : 'nav-link'}
                                 >{navlink.name}</Link>
                             )
                         })}
