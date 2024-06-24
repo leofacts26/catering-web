@@ -38,7 +38,7 @@ const CaterFoodTypes = () => {
                         <Stack className='text-muted' direction="row" alignItems="center" sx={{ marginLeft: '-10px', marginTop: '5px' }} key={foodType?.id}>
                             <Checkbox {...label}
                                 size="small" className='checkbox-color'
-                                checked={foodType?.selected === 1} onChange={() => onHandleFoodFilter(foodType)} />
+                                checked={foodType?.selectedweb === 1} onChange={() => onHandleFoodFilter(foodType)} />
                             <span className='checkbox-text'>{foodType?.name}</span>
                         </Stack>
                     )

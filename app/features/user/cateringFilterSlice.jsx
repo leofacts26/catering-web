@@ -242,7 +242,7 @@ export const fetchCateringSearchCards = createAsyncThunk(
         // foodtype_filter_formatted 
         const foodtype_filter_formatted = getCateringFoodTypes.filter(item => item.id !== "1").map(foodType => ({
             id: foodType.id,
-            selected: foodType.selected
+            selected: foodType.selectedweb
         }))
 
         // subscription_Types_formatted 
@@ -252,9 +252,9 @@ export const fetchCateringSearchCards = createAsyncThunk(
         }))
 
         // pricetype_filter_formatted 
-        const selectedPriceRanges = getCateringPriceRanges?.filter(price => price?.selected === 1);
+        const selectedPriceRanges = getCateringPriceRanges?.filter(price => price?.selectedweb === 1);
         const updatedPriceTypes_formatted = selectedPriceRanges.map(price => {
-            return { id: price.id, start_price: parseFloat(price.start_price), end_price: parseFloat(price.end_price) };
+            return { id: Number(price.id), start_price: parseFloat(price.start_price), end_price: parseFloat(price.end_price) };
         });
 
         // &cuisines_filter=${JSON.stringify(cuisinetype_filter_Data)} 
@@ -429,7 +429,7 @@ export const cateringFilterSlice = createSlice({
         setFoodTypeFilter: (state, action) => {
             const updatedFoodTypes = state.getCateringFoodTypes.map((foodType) => {
                 if (foodType.id === action.payload) {
-                    return { ...foodType, selected: foodType.selected === 1 ? 0 : 1 }
+                    return { ...foodType, selectedweb: foodType.selectedweb === 1 ? 0 : 1 }
                 } else {
                     return foodType;
                 }
@@ -439,7 +439,7 @@ export const cateringFilterSlice = createSlice({
         setPriceTypeFilter: (state, action) => {
             const updatedPriceRanges = state.getCateringPriceRanges.map((priceRange) => {
                 if (priceRange.id === action.payload) {
-                    return { ...priceRange, selected: priceRange.selected === 1 ? 0 : 1 }
+                    return { ...priceRange, selectedweb: priceRange.selectedweb === 1 ? 0 : 1 }
                 } else {
                     return priceRange;
                 }
