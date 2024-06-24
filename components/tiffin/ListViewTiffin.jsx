@@ -28,7 +28,7 @@ const ListViewTiffin = () => {
     // const [whishlistStatus, setWhishlistStatus] = useState(0)
 
     const [wishlist, setWishlist] = useState({});
-    console.log(wishlist, "wishlist wishlist wishlist 333");
+    // console.log(wishlist, "wishlist wishlist wishlist 333");
 
     const onHandleAddFavourite = (branchId) => {
         const currentStatus = wishlist[branchId] || false;

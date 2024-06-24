@@ -20,24 +20,36 @@ const ListView = () => {
     // console.log({ current_page, total_count }, "current_page, total_count");
 
 
-    const [whishlistStatus, setWhishlistStatus] = useState(0)
+    // const [whishlistStatus, setWhishlistStatus] = useState(0)
 
-    useEffect(() => {
-        if(accessToken){
-            dispatch(fetchWishlist())
-        }
-    }, [whishlistStatus])
+    // useEffect(() => {
+    //     if(accessToken){
+    //         dispatch(fetchWishlist())
+    //     }
+    // }, [whishlistStatus])
+
+    const [wishlist, setWishlist] = useState({});
 
     const onHandleAddFavourite = (branchId) => {
-           const vendor_type = "Caterer"
+        const currentStatus = wishlist[branchId] || false;
+        const vendor_type = "Caterer"
         let data = {
             branchId,
-            whishlistStatus,
+            whishlistStatus: !currentStatus ? 1 : 0,
             vendor_type
         }
         dispatch(addchWishlist(data))
-        setWhishlistStatus((prevStatus) => (prevStatus === 0 ? 1 : 0));
+        setWishlist((prevState) => ({ ...prevState, [branchId]: !currentStatus }));
     }
+
+    useEffect(() => {
+        const initialWishlist = {};
+        getCateringSearchCards.forEach((item) => {
+            initialWishlist[item.id] = item?.is_wishlisted
+        })
+        setWishlist(initialWishlist)
+    }, [getCateringSearchCards])
+
 
 
     // Infinite Scroll 
@@ -171,7 +183,7 @@ const ListView = () => {
                                         <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} className='mb-2'>
                                             <ShareIcon className='lse-icons' style={{ marginRight: '10px', cursor: 'pointer' }} />
                                             {
-                                                getSearchCard?.is_wishlisted ? <FavoriteIcon className='lse-icons cursor-pointer fill-heart-catering' onClick={() => onHandleAddFavourite(getSearchCard?.id)} /> : <FavoriteBorderIcon className='lse-icons cursor-pointer' onClick={() => onHandleAddFavourite(getSearchCard?.id)} />
+                                                wishlist[getSearchCard?.id] ? <FavoriteIcon className='lse-icons cursor-pointer fill-heart-catering' onClick={() => onHandleAddFavourite(getSearchCard?.id)} /> : <FavoriteBorderIcon className='lse-icons cursor-pointer' onClick={() => onHandleAddFavourite(getSearchCard?.id)} />
                                             }
                                         </Stack>
                                         <Stack direction="row" alignItems="center" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} style={{ marginTop: '8px' }}>
