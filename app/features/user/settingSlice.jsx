@@ -8,12 +8,29 @@ import { fetchUserData, setAccessToken } from './userSlice';
 const initialState = {
     isLoading: true,
     caterWishlist: [],
+    tiffinWishlist: [],
     editProfileData: null,
     showOtp: true,
 }
 
 export const fetchWishlist = createAsyncThunk(
     'user/fetchWishlist',
+    async (user, thunkAPI) => {
+        try {
+            const response = await api.get(`${BASE_URL}/user-get-wishlist?limit=10&current_page=1&vendor_type=Caterer`, {
+                headers: {
+                    authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
+                },
+            });
+            return response?.data?.data;
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error.response.data.msg);
+        }
+    }
+)
+
+export const fetchWishlistTiffin = createAsyncThunk(
+    'user/fetchWishlistTiffin',
     async (user, thunkAPI) => {
         try {
             const response = await api.get(`${BASE_URL}/user-get-wishlist?limit=10&current_page=1&vendor_type=Tiffin`, {
@@ -126,6 +143,18 @@ export const settingSlice = createSlice({
                 state.caterWishlist = payload;
             })
             .addCase(fetchWishlist.rejected, (state, { payload }) => {
+                state.isLoading = false;
+                toast.error(datavalidationerror(payload));
+            })
+            // fetchWishlistCaterer 
+            .addCase(fetchWishlistTiffin.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(fetchWishlistTiffin.fulfilled, (state, { payload }) => {
+                state.isLoading = false;
+                state.tiffinWishlist = payload;
+            })
+            .addCase(fetchWishlistTiffin.rejected, (state, { payload }) => {
                 state.isLoading = false;
                 toast.error(datavalidationerror(payload));
             })
