@@ -47,7 +47,7 @@ export const clearFilters = createAsyncThunk(
                     authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
                 },
             });
-            toast.success(successToast(response))
+            // toast.success(successToast(response))
         } catch (error) {
             return thunkAPI.rejectWithValue(error.response.data.msg);
         }
@@ -220,9 +220,10 @@ export const fetchCateringSearchCards = createAsyncThunk(
 
         // cuisinetype_filter_formatted 
         function extractChildrenData(data) {
-            return data.flatMap(item => item.children.map(({ id, selected }) => ({ id, selected })));
+            return data.flatMap(item => item.children.map(({ id, selectedweb }) => ({ id: Number(id), selected: selectedweb })));
         }
         const cuisinetype_filter_Data = extractChildrenData(getCateringCuisines);
+        console.log(cuisinetype_filter_Data, "cuisinetype_filter_Data");
 
         // console.log(JSON.stringify(cuisinetype_filter_Data), "cuisinetype_filter_Data cuisinetype_filter_Data");
 
@@ -365,13 +366,13 @@ export const cateringFilterSlice = createSlice({
                     // Toggle selected of parent cuisine
                     const updatedCuisine = {
                         ...cuisine,
-                        selected: cuisine.selected === 1 ? 0 : 1
+                        selectedweb: cuisine.selectedweb === 1 ? 0 : 1
                     };
 
                     // Toggle selected of all children based on parent's selected
                     const updatedChildren = updatedCuisine.children.map(childCuisine => ({
                         ...childCuisine,
-                        selected: updatedCuisine.selected
+                        selectedweb: updatedCuisine.selectedweb
                     }));
 
                     return {
@@ -386,7 +387,7 @@ export const cateringFilterSlice = createSlice({
                             if (childCuisine.id === cuisineId) {
                                 return {
                                     ...childCuisine,
-                                    selected: childCuisine.selected === 1 ? 0 : 1
+                                    selectedweb: childCuisine.selectedweb === 1 ? 0 : 1
                                 };
                             }
                             return childCuisine;

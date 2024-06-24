@@ -110,7 +110,7 @@ const CaterCuisineFilter = () => {
                                 >
                                     <Stack className='text-muted' direction="row" alignItems="center" sx={{ marginLeft: '-10px' }}>
                                         <Checkbox {...label} size="small" className='m-0 checkbox-color'
-                                            checked={getCuisine.selected === 1}
+                                            checked={getCuisine.selectedweb === 1}
                                             onChange={() => onHandleCuisineFilter(getCuisine.id, true)} />
                                         <span className='checkbox-text'>{getCuisine?.name}</span>
                                     </Stack>
@@ -119,7 +119,7 @@ const CaterCuisineFilter = () => {
                                     {getCuisine?.children?.map((child) => {
                                         return (
                                             <Stack className='text-muted' direction="row" alignItems="center" key={child?.id}>
-                                                <Checkbox {...label} size="small" className='checkbox-color' checked={child?.selected === 1}
+                                                <Checkbox {...label} size="small" className='checkbox-color' checked={child?.selectedweb === 1}
                                                     onChange={() => onHandleCuisineFilter(child.id, false)} />
                                                 <span className='checkbox-text'>{child?.name}</span>
                                             </Stack>
