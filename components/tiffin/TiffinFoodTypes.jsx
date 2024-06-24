@@ -25,7 +25,7 @@ const TiffinFoodTypes = () => {
         dispatch(fetchTiffinMapviewSearchCards())
     }, [dispatch]);
 
-    console.log(getTiffinFoodTypes, "getTiffinFoodTypes"); 
+    // console.log(getTiffinFoodTypes, "getTiffinFoodTypes"); 
 
     return (
         <>

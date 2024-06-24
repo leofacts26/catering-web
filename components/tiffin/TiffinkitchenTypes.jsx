@@ -25,7 +25,7 @@ const TiffinkitchenTypes = () => {
         dispatch(fetchTiffinMapviewSearchCards())
     }, [dispatch]);
 
-    console.log(getTiffinKitchenTypes, "getTiffinKitchenTypes getTiffinKitchenTypes"); 
+    // console.log(getTiffinKitchenTypes, "getTiffinKitchenTypes getTiffinKitchenTypes"); 
 
     return (
         <>

@@ -25,17 +25,30 @@ const ListViewTiffin = () => {
     };
 
 
-    const [whishlistStatus, setWhishlistStatus] = useState(0)
+    // const [whishlistStatus, setWhishlistStatus] = useState(0)
+
+    const [wishlist, setWishlist] = useState({});
+    console.log(wishlist, "wishlist wishlist wishlist 333");
+
     const onHandleAddFavourite = (branchId) => {
+        const currentStatus = wishlist[branchId] || false;
         const vendor_type = "Tiffin"
         let data = {
             branchId,
-            whishlistStatus,
+            whishlistStatus: !currentStatus ? 1 : 0,
             vendor_type
         }
         dispatch(addchWishlist(data))
-        setWhishlistStatus((prevStatus) => (prevStatus === 0 ? 1 : 0));
+        setWishlist((prevState) => ({ ...prevState, [branchId]: !currentStatus }));
     }
+
+    useEffect(() => {
+        const initialWishlist = {};
+        getTiffinSearchCards.forEach((item) => {
+            initialWishlist[item.id] = item?.is_wishlisted
+        })
+        setWishlist(initialWishlist)
+    }, [getTiffinSearchCards])
 
 
     // Infinite Scroll 
@@ -79,7 +92,7 @@ const ListViewTiffin = () => {
         </>
     }
 
-    console.log(getTiffinSearchCards, "getTiffinSearchCards getTiffinSearchCards");
+    // console.log(getTiffinSearchCards, "getTiffinSearchCards getTiffinSearchCards");
 
     return (
         <>
@@ -178,7 +191,7 @@ const ListViewTiffin = () => {
                                                 <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} className='mb-2'>
                                                     <ShareIcon className='lse-icons' style={{ marginRight: '10px' }} />
                                                     {
-                                                        item?.is_wishlisted ? <FavoriteIcon className='lse-icons cursor-pointer fill-heart-tiffin' onClick={() => onHandleAddFavourite(item?.id)} /> : <FavoriteBorderIcon className='lse-icons cursor-pointer' onClick={() => onHandleAddFavourite(item?.id)} />
+                                                        wishlist[item?.id] ? <FavoriteIcon className='lse-icons cursor-pointer fill-heart-tiffin' onClick={() => onHandleAddFavourite(item?.id)} /> : <FavoriteBorderIcon className='lse-icons cursor-pointer' onClick={() => onHandleAddFavourite(item?.id)} />
                                                     }
                                                 </Stack>
                                                 <Stack direction="row" alignItems="center" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} style={{ marginTop: '8px' }}>
