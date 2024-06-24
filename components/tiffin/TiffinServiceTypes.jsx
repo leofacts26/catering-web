@@ -37,7 +37,7 @@ const TiffinServiceTypes = () => {
                             <Checkbox {...label}
                                 size="small"
                                 className='checkbox-color'
-                                checked={getServiceType?.selected === 1}
+                                checked={getServiceType?.selectedweb === 1}
                                 onChange={() => onHandleServiceFilter(getServiceType)}
                             />
                             <span className='checkbox-text'>{getServiceType?.name}</span>

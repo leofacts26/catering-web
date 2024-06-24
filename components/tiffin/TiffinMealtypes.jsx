@@ -34,7 +34,7 @@ const TiffinMealtypes = () => {
                         <Stack className='text-muted' direction="row" alignItems="center" sx={{ marginLeft: '-10px', marginTop: '5px' }} key={mealtype?.id}>
                             <Checkbox {...label}
                                 size="small" className='checkbox-color'
-                                checked={mealtype?.selected === 1} onChange={() => onHandleMealFilter(mealtype)} />
+                                checked={mealtype?.selectedweb === 1} onChange={() => onHandleMealFilter(mealtype)} />
                             <span className='checkbox-text'>{mealtype?.name}</span>
                         </Stack>
                     )

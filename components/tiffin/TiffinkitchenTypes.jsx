@@ -25,7 +25,7 @@ const TiffinkitchenTypes = () => {
         dispatch(fetchTiffinMapviewSearchCards())
     }, [dispatch]);
 
-    // console.log(getTiffinKitchenTypes, "getTiffinKitchenTypes"); 
+    console.log(getTiffinKitchenTypes, "getTiffinKitchenTypes getTiffinKitchenTypes"); 
 
     return (
         <>
@@ -36,7 +36,7 @@ const TiffinkitchenTypes = () => {
                             <Checkbox {...label}
                                 size="small"
                                 className='checkbox-color'
-                                checked={getKitchenType?.selected === 1}
+                                checked={getKitchenType?.selectedweb === 1}
                                 onChange={() => onHandlekitchenFilter(getKitchenType)}
                             />
                             <span className='checkbox-text'>{getKitchenType?.name}</span>

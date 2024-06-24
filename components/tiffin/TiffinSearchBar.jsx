@@ -93,6 +93,7 @@ const TiffinSearchBar = () => {
         dispatch(setPeople(localPeople));
         dispatch(fetchtiffinSearchCards())
         router.push('/tiffin-search')
+        // console.log("tttttttttttttttttttttttttttttttttttttttttttttttTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT");
     }
 
 
