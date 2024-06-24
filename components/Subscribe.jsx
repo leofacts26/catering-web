@@ -44,6 +44,7 @@ const CssTextField = styled(TextField)(({ theme }) => ({
 
 const initialState = {
     email: '',
+    accept: false
 }
 
 const Subscribe = () => {
@@ -61,7 +62,11 @@ const Subscribe = () => {
         email: Yup.string()
             .email('Invalid email format')
             .required('Email is required'),
+        accept: Yup.bool()
+            .oneOf([true], 'You must accept the terms and conditions')
+            .required('You must accept the terms and conditions')
     });
+
 
     const handleSubmit = (data, resetForm) => {
         console.log(data, "data");
@@ -72,28 +77,32 @@ const Subscribe = () => {
 
     return (
         <section className='subscribe-bg'>
-            <Container maxWidth="lg">
-                <Box className="text-center">
-                    <h4 className='sub-heading'>Subscribe to Get Deals on Bookings</h4>
-                    <p className='sub-desc'>Signup & get Discount Updates on Every Bookings</p>
-                    <Box sx={{ marginBottom: '10px', marginTop: '20px' }}>
-                        <Checkbox
-                            checked={checked}
-                            onChange={handleChange}
-                            inputProps={{ 'aria-label': 'controlled' }}
-                            sx={{
-                                '& .MuiSvgIcon-root': {
-                                    color: '#ffffff'
-                                }
-                            }}
-                        />
-                        <span className='sub-accept'>I Accept to Receive the offers & Discounts from Caterings&Tiffins.com</span>
-                    </Box>
+            <Formik initialValues={initialState} validationSchema={schema} onSubmit={(values, { resetForm }) => handleSubmit(values, resetForm)}>
+                {({ values, errors, handleChange, handleSubmit }) => (
+                    <form onSubmit={handleSubmit} className="px-4" autocomplete="off">
+                        <Container maxWidth="lg">
+                            <Box className="text-center">
+                                <h4 className='sub-heading'>Subscribe to Get Deals on Bookings</h4>
+                                <p className='sub-desc'>Signup & get Discount Updates on Every Bookings</p>
+                                <Box sx={{ marginBottom: '10px', marginTop: '20px' }}>
+                                    <Checkbox
+                                        checked={values.accept}
+                                        onChange={handleChange}
+                                        name="accept"
+                                        inputProps={{ 'aria-label': 'controlled' }}
+                                        sx={{
+                                            '& .MuiSvgIcon-root': {
+                                                color: '#ffffff'
+                                            }
+                                        }}
+                                    />
+                                    <span className='sub-accept'>I Accept to Receive the offers & Discounts from Caterings&Tiffins.com</span>
+                                    <br />
+                                    {errors.accept && <small className='text-white mb-2 ms-1'>{errors.accept}</small>}
+                                </Box>
 
-                    <Container maxWidth="md" >
-                        <Formik initialValues={initialState} validationSchema={schema} onSubmit={(values, { resetForm }) => handleSubmit(values, resetForm)}>
-                            {({ values, errors, handleChange, handleSubmit }) => (
-                                <form onSubmit={handleSubmit} className="px-4" autocomplete="off">
+                                <Container maxWidth="md" >
+
                                     <Stack direction="row" justifyContent="center">
                                         <Stack direction={{ xs: 'column', sm: 'column', md: "row" }} justifyContent="center" alignItems="center" className='subscribe-input'>
 
@@ -128,13 +137,14 @@ const Subscribe = () => {
                                         </Stack>
                                     </Stack>
                                     {errors.email && <small className='text-white mb-2 ms-1'>{errors.email}</small>}
-                                </form>
-                            )}
-                        </Formik>
-                    </Container>
-                </Box>
-            </Container>
-        </section>
+
+                                </Container>
+                            </Box>
+                        </Container>
+                    </form>
+                )}
+            </Formik>
+        </section >
     )
 }
 
