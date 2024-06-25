@@ -453,7 +453,7 @@ export const cateringFilterSlice = createSlice({
             let updatedSubscriptionFilter = state.subscriptionTypes.map((subscription) => {
                 if (subscription.id === action.payload) {
                     return { ...subscription, selectedweb: subscription.selectedweb === 1 ? 0 : 1 };
-                } else if (["1", "2", "3"].includes(action.payload) && subscription.id === "9999") {
+                } else if (["2", "3"].includes(action.payload) && subscription.id === "9999") {
                     return { ...subscription, selectedweb: 0 };
                 } else {
                     return subscription;
@@ -462,7 +462,7 @@ export const cateringFilterSlice = createSlice({
 
             // Then, check if all "Free", "Popular", and "Branded" are deselected
             const allDeselected = updatedSubscriptionFilter
-                .filter(sub => ["1", "2", "3"].includes(sub.id))
+                .filter(sub => ["2", "3"].includes(sub.id))
                 .every(sub => sub.selectedweb === 0);
 
             if (allDeselected) {

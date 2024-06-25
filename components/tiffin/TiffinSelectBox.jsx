@@ -33,7 +33,7 @@ const TiffinSelectBox = ( ) => {
         dispatch(fetchtiffinSearchCards())
     }
 
-    // console.log(subscriptionTypes, "subscriptionTypes"); 
+    console.log(tiffinSubscriptionTypes, "tiffinSubscriptionTypes"); 
 
     return (
         <>
@@ -43,7 +43,7 @@ const TiffinSelectBox = ( ) => {
                     {
                         tiffinSubscriptionTypes?.map((subscriptionType) => {
                             return (
-                                <Button size="small" className={`btn-pill ${subscriptionType.selected === 1 && 'btn-pill-active-catering'}`} key={subscriptionType?.id}
+                                <Button size="small" className={`btn-pill ${subscriptionType.selectedweb === 1 && 'btn-pill-active-catering'}`} key={subscriptionType?.id}
                                     onClick={() => onHandlesubscriptionTypes(subscriptionType?.id)}
                                 >{subscriptionType?.name}</Button>
                             )

@@ -179,7 +179,7 @@ export const fetchtiffinSearchCards = createAsyncThunk(
         // subscription_Types_formatted 
         const tiffinSubscriptionTypes_formatted = tiffinSubscriptionTypes.map(subscriptionType => ({
             subscription_type_id: Number(subscriptionType.id),
-            selected: subscriptionType.selected
+            selected: subscriptionType.selectedweb
         }))
 
         // cateringSortBy_filter
@@ -188,7 +188,7 @@ export const fetchtiffinSearchCards = createAsyncThunk(
         // &subscription_types_filter=${JSON.stringify(tiffinSubscriptionTypes_formatted)}
 
         try {
-            const response = await api.get(`${BASE_URL}/search-vendors?search_term=${people}&limit=${(current_page * limit)}&current_page=1&save_filter=1&vendor_type=Tiffin&app_type=web&latitude=${locationValuesGlobal?.latitude || ""}&longitude=${locationValuesGlobal?.longitude || ""}&city=${locationValuesGlobal?.city?.long_name || ""}&pincode=${locationValuesGlobal?.pincode || ""}&place_id=${locationValuesGlobal?.place_id || ''}&price_ranges=${JSON.stringify(updatedPriceTypes_formatted)}&order_by_filter=${cateringSortBy_filter}&kitchen_types_filter=${JSON.stringify(kitchentype_filter_formatted)}&meal_times_filter=${JSON.stringify(mealtype_filter_formatted)}&food_types_filter=${JSON.stringify(foodtype_filter_formatted)}&service_types_filter=${JSON.stringify(servicetype_filter_formatted)}&start_date=${moment(startDate).format('YYYY-MM-DD')}&end_date=${moment(endDate).format('YYYY-MM-DD')}`, {
+            const response = await api.get(`${BASE_URL}/search-vendors?search_term=${people}&limit=${(current_page * limit)}&current_page=1&save_filter=1&vendor_type=Tiffin&app_type=web&latitude=${locationValuesGlobal?.latitude || ""}&longitude=${locationValuesGlobal?.longitude || ""}&city=${locationValuesGlobal?.city?.long_name || ""}&pincode=${locationValuesGlobal?.pincode || ""}&place_id=${locationValuesGlobal?.place_id || ''}&price_ranges=${JSON.stringify(updatedPriceTypes_formatted)}&subscription_types_filter=${JSON.stringify(tiffinSubscriptionTypes_formatted)}&order_by_filter=${cateringSortBy_filter}&kitchen_types_filter=${JSON.stringify(kitchentype_filter_formatted)}&meal_times_filter=${JSON.stringify(mealtype_filter_formatted)}&food_types_filter=${JSON.stringify(foodtype_filter_formatted)}&service_types_filter=${JSON.stringify(servicetype_filter_formatted)}&start_date=${moment(startDate).format('YYYY-MM-DD')}&end_date=${moment(endDate).format('YYYY-MM-DD')}`, {
                 headers: {
                     authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
                 },
@@ -345,10 +345,10 @@ export const tiffinFilterSlice = createSlice({
         },
         setTiffinSubscriptionFilter: (state, action) => {
             // First, update the selected subscription type
-            let updatedSubscriptionFilter = state.subscriptionTypes.map((subscription) => {
+            let updatedSubscriptionFilter = state.tiffinSubscriptionTypes.map((subscription) => {
                 if (subscription.id === action.payload) {
                     return { ...subscription, selectedweb: subscription.selectedweb === 1 ? 0 : 1 };
-                } else if (["1", "2", "3"].includes(action.payload) && subscription.id === "9999") {
+                } else if (["5", "6"].includes(action.payload) && subscription.id === "9999") {
                     return { ...subscription, selectedweb: 0 };
                 } else {
                     return subscription;
@@ -357,7 +357,7 @@ export const tiffinFilterSlice = createSlice({
 
             // Then, check if all "Free", "Popular", and "Branded" are deselected
             const allDeselected = updatedSubscriptionFilter
-                .filter(sub => ["1", "2", "3"].includes(sub.id))
+                .filter(sub => ["5", "6"].includes(sub.id))
                 .every(sub => sub.selectedweb === 0);
 
             if (allDeselected) {
@@ -369,7 +369,7 @@ export const tiffinFilterSlice = createSlice({
                 });
             }
 
-            state.subscriptionTypes = updatedSubscriptionFilter;
+            state.tiffinSubscriptionTypes = updatedSubscriptionFilter;
         },
 
     },
