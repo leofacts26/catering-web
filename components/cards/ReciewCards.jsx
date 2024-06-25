@@ -25,11 +25,12 @@ const ReciewCards = ({ tiffin }) => {
     const { reviewsList } = useSelector((state) => state.vendorDetails);
     // console.log(reviewsList, "reviewsList reviewsList"); 
 
+
     useEffect(() => {
         if (accessToken) {
-            dispatch(fetchReviews(slug))
+            dispatch(fetchReviews(slug[0]))
         }
-    }, [dispatch, accessToken, slug])
+    }, [dispatch, accessToken, slug[0]])
 
     // console.log(parseInt('4.00'), "parseInt(item?.rating.slice(0,1))"); 
 

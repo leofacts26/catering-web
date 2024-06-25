@@ -42,7 +42,7 @@ const AddReview = () => {
         const data = {
             rating: ratingData?.rating,
             review_text: ratingData?.ratingText,
-            vendor_id: slug
+            vendor_id: slug[0]
         }
 
         dispatch(addReviews(data))

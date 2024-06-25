@@ -35,7 +35,8 @@ const Page = () => {
             lng: card.longitude,
             catering_service_name: card.catering_service_name,
             start_price: card.start_price,
-            id: card.vendor_id,
+            branch_id: card.id,
+            vendor_id: card.vendor_id,
         }));
     }, [getTiffinMapviewSearchCards]);
 
@@ -62,9 +63,9 @@ const Page = () => {
         }
     };
 
-    const handleMarkerHover = (index, lat, lng, catering_service_name, start_price, id) => {
+    const handleMarkerHover = (index, lat, lng, catering_service_name, start_price, vendor_id, branch_id) => {
         setHoveredMarker(index);
-        setInfoWindowData({ index, catering_service_name, start_price, id });
+        setInfoWindowData({ index, catering_service_name, start_price, vendor_id, branch_id });
         setIsOpen(true);
     };
 
@@ -72,6 +73,8 @@ const Page = () => {
         setHoveredMarker(null);
         setIsOpen(false);
     };
+
+    console.log(getTiffinMapviewSearchCards, "getTiffinMapviewSearchCards");
 
     return (
         <>
@@ -103,14 +106,14 @@ const Page = () => {
                                         onLoad={onMapLoad}
                                         onClick={() => setIsOpen(false)}
                                     >
-                                        {markers.map(({ catering_service_name, lat, lng, start_price, id }, index) => (
+                                        {markers.map(({ catering_service_name, lat, lng, start_price, vendor_id, branch_id }, index) => (
                                             <Marker
                                                 key={index}
                                                 position={{ lat, lng }}
-                                                onMouseOver={() => handleMarkerHover(index, lat, lng, catering_service_name, start_price, id)}
+                                                onMouseOver={() => handleMarkerHover(index, lat, lng, catering_service_name, start_price, vendor_id, branch_id)}
                                                 onMouseOut={handleMarkerHoverOut}
                                                 icon={customMarker}
-                                                onClick={() => router.push(`/tiffin-search/${id}`)}
+                                                onClick={() => router.push(`/tiffin-search/${vendor_id}/${branch_id}`)}
                                             >
                                                 {isOpen && infoWindowData?.index === index && (
                                                     <InfoWindow

@@ -34,7 +34,7 @@ export const addReviews = createAsyncThunk(
                     authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
                 },
             });
-            toast(successToast(response))
+            toast.success(successToast(response))
             window.location.reload();
         } catch (error) {
             return thunkAPI.rejectWithValue(error.response.data.msg);

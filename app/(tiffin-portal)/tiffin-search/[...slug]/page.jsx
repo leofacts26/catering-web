@@ -29,9 +29,9 @@ import OurGallery from '@/components/OurGallery';
 import ContactBtn from '@/components/ContactBtn';
 import SimilarCaterersTiffin from '@/components/cards/SimilarCaterersTiffin';
 
-const getData = async (id) => {
+const getData = async (vendorId, branchId) => {
   try {
-    const response = await api.get(`${BASE_URL}/user-get-vendor-show-details?vendor_id=${id}`)
+    const response = await api.get(`${BASE_URL}/user-get-vendor-show-details?branch_id=${branchId}&vendor_id=${vendorId}`)
     return response.data.data;
   } catch (error) {
     console.log(error);
@@ -39,8 +39,9 @@ const getData = async (id) => {
 }
 
 export default async function Page({ params: { slug } }) {
-  const data = await getData(slug);
-  console.log(data, "data data");
+  const data = await getData(slug[0], slug[1]);
+  // console.log(slug[0], "params 000");
+  // console.log(slug[1], "params 111");
   return (
     <>
       <section className='nav-bg-tiffin'>

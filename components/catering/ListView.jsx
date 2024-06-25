@@ -65,7 +65,7 @@ const ListView = () => {
 
     const handleScroll = myThrottle(() => {
         if (
-            window.innerHeight + document.documentElement.scrollTop + 1500 >
+            window.innerHeight + document.documentElement.scrollTop + 2000 >
             document.documentElement.offsetHeight && !isLoading &&
             ((current_page - 1) * limit) < total_count // Adjust condition here
         ) {
