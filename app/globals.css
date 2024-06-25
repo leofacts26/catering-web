@@ -2861,3 +2861,12 @@ textarea:-webkit-autofill:active {
 .mySwiper{
   width: 100% !important;
 }
+
+.map-search-input{
+  background-color: #ffffff !important;
+  border-radius: 5px !important;
+  position: absolute !important;
+  top: 1% !important;
+  right: 25% !important;
+  z-index: 999 !important;
+}

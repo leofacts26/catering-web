@@ -27,13 +27,11 @@ const page = () => {
                 </div>
             </div>
             <RecentSearchCard />
-            <Heading title="Explore Cuisines" subHeading />
+           
             <ExpoloreCuisinesCard />
             <Heading title="Explore Tiffins around INDIA" subHeading />
             <ExploreCaters />
-            <Heading title="Branded Tiffins in Chennai" subHeading />
             <BrandedTiffenCaters />
-            <Heading title="Popular Tiffins in Chennai" center subHeading />
             <PopularCaters />
             <Heading title="Explore Tiffins by Occasions" subHeading />
             <ExploreCaterersByOccasion />

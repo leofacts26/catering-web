@@ -65,7 +65,7 @@ const GridViewTiffin = ({ xs, sm, md, lg }) => {
                     {getTiffinSearchCards?.map((item) => {
                         const brandLogo = item?.brand_logo?.[0]?.original;
                         const bannerImage = item?.banner_images?.[0]?.original;
-                        const imageSrc = item?.subscription_type_name === "branded" && brandLogo || bannerImage || 'img/no-image.jpg';
+                        const imageSrc = item?.subscription_type_name === "branded" && brandLogo || bannerImage || '/img/no-image.jpg';
                         return (
                             <Grid item xs={xs} sm={sm} md={md} lg={lg}>
                                 <Link href="/tiffin-view" className='text-decoration-none'>

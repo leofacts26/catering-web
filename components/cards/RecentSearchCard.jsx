@@ -38,8 +38,8 @@ const RecentSearchCard = () => {
 
     return (
         <>
+            {recentSearches.length > 0 && <Heading title="Your Recent Searches" />}
             <Container maxWidth="lg">
-                {recentSearches.length > 0 && <Heading title="Your Recent Searches" />}
                 <Stack direction="row" alignItems="center" flexWrap="wrap" justifyContent={{ xs: 'center', sm: 'center', lg: 'start' }} spacing={0}>
                     {
                         recentSearches.length > 0 && recentSearches?.slice(0, 4)?.map((recentSearch) => (

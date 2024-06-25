@@ -11,6 +11,12 @@ import LoaderSpinner from '@/components/LoaderSpinner';
 import { useSearchParams } from 'next/navigation'
 import GridViewList from '@/components/catering/GridView';
 import GridViewTiffin from '@/components/tiffin/GridViewTiffin';
+import TextField from '@mui/material/TextField';
+import InputAdornment from '@mui/material/InputAdornment';
+import { styled } from '@mui/material/styles';
+import MapAsyncSelect from '@/components/MapAsyncSelect';
+
+
 
 const Page = () => {
     const { getTiffinMapviewSearchCards, isLoading } = useSelector((state) => state.tiffinFilter);
@@ -27,7 +33,7 @@ const Page = () => {
     const detailLng = searchParams.get('lng')
     const detailZoom = searchParams.get('zoom');
 
-    console.log(detailLat, detailLng, "detailLat, detailLng");
+    // console.log(detailLat, detailLng, "detailLat, detailLng");
 
     useEffect(() => {
         dispatch(fetchTiffinMapviewSearchCards());
@@ -106,7 +112,16 @@ const Page = () => {
         setIsOpen(false);
     };
 
-    //  console.log(getTiffinMapviewSearchCards, "getTiffinMapviewSearchCards");
+    const handleSelect = (selectedOption) => {
+        if (mapRef && selectedOption) {
+            const latLng = new window.google.maps.LatLng(selectedOption.lat, selectedOption.lng);
+            mapRef.panTo(latLng);
+            mapRef.setZoom(15);
+        }
+    };
+
+
+     console.log(getTiffinMapviewSearchCards, "getTiffinMapviewSearchCards");
 
     return (
         <>
@@ -128,6 +143,9 @@ const Page = () => {
                     </Grid>
                     <Grid item xs={8}>
                         <div className="map-box-container">
+
+                           <MapAsyncSelect onSelect={handleSelect} />
+
                             <button className='btn-close-tiffin' onClick={() => router.push('/tiffin-search')}>
                                 Close Map
                             </button>

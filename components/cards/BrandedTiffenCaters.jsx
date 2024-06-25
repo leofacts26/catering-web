@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchBrandedTiffins } from '@/app/features/user/homeSlice';
 import BrandedCaterersShimmer from '../shimmer/BrandedCaterersShimmer';
+import Heading from '../Heading';
 
 const BrandedTiffenCaters = () => {
 
@@ -31,6 +32,7 @@ const BrandedTiffenCaters = () => {
 
   return (
     <Container maxWidth="lg" className="branded-cater-slider" style={{ marginTop: '25px' }}>
+      {tiffinList?.length > 0 && <Heading title="Branded Tiffins in Chennai" subHeading />}
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
           <Swiper

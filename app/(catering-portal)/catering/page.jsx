@@ -27,13 +27,13 @@ const page = () => {
                 </div>
             </div>
             <RecentSearchCard />
-            <Heading title="Explore Cuisines" subHeading />
+            {/* <Heading title="Explore Cuisines" subHeading /> */}
             <ExpoloreCuisinesCard />
             <Heading title="Explore Caterers around INDIA" subHeading />
             <ExploreCaters />
             <Heading title="Branded Caterers in Chennai" subHeading />
             <BrandedCaters />
-            <Heading title="Popular Caterers in Chennai" center subHeading />
+            
             <PopularCaters />
             <Heading title="Explore Caterers by Occasions" subHeading />
             <ExploreCaterersByOccasion />

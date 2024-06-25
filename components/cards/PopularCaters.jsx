@@ -7,6 +7,7 @@ import Grid from '@mui/material/Grid';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPopularCaterers } from '@/app/features/user/homeSlice';
 import PopularCaterersShimmer from '../shimmer/PopularCaterersShimmer';
+import Heading from '../Heading';
 
 const PopularCaters = () => {
 
@@ -21,7 +22,9 @@ const PopularCaters = () => {
     // PopularCaterersShimmer 
     return (
         <>
+            {popularCaterer?.length > 0 && <Heading title="Popular Caterers in Chennai" center subHeading />}
             <Container maxWidth="lg">
+                {popularCaterer?.length > 0 && <Heading title="Popular Tiffins in Chennai" center subHeading />}
                 <Box sx={{ flexGrow: 1 }} style={{ marginTop: '20px' }}>
                     <Grid container spacing={2}>
 
