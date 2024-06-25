@@ -27,7 +27,7 @@ const OurGallery = ({ galleryImages, bennerMenuMixGalleryImages }) => {
         }
     });
 
-    // console.log(slides, "slides");
+    console.log(bennerMenuMixGalleryImages, "bennerMenuMixGalleryImages");
 
     return (
         <>

@@ -8,6 +8,7 @@ import TiffinFilters from '@/components/tiffin/TiffinFilters';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import LoaderSpinner from '@/components/LoaderSpinner';
+import { useSearchParams } from 'next/navigation'
 
 const Page = () => {
     const { getTiffinMapviewSearchCards, isLoading } = useSelector((state) => state.tiffinFilter);
@@ -16,7 +17,15 @@ const Page = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [hoveredMarker, setHoveredMarker] = useState(null);
     const [infoWindowData, setInfoWindowData] = useState(null);
+    const [zoom, setZoom] = useState(10);
     const router = useRouter();
+
+    const searchParams = useSearchParams()
+    const detailLat = searchParams.get('lat')
+    const detailLng = searchParams.get('lng')
+    const detailZoom = searchParams.get('zoom');
+
+    console.log(detailLat, detailLng, "detailLat, detailLng");
 
     useEffect(() => {
         dispatch(fetchTiffinMapviewSearchCards());
@@ -41,11 +50,14 @@ const Page = () => {
     }, [getTiffinMapviewSearchCards]);
 
     const defaultCenter = useMemo(() => {
+        if (detailLat && detailLng) {
+            return { lat: parseFloat(detailLat), lng: parseFloat(detailLng) };
+        }
         if (markers.length > 0) {
             return { lat: markers[0].lat, lng: markers[0].lng };
         }
         return { lat: 18.52043, lng: 73.856743 }; // Default center if no markers are available
-    }, [markers]);
+    }, [markers, detailLat, detailLng]);
 
     const customMarker = {
         url: '/img/map/location.png', // Replace with your image URL or path
@@ -63,6 +75,24 @@ const Page = () => {
         }
     };
 
+    useEffect(() => {
+        if (mapRef && detailLat && detailLng) {
+            const latLng = new window.google.maps.LatLng(parseFloat(detailLat), parseFloat(detailLng));
+            mapRef.panTo(latLng);
+            if (detailZoom) {
+                setZoom(parseInt(detailZoom, 10));
+            } else {
+                setZoom(15);
+            }
+        }
+    }, [mapRef, detailLat, detailLng, detailZoom]);
+
+    useEffect(() => {
+        if (mapRef) {
+            mapRef.setZoom(zoom);
+        }
+    }, [mapRef, zoom]);
+
     const handleMarkerHover = (index, lat, lng, catering_service_name, start_price, vendor_id, branch_id) => {
         setHoveredMarker(index);
         setInfoWindowData({ index, catering_service_name, start_price, vendor_id, branch_id });
@@ -74,7 +104,7 @@ const Page = () => {
         setIsOpen(false);
     };
 
-    console.log(getTiffinMapviewSearchCards, "getTiffinMapviewSearchCards");
+    //  console.log(getTiffinMapviewSearchCards, "getTiffinMapviewSearchCards");
 
     return (
         <>
@@ -98,7 +128,7 @@ const Page = () => {
                                     <GoogleMap
                                         mapContainerClassName="map-container"
                                         center={defaultCenter}
-                                        zoom={10}
+                                        zoom={zoom}
                                         mapContainerStyle={{
                                             width: "100%",
                                             height: '100vh'

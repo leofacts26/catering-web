@@ -28,6 +28,7 @@ import TimeRange from '@/components/TimeRange';
 import OurGallery from '@/components/OurGallery';
 import ContactBtn from '@/components/ContactBtn';
 import SimilarCaterersTiffin from '@/components/cards/SimilarCaterersTiffin';
+import ShowOnMap from '@/components/ShowOnMap';
 
 const getData = async (vendorId, branchId) => {
   try {
@@ -42,6 +43,7 @@ export default async function Page({ params: { slug } }) {
   const data = await getData(slug[0], slug[1]);
   // console.log(slug[0], "params 000");
   // console.log(slug[1], "params 111");
+  console.log(data, "data");
   return (
     <>
       <section className='nav-bg-tiffin'>
@@ -69,7 +71,7 @@ export default async function Page({ params: { slug } }) {
             <Stack direction='row' justifyContent="space-between" alignItems="end">
               <Stack direction="row" alignItems="center" spacing={1} className="vc-icons-tiffin"> <ShareIcon style={{ fontSize: '18px' }} /> <span>Share</span></Stack>
               <Stack direction="row" alignItems="center" spacing={1} className="vc-icons-tiffin"> <FavoriteBorderIcon style={{ fontSize: '18px' }} /> <span>Save</span></Stack>
-              <Stack direction="row" alignItems="center" spacing={1} className="vc-icons-tiffin"> <LocationOnIcon style={{ fontSize: '14px' }} /> <span className="font-12">Show On Map</span></Stack>
+              <ShowOnMap locLatitude={data?.latitude} locLongtitude={data?.longitude} />
             </Stack>
           </div>
         </Stack>
