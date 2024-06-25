@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchCateringSearchCards, incrementPage } from '@/app/features/user/cateringFilterSlice';
 
-const GridViewList = () => {
+const GridViewList = ({ xs, sm, md, lg }) => {
     const dispatch = useDispatch()
     const { getCateringSearchCards, isLoading, current_page, limit, total_count } = useSelector((state) => state.cateringFilter)
 
@@ -48,7 +48,7 @@ const GridViewList = () => {
         return (
             <Grid container spacing={2}>
                 {getCateringSearchCards.length > 0 && getCateringSearchCards.map((getSearchCard, index) => (
-                    <GridViewSkeleton xs={12} sm={6} md={4} lg={4} key={index} />
+                    <GridViewSkeleton xs={xs} sm={sm} md={md} lg={md} key={index} />
                 ))}
             </Grid>
         );
@@ -61,9 +61,9 @@ const GridViewList = () => {
                     {getCateringSearchCards?.map((getSearchCard) => {
                         const brandLogo = getSearchCard?.brand_logo?.[0]?.original;
                         const bannerImage = getSearchCard?.banner_images?.[0]?.original;
-                        const imageSrc = getSearchCard?.subscription_type_name === "branded" && brandLogo || bannerImage || 'img/no-image.jpg';
+                        const imageSrc = getSearchCard?.subscription_type_name === "branded" && brandLogo || bannerImage || '/img/no-image.jpg';
                         return (
-                            <Grid item xs={12} sm={6} md={4} lg={4}>
+                            <Grid item xs={xs} sm={sm} md={md} lg={lg}>
                                 <Link href="/catering-view" className='text-decoration-none'>
                                     <div className="vc-similar-card">
                                         <img src={imageSrc} alt="" className="img-fluid vc-similar-card-img" />

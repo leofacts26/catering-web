@@ -121,7 +121,7 @@ const Page = () => {
     };
 
 
-     console.log(getTiffinMapviewSearchCards, "getTiffinMapviewSearchCards");
+    //  console.log(getTiffinMapviewSearchCards, "getTiffinMapviewSearchCards");
 
     return (
         <>

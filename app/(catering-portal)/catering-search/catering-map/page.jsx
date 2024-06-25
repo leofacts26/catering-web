@@ -5,25 +5,62 @@ import { useMemo } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import { fetchCateringMapviewSearchCards, fetchCateringSearchCards } from '@/app/features/user/cateringFilterSlice';
+import { useSearchParams } from 'next/navigation'
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import Filters from '@/components/catering/Filters';
+import GridViewList from '@/components/catering/GridView';
+import MapAsyncSelectCatering from '@/components/MapAsyncSelectCatering';
+import LoaderSpinner from '@/components/LoaderSpinner';
 
 const page = () => {
     const { getCateringMapviewSearchCards, isLoading } = useSelector((state) => state.cateringFilter)
-    const dispatch = useDispatch()
-    // console.log(getCateringMapviewSearchCards, "getCateringMapviewSearchCards");
+    const dispatch = useDispatch();
     const [mapRef, setMapRef] = useState();
     const [isOpen, setIsOpen] = useState(false);
-    const [infoWindowData, setInfoWindowData] = useState();
-    const router = useRouter()
+    const [hoveredMarker, setHoveredMarker] = useState(null);
+    const [infoWindowData, setInfoWindowData] = useState(null);
+    const [zoom, setZoom] = useState(10);
+    const router = useRouter();
+
+    const searchParams = useSearchParams()
+    const detailLat = searchParams.get('lat')
+    const detailLng = searchParams.get('lng')
+    const detailZoom = searchParams.get('zoom');
+
+    // console.log(detailLat, detailLng, "detailLat, detailLng");
 
     useEffect(() => {
-        dispatch(fetchCateringMapviewSearchCards())
-    }, [])
-
+        dispatch(fetchCateringMapviewSearchCards());
+    }, [dispatch]);
 
     const { isLoaded } = useLoadScript({
         googleMapsApiKey: "AIzaSyBf22eHEMxKk_9x0XWag-oCFTXkdClnPw8",
     });
-    const center = useMemo(() => ({ lat: 18.52043, lng: 73.856743 }), []);
+
+    const markers = useMemo(() => {
+        if (!getCateringMapviewSearchCards || !Array.isArray(getCateringMapviewSearchCards)) {
+            return [];
+        }
+        return getCateringMapviewSearchCards.map(card => ({
+            lat: card.latitude,
+            lng: card.longitude,
+            catering_service_name: card.catering_service_name,
+            start_price: card.start_price,
+            branch_id: card.id,
+            vendor_id: card.vendor_id,
+        }));
+    }, [getCateringMapviewSearchCards]);
+
+    const defaultCenter = useMemo(() => {
+        if (detailLat && detailLng) {
+            return { lat: parseFloat(detailLat), lng: parseFloat(detailLng) };
+        }
+        if (markers.length > 0) {
+            return { lat: markers[0].lat, lng: markers[0].lng };
+        }
+        return { lat: 18.52043, lng: 73.856743 }; // Default center if no markers are available
+    }, [markers, detailLat, detailLng]);
 
     const customMarker = {
         url: '/img/map/location.png', // Replace with your image URL or path
@@ -32,85 +69,168 @@ const page = () => {
         anchor: new window.google.maps.Point(25, 50) // Adjust anchor as needed
     };
 
-
-
-    const markers = getCateringMapviewSearchCards?.map((getCateringSearchCard) => {
-        if (!getCateringMapviewSearchCards || !Array.isArray(getCateringMapviewSearchCards)) {
-            return [];
-        }
-        return {
-            lat: getCateringSearchCard?.latitude,
-            lng: getCateringSearchCard?.longitude,
-            address: getCateringSearchCard?.catering_service_name,
-        }
-    })
-
-    console.log(getCateringMapviewSearchCards, "getCateringMapviewSearchCards 888");
-
-    // const markers = [
-    //     { address: "Address1", lat: 18.5204, lng: 73.8567 },
-    //     { address: "Address2", lat: 18.5314, lng: 73.8446 },
-    //     { address: "Address3", lat: 18.5642, lng: 73.7769 },
-    // ];
-
     const onMapLoad = (map) => {
         setMapRef(map);
-        const bounds = new google.maps.LatLngBounds();
-        markers?.forEach(({ lat, lng }) => bounds?.extend({ lat, lng }));
-        map.fitBounds(bounds);
+        if (markers.length > 0) {
+            const bounds = new window.google.maps.LatLngBounds();
+            markers.forEach(({ lat, lng }) => bounds.extend({ lat, lng }));
+            map.fitBounds(bounds);
+        }
     };
 
-    const handleMarkerClick = (id, lat, lng, address) => {
-        mapRef?.panTo({ lat, lng });
-        setInfoWindowData({ id, address });
+    useEffect(() => {
+        if (mapRef && detailLat && detailLng) {
+            const latLng = new window.google.maps.LatLng(parseFloat(detailLat), parseFloat(detailLng));
+            mapRef.panTo(latLng);
+            if (detailZoom) {
+                setZoom(parseInt(detailZoom, 10));
+            } else {
+                setZoom(15);
+            }
+        }
+    }, [mapRef, detailLat, detailLng, detailZoom]);
+
+    useEffect(() => {
+        if (mapRef) {
+            mapRef.setZoom(zoom);
+        }
+    }, [mapRef, zoom]);
+
+    const handleMarkerHover = (index, lat, lng, catering_service_name, start_price, vendor_id, branch_id) => {
+        setHoveredMarker(index);
+        setInfoWindowData({ index, catering_service_name, start_price, vendor_id, branch_id });
         setIsOpen(true);
     };
 
-    return (
-        <div className="map-box-contaier">
-            <button className='btn-close' onClick={() => router.push('/catering-search')}>
-                Close Map
-            </button>
-            <div style={{ width: '100%', height: '100vh' }}>
-                {!isLoaded ? (
-                    <h1>Loading...</h1>
-                ) : (
-                    <GoogleMap
-                        mapContainerClassName="map-container"
-                        center={center}
-                        zoom={10}
-                        mapContainerStyle={{
-                            width: "100%",
-                            height: '100vh'
-                        }}
-                        onLoad={onMapLoad}
-                        onClick={() => setIsOpen(false)}
-                    >
-                        {markers.map(({ address, lat, lng }, ind) => (
-                            <Marker
-                                key={ind}
-                                position={{ lat, lng }}
-                                onClick={() => {
-                                    handleMarkerClick(ind, lat, lng, address);
-                                }}
-                                icon={customMarker}
-                            >
-                                {isOpen && infoWindowData?.id === ind && (
-                                    <InfoWindow
-                                        onCloseClick={() => {
-                                            setIsOpen(false);
-                                        }}
-                                    >
-                                        <h3>{infoWindowData.address}</h3>
-                                    </InfoWindow>
-                                )}
-                            </Marker>
-                        ))}
+    const handleMarkerHoverOut = () => {
+        setHoveredMarker(null);
+        setIsOpen(false);
+    };
 
-                    </GoogleMap>
-                )}
-            </div>
-        </div>
+    const handleSelect = (selectedOption) => {
+        if (mapRef && selectedOption) {
+            const latLng = new window.google.maps.LatLng(selectedOption.lat, selectedOption.lng);
+            mapRef.panTo(latLng);
+            mapRef.setZoom(15);
+        }
+    };
+
+    return (
+        // <div className="map-box-contaier">
+        //     <button className='btn-close' onClick={() => router.push('/catering-search')}>
+        //         Close Map
+        //     </button>
+        //     <div style={{ width: '100%', height: '100vh' }}>
+        //         {!isLoaded ? (
+        //             <h1>Loading...</h1>
+        //         ) : (
+        //             <GoogleMap
+        //                 mapContainerClassName="map-container"
+        //                 center={center}
+        //                 zoom={10}
+        //                 mapContainerStyle={{
+        //                     width: "100%",
+        //                     height: '100vh'
+        //                 }}
+        //                 onLoad={onMapLoad}
+        //                 onClick={() => setIsOpen(false)}
+        //             >
+        //                 {markers.map(({ address, lat, lng }, ind) => (
+        //                     <Marker
+        //                         key={ind}
+        //                         position={{ lat, lng }}
+        //                         onClick={() => {
+        //                             handleMarkerClick(ind, lat, lng, address);
+        //                         }}
+        //                         icon={customMarker}
+        //                     >
+        //                         {isOpen && infoWindowData?.id === ind && (
+        //                             <InfoWindow
+        //                                 onCloseClick={() => {
+        //                                     setIsOpen(false);
+        //                                 }}
+        //                             >
+        //                                 <h3>{infoWindowData.address}</h3>
+        //                             </InfoWindow>
+        //                         )}
+        //                     </Marker>
+        //                 ))}
+
+        //             </GoogleMap>
+        //         )}
+        //     </div>
+        // </div>
+
+        <>
+            <Box sx={{ flexGrow: 1 }}>
+                <Grid container spacing={2}>
+                    <Grid item xs={4}>
+                        <Grid container spacing={2}>
+                            <Grid item xs={6}>
+                                <div className="map-left-container">
+                                    <Filters />
+                                </div>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <div className="map-left-container">
+                                    <GridViewList xs={12} sm={12} md={12} lg={12} />
+                                </div>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                    <Grid item xs={8}>
+                        <div className="map-box-container">
+
+                            <MapAsyncSelectCatering onSelect={handleSelect} />
+
+                            <button className='btn-close' onClick={() => router.push('/catering-search')}>
+                                Close Map
+                            </button>
+
+                            <div style={{ width: '100%', height: '100vh' }}>
+                                {!isLoaded ? (
+                                    <LoaderSpinner />
+                                ) : (
+                                    <GoogleMap
+                                        mapContainerClassName="map-container"
+                                        center={defaultCenter}
+                                        zoom={zoom}
+                                        mapContainerStyle={{
+                                            width: "100%",
+                                            height: '100vh'
+                                        }}
+                                        onLoad={onMapLoad}
+                                        onClick={() => setIsOpen(false)}
+                                    >
+                                        {markers.map(({ catering_service_name, lat, lng, start_price, vendor_id, branch_id }, index) => (
+                                            <Marker
+                                                key={index}
+                                                position={{ lat, lng }}
+                                                onMouseOver={() => handleMarkerHover(index, lat, lng, catering_service_name, start_price, vendor_id, branch_id)}
+                                                onMouseOut={handleMarkerHoverOut}
+                                                icon={customMarker}
+                                                onClick={() => router.push(`/catering-search/${vendor_id}/${branch_id}`)}
+                                            >
+                                                {isOpen && infoWindowData?.index === index && (
+                                                    <InfoWindow
+                                                        onCloseClick={() => setIsOpen(false)}
+                                                    >
+                                                        <div>
+                                                            <p> <b>Name:-</b> {infoWindowData.catering_service_name}</p>
+                                                            <p className='mt-2'> <b>Start Price:-</b> {infoWindowData.start_price}</p>
+                                                        </div>
+                                                    </InfoWindow>
+                                                )}
+                                            </Marker>
+                                        ))}
+                                    </GoogleMap>
+                                )}
+                            </div>
+                        </div>
+                    </Grid>
+                </Grid>
+            </Box>
+        </>
     )
 }
 

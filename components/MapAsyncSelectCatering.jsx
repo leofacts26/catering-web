@@ -2,10 +2,10 @@ import React from 'react';
 import AsyncSelect from 'react-select/async';
 import { useSelector } from 'react-redux';
 
-const MapAsyncSelect = ({ onSelect }) => {
-    const { getTiffinMapviewSearchCards } = useSelector((state) => state.tiffinFilter);
+const MapAsyncSelectCatering = ({ onSelect }) => {
+    const { getCateringMapviewSearchCards } = useSelector((state) => state.cateringFilter);
 
-    const defaultOptions = getTiffinMapviewSearchCards.map((card) => ({
+    const defaultOptions = getCateringMapviewSearchCards.map((card) => ({
         value: card.id,
         label: card.catering_service_name,
         lat: card.latitude,
@@ -15,10 +15,10 @@ const MapAsyncSelect = ({ onSelect }) => {
     }))
 
     const filterOptions = (inputValue) => {
-        if (!getTiffinMapviewSearchCards) {
+        if (!getCateringMapviewSearchCards) {
             return [];
         }
-        return getTiffinMapviewSearchCards.filter((card) =>
+        return getCateringMapviewSearchCards.filter((card) =>
             card.catering_service_name.toLowerCase().includes(inputValue.toLowerCase())
         ).map((card) => ({
             value: card.id,
@@ -43,10 +43,10 @@ const MapAsyncSelect = ({ onSelect }) => {
             defaultOptions={defaultOptions}
             loadOptions={loadOptions}
             onChange={onSelect}
-            placeholder="Search by Tiffin Service Name"
+            placeholder="Search by Catering Service Name"
             className='map-search-input'
         />
     );
 };
 
-export default MapAsyncSelect;
+export default MapAsyncSelectCatering;

@@ -62,7 +62,7 @@ const page = () => {
 
               <SelectBox />
 
-              {checked ? <ListView /> : <GridViewList />}
+              {checked ? <ListView /> : <GridViewList xs={12} sm={6} md={4} lg={4} />}
             </Grid>
           </Grid>
         </Box>

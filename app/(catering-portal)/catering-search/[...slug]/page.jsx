@@ -29,9 +29,9 @@ import ContactBtn from "@/components/ContactBtn";
 
 
 
-const getData = async (id) => {
+const getData = async (vendorId, branchId) => {
     try {
-        const response = await api.get(`${BASE_URL}/user-get-vendor-show-details?vendor_id=${id}`)
+        const response = await api.get(`${BASE_URL}/user-get-vendor-show-details?branch_id=${branchId}&vendor_id=${vendorId}`)
         return response.data.data;
     } catch (error) {
         console.log(error);
@@ -39,7 +39,7 @@ const getData = async (id) => {
 }
 
 export default async function Page({ params: { slug } }) {
-    const data = await getData(slug)
+    const data = await getData(slug[0], slug[1])
     // console.log(data?.foodTypes, "Data");
     return <>
         <section className='nav-bg'>
