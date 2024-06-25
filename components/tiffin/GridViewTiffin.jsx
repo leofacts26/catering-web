@@ -9,7 +9,7 @@ import { fetchtiffinSearchCards, incrementTiffinPage } from '@/app/features/tiff
 import { useEffect } from 'react';
 
 
-const GridViewTiffin = () => {
+const GridViewTiffin = ({ xs, sm, md, lg }) => {
     const dispatch = useDispatch()
     const { getTiffinSearchCards, isLoading, current_page, limit, total_count } = useSelector((state) => state.tiffinFilter)
 
@@ -52,7 +52,7 @@ const GridViewTiffin = () => {
         return (
             <Grid container spacing={2}>
                 {getTiffinSearchCards.length > 0 && getTiffinSearchCards.map((getSearchCard, index) => (
-                    <GridViewSkeleton key={index} />
+                    <GridViewSkeleton xs={xs} sm={sm} md={md} lg={lg} key={index} />
                 ))}
             </Grid>
         );
@@ -67,7 +67,7 @@ const GridViewTiffin = () => {
                         const bannerImage = item?.banner_images?.[0]?.original;
                         const imageSrc = item?.subscription_type_name === "branded" && brandLogo || bannerImage || 'img/no-image.jpg';
                         return (
-                            <Grid item xs={12} sm={6} md={4} lg={4}>
+                            <Grid item xs={xs} sm={sm} md={md} lg={lg}>
                                 <Link href="/tiffin-view" className='text-decoration-none'>
                                     <div className="vc-similar-card">
                                         <img src={imageSrc} alt="" className="img-fluid vc-similar-card-img" />

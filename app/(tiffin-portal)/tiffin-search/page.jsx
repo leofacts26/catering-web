@@ -59,7 +59,7 @@ const page = () => {
 
               <TiffinSelectBox />
 
-              {checked ? <ListViewTiffin /> : <GridViewTiffin />}
+              {checked ? <ListViewTiffin /> : <GridViewTiffin xs={12} sm={6} md={4} lg={4} />}
             </Grid>
           </Grid>
         </Box>

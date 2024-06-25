@@ -9,6 +9,8 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import LoaderSpinner from '@/components/LoaderSpinner';
 import { useSearchParams } from 'next/navigation'
+import GridViewList from '@/components/catering/GridView';
+import GridViewTiffin from '@/components/tiffin/GridViewTiffin';
 
 const Page = () => {
     const { getTiffinMapviewSearchCards, isLoading } = useSelector((state) => state.tiffinFilter);
@@ -110,14 +112,23 @@ const Page = () => {
         <>
             <Box sx={{ flexGrow: 1 }}>
                 <Grid container spacing={2}>
-                    <Grid item xs={2}>
-                        <div className="map-left-container">
-                            <TiffinFilters />
-                        </div>
+                    <Grid item xs={4}>
+                        <Grid container spacing={2}>
+                            <Grid item xs={6}>
+                                <div className="map-left-container">
+                                    <TiffinFilters />
+                                </div>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <div className="map-left-container">
+                                    <GridViewTiffin xs={12} sm={12} md={12} lg={12} />
+                                </div>
+                            </Grid>
+                        </Grid>
                     </Grid>
-                    <Grid item xs={10}>
+                    <Grid item xs={8}>
                         <div className="map-box-container">
-                            <button className='btn-close' onClick={() => router.push('/tiffin-search')}>
+                            <button className='btn-close-tiffin' onClick={() => router.push('/tiffin-search')}>
                                 Close Map
                             </button>
 

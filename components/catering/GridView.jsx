@@ -48,7 +48,7 @@ const GridViewList = () => {
         return (
             <Grid container spacing={2}>
                 {getCateringSearchCards.length > 0 && getCateringSearchCards.map((getSearchCard, index) => (
-                    <GridViewSkeleton key={index} />
+                    <GridViewSkeleton xs={12} sm={6} md={4} lg={4} key={index} />
                 ))}
             </Grid>
         );
