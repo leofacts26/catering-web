@@ -29,6 +29,7 @@ import OurGallery from '@/components/OurGallery';
 import ContactBtn from '@/components/ContactBtn';
 import SimilarCaterersTiffin from '@/components/cards/SimilarCaterersTiffin';
 import ShowOnMap from '@/components/ShowOnMap';
+import TiffinDetailSave from '@/components/TiffinDetailSave';
 
 const getData = async (vendorId, branchId) => {
   try {
@@ -70,7 +71,7 @@ export default async function Page({ params: { slug } }) {
           <div className='vc-icon-box'>
             <Stack direction='row' justifyContent="space-between" alignItems="end">
               <Stack direction="row" alignItems="center" spacing={1} className="vc-icons-tiffin"> <ShareIcon style={{ fontSize: '18px' }} /> <span>Share</span></Stack>
-              <Stack direction="row" alignItems="center" spacing={1} className="vc-icons-tiffin"> <FavoriteBorderIcon style={{ fontSize: '18px' }} /> <span>Save</span></Stack>
+               <TiffinDetailSave branchId={data?.id} />
               <ShowOnMap locLatitude={data?.latitude} locLongtitude={data?.longitude} />
             </Stack>
           </div>

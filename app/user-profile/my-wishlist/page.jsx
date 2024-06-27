@@ -47,10 +47,10 @@ const page = () => {
                             </div>
                           </Stack>
                           <div className="text-start" style={{ marginBottom: '5px' }}>
-                            <p className='vc-similar-card-small'>Food Type: {wishlist?.vendor_food_types.join(" | ")}</p>
+                            <p className='vc-similar-card-small'>Food Type: {wishlist?.vendor_food_types}</p>
                           </div>
                           <div className="text-start">
-                            <p className='vc-similar-card-small vc-card-dishes'>Cuisines - {wishlist?.vendor_cuisines.join(" , ")}</p>
+                            <p className='vc-similar-card-small vc-card-dishes'>Cuisines - {wishlist?.vendor_cuisines}</p>
                           </div>
                           <Stack direction="row" justifyContent="space-between" alignItems="center" style={{ marginTop: '20px' }}>
                             <span className='text-red vc-similar-card-cost'> {wishlist?.start_price} / Plate</span>
@@ -86,7 +86,7 @@ const page = () => {
       )}
 
 
-      {tiffinWishlist?.length > 0 ? (
+      {/* {tiffinWishlist?.length > 0 ? (
         <>
           <h2 className="user-profile-title" style={{ marginTop: '30px' }}>Saved Tiffins - My Wishlist</h2>
           <Box sx={{ flexGrow: 1 }}>
@@ -143,7 +143,7 @@ const page = () => {
         </>
       ) : (
         <p>You Don't have wishlist</p>
-      )}
+      )} */}
 
 
       <br />

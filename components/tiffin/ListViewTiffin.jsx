@@ -191,7 +191,8 @@ const ListViewTiffin = () => {
                                                 <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} className='mb-2'>
                                                     <ShareIcon className='lse-icons' style={{ marginRight: '10px' }} />
                                                     {
-                                                        wishlist[item?.id] ? <FavoriteIcon className='lse-icons cursor-pointer fill-heart-tiffin' onClick={() => onHandleAddFavourite(item?.id)} /> : <FavoriteBorderIcon className='lse-icons cursor-pointer' onClick={() => onHandleAddFavourite(item?.id)} />
+                                                        wishlist[item?.id] ? <FavoriteIcon className='lse-icons cursor-pointer fill-heart-tiffin' onClick={() => onHandleAddFavourite(item?.id)} /> : 
+                                                        <FavoriteBorderIcon className='lse-icons cursor-pointer' onClick={() => onHandleAddFavourite(item?.id)} />
                                                     }
                                                 </Stack>
                                                 <Stack direction="row" alignItems="center" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} style={{ marginTop: '8px' }}>
