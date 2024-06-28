@@ -33,6 +33,8 @@ const Navbar = () => {
 
     const accessToken = useSelector((state) => state.user.accessToken)
 
+    console.log(navlinks, "navlinks navlinks");
+
     return (
         <>
             <Container maxWidth="lg">
@@ -69,16 +71,27 @@ const Navbar = () => {
                                 <UserIcon />
                             </>
                         )}
-
-
                     </Stack>
                 </Stack>
 
-                <Stack direction="row" justifyContent="end" >
-                    <IconButton onClick={toggleDrawer} edge="start" color="inherit" aria-label="menu" className='mobile-nav'>
-                        <MenuIcon style={{ color: '#ffffff' }} />
-                    </IconButton>
+
+                <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={1}>
+                    <div className='mobile-nav-logo-left'>
+                        <Stack direction="row" alignItems="center" spacing={1} >
+                            <Link href="/" className='text-decoration-none'><HomeIcon className='nav-heading large-icon' /></Link>
+                            <Link href="/" className='text-decoration-none'>
+                                <h2 className='nav-heading'> Caterings & Tiffins</h2></Link>
+                        </Stack>
+                    </div>
+
+                    <Stack direction="row" justifyContent="end" >
+                        <IconButton onClick={toggleDrawer} edge="start" color="inherit" aria-label="menu" className='mobile-nav'>
+                            <MenuIcon style={{ color: '#ffffff' }} />
+                        </IconButton>
+                    </Stack>
                 </Stack>
+
+
 
                 <Drawer
                     anchor="right"
@@ -87,22 +100,34 @@ const Navbar = () => {
                     style={{ zIndex: '9999' }}
                 >
                     <div style={{ width: 300 }}>
+
+
+
                         <Stack direction="row" justifyContent="space-around" alignItems="center" alignContent="center" sx={{ marginTop: '30px' }}>
-                            <h2 className='nav-logo'><span className="footer-red">CATERINGS</span> & <span className="footer-orange">TIFFINS</span></h2>
-                            <CloseIcon onClick={() => setDrawerOpen(false)} />
+                            <h2 className='nav-logo'><span className="footer-red mobile-nav-logo">CATERINGS</span> & <span className="footer-orange mobile-nav-logo">TIFFINS</span></h2>
+                            <CloseIcon onClick={() => setDrawerOpen(false)} className='cursor-pointer' />
                         </Stack>
 
-                        <ul style={{ marginTop: '25px' }}>
-                            <li className='nav-link-li'>
-                                <a href="#" className='nav-link-mobile'>Catering</a>
-                            </li>
-                            <li className='nav-link-li'>
-                                <a href="#" className='nav-link-mobile'>Tiffen</a>
-                            </li>
-                            <li className='nav-link-li'>
-                                <a href="#" className='nav-link-mobile'>List Your Service</a>
-                            </li>
-                        </ul>
+                        {navlinks?.map((navlink) => {
+                            return (
+                                <ul style={{ marginTop: '25px' }}>
+                                    <li className='nav-link-li-mobile'>
+                                        <Link onClick={clearCateringFilter} href={navlink.url} key={navlink.id} className={checkActivePath(navlink.url) ? 'active nav-link-mobile' : 'nav-link-mobile'}
+                                        >{navlink.name}</Link>
+                                    </li>
+                                </ul>
+                            )
+                        })}
+
+                        <Stack sx={{ marginTop: '20px', marginLeft: '12px' }} className='mobile-login-register'>
+                            {!accessToken && (
+                                <>
+                                    <RegisterModal />
+                                    <LoginModal />
+                                </>
+                            )}
+                        </Stack>
+
                     </div>
                 </Drawer>
             </Container>

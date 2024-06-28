@@ -64,7 +64,7 @@ const GridViewList = ({ xs, sm, md, lg }) => {
                         const imageSrc = getSearchCard?.subscription_type_name === "branded" && brandLogo || bannerImage || '/img/no-image.jpg';
                         return (
                             <Grid item xs={xs} sm={sm} md={md} lg={lg}>
-                                <Link href="/catering-view" className='text-decoration-none'>
+                                <Link href={`/catering-search/${getSearchCard?.vendor_id}/${getSearchCard?.id}`} className='text-decoration-none'>
                                     <div className="vc-similar-card">
                                         <img src={imageSrc} alt="" className="img-fluid vc-similar-card-img" />
                                         <div className="vc-similar-card-description">

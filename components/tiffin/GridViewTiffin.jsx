@@ -68,7 +68,7 @@ const GridViewTiffin = ({ xs, sm, md, lg }) => {
                         const imageSrc = item?.subscription_type_name === "branded" && brandLogo || bannerImage || '/img/no-image.jpg';
                         return (
                             <Grid item xs={xs} sm={sm} md={md} lg={lg}>
-                                <Link href="/tiffin-view" className='text-decoration-none'>
+                                <Link href={`/tiffin-search/${item?.vendor_id}/${item?.id}`} className='text-decoration-none'>
                                     <div className="vc-similar-card">
                                         <img src={imageSrc} alt="" className="img-fluid vc-similar-card-img" />
                                         <div className="vc-similar-card-description">

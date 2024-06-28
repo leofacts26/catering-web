@@ -1916,12 +1916,14 @@ h6 {
 } */
 
 /* listview cards */
-.fill-heart-tiffin{
-   color: var(--primary) !important;
+.fill-heart-tiffin {
+  color: var(--primary) !important;
 }
-.fill-heart-catering{
+
+.fill-heart-catering {
   color: var(--accent2) !important;
 }
+
 .not-fount-vendors {
   display: flex;
   justify-content: center;
@@ -2641,6 +2643,14 @@ h6 {
 
 /* tiffin styles end  */
 
+.sub-input{
+  width: 75%;
+}
+
+.mobile-nav-logo-left{
+  display: none !important;
+}
+
 /* media quories start */
 @media only screen and (max-width: 1200px) {
   .desktop-nav {
@@ -2650,10 +2660,34 @@ h6 {
   .mobile-nav {
     display: block !important;
   }
+  
+  .mobile-nav-logo-left{
+    display: block !important;
+  }
+
 }
 
 
 @media only screen and (max-width: 900px) {
+
+  .sub-input{
+    width: 100%;
+  }
+
+  .sub-bottom{
+    margin-top: 10px !important;
+  }
+
+  .mobile-login-register .nav-link {
+    color: #000000 !important;
+    font-size: 18px !important;
+  }
+
+  .list-card-end {
+    margin: 0 !important;
+    padding: 0px !important;
+  }
+
   .landing-para {
     font-size: 28px;
   }
@@ -2717,6 +2751,9 @@ h6 {
 
   .list-card-img-tiffin {
     width: 100%;
+  }
+  .listview-img{
+    width: fit-content;
   }
 }
 
@@ -2811,6 +2848,7 @@ textarea:-webkit-autofill:active {
   z-index: 999 !important;
   cursor: pointer !important;
 }
+
 .btn-close-tiffin {
   background-color: #d9822b !important;
   color: #ffffff !important;
@@ -2827,7 +2865,7 @@ textarea:-webkit-autofill:active {
   cursor: pointer !important;
 }
 
-.map-left-container{
+.map-left-container {
   height: 100vh;
   overflow-y: scroll;
 }
@@ -2838,17 +2876,17 @@ textarea:-webkit-autofill:active {
 
 /* Track */
 .map-left-container::-webkit-scrollbar-track {
-  background: #f1f1f1; 
+  background: #f1f1f1;
 }
- 
+
 /* Handle */
 .map-left-container::-webkit-scrollbar-thumb {
-  background: #888; 
+  background: #888;
 }
 
 /* Handle on hover */
 .map-left-container::-webkit-scrollbar-thumb:hover {
-  background: #555; 
+  background: #555;
 }
 
 .gm-ui-hover-effect {
@@ -2858,15 +2896,31 @@ textarea:-webkit-autofill:active {
   outline-width: 0px !important;
 }
 
-.mySwiper{
+.mySwiper {
   width: 100% !important;
 }
 
-.map-search-input{
+.map-search-input {
   background-color: #ffffff !important;
   border-radius: 5px !important;
   position: absolute !important;
   top: 1% !important;
   right: 25% !important;
   z-index: 999 !important;
+}
+
+.mobile-nav-logo {
+  font-size: 18px;
+}
+
+.nav-link-li-mobile {
+  line-height: 1.5em;
+}
+
+.nav-link-li-mobile a:hover {
+  color: var(--accent2);
+}
+
+.nav-link-li-mobile a {
+  text-decoration: none;
 }

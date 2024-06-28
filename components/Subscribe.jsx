@@ -113,8 +113,8 @@ const Subscribe = () => {
                                                 name="email"
                                                 onChange={handleChange}
                                                 placeholder='Enter Email ID'
-                                                className='mt-0'
-                                                style={{ width: '75%' }}
+                                                className='mt-0 sub-input'
+                                                // style={{ width: '75%' }} 
                                                 InputLabelProps={{
                                                     style: { color: '#ffffff' },
                                                 }}
@@ -125,7 +125,7 @@ const Subscribe = () => {
                                                 }}
                                             />
 
-                                            <Button type="submit" variant="contained" sx={{
+                                            <Button className='sub-bottom' type="submit" variant="contained" sx={{
                                                 height: '40px',
                                                 backgroundColor: '#c33332', padding: '10px 30px',
                                                 fontSize: '14px', fontWeight: '500', textTransform: 'capitalize', marginLeft: '10px',
