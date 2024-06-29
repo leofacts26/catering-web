@@ -42,7 +42,7 @@ const page = () => {
                         <div className="vc-similar-card-description">
                           <Stack direction="row" justifyContent="space-between" alignItems="start" style={{ marginTop: '10px', marginBottom: '10px' }}>
                             <div className="text-start">
-                              <h3 className='grid-view-title'>{wishlist?.branch_name}</h3>
+                              <h3 className='grid-view-title'>{wishlist?.catering_service_name}</h3>
                               <p className='vc-similar-card-small text-left'> {wishlist?.vendor_city} {wishlist?.vendor_state} </p>
                             </div>
                           </Stack>
@@ -54,7 +54,7 @@ const page = () => {
                           </div>
                           <Stack direction="row" justifyContent="space-between" alignItems="center" style={{ marginTop: '20px' }}>
                             <span className='text-red vc-similar-card-cost'> {wishlist?.start_price} / Plate</span>
-                            <Link href={`/catering-search/${wishlist?.branch_id}`} variant="contained"
+                            <Link href={`/catering-search/${wishlist?.vendor_id}/${wishlist?.id}`} variant="contained"
                               className='text-decoration-none'
                               style={{
                                 color: '#ffffff',

@@ -187,6 +187,11 @@ export const fetchtiffinSearchCards = createAsyncThunk(
 
         // &subscription_types_filter=${JSON.stringify(tiffinSubscriptionTypes_formatted)}
 
+
+        // console.log(current_page, "current_page");
+        // console.log(limit, "limit");
+        // console.log((current_page * limit), "current_page * limit");
+
         try {
             const response = await api.get(`${BASE_URL}/search-vendors?search_term=${people}&limit=${(current_page * limit)}&current_page=1&save_filter=1&vendor_type=Tiffin&app_type=web&latitude=${locationValuesGlobal?.latitude || ""}&longitude=${locationValuesGlobal?.longitude || ""}&city=${locationValuesGlobal?.city?.long_name || ""}&pincode=${locationValuesGlobal?.pincode || ""}&place_id=${locationValuesGlobal?.place_id || ''}&price_ranges=${JSON.stringify(updatedPriceTypes_formatted)}&subscription_types_filter=${JSON.stringify(tiffinSubscriptionTypes_formatted)}&order_by_filter=${cateringSortBy_filter}&kitchen_types_filter=${JSON.stringify(kitchentype_filter_formatted)}&meal_times_filter=${JSON.stringify(mealtype_filter_formatted)}&food_types_filter=${JSON.stringify(foodtype_filter_formatted)}&service_types_filter=${JSON.stringify(servicetype_filter_formatted)}&start_date=${moment(startDate).format('YYYY-MM-DD')}&end_date=${moment(endDate).format('YYYY-MM-DD')}`, {
                 headers: {

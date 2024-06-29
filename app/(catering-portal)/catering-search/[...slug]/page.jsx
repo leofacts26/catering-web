@@ -26,12 +26,13 @@ import CateringSearchBar from '@/components/catering/CateringSearchBar';
 import OurGallery from "@/components/OurGallery";
 import TimeRange from "@/components/TimeRange";
 import ContactBtn from "@/components/ContactBtn";
+import CateringDetailSave from "@/components/CateringDetailSave";
 
 
 
 const getData = async (vendorId, branchId) => {
     try {
-        const response = await api.get(`${BASE_URL}/user-get-vendor-show-details?branch_id=${branchId}&vendor_id=${vendorId}`)
+        const response = await api.get(`${BASE_URL}/user-get-vendor-show-details?branch_id=${branchId}&vendor_id=${vendorId}`, { cache: "no-store" })
         return response.data.data;
     } catch (error) {
         console.log(error);
@@ -40,7 +41,7 @@ const getData = async (vendorId, branchId) => {
 
 export default async function Page({ params: { slug } }) {
     const data = await getData(slug[0], slug[1])
-    // console.log(data?.foodTypes, "Data");
+    console.log(data, "Data 33333");
     return <>
         <section className='nav-bg'>
             <Navbar cateringHome />
@@ -66,7 +67,8 @@ export default async function Page({ params: { slug } }) {
                 <div className='vc-icon-box'>
                     <Stack direction='row' justifyContent="space-between" alignItems="end">
                         <Stack direction="row" alignItems="center" spacing={1} className="vc-icons"> <ShareIcon style={{ fontSize: '18px' }} /> <span>Share</span></Stack>
-                        <Stack direction="row" alignItems="center" spacing={1} className="vc-icons"> <FavoriteBorderIcon style={{ fontSize: '18px' }} /> <span>Save</span></Stack>
+                        {/* <Stack direction="row" alignItems="center" spacing={1} className="vc-icons"> <FavoriteBorderIcon style={{ fontSize: '18px' }} /> <span>Save</span></Stack> */}
+                        <CateringDetailSave branchId={slug[1]} is_wishlisted={data?.is_wishlisted} />
                         <Stack direction="row" alignItems="center" spacing={1} className="vc-icons"> <LocationOnIcon style={{ fontSize: '14px' }} /> <span className="font-12">Show On Map</span></Stack>
                     </Stack>
                 </div>
