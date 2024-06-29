@@ -98,12 +98,12 @@ const SimilarCaterersTiffin = ({ tiffin }) => {
 
 
 
-                                <span className="vc-similar-blue">    {item?.cuisines?.slice(0, 6)?.map((item) => item).join(" | ")} </span>
+                                <span className="vc-similar-blue text-ellipse-two">    {item?.cuisines?.slice(0, 6)?.map((item) => item).join(" | ")}... </span>
 
 
-                                <Stack direction="row" alignItems="center" justifyContent="end" className="mb-4">
+                                <Stack direction="row" alignItems="center" justifyContent="end" className="mb-2 mt-2">
                                     <Stack direction="row" alignItems="center" justifyContent="end" spacing={0}>
-                                        <CurrencyRupeeIcon className={tiffin ? 'vc-price-one-similar-tiffin' : 'vc-price-one-similar-catering'} />
+                                        <CurrencyRupeeIcon style={{fontSize: '15px'}} className={tiffin ? 'vc-price-one-similar-tiffin' : 'vc-price-one-similar-catering'} />
                                         <span className={tiffin ? 'vc-price-one-similar-tiffin' : 'vc-price-one-similar-catering'}> {`${item?.start_price}`} / Plate </span>
                                     </Stack>
                                 </Stack>

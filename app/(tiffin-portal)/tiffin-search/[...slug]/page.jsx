@@ -30,6 +30,8 @@ import ContactBtn from '@/components/ContactBtn';
 import SimilarCaterersTiffin from '@/components/cards/SimilarCaterersTiffin';
 import ShowOnMap from '@/components/ShowOnMap';
 import TiffinDetailSave from '@/components/TiffinDetailSave';
+import WbSunnyIcon from '@mui/icons-material/WbSunny';
+
 
 const getData = async (vendorId, branchId) => {
   try {
@@ -53,11 +55,11 @@ export default async function Page({ params: { slug } }) {
       <div className="search-container">
         <div className="container-search">
           <Container maxWidth="md">
-            <TiffinSearchBar searchLink="/catering-search" />
+            <TiffinSearchBar searchLink="/tiffin-search" />
           </Container>
         </div>
       </div>
-      <Breadcrumb title="Royal Tiffin Service" />
+      <Breadcrumb service="Tiffin Service" city={data?.city} title={data?.vendor_service_name} results="Search results" />
 
       <Container maxWidth="lg">
         <Stack sx={{ marginTop: '20px' }} direction={{ xs: 'column', sm: 'column', md: 'column', lg: 'row' }} alignItems="end" justifyContent="space-between">
@@ -71,7 +73,7 @@ export default async function Page({ params: { slug } }) {
           <div className='vc-icon-box'>
             <Stack direction='row' justifyContent="space-between" alignItems="end">
               <Stack direction="row" alignItems="center" spacing={1} className="vc-icons-tiffin"> <ShareIcon style={{ fontSize: '18px' }} /> <span>Share</span></Stack>
-               <TiffinDetailSave branchId={data?.id} />
+              <TiffinDetailSave branchId={data?.id} />
               <ShowOnMap locLatitude={data?.latitude} locLongtitude={data?.longitude} />
             </Stack>
           </div>
@@ -107,14 +109,14 @@ export default async function Page({ params: { slug } }) {
               </Stack>
 
               <h2 className="vc-cater-tiffin">Cuisines We Cater</h2>
-              <h2 className="vc-locations">South Indian | North Indian | Hyderabadi | Mangalorean | Chettinad | Chinese</h2>
+              <h2 className="vc-locations"> {data?.cuisines?.slice(0, 8)?.map((item) => item?.cuisine_name).join(" | ")}... </h2>
             </Grid>
             <Grid item sm={12} lg={5}>
               <Stack direction="column" alignContent="end" alignItems="end" justifyContent="end">
                 <Stack direction="row" alignItems="center" className="mb-4">
                   <span className="vc-price">Starting Price / Plate -</span>
                   <Stack direction="row" alignItems="center" spacing={0}>
-                    <CurrencyRupeeIcon className="vc-price-one-tiffin" /> <span className="vc-price-one-tiffin"> 250</span>
+                    <CurrencyRupeeIcon className="vc-price-one-tiffin" /> <span className="vc-price-one-tiffin"> {data?.start_price} </span>
                   </Stack>
                 </Stack>
                 <p className="vc-reviews-tiffin">See Reviews (352)</p>
@@ -137,7 +139,9 @@ export default async function Page({ params: { slug } }) {
                   {/* <FastfoodIcon className="vc-icon-label" /> */}
                   <img src="/img/icons/service-type-filled.svg" className='vc-icon-svg' alt="" />
                   <p className="vc-service-type">Service Type</p>
-                  <h3 className="vc-service-heading">Table & Buffet Service</h3>
+                  <h3 className="vc-service-heading">
+                    {data?.serviceTypes?.slice(0, 8)?.map((item) => item?.service_type_name).join(" , ")}
+                  </h3>
                 </div>
               </CardContent>
             </div>
@@ -146,9 +150,11 @@ export default async function Page({ params: { slug } }) {
             <div className="vc-shadow">
               <CardContent>
                 <div className="text-center">
-                  <EditNoteIcon className="vc-icon-label" />
-                  <p className="vc-service-type">Min & Max Order Quantity</p>
-                  <h3 className="vc-service-heading"> {data?.minimum_capacity} - {data?.maximum_capacity} Plates</h3>
+                <WbSunnyIcon className="vc-icon-label-tiffin" />
+                  <p className="vc-service-type">Meal Times</p>
+                  <h3 className="vc-service-heading">
+                    {data?.mealTimes?.slice(0, 8)?.map((item) => item?.meal_time_name).join(" , ")}
+                  </h3>
                 </div>
               </CardContent>
             </div>
@@ -157,11 +163,10 @@ export default async function Page({ params: { slug } }) {
             <div className="vc-shadow">
               <CardContent>
                 <div className="text-center">
-                  <AccessTimeIcon className="vc-icon-label" />
+                  <AccessTimeIcon className="vc-icon-label-tiffin" />
                   <p className="vc-service-type">Working Hours</p>
-                  <h3 className="vc-service-heading"> {data?.start_day}  - {data?.end_day} {" "}
-                    <TimeRange startTime={data?.start_time} endTime={data?.end_time} />
-                  </h3>
+                  <h3 className="vc-service-heading"> {data?.start_day}  - {data?.end_day}  {" "}
+                    <TimeRange startTime={data?.start_time} endTime={data?.end_time} /> </h3>
                 </div>
               </CardContent>
             </div>
@@ -170,18 +175,7 @@ export default async function Page({ params: { slug } }) {
             <div className="vc-shadow">
               <CardContent>
                 <div className="text-center">
-                  <GroupIcon className="vc-icon-label" />
-                  <p className="vc-service-type">Total No. of Staffs</p>
-                  <h3 className="vc-service-heading">{data?.total_staffs_approx}</h3>
-                </div>
-              </CardContent>
-            </div>
-          </Grid>
-          <Grid item xs={12} sm={12} md={4} lg={2}>
-            <div className="vc-shadow">
-              <CardContent>
-                <div className="text-center">
-                  <TimelineIcon className="vc-icon-label" />
+                  <TimelineIcon className="vc-icon-label-tiffin" />
                   <p className="vc-service-type">Working Since</p>
                   <h3 className="vc-service-heading">{data?.working_since}</h3>
                 </div>

@@ -98,7 +98,7 @@ const SimilarCaterers = ({ tiffin }) => {
 
 
 
-                                <span className="vc-similar-blue">    {item?.cuisines?.slice(0, 4)?.map((item) => item).join(" | ")}... </span>
+                                <span className="vc-similar-blue text-ellipse-two"> {item?.cuisines?.slice(0, 6)?.map((item) => item).join(" | ")}... </span>
 
 
                                 <Stack direction="row" alignItems="center" justifyContent="end" className="mb-2 mt-2">

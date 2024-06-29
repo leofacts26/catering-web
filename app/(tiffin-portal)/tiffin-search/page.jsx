@@ -36,7 +36,7 @@ const page = () => {
           </Container>
         </div>
       </div>
-      <Breadcrumb title="Search Results" />
+      <Breadcrumb service="Tiffin Service" title="Search Results" />
 
       <Container maxWidth="xl">
         <Box sx={{ flexGrow: 1 }} style={{ marginTop: '20px' }}>

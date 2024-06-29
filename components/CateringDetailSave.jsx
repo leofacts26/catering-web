@@ -25,14 +25,14 @@ const CateringDetailSave = ({ branchId, is_wishlisted }) => {
     console.log(wishlist, "wishlist");
 
     return (
-        <Stack direction="row" alignItems="center" spacing={1} className="vc-icons-tiffin" onClick={() => onHandleAddFavourite(branchId)}>
+        <Stack direction="row" alignItems="center" spacing={1} className="vc-icons" onClick={() => onHandleAddFavourite(branchId)}>
             {
                 wishlist ?
                     <Stack direction="row" alignItems="center" className="vc-icons" spacing={1}>
                         <FavoriteIcon style={{ fontSize: '18px' }} /> <span>Save</span>
                     </Stack>
                     :
-                    <Stack direction="row" alignItems="center" className="vc-icons-tiffin" spacing={1}>
+                    <Stack direction="row" alignItems="center" className="vc-icons" spacing={1}>
                         <FavoriteBorderIcon style={{ fontSize: '18px' }} /> <span>Save</span>
                     </Stack>
             }

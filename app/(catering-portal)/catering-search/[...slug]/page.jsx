@@ -53,7 +53,7 @@ export default async function Page({ params: { slug } }) {
                 </Container>
             </div>
         </div>
-        <Breadcrumb title={slug} />
+        <Breadcrumb service="Catering Service" city={data?.city} title={data?.vendor_service_name} results="Search results" />
 
         <Container maxWidth="lg">
             <Stack sx={{ marginTop: '20px' }} direction={{ xs: 'column', sm: 'column', md: 'column', lg: 'row' }} alignItems="center" justifyContent="space-between">
