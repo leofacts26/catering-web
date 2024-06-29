@@ -2,27 +2,15 @@ import React, { memo, useCallback, useEffect } from 'react'
 import Checkbox from '@mui/material/Checkbox';
 import Stack from '@mui/material/Stack';
 import FilterSkeleton from '../FilterSkeleton';
-import { fetchCateringSearchCards, fetchPriceRanges, setPriceTypeFilter } from '@/app/features/user/cateringFilterSlice';
+import { fetchCateringMapviewSearchCards, fetchCateringSearchCards, fetchPriceRanges, setPriceTypeFilter } from '@/app/features/user/cateringFilterSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { makeSelectCateringPriceRanges } from '@/hooks/selectCateringFilter';
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
-const CaterPriceRanges = () => {
-    
-    // const getCateringPriceRanges = useSelector(makeSelectCateringPriceRanges);
-    
-    
+const CaterPriceRanges = () => {    
     const { getCateringPriceRanges, isLoading } = useSelector((state) => state.cateringFilter)
     const dispatch = useDispatch()
-
-    
-    // useEffect(() => {
-    //     dispatch(fetchCateringSearchCards());
-    // }, [dispatch])
-
-  
-    // console.log(getCateringPriceRanges, "getCateringPriceRanges"); 
 
     useEffect(() => {
         dispatch(fetchPriceRanges());
@@ -32,6 +20,7 @@ const CaterPriceRanges = () => {
     const onHandlePriceRanges = useCallback((priceType) => {
         dispatch(setPriceTypeFilter(priceType?.id))
         dispatch(fetchCateringSearchCards());
+        dispatch(fetchCateringMapviewSearchCards());
     }, [dispatch]);
 
 

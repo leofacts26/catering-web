@@ -116,50 +116,6 @@ const page = () => {
     };
 
     return (
-        // <div className="map-box-contaier">
-        //     <button className='btn-close' onClick={() => router.push('/catering-search')}>
-        //         Close Map
-        //     </button>
-        //     <div style={{ width: '100%', height: '100vh' }}>
-        //         {!isLoaded ? (
-        //             <h1>Loading...</h1>
-        //         ) : (
-        //             <GoogleMap
-        //                 mapContainerClassName="map-container"
-        //                 center={center}
-        //                 zoom={10}
-        //                 mapContainerStyle={{
-        //                     width: "100%",
-        //                     height: '100vh'
-        //                 }}
-        //                 onLoad={onMapLoad}
-        //                 onClick={() => setIsOpen(false)}
-        //             >
-        //                 {markers.map(({ address, lat, lng }, ind) => (
-        //                     <Marker
-        //                         key={ind}
-        //                         position={{ lat, lng }}
-        //                         onClick={() => {
-        //                             handleMarkerClick(ind, lat, lng, address);
-        //                         }}
-        //                         icon={customMarker}
-        //                     >
-        //                         {isOpen && infoWindowData?.id === ind && (
-        //                             <InfoWindow
-        //                                 onCloseClick={() => {
-        //                                     setIsOpen(false);
-        //                                 }}
-        //                             >
-        //                                 <h3>{infoWindowData.address}</h3>
-        //                             </InfoWindow>
-        //                         )}
-        //                     </Marker>
-        //                 ))}
-
-        //             </GoogleMap>
-        //         )}
-        //     </div>
-        // </div>
 
         <>
             <Box sx={{ flexGrow: 1 }}>

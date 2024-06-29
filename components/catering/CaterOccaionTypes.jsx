@@ -2,7 +2,7 @@ import React, { memo, useCallback, useEffect, useState } from 'react'
 import Checkbox from '@mui/material/Checkbox';
 import Stack from '@mui/material/Stack';
 import FilterSkeleton from '../FilterSkeleton';
-import { fetchCateringSearchCards, fetchOccasionCateringTypes, setOccasionTypes, setShowAllOccasions } from '@/app/features/user/cateringFilterSlice';
+import { fetchCateringMapviewSearchCards, fetchCateringSearchCards, fetchOccasionCateringTypes, setOccasionTypes, setShowAllOccasions } from '@/app/features/user/cateringFilterSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
@@ -26,6 +26,7 @@ const CaterOccaionTypes = () => {
     const onHandleSelectOccasion = (getOccasionType) => {
         dispatch(setOccasionTypes(getOccasionType?.occasion_id))
         dispatch(fetchCateringSearchCards());
+        dispatch(fetchCateringMapviewSearchCards());
     }
 
     const onShowAllOccasions = useCallback(() => {

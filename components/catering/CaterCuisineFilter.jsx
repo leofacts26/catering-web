@@ -2,7 +2,7 @@ import React, { memo, useCallback, useEffect, useState } from 'react'
 import Checkbox from '@mui/material/Checkbox';
 import Stack from '@mui/material/Stack';
 import FilterSkeleton from '../FilterSkeleton';
-import { fetchCateringCuisines, fetchCateringSearchCards, setCuisineTypeFilter } from '@/app/features/user/cateringFilterSlice';
+import { fetchCateringCuisines, fetchCateringMapviewSearchCards, fetchCateringSearchCards, setCuisineTypeFilter } from '@/app/features/user/cateringFilterSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { styled } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
@@ -52,6 +52,7 @@ const CaterCuisineFilter = () => {
     const onHandleCuisineFilter = useCallback((cuisineId, isParent) => {
         dispatch(setCuisineTypeFilter({ cuisineId, isParent }));
         dispatch(fetchCateringSearchCards());
+        dispatch(fetchCateringMapviewSearchCards());
     }, [dispatch])
 
     const [searchQuery, setSearchQuery] = useState('');
