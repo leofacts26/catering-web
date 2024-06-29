@@ -56,11 +56,11 @@ export default async function Page({ params: { slug } }) {
         <Breadcrumb title={slug} />
 
         <Container maxWidth="lg">
-            <Stack sx={{ marginTop: '20px' }} direction={{ xs: 'column', sm: 'column', md: 'column', lg: 'row' }} alignItems="end" justifyContent="space-between">
+            <Stack sx={{ marginTop: '20px' }} direction={{ xs: 'column', sm: 'column', md: 'column', lg: 'row' }} alignItems="center" justifyContent="space-between">
                 <div>
                     <Stack direction="row" alignItems="center" spacing={2}>
                         <h2 className="vc-heading"> {data?.vendor_service_name} </h2>
-                        <span className='vc-chip'>Branded {data?.vendor_type}</span>
+                        <span className='vc-chip'> {data?.subscription_type_display} {data?.vendor_type}</span>
                     </Stack>
                     <h3 className="vc-address">{data?.formatted_address}</h3>
                 </div>
@@ -105,14 +105,16 @@ export default async function Page({ params: { slug } }) {
                         </Stack>
 
                         <h2 className="vc-cater">Cuisines We Cater</h2>
-                        <h2 className="vc-locations">South Indian | North Indian | Hyderabadi | Mangalorean | Chettinad | Chinese</h2>
+                        <h2 className="vc-locations">
+                            {data?.cuisines?.slice(0, 8)?.map((item) => item?.cuisine_name).join(" | ")}...
+                        </h2>
                     </Grid>
                     <Grid item sm={12} lg={5}>
                         <Stack direction="column" alignContent="end" alignItems="end" justifyContent="end">
                             <Stack direction="row" alignItems="center" className="mb-4">
                                 <span className="vc-price">Starting Price / Plate -</span>
                                 <Stack direction="row" alignItems="center" spacing={0}>
-                                    <CurrencyRupeeIcon className="vc-price-one" /> <span className="vc-price-one"> 250</span>
+                                    <CurrencyRupeeIcon className="vc-price-one" /> <span className="vc-price-one"> {data?.start_price} </span>
                                 </Stack>
                             </Stack>
                             <p className="vc-reviews">See Reviews (352)</p>
@@ -135,7 +137,9 @@ export default async function Page({ params: { slug } }) {
                                 {/* <FastfoodIcon className="vc-icon-label" /> */}
                                 <img src="/img/icons/service-type-filled.svg" className='vc-icon-svg' alt="" />
                                 <p className="vc-service-type">Service Type</p>
-                                <h3 className="vc-service-heading">Table & Buffet Service</h3>
+                                <h3 className="vc-service-heading"> 
+                                {data?.serviceTypes?.slice(0, 8)?.map((item) => item?.service_type_name).join(" , ")}
+                                </h3>
                             </div>
                         </CardContent>
                     </div>
@@ -158,7 +162,7 @@ export default async function Page({ params: { slug } }) {
                                 <AccessTimeIcon className="vc-icon-label" />
                                 <p className="vc-service-type">Working Hours</p>
                                 <h3 className="vc-service-heading"> {data?.start_day}  - {data?.end_day}  {" "}
-                                     <TimeRange startTime={data?.start_time} endTime={data?.end_time} /> </h3>
+                                    <TimeRange startTime={data?.start_time} endTime={data?.end_time} /> </h3>
                             </div>
                         </CardContent>
                     </div>
@@ -193,7 +197,8 @@ export default async function Page({ params: { slug } }) {
             <p className="vc-para">{data?.about_description}</p>
 
             <h3 className="vc-about-us" style={{ marginTop: '20px' }}>Our Branches</h3>
-            <p className="vc-para"> {data?.branches?.map((item) => item?.city).join(", ")} <span className="text-red view-all">View all</span> </p>
+            <p className="vc-para"> {data?.branches?.map((item) => item?.city).join(", ")}
+                {data?.branches?.length >= 6 && <span className="text-red view-all">View all</span>} </p>
         </Container>
 
         <OurGallery galleryImages={data?.galleryImages} bennerMenuMixGalleryImages={data?.bennerMenuMixGalleryImages} />

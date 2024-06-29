@@ -155,11 +155,11 @@ const ListView = () => {
                                         </Stack>
 
 
-                                        <Stack direction={{ xs: 'row', sm: 'row', md: 'row', lg: "row" }} flexWrap="wrap" spacing={1} sx={{ marginTop: '15px' }}>
+                                        <Stack direction="flex" flexWrap="wrap" spacing={1} sx={{ marginTop: '15px' }}>
                                             {
                                                 getSearchCard?.occasions?.slice(0, 4)?.map((occasion, index) => {
                                                     return (
-                                                        <span className='list-card-chip' key={index}>{occasion}</span>
+                                                        <span className='list-card-chip me-2' key={index}>{occasion}</span>
                                                     )
                                                 })
                                             }

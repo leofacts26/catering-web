@@ -54,7 +54,7 @@ const page = () => {
 
             </Grid>
             <Grid item xs={12} md={12} lg={9} xl={9.2}>
-              {getCateringSearchCards.length > 0 && <Stack direction='row' justifyContent="space-between" style={{ margin: '0px 0px 0px 0px' }}>
+              {getCateringSearchCards.length > 0 && <Stack direction={{ xs: 'column', sm: 'column', md: 'row' }} justifyContent="space-between" style={{ margin: '0px 0px 0px 0px' }}>
                 <h2 className='catering-found'>Chennai: {total_count} Catering service providers found</h2>
                 <SwitchSearchResult checked={checked} setChecked={setChecked} />
               </Stack>

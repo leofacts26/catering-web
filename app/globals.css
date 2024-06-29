@@ -148,6 +148,7 @@ h6 {
   box-shadow: inset rgba(216, 220, 226, 0.5) 0px 0px 40px 0px, inset rgba(233, 235, 237, 0.5) 0px 0px 40px 0px, inset rgb(218, 214, 214) 0px 0px 36px -24px;
   padding: 8px 20px;
   border-radius: 99px;
+  width: fit-content;
 }
 
 .text-ellipse-three {
