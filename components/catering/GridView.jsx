@@ -70,7 +70,7 @@ const GridViewList = ({ xs, sm, md, lg }) => {
                                         <div className="vc-similar-card-description">
                                             <Stack direction="row" justifyContent="space-between" alignItems="start" style={{ marginTop: '10px', marginBottom: '10px' }}>
                                                 <div className="text-start">
-                                                    <h3 className='grid-view-title'>{getSearchCard?.catering_service_name || ""}</h3>
+                                                    <h3 className='grid-view-title text-ellipse-two'>{getSearchCard?.catering_service_name || ""}</h3>
                                                     <p className='vc-similar-card-small text-left'>{getSearchCard?.street_name} {getSearchCard?.area} {getSearchCard?.city}</p>
                                                 </div>
                                             </Stack>
@@ -108,15 +108,12 @@ const GridViewList = ({ xs, sm, md, lg }) => {
                                                 }
                                             </h2>
 
-                                            <Stack direction="row" alignItems="center" justifyContent="end" className="mb-4">
-                                                <Stack direction="row" alignItems="center" justifyContent="end" spacing={0}>
-                                                    <CurrencyRupeeIcon className="vc-price-one-similar-catering" />
+                                            <Stack direction="row" alignItems="center" justifyContent="end" className="mb-1 mt-1 w-100">
+                                                <Stack direction="row" alignSelf="end" justifyContent="end" spacing={0} className='w-100'>
+                                                    <CurrencyRupeeIcon style={{fontSize: '18px'}} className="vc-price-one-similar-catering" />
                                                     <span className="vc-price-one-similar-catering"> {getSearchCard?.start_price} / Plate </span>
                                                 </Stack>
                                             </Stack>
-
-
-
                                         </div>
                                     </div>
                                 </Link>
@@ -124,7 +121,16 @@ const GridViewList = ({ xs, sm, md, lg }) => {
                         )
                     })}
                 </Grid>
-            </Box >
+            </Box>
+
+
+            {getCateringSearchCards?.length > 0 && <>
+                <Stack direction="row" justifyContent="space-between" style={{ marginBottom: '20px 0px 0px 0px' }} className='mb-5 mt-5'>
+                    <h2 className='pagination-heading'>Total {total_count} Catering service providers found</h2>
+                    <p className='pagination-showing'>Showing 20 - 30</p>
+                </Stack>
+            </>}
+
         </>
 
     )

@@ -2940,3 +2940,10 @@ textarea:-webkit-autofill:active {
 .nav-link-li-mobile a {
   text-decoration: none;
 }
+
+.vc-similar-card-description {
+  height: 162px;
+  align-items: start;
+  display: flex;
+  flex-direction: column;
+}
