@@ -31,6 +31,7 @@ const page = () => {
             <ExpoloreCuisinesCard />
             <Heading title="Explore Caterers around INDIA" subHeading />
             <ExploreCaters />
+            
             <Heading title="Branded Caterers in Chennai" subHeading />
             <BrandedCaters />
             

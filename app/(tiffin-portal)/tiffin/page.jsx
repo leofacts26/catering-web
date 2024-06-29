@@ -33,8 +33,8 @@ const page = () => {
             <ExploreCaters />
             <BrandedTiffenCaters />
             <PopularCaters />
-            <Heading title="Explore Tiffins by Occasions" subHeading />
-            <ExploreCaterersByOccasion />
+            {/* <Heading title="Explore Tiffins by Occasions" subHeading /> */}
+            {/* <ExploreCaterersByOccasion /> */}
             <Heading title="FAQ's" center subHeading />
             <Faq tiffin />
             <Subscribe />
