@@ -35,7 +35,7 @@ const page = () => {
             <Heading title="Branded Caterers in Chennai" subHeading />
             <BrandedCaters />
             
-            <PopularCaters />
+            <PopularCaters title="Popular Caterers in Chennai" />
             <Heading title="Explore Caterers by Occasions" subHeading />
             <ExploreCaterersByOccasion />
             <Heading title="FAQ's" center subHeading />

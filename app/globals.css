@@ -167,6 +167,18 @@ h6 {
   overflow: hidden;
 }
 
+.text-ellipse-one {
+  display: -webkit-box;
+  max-width: 200px;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.text-wrap{
+  text-wrap: wrap;
+}
+
 .text-white {
   color: var(--alternate);
 }
@@ -2131,7 +2143,7 @@ h6 {
 /* grid view */
 .grid-view-title {
   font-family: var(--fontSecondary);
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 500;
   color: var(--primarytext);
 }
@@ -2942,7 +2954,7 @@ textarea:-webkit-autofill:active {
 }
 
 .vc-similar-card-description {
-  height: 162px;
+  height: 165px;
   align-items: start;
   display: flex;
   flex-direction: column;

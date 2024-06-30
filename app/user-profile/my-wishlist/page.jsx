@@ -21,6 +21,9 @@ const page = () => {
     dispatch(fetchWishlistTiffin())
   }, [])
 
+  console.log(caterWishlist, "caterWishlist");
+  console.log(tiffinWishlist, "tiffinWishlist");
+
 
   return (
     <>
@@ -41,17 +44,29 @@ const page = () => {
                         <div className="vc-similar-card-description">
                           <Stack direction="row" justifyContent="space-between" alignItems="start" style={{ marginTop: '10px', marginBottom: '10px' }}>
                             <div className="text-start">
-                              <h3 className='grid-view-title'>{wishlist?.catering_service_name}</h3>
-                              <p className='vc-similar-card-small text-left'> {wishlist?.vendor_city} {wishlist?.vendor_state} </p>
+                              <h3 className='grid-view-title text-ellipse-two'>{wishlist?.catering_service_name}</h3>
+                              <p className='vc-similar-card-small text-left'> {wishlist?.area}, {wishlist?.city}, {wishlist?.street_name}, {wishlist?.state} </p>
                             </div>
                           </Stack>
-                          <div className="text-start" style={{ marginBottom: '5px' }}>
-                            <p className='vc-similar-card-small'>Food Type: {wishlist?.vendor_food_types}</p>
-                          </div>
-                          <div className="text-start">
-                            <p className='vc-similar-card-small vc-card-dishes'>Cuisines - {wishlist?.vendor_cuisines}</p>
-                          </div>
-                          <Stack direction="row" justifyContent="space-between" alignItems="center" style={{ marginTop: '20px' }}>
+                          {
+                            wishlist?.food_types.length > 0 ? (
+                              <div className="text-start" style={{ marginBottom: '5px' }}>
+                                <p className='vc-similar-card-small'>Food Type: {wishlist?.food_types}</p>
+                              </div>
+                            ) : (
+                              <div className="text-start" style={{ marginBottom: '5px' }}>
+                                <p className='vc-similar-card-small'>Food Type: Not Found</p>
+                              </div>
+                            )
+                          }
+
+                          {wishlist?.cuisines.length > 0 ? <div className="text-start">
+                            <p className='vc-similar-card-small vc-card-dishes text-ellipse-one'>Cuisines - {wishlist?.cuisines}</p>
+                          </div> : <div className="text-start">
+                            <p className='vc-similar-card-small vc-card-dishes text-ellipse-one'>Cuisines - Not Found</p>
+                          </div>}
+
+                          <Stack direction="row" justifyContent="space-between" alignItems="center" className='w-100' style={{ marginTop: '20px' }}>
                             <span className='text-red vc-similar-card-cost'> {wishlist?.start_price} / Plate</span>
                             <Link href={`/catering-search/${wishlist?.vendor_id}/${wishlist?.id}`} variant="contained"
                               className='text-decoration-none'
@@ -101,23 +116,37 @@ const page = () => {
                         <div className="vc-similar-card-description">
                           <Stack direction="row" justifyContent="space-between" alignItems="start" style={{ marginTop: '10px', marginBottom: '10px' }}>
                             <div className="text-start">
-                              <h3 className='grid-view-title'>{wishlist?.catering_service_name}</h3>
-                              <p className='vc-similar-card-small text-left'> {wishlist?.vendor_city} {wishlist?.vendor_state} </p>
+                              <h3 className='grid-view-title text-ellipse-two'>{wishlist?.catering_service_name}</h3>
+                              <p className='vc-similar-card-small text-left'> {wishlist?.area}, {wishlist?.city}, {wishlist?.street_name}, {wishlist?.state} </p>
                             </div>
                           </Stack>
-                          <div className="text-start" style={{ marginBottom: '5px' }}>
-                            <p className='vc-similar-card-small'>Food Type: {wishlist?.vendor_food_types} </p>
-                          </div>
-                          <div className="text-start">
-                            <p className='vc-similar-card-small vc-card-dishes'>Cuisines - {wishlist?.vendor_cuisines}</p>
-                          </div>
-                          <Stack direction="row" justifyContent="space-between" alignItems="center" style={{ marginTop: '20px' }}>
-                            <span className='text-red vc-similar-card-cost'> {wishlist?.start_price} / Plate</span>
+                          {
+                            wishlist?.food_types.length > 0 ? (
+                              <div className="text-start" style={{ marginBottom: '5px' }}>
+                                <p className='vc-similar-card-small'>Food Type: {wishlist?.food_types} </p>
+                              </div>
+                            ) : (
+                              <div className="text-start" style={{ marginBottom: '5px' }}>
+                                <p className='vc-similar-card-small'>Food Type: Not Found </p>
+                              </div>
+                            )
+                          }
+
+                          {
+                            wishlist?.cuisines.length > 0 ? <div className="text-start">
+                              <p className='vc-similar-card-small vc-card-dishes text-ellipse-one'>Cuisines - {wishlist?.cuisines}</p>
+                            </div> : <div className="text-start">
+                              <p className='vc-similar-card-small vc-card-dishes text-ellipse-one'>Cuisines - Not Found</p>
+                            </div>
+                          }
+
+                          <Stack direction="row" justifyContent="space-between" alignItems="center" className='w-100' style={{ marginTop: '20px' }}>
+                            <span className='text-red vc-similar-card-cost'> {wishlist?.start_price === null ? '' : `${wishlist?.start_price} / Plate`} </span>
                             <Link href={`/catering-search/${wishlist?.branch_id}`} variant="contained"
                               className='text-decoration-none'
                               style={{
                                 color: '#ffffff',
-                                backgroundColor: `#C33332`,
+                                backgroundColor: `#d9822b`,
                                 borderRadius: '8px',
                                 padding: '0px 30px',
                                 textTransform: 'capitalize',
@@ -125,7 +154,7 @@ const page = () => {
                                 fontWeight: '400',
                                 padding: '5px 20px',
                                 '&:hover': {
-                                  backgroundColor: '#C33332',
+                                  backgroundColor: '#d9822b',
                                 }
                               }}>
                               View</Link>

@@ -9,7 +9,7 @@ import { fetchPopularCaterers } from '@/app/features/user/homeSlice';
 import PopularCaterersShimmer from '../shimmer/PopularCaterersShimmer';
 import Heading from '../Heading';
 
-const PopularCaters = () => {
+const PopularCaters = ({ title }) => {
 
     const { popularCaterer, isLoading } = useSelector((state) => state.homepage)
     const dispatch = useDispatch()
@@ -22,9 +22,9 @@ const PopularCaters = () => {
     // PopularCaterersShimmer 
     return (
         <>
-            {popularCaterer?.length > 0 && <Heading title="Popular Caterers in Chennai" center subHeading />}
+            {popularCaterer?.length > 0 && <Heading title={title} center subHeading />}
             <Container maxWidth="lg">
-                {popularCaterer?.length > 0 && <Heading title="Popular Tiffins in Chennai" center subHeading />}
+                {/* {popularCaterer?.length > 0 && <Heading title={title} center subHeading />} */}
                 <Box sx={{ flexGrow: 1 }} style={{ marginTop: '20px' }}>
                     <Grid container spacing={2}>
 

@@ -31,8 +31,11 @@ const page = () => {
             <ExpoloreCuisinesCard />
             <Heading title="Explore Tiffins around INDIA" subHeading />
             <ExploreCaters />
+
+
             <BrandedTiffenCaters />
-            <PopularCaters />
+            <PopularCaters title="Popular Tiffins in Chennai" />
+
             {/* <Heading title="Explore Tiffins by Occasions" subHeading /> */}
             {/* <ExploreCaterersByOccasion /> */}
             <Heading title="FAQ's" center subHeading />

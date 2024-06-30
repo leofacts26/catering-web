@@ -79,7 +79,7 @@ const GridViewTiffin = ({ xs, sm, md, lg }) => {
                                                 </div>
                                             </Stack>
 
-                                            <Stack direction="row" spacing={1} sx={{ marginTop: '15px', marginBottom: '15px' }}>
+                                            <Stack direction="row" spacing={1} sx={{ marginTop: '1px', marginBottom: '1px' }}>
                                                 {
                                                     item?.food_types?.map((food_type, index) => {
                                                         let iconSrc = '';
@@ -100,7 +100,7 @@ const GridViewTiffin = ({ xs, sm, md, lg }) => {
                                                 }
                                             </Stack>
 
-                                            <Stack direction={{ xs: 'row', sm: 'row', md: 'row', lg: "row" }} flexWrap="wrap" spacing={0} sx={{ marginTop: '15px' }}>
+                                            <Stack direction={{ xs: 'row', sm: 'row', md: 'row', lg: "row" }} flexWrap="wrap" spacing={0} sx={{ marginTop: '1px' }}>
                                                 {
                                                     item?.meal_times?.map((mealtime, index) => {
                                                         const isLast = index === item.meal_times.length - 1;
@@ -115,12 +115,13 @@ const GridViewTiffin = ({ xs, sm, md, lg }) => {
                                             </Stack>
 
 
-                                            <Stack direction="row" alignItems="center" justifyContent="end" className="mb-1 mt-1 w-100">
+                                            {item?.start_price !== null && <Stack direction="row" alignItems="center" justifyContent="end" className="mb-1 mt-1 w-100">
                                                 <Stack direction="row" alignSelf="end" justifyContent="end" spacing={0} className='w-100'>
-                                                    <CurrencyRupeeIcon style={{fontSize: '18px'}} className="vc-price-one-similar-tiffin" />
-                                                    <span className="vc-price-one-similar-tiffin"> ₹ {item?.start_price}/- </span>
+                                                    <CurrencyRupeeIcon style={{ fontSize: '16px' }} className="vc-price-one-similar-tiffin" />
+                                                    <span className="vc-price-one-similar-tiffin">  {item?.start_price}/- </span>
                                                 </Stack>
-                                            </Stack>
+                                            </Stack>}
+
 
 
                                         </div>
