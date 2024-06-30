@@ -1,5 +1,5 @@
 "use client"
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import HomeIcon from '@mui/icons-material/Home';
 import Stack from '@mui/material/Stack';
 import Drawer from '@mui/material/Drawer';
@@ -33,8 +33,6 @@ const Navbar = () => {
 
     const accessToken = useSelector((state) => state.user.accessToken)
 
-    console.log(navlinks, "navlinks navlinks");
-
     return (
         <>
             <Container maxWidth="lg">
@@ -47,8 +45,10 @@ const Navbar = () => {
                     <Stack direction="row" flexWrap="wrap" spacing={1}>
                         {navlinks?.map((navlink) => {
                             return (
-                                <Link onClick={clearCateringFilter} href={navlink.url} key={navlink.id} className={checkActivePath(navlink.url) ? 'active nav-link' : 'nav-link'}
-                                >{navlink.name}</Link>
+                                <a onClick={() => {
+                                    clearCateringFilter();
+                                }} href={navlink.url} key={navlink.id} className={checkActivePath(navlink.url) ? 'active nav-link' : 'nav-link'}
+                                >{navlink.name}</a>
                             )
                         })}
 

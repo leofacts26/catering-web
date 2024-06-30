@@ -13,7 +13,7 @@ const TiffinkitchenTypes = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        if (!getTiffinKitchenTypes.length) {
+        if (!getTiffinKitchenTypes.length > 0) {
             dispatch(fetchTiffinKitchenTypes());
         }
     }, [dispatch, getTiffinKitchenTypes.length]);

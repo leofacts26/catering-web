@@ -2,7 +2,7 @@
 import { Stack, Button } from '@mui/material';
 import ReactSelectRed from "./ReactSelectRed";
 import { useDispatch, useSelector } from "react-redux";
-import { clearFilters, fetchCateringSearchCards, fetchGetAllSubscriptionTypes, setCateringSort, setSubscriptionFilter } from "@/app/features/user/cateringFilterSlice";
+import {  fetchCateringSearchCards, fetchGetAllSubscriptionTypes, setCateringSort, setSubscriptionFilter } from "@/app/features/user/cateringFilterSlice";
 import { memo, useEffect } from 'react';
 
 

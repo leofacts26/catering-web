@@ -14,7 +14,7 @@ const TiffinServiceTypes = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        if (!getTiffinServiceTypes.length) {
+        if (!getTiffinServiceTypes.length > 0) {
             dispatch(fetchTiffinServiceTypes());
         }
     }, [dispatch, getTiffinServiceTypes.length]);

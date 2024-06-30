@@ -30,7 +30,7 @@ const TiffinFoodTypes = () => {
     return (
         <>
             {!isLoading ? (
-                getTiffinFoodTypes?.slice(1,3)?.map((foodType) => {
+                getTiffinFoodTypes?.slice(1, 3)?.map((foodType) => {
                     return (
                         <Stack className='text-muted' direction="row" alignItems="center" sx={{ marginLeft: '-10px', marginTop: '5px' }} key={foodType?.id}>
                             <Checkbox {...label}

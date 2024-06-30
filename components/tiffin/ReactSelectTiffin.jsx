@@ -17,7 +17,7 @@ const ReactSelectTiffin = ({ text1, onChange }) => {
 
   const handleChange = (selectedOption) => {
     onChange(selectedOption);
-    dispatch(fetchtiffinSearchCards())
+    // dispatch(fetchtiffinSearchCards()) 
   };
 
   return (

@@ -4,8 +4,7 @@ import { Select, MenuItem, FormControl, Stack, Button, TextField } from '@mui/ma
 import { styled } from '@mui/material/styles';
 import ReactSelectTiffin from "./ReactSelectTiffin";
 import { useDispatch, useSelector } from "react-redux";
-import { setCateringSort } from "@/app/features/user/cateringFilterSlice";
-import { fetchGetAllTiffinSubscriptionTypes, fetchtiffinSearchCards, setTiffinSubscriptionFilter } from "@/app/features/tiffin/tiffinFilterSlice";
+import { fetchGetAllTiffinSubscriptionTypes, fetchtiffinSearchCards, setTiffinSort, setTiffinSubscriptionFilter } from "@/app/features/tiffin/tiffinFilterSlice";
 
 
 const TiffinSelectBox = ( ) => {
@@ -17,9 +16,10 @@ const TiffinSelectBox = ( ) => {
             const formattedValue = [{
                 value: selectedOption.value.toLowerCase().replace(/\s/g, '_')
             }];
-            dispatch(setCateringSort(formattedValue));
+            dispatch(setTiffinSort(formattedValue));
+            dispatch(fetchtiffinSearchCards())
         } else {
-            dispatch(setCateringSort([]));
+            dispatch(setTiffinSort([]));
         }
     };
 

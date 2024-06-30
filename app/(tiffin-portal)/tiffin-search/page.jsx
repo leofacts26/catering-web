@@ -8,22 +8,54 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import TiffinSearchBar from '@/components/tiffin/TiffinSearchBar';
 import TiffinSwitchSearchResult from '@/components/tiffin/TiffinSwitchSearchResult';
 import TiffinSelectBox from '@/components/tiffin/TiffinSelectBox';
 import ListViewTiffin from '@/components/tiffin/ListViewTiffin';
 import GridViewTiffin from '@/components/tiffin/GridViewTiffin';
 import TiffinFilters from '@/components/tiffin/TiffinFilters';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
+import { fetchTiffinFoodTypes, fetchTiffinKitchenTypes, fetchTiffinMealTypes, fetchTiffinPriceRanges, fetchtiffinSearchCards, fetchTiffinServiceTypes } from '@/app/features/tiffin/tiffinFilterSlice';
 
 
 
 const page = () => {
   const router = useRouter()
-  const { getTiffinSearchCards, isLoading } = useSelector((state) => state.tiffinFilter)
+  const { getTiffinSearchCards, getTiffinFoodTypes, getTiffinPriceRanges, getTiffinServiceTypes, getTiffinMealTypes, getTiffinKitchenTypes } = useSelector((state) => state.tiffinFilter)
   const [checked, setChecked] = useState(true);
+  const dispatch = useDispatch();
+
+
+  useEffect(() => {
+    // Fetch all necessary data
+    if (getTiffinKitchenTypes.length === 0) {
+      dispatch(fetchTiffinKitchenTypes());
+    }
+    if (getTiffinServiceTypes.length === 0) {
+      dispatch(fetchTiffinServiceTypes());
+    }
+    if (getTiffinMealTypes.length === 0) {
+      dispatch(fetchTiffinMealTypes());
+    }
+    if (getTiffinPriceRanges.length === 0) {
+      dispatch(fetchTiffinPriceRanges());
+    }
+    if (getTiffinFoodTypes.length === 0) {
+      dispatch(fetchTiffinFoodTypes());
+    }
+  }, [dispatch, getTiffinKitchenTypes.length, getTiffinServiceTypes.length, getTiffinMealTypes.length, getTiffinPriceRanges.length, getTiffinFoodTypes.length]);
+
+  useEffect(() => {
+    // Dispatch search cards only if all necessary data is available
+    if (getTiffinKitchenTypes.length > 0 && getTiffinServiceTypes.length > 0 && getTiffinMealTypes.length > 0 && getTiffinPriceRanges.length > 0 && getTiffinFoodTypes.length > 0) {
+      dispatch(fetchtiffinSearchCards());
+    }
+  }, [dispatch, getTiffinKitchenTypes.length, getTiffinServiceTypes.length, getTiffinMealTypes.length, getTiffinPriceRanges.length, getTiffinFoodTypes.length]);
+
+
+
   return (
     <>
       <section className='nav-bg-tiffin'>

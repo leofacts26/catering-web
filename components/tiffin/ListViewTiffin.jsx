@@ -64,7 +64,7 @@ const ListViewTiffin = () => {
 
     const handleScroll = myThrottle(() => {
         if (
-            window.innerHeight + document.documentElement.scrollTop + 2000 >
+            window.innerHeight + document.documentElement.scrollTop + 1000 >
             document.documentElement.offsetHeight && !isLoading &&
             ((current_page - 1) * limit) < total_count
         ) {
