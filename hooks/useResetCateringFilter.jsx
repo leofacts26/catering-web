@@ -7,9 +7,9 @@ const useResetCateringFilter = () => {
     const dispatch = useDispatch()
 
     const clearCateringFilter = () => {
-        dispatch(resetFilters())
-        dispatch(clearTiffinSlice())
-        dispatch(clearFilters())
+        // dispatch(resetFilters())
+        // dispatch(clearTiffinSlice())
+        // dispatch(clearFilters())
     }
 
     return clearCateringFilter;

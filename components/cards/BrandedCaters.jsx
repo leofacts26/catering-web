@@ -16,9 +16,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchBrandedCaterers } from '@/app/features/user/homeSlice';
 import BrandedCaterersShimmer from '../shimmer/BrandedCaterersShimmer';
+import { setSubscriptionFilter } from '@/app/features/user/cateringFilterSlice';
+import { useRouter } from 'next/navigation';
 
 const BrandedCaters = () => {
-
+  const router = useRouter()
   const { brandedList, isLoading } = useSelector((state) => state.homepage)
 
   const dispatch = useDispatch()
@@ -26,6 +28,13 @@ const BrandedCaters = () => {
   useEffect(() => {
     dispatch(fetchBrandedCaterers())
   }, [])
+
+  const handleImageClick = () => {
+    const id = "3";
+    dispatch(setSubscriptionFilter(id))
+    const url = `/catering-search`;
+    router.push(url);
+}; 
 
   // console.log(brandedList, "brandedList 666"); 
 
@@ -66,7 +75,7 @@ const BrandedCaters = () => {
                 <SwiperSlide key={brandedcaterer?.id}>
                   <CardContent key={brandedcaterer?.id} style={{ padding: '10px 20px' }}>
                     <Stack direction="row" justifyContent="center" className='recent-search-card w-100'>
-                      <img src={brandedcaterer?.gallery_images['vendor-brand-logo']?.[0]?.image_name[0]?.original ? brandedcaterer?.gallery_images['vendor-brand-logo']?.[0]?.image_name[0]?.original : '/img/no-image.jpg'} alt="" className="img-fluid explore-cuisine-img" />
+                      <img onClick={() => handleImageClick()} src={brandedcaterer?.gallery_images['vendor-brand-logo']?.[0]?.image_name[0]?.original ? brandedcaterer?.gallery_images['vendor-brand-logo']?.[0]?.image_name[0]?.original : '/img/no-image.jpg'} alt="" className="img-fluid explore-cuisine-img" />
                     </Stack>
                   </CardContent>
                 </SwiperSlide>

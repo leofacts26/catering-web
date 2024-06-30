@@ -37,6 +37,8 @@ const SelectBox = () => {
         dispatch(fetchCateringSearchCards());
     }
 
+    // console.log(subscriptionTypes, "subscriptionTypes subscriptionTypes");
+
 
     return (
         <>

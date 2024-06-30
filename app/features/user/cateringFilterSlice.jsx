@@ -433,8 +433,8 @@ export const cateringFilterSlice = createSlice({
         // },
         setCuisineTypeFilter: (state, action) => {
             const { cuisineId, isParent } = action.payload;
-            console.log(cuisineId, "cuisineId");
-            console.log(isParent, "isParent");
+            // console.log(cuisineId, "cuisineId");
+            // console.log(isParent, "isParent");
             const updatedCuisines = state.getCateringCuisines.map((cuisine) => {
                 if (cuisine.id === cuisineId) {
                     // Toggle selected of parent cuisine
@@ -523,6 +523,7 @@ export const cateringFilterSlice = createSlice({
             state.getCateringPriceRanges = updatedPriceRanges;
         },
         setSubscriptionFilter: (state, action) => {
+            console.log(action, "actionactionaction");
             // First, update the selected subscription type
             let updatedSubscriptionFilter = state.subscriptionTypes.map((subscription) => {
                 if (subscription.id === action.payload) {

@@ -9,16 +9,26 @@ import { useEffect } from 'react';
 import { fetchAllCities, fetchHomepageOccasions } from '@/app/features/user/homeSlice';
 import ExploreCaterersShimmer from '../shimmer/ExploreCaterersShimmer';
 import ExploreoccasionsShimmer from '../shimmer/ExploreOccasionsShimmer';
+import { useRouter } from 'next/navigation';
+import { setOccasionTypes } from '@/app/features/user/cateringFilterSlice';
 
 const ExploreCaterersByOccasion = () => {
     const { homeOccasions, isLoading } = useSelector((state) => state.homepage)
     const dispatch = useDispatch()
+    const router = useRouter()
 
     useEffect(() => {
         dispatch(fetchHomepageOccasions())
     }, [])
 
-    // console.log(homeOccasions, "homeOccasions"); 
+    // console.log(homeOccasions, "homeOccasions");
+
+    const handleImageClick = (occasionId) => {
+        dispatch(setOccasionTypes(occasionId));
+        const url = `/catering-search`;
+        router.push(url);
+    }; 
+
 
     return (
         <>
@@ -32,7 +42,7 @@ const ExploreCaterersByOccasion = () => {
                             homeOccasions?.map((caterersbyoccasion) => (
                                 <Grid item xs={12} sm={6} md={6} lg={3} xl={3}>
                                     <div className="explore-cator-box" key={caterersbyoccasion?.occasion_id}>
-                                        <img src={caterersbyoccasion.file_name.original} alt={caterersbyoccasion?.occasion_name} className="img-fluid caterers-occasion-img image-shadow" />
+                                        <img onClick={() => handleImageClick(caterersbyoccasion?.occasion_id)} src={caterersbyoccasion.file_name.original} alt={caterersbyoccasion?.occasion_name} className="img-fluid caterers-occasion-img image-shadow" />
                                         <h4 className='text-center caterers-occasion-title'>{caterersbyoccasion?.occasion_name}</h4>
                                     </div>
                                 </Grid>
@@ -42,8 +52,6 @@ const ExploreCaterersByOccasion = () => {
                     </Grid>
                 </Box>
             </Container >
-
-            {/* <Divider sx={{ width: '100%', backgroundColor: '#f8f0f0', marginTop: '20px' }} /> */}
         </>
     )
 }
