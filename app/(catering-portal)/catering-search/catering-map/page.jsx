@@ -73,10 +73,19 @@ const page = () => {
         setMapRef(map);
         if (markers.length > 0) {
             const bounds = new window.google.maps.LatLngBounds();
-            markers.forEach(({ lat, lng }) => bounds.extend({ lat, lng }));
-            map.fitBounds(bounds);
+            markers.forEach(({ lat, lng }) => {
+                if (typeof lat === 'number' && typeof lng === 'number') {
+                    bounds.extend({ lat, lng });
+                } else {
+                    console.error('Invalid marker coordinates:', { lat, lng });
+                }
+            });
+            if (!bounds.isEmpty()) {
+                map.fitBounds(bounds);
+            }
         }
     };
+
 
     useEffect(() => {
         if (mapRef && detailLat && detailLng) {

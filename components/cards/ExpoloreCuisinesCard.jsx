@@ -85,9 +85,9 @@ const ExpoloreCuisinesCard = () => {
                     </Swiper>
 
                 </Grid>
-                <Stack direction="row" justifyContent="center">
+                {/* <Stack direction="row" justifyContent="center">
                     <ExpandMoreIcon style={{ fontSize: '55px', color: 'rgb(90 88 88)' }} />
-                </Stack>
+                </Stack> */}
             </Container >
         </>
 
