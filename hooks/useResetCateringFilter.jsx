@@ -5,7 +5,7 @@ const useResetCateringFilter = () => {
     const dispatch = useDispatch()
 
     const clearCateringFilter = () => {
-        dispatch(clearFiltersGlobal())
+        // dispatch(clearFiltersGlobal()) 
     }
 
     return clearCateringFilter;

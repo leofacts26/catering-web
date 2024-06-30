@@ -23,7 +23,7 @@ const persistConfig = {
   key: 'root',
   storage,
   // whitelist: ['user', 'globalnavbar', 'cateringFilter', 'tiffinFilter'],
-  whitelist: ['user', 'globalnavbar'],
+  whitelist: ['user'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

@@ -45,10 +45,10 @@ const Navbar = () => {
                     <Stack direction="row" flexWrap="wrap" spacing={1}>
                         {navlinks?.map((navlink) => {
                             return (
-                                <a onClick={() => {
+                                <Link onClick={() => {
                                     clearCateringFilter();
                                 }} href={navlink.url} key={navlink.id} className={checkActivePath(navlink.url) ? 'active nav-link' : 'nav-link'}
-                                >{navlink.name}</a>
+                                >{navlink.name}</Link>
                             )
                         })}
 

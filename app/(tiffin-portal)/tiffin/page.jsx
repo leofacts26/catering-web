@@ -13,10 +13,12 @@ import TiffinSearchBar from '@/components/tiffin/TiffinSearchBar';
 import BrandedTiffenCaters from '@/components/cards/BrandedTiffenCaters';
 import { useEffect } from 'react';
 import { clearFiltersGlobal } from '@/app/features/tiffin/tiffinFilterSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import PopularTiffins from '@/components/cards/PopularTiffins';
 
 const page = () => {
-
+    const { userDetails, accessToken } = useSelector((state) => state.user)
+    console.log(userDetails, "userDetails");
     return (
         <>
             <section className='nav-bg-tiffin'>
@@ -37,7 +39,9 @@ const page = () => {
 
 
             <BrandedTiffenCaters />
-            <PopularCaters title="Popular Tiffins in Chennai" />
+
+            <Heading title={`Popular Tiffins in ${userDetails?.city ? userDetails?.city : 'Allow'}`} subHeading />
+            <PopularTiffins />
 
             {/* <Heading title="Explore Tiffins by Occasions" subHeading /> */}
             {/* <ExploreCaterersByOccasion /> */}

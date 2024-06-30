@@ -71,6 +71,7 @@ const useGetLocationResults = () => {
 
 
     const selectLocation = (item) => {
+        console.log(item, "item FFF");
         dispatch(setSelectedLocation(item));
         dispatch(setManualLocation(item.description));
         dispatch(setLocationPlaceId(item?.place_id));

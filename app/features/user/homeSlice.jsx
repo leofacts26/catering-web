@@ -100,8 +100,9 @@ export const fetchBrandedCaterers = createAsyncThunk(
 export const fetchBrandedTiffins = createAsyncThunk(
     'homepage/fetchBrandedTiffins',
     async (data, thunkAPI) => {
+        const { latitude, longitude } = data;
         try {
-            const response = await api.get(`${BASE_URL}/get-vendors-home-page?vendor_type=Tiffin&subscription_type_id=3`, {
+            const response = await api.get(`${BASE_URL}/get-vendors-home-page?vendor_type=Tiffin&latitude=${latitude ? latitude : ''}&longitude=${longitude ? longitude : ''}&subscription_type_id=6`, {
                 headers: {
                     authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
                 },
@@ -132,9 +133,10 @@ export const fetchPopularCaterers = createAsyncThunk(
 
 export const fetchPopularTiffins = createAsyncThunk(
     'homepage/fetchPopularTiffins',
-    async (user, thunkAPI) => {
+    async (data, thunkAPI) => {
+        const { latitude, longitude } = data;
         try {
-            const response = await api.get(`${BASE_URL}/get-vendors-home-page?vendor_type=Tiffin&subscription_type_id=2`, {
+            const response = await api.get(`${BASE_URL}/get-vendors-home-page?vendor_type=Tiffin&latitude=${latitude ? latitude : ''}&longitude=${longitude ? longitude : ''}&subscription_type_id=5`, {
                 headers: {
                     authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
                 },

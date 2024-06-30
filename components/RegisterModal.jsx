@@ -17,6 +17,10 @@ import { useEffect, useRef, useState } from 'react';
 import Box from '@mui/material/Box';
 import { useDispatch, useSelector } from 'react-redux';
 import { setRegisterData } from '@/app/features/user/userSlice';
+import axios from 'axios';
+import { api, BASE_URL } from '@/api/apiConfig';
+import toast from 'react-hot-toast';
+import AllowLocation from './AllowLocation';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -35,8 +39,12 @@ const options = {
 
 const OtpInput = ({ length = 6, user, setShowOtp, handleClose }) => {
     const [otp, setOtp] = useState(new Array(length).fill(''));
+    const [isLoading, setisLoading] = useState()
     const inputRefs = useRef([]);
     const { loading, verifyOtp } = useRegistration();
+    const { accessToken } = useSelector((state) => state.user)
+
+    
 
     useEffect(() => {
         if (inputRefs.current[0]) {
@@ -82,7 +90,7 @@ const OtpInput = ({ length = 6, user, setShowOtp, handleClose }) => {
         const longitude = position.coords.longitude;
 
         try {
-            const response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${process.env.REACT_APP_GOOGLE}`);
+            const response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=AIzaSyBf22eHEMxKk_9x0XWag-oCFTXkdClnPw8`);
             const results = response.data.results;
             let maxAddressComponentsLength = -1;
             let selectedAddress = null;
@@ -112,7 +120,7 @@ const OtpInput = ({ length = 6, user, setShowOtp, handleClose }) => {
                     formatted_address: response.data.results[0].formatted_address,
                     place_id: response.data.results[0].place_id,
                 };
-                // handleSubmit(addressData); RRR
+                handleUserLocationSubmit(addressData);
             } else {
                 console.log("No suitable address found");
             }
@@ -136,15 +144,49 @@ const OtpInput = ({ length = 6, user, setShowOtp, handleClose }) => {
         navigator.geolocation.clearWatch(id);
     };
 
+
     // onOtpSubmit 
     // console.log('Login Successfully', otp.join(""));
     const onOtpSubmit = (e) => {
         e.preventDefault()
         verifyOtp(otp.join(""), user, setOtp, setShowOtp, handleClose);
-        // getCurrentLocation()  RRR
+        // open loc modal 
     }
 
+    // handleUserLocationSubmit 
+    const handleUserLocationSubmit = async (addressData) => {
+        const data = {
+            street_name: addressData?.street_name || addressData?.area || "",
+            area: addressData?.area || "",
+            pincode: addressData?.pincode || "",
+            latitude: addressData?.latitude || "",
+            longitude: addressData?.longitude || "",
+            address: addressData?.address || "",
+            city: addressData?.city || "",
+            state: addressData?.state || "",
+            country: addressData?.country || "",
+            formatted_address: addressData?.formatted_address || "",
+            place_id: addressData?.place_id || ''
+        }
+        setisLoading(true)
+        try {
+            const response = await api.post(`${BASE_URL}/update-user-location`, data, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                }
+            })
+            toast.success(successToast(response))
+        } catch (error) {
+            console.log(error, "error");
+            toast.error(datavalidationerror(error))
+        } finally {
+            setisLoading(false)
+        }
+    }
+
+
     return (
+       <>
         <div className='otp-input-fields'>
             <form onSubmit={onOtpSubmit}>
 
@@ -169,6 +211,8 @@ const OtpInput = ({ length = 6, user, setShowOtp, handleClose }) => {
                 </Button>
             </form>
         </div>
+
+       </>
     )
 }
 

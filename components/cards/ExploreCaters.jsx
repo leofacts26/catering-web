@@ -7,9 +7,15 @@ import explorecaters from '../../data/explorecaterers.json'
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllCities, fetchHomepageOccasions } from '@/app/features/user/homeSlice';
 import ExploreCaterersShimmer from '../shimmer/ExploreCaterersShimmer';
+import useGetLocationResults from '@/hooks/catering/useGetLocationResults';
+import { setlLocationValuesGlobal } from '@/app/features/user/globalNavSlice';
+import { fetchtiffinSearchCards } from '@/app/features/tiffin/tiffinFilterSlice';
+import { useRouter } from 'next/navigation';
 
 
 const ExploreCaters = () => {
+    const { isPlacePredictionsLoading, placePredictions, getPlacePredictions, selectLocation } = useGetLocationResults()
+    const router = useRouter()
 
     const { getAllCities, isLoading } = useSelector((state) => state.homepage)
     const dispatch = useDispatch()
@@ -17,6 +23,14 @@ const ExploreCaters = () => {
     useEffect(() => {
         dispatch(fetchAllCities())
     }, [])
+
+    const onHandleCityFilter = (explorecater) => {
+        const { latitude, longitude, name: city } = explorecater;
+    dispatch(setlLocationValuesGlobal({ latitude, longitude, city: { long_name: city } }));
+        dispatch(fetchtiffinSearchCards());
+        const url = `/tiffin-search`;
+        router.push(url);
+    }
 
     console.log(getAllCities, "getAllCities");
     // console.log(getAllCities, "getAllCities"); 
@@ -31,12 +45,12 @@ const ExploreCaters = () => {
                             <ExploreCaterersShimmer count={6} />
                         ) : (
                             getAllCities?.map((explorecater) => (
-                                <Grid item xs={12} sm={6} md={4} lg={4} xl={4} key={explorecater?.city_id}>
-                                    <Box sx={{ position: 'relative' }} className="image-shadow explore-caters-box">
+                                <Grid item xs={12} sm={6} md={4} lg={4} xl={4} key={explorecater?.city_id} >
+                                    <Box sx={{ position: 'relative' }} className="image-shadow explore-caters-box cursor-pointer" onClick={() => onHandleCityFilter(explorecater)} >
                                         <div className="explore-shadow"></div>
-                                        <img src={explorecater?.file_name?.large ? explorecater?.file_name?.large : '/img/no-image.jpg'} alt={explorecater?.city_name} className="img-fluid w-100 explore-caters-img" />
+                                        <img src={explorecater?.file_name?.large ? explorecater?.file_name?.large : '/img/no-image.jpg'} alt={explorecater?.city_name} className="img-fluid w-100 explore-caters-img cursor-pointer" />
                                         <Box sx={{ position: 'absolute', top: '4%', right: '4%' }}>
-                                            <h4 className='explore-caters-heading'>{explorecater?.city_name}</h4>
+                                            <h4 className='explore-caters-heading'>{explorecater?.name}</h4>
                                         </Box>
                                     </Box>
                                 </Grid>

@@ -7,17 +7,34 @@ import Grid from '@mui/material/Grid';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPopularCaterers, fetchPopularTiffins } from '@/app/features/user/homeSlice';
 import PopularCaterersShimmer from '../shimmer/PopularCaterersShimmer';
+import Heading from '../Heading';
+import { useRouter } from 'next/navigation';
+import { fetchtiffinSearchCards, setTiffinSubscriptionFilter } from '@/app/features/tiffin/tiffinFilterSlice';
 
 const PopularTiffins = () => {
-
+    const router = useRouter()
+    const { userDetails } = useSelector((state) => state.user)
     const { popularTiffins, isLoading } = useSelector((state) => state.homepage)
     const dispatch = useDispatch()
 
+    const data = {
+        latitude: userDetails?.latitude,
+        longitude: userDetails?.longitude
+    }
+
     useEffect(() => {
-        dispatch(fetchPopularTiffins())
+        dispatch(fetchPopularTiffins(data))
     }, [])
 
-    // console.log(popularTiffins, "popularTiffins"); 
+    const onHandlePopularTiffenFilter = () => {
+        const id = "5";
+        dispatch(setTiffinSubscriptionFilter(id))
+        dispatch(fetchtiffinSearchCards())
+        const url = `/tiffin-search`;
+        router.push(url);
+    }; 
+
+    console.log(userDetails, "userDetails");
     // popularTiffinssShimmer 
     return (
         <>
@@ -32,7 +49,7 @@ const PopularTiffins = () => {
                                 {popularTiffins?.length > 0 && popularTiffins?.map((cater, index) => (
                                     <Grid item xs={12} sm={6} md={4} lg={2.4} xl={2.4} key={cater?.vendor_id}>
                                         <Box>
-                                            <img src={cater.gallery_images["vendor-brand-logo"][0].image_name[0]?.original} alt={cater?.catering_service_name} className="img-fluid popular-caterers-img image-shadow" />
+                                            <img onClick={() => onHandlePopularTiffenFilter()} src={cater.gallery_images["vendor-brand-logo"][0].image_name[0]?.original} alt={cater?.catering_service_name} className="img-fluid popular-caterers-img image-shadow cursor-pointer" />
                                             <h4 className='popular-caterers-heading'>{cater?.catering_service_name}</h4>
                                             <p className='popular-caterers-des'> {cater?.street_name} {cater?.area} </p>
                                         </Box>

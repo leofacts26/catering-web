@@ -15,16 +15,6 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 const Notification = () => {
-    // const [open, setOpen] = React.useState(false);
-
-    // const handleClickOpen = () => {
-    //     setOpen(true);
-    // };
-
-    // const handleClose = () => {
-    //     setOpen(false);
-    // };
-
     // dropdown 
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
@@ -35,6 +25,9 @@ const Notification = () => {
         setAnchorEl(null);
     };
 
+
+
+    
 
     return (
         <>
@@ -99,9 +92,10 @@ const Notification = () => {
                         ))}
 
                     </Menu>
-
-
                 </div>
+
+
+
             </React.Fragment>
         </>
     )

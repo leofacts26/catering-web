@@ -366,6 +366,7 @@ export const tiffinFilterSlice = createSlice({
             state.getTiffinKitchenTypes = updatedKitchenTypes;
         },
         setTiffinSubscriptionFilter: (state, action) => {
+            console.log(action, "action111");
             const updatedSubscriptionFilter = state.tiffinSubscriptionTypes.map(subscription => {
                 if (subscription.id === action.payload) {
                     // Toggle the selectedweb value for the clicked subscription type
