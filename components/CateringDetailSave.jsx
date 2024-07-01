@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import Stack from '@mui/material/Stack';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -10,7 +10,11 @@ const CateringDetailSave = ({ branchId, is_wishlisted }) => {
     const [wishlist, setWishlist] = useState(is_wishlisted);
     const dispatch = useDispatch();
 
-    const onHandleAddFavourite = (branchId) => {
+    useEffect(() => {
+        setWishlist(is_wishlisted);
+    }, [is_wishlisted]);
+
+    const onHandleAddFavourite = () => {
         const newWishlistStatus = !wishlist;
         const vendor_type = "Caterer";
         let data = {
@@ -20,12 +24,10 @@ const CateringDetailSave = ({ branchId, is_wishlisted }) => {
         };
         dispatch(addchWishlist(data));
         setWishlist(newWishlistStatus);
-    };
-
-    console.log(wishlist, "wishlist");
+    }
 
     return (
-        <Stack direction="row" alignItems="center" spacing={1} className="vc-icons" onClick={() => onHandleAddFavourite(branchId)}>
+        <Stack direction="row" alignItems="center" spacing={1} className="vc-icons" onClick={() => onHandleAddFavourite()}>
             {
                 wishlist ?
                     <Stack direction="row" alignItems="center" className="vc-icons" spacing={1}>

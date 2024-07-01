@@ -96,7 +96,7 @@ const page = () => {
           </Box>
         </>
       ) : (
-        <p>You Don't have wishlist</p>
+        <p>You're Catering Wishlist is Empty</p>
       )}
 
 
@@ -139,10 +139,10 @@ const page = () => {
                               <p className='vc-similar-card-small vc-card-dishes text-ellipse-one'>Cuisines - Not Found</p>
                             </div>
                           }
-
+                          {/* ${item?.vendor_id}/${item?.id} */}
                           <Stack direction="row" justifyContent="space-between" alignItems="center" className='w-100' style={{ marginTop: '20px' }}>
                             <span className='text-red vc-similar-card-cost'> {wishlist?.start_price === null ? '' : `${wishlist?.start_price} / Plate`} </span>
-                            <Link href={`/catering-search/${wishlist?.branch_id}`} variant="contained"
+                            <Link href={`/tiffin-search/${wishlist?.vendor_id}/${wishlist?.id}`} variant="contained"
                               className='text-decoration-none'
                               style={{
                                 color: '#ffffff',

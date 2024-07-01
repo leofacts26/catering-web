@@ -1,4 +1,3 @@
-'use client'
 import Breadcrumb from '@/components/Breadcrumb';
 import Navbar from '@/components/Navbar'
 import Container from '@mui/material/Container';
@@ -32,38 +31,21 @@ import SimilarCaterersTiffin from '@/components/cards/SimilarCaterersTiffin';
 import ShowOnMap from '@/components/ShowOnMap';
 import TiffinDetailSave from '@/components/TiffinDetailSave';
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
-import { useParams } from 'next/navigation'
-import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 
 
-const page = () => {
-  const accessToken = useSelector((state) => state.user.accessToken);
-  const { slug } = useParams()
-
-  const vendorId = slug[0];
-  const branchId = slug[1];
-
-  const [data, setData] = useState()
-
-  useEffect(() => {
-    getData()
-  }, [])
-
-  const getData = async () => {
-    try {
-      const response = await api.get(`${BASE_URL}/user-get-vendor-show-details?branch_id=${branchId}&vendor_id=${vendorId}`, {
-        headers: {
-          authorization: `Bearer ${accessToken}`,
-        },
-      })
-      setData(response.data.data)
-    } catch (error) {
-      console.log(error);
-    }
+const getData = async (vendorId, branchId) => {
+  try {
+    const response = await api.get(`${BASE_URL}/user-get-vendor-show-details?branch_id=${branchId}&vendor_id=${vendorId}`)
+    return response.data.data;
+  } catch (error) {
+    console.log(error);
   }
+}
 
-  console.log(data, "data");
+export default async function Page({ params: { slug } }) {
+  const data = await getData(slug[0], slug[1]);
+
+  console.log(data, "data datadatadata");
 
   return (
     <>
@@ -91,8 +73,7 @@ const page = () => {
           <div className='vc-icon-box'>
             <Stack direction='row' justifyContent="space-between" alignItems="end">
               <Stack direction="row" alignItems="center" spacing={1} className="vc-icons-tiffin"> <ShareIcon style={{ fontSize: '18px' }} /> <span>Share</span></Stack>
-              {/* TiffinDetailSave  */}
-              <TiffinDetailSave branchId={branchId} is_wishlisted={data?.is_wishlisted} />
+              <TiffinDetailSave branchId={data?.id} />
               <ShowOnMap locLatitude={data?.latitude} locLongtitude={data?.longitude} />
             </Stack>
           </div>
@@ -140,6 +121,7 @@ const page = () => {
                 </Stack>
                 <p className="vc-reviews-tiffin">See Reviews (352)</p>
                 <Stack direction="row" spacing={2} style={{ marginTop: '10px' }}>
+                  {/* <Button variant="contained" className="vt-whatsapp-btn"> <WhatsAppIcon style={{ marginRight: '3px' }} /> Whatsapp</Button> */}
                   <ContactBtn number={data?.business_phone_number} />
                 </Stack>
               </Stack>
@@ -154,6 +136,7 @@ const page = () => {
             <div className="vc-shadow">
               <CardContent>
                 <div className="text-center">
+                  {/* <FastfoodIcon className="vc-icon-label" /> */}
                   <img src="/img/icons/service-type-filled.svg" className='vc-icon-svg' alt="" />
                   <p className="vc-service-type">Service Type</p>
                   <h3 className="vc-service-heading">
@@ -167,7 +150,7 @@ const page = () => {
             <div className="vc-shadow">
               <CardContent>
                 <div className="text-center">
-                  <WbSunnyIcon className="vc-icon-label-tiffin" />
+                <WbSunnyIcon className="vc-icon-label-tiffin" />
                   <p className="vc-service-type">Meal Times</p>
                   <h3 className="vc-service-heading">
                     {data?.mealTimes?.slice(0, 8)?.map((item) => item?.meal_time_name).join(" , ")}
@@ -220,8 +203,7 @@ const page = () => {
       <ReciewCards tiffin />
       <Subscribe />
       <Footer />
+
     </>
   )
 }
-
-export default page

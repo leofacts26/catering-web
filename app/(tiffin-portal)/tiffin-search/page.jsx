@@ -23,7 +23,7 @@ import { fetchTiffinFoodTypes, fetchTiffinKitchenTypes, fetchTiffinMealTypes, fe
 
 const page = () => {
   const router = useRouter()
-  const { getTiffinSearchCards, getTiffinFoodTypes, getTiffinPriceRanges, getTiffinServiceTypes, getTiffinMealTypes, getTiffinKitchenTypes } = useSelector((state) => state.tiffinFilter)
+  const { getTiffinSearchCards, getTiffinFoodTypes, getTiffinPriceRanges, getTiffinServiceTypes, getTiffinMealTypes, getTiffinKitchenTypes, total_count } = useSelector((state) => state.tiffinFilter)
   const [checked, setChecked] = useState(true);
   const dispatch = useDispatch();
 
@@ -85,7 +85,7 @@ const page = () => {
             <Grid item xs={12} md={12} lg={9} xl={9.2}>
 
               {getTiffinSearchCards?.length > 0 && <Stack direction='row' justifyContent="space-between" style={{ margin: '0px 0px 0px 0px' }}>
-                <h2 className='catering-found'>Chennai: {`${getTiffinSearchCards.length}`} Tiffin service providers found</h2>
+                <h2 className='catering-found'>Chennai: {`${total_count}`} Tiffin service providers found</h2>
                 <TiffinSwitchSearchResult checked={checked} setChecked={setChecked} />
               </Stack>}
 
