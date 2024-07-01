@@ -12,19 +12,50 @@ import Button from '@mui/material/Button';
 import Filters from '@/components/catering/Filters';
 import Stack from '@mui/material/Stack';
 import SwitchSearchResult from '@/components/catering/SwitchSearchResult';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import SelectBox from '@/components/catering/SelectBox';
 import ListView from '@/components/catering/ListView';
 import GridViewList from '@/components/catering/GridView';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
+import { fetchCateringCuisines, fetchCateringFoodTypes, fetchCateringSearchCards, fetchCateringServingTypes, fetchOccasionCateringTypes, fetchPriceRanges, fetchServiceTypes } from '@/app/features/user/cateringFilterSlice';
 
 const page = () => {
   const [checked, setChecked] = useState(true);
   const router = useRouter()
-  const { getCateringSearchCards, isLoading, total_count } = useSelector((state) => state.cateringFilter)
+  const dispatch = useDispatch()
+  const { getCateringSearchCards, getCateringPriceRanges, getCateringFoodTypes, getCateringCuisines, getCateringServiceTypes, getCateringServingTypes, total_count } = useSelector((state) => state.cateringFilter)
   // console.log(getCateringSearchCards, "getCateringSearchCards");
-  
+
+  useEffect(() => {
+    // Fetch all necessary data
+    if (getCateringPriceRanges.length === 0) {
+      dispatch(fetchPriceRanges());
+    }
+    if (getCateringFoodTypes.length === 0) {
+      dispatch(fetchCateringFoodTypes());
+    }
+    if (getCateringCuisines.length === 0) {
+      dispatch(fetchCateringCuisines());
+    }
+    if (getCateringServiceTypes.length === 0) {
+      dispatch(fetchServiceTypes());
+    }
+    if (getCateringServingTypes.length === 0) {
+      dispatch(fetchCateringServingTypes());
+    }
+
+  }, [dispatch, getCateringPriceRanges.length, getCateringFoodTypes.length, getCateringCuisines.length, getCateringServiceTypes.length, getCateringServingTypes.length]);
+
+  useEffect(() => {
+    // Dispatch search cards only if all necessary data is available
+    if (getCateringPriceRanges.length > 0 && getCateringFoodTypes.length && getCateringCuisines.length && getCateringServiceTypes.length && getCateringServingTypes.length) {
+      dispatch(fetchCateringSearchCards());
+    }
+  }, [dispatch, getCateringPriceRanges.length, getCateringFoodTypes.length, getCateringCuisines.length, getCateringServiceTypes.length, getCateringServingTypes.length]);
+
+
+
   return (
     <>
       <section className='nav-bg'>
@@ -67,7 +98,7 @@ const page = () => {
           </Grid>
         </Box>
       </Container>
-      
+
       <Subscribe />
       <Footer />
     </>

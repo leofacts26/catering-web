@@ -40,13 +40,12 @@ const CaterCuisineFilter = () => {
     const { getCateringCuisines, isLoading } = useSelector((state) => state.cateringFilter)
     const dispatch = useDispatch()
 
-    // useEffect(() => {
-    //     dispatch(fetchCateringSearchCards());
-    // }, [dispatch])
-
     useEffect(() => {
-        dispatch(fetchCateringCuisines());
-    }, []);
+        if (!getCateringCuisines.length) {
+            dispatch(fetchCateringCuisines());
+        }
+    }, [dispatch, getCateringCuisines.length]);
+
 
     // onHandleCuisineFilter 
     const onHandleCuisineFilter = useCallback((cuisineId, isParent) => {

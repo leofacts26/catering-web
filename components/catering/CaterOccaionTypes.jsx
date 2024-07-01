@@ -14,9 +14,6 @@ const CaterOccaionTypes = () => {
     const [occCount, setoccCount] = useState(false)
     const dispatch = useDispatch()
 
-    // useEffect(() => {
-    //     dispatch(fetchCateringSearchCards());
-    // }, [dispatch])
 
     useEffect(() => {
         dispatch(fetchOccasionCateringTypes(occasionCount));
@@ -25,8 +22,8 @@ const CaterOccaionTypes = () => {
     // onHandleSelectOccasion 
     const onHandleSelectOccasion = (getOccasionType) => {
         dispatch(setOccasionTypes(getOccasionType?.occasion_id))
-        dispatch(fetchCateringSearchCards());
-        dispatch(fetchCateringMapviewSearchCards());
+        // dispatch(fetchCateringSearchCards());
+        // dispatch(fetchCateringMapviewSearchCards());
     }
 
     const onShowAllOccasions = useCallback(() => {

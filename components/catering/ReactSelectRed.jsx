@@ -9,9 +9,9 @@ const ReactSelectRed = ({ text1, onChange }) => {
   const { isLoading, getAllSortOrders } = useSelector((state) => state.cateringFilter)
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(fetchCateringSearchCards());
-}, [dispatch])
+//   useEffect(() => {
+//     dispatch(fetchCateringSearchCards());
+// }, [dispatch])
 
 
   useEffect(() =>{
@@ -22,7 +22,7 @@ const ReactSelectRed = ({ text1, onChange }) => {
 
   const handleChange = (selectedOption) => {
     onChange(selectedOption);
-    dispatch(fetchCateringSearchCards());
+    // dispatch(fetchCateringSearchCards());
   };
 
 

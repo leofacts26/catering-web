@@ -14,13 +14,11 @@ const CaterServingTypes = () => {
     const dispatch = useDispatch()
 
 
-    // useEffect(() => {
-    //     dispatch(fetchCateringSearchCards());
-    // }, [dispatch])
-
     useEffect(() => {
-        dispatch(fetchCateringServingTypes());
-    }, []);
+        if (!getCateringServingTypes.length) {
+            dispatch(fetchCateringServingTypes());
+        }
+    }, [dispatch, getCateringServingTypes.length]);
 
     // onHandleServingFilter 
     const onHandleServingFilter = useCallback((getServingType) => {

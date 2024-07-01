@@ -12,9 +12,13 @@ const CaterPriceRanges = () => {
     const { getCateringPriceRanges, isLoading } = useSelector((state) => state.cateringFilter)
     const dispatch = useDispatch()
 
+
     useEffect(() => {
-        dispatch(fetchPriceRanges());
+        if (!getCateringPriceRanges.length) {
+            dispatch(fetchPriceRanges());
+        }
     }, [dispatch, getCateringPriceRanges.length]);
+
 
     // handleCheckboxChange 
     const onHandlePriceRanges = useCallback((priceType) => {

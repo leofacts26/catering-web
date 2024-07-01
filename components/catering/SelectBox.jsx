@@ -16,16 +16,13 @@ const SelectBox = () => {
                 value: selectedOption.value.toLowerCase().replace(/\s/g, '_')
             }];
             dispatch(setCateringSort(formattedValue));
+            dispatch(fetchCateringSearchCards());
         } else {
             dispatch(setCateringSort([]));
         }
     };
 
 
-
-    useEffect(() => {
-        dispatch(fetchCateringSearchCards());
-    }, [dispatch])
 
     useEffect(() => {
         dispatch(fetchGetAllSubscriptionTypes())

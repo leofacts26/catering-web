@@ -12,13 +12,13 @@ const CaterServiceTypes = () => {
     const { getCateringServiceTypes } = useSelector((state) => state.cateringFilter)
     const dispatch = useDispatch()
 
-    // useEffect(() => {
-    //     dispatch(fetchCateringSearchCards());
-    // }, [dispatch])
-
     useEffect(() => {
-        dispatch(fetchServiceTypes());
-    }, []);
+        if (!getCateringServiceTypes.length) {
+            dispatch(fetchServiceTypes());
+        }
+    }, [dispatch, getCateringServiceTypes.length]);
+
+
 
     // onHandleServiceFilter 
     const onHandleServiceFilter = useCallback((getServiceType) => {

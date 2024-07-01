@@ -12,14 +12,12 @@ const CaterFoodTypes = () => {
     const { getCateringFoodTypes, isLoading } = useSelector((state) => state.cateringFilter)
     const dispatch = useDispatch()
 
-    // useEffect(() => {
-    //     dispatch(fetchCateringSearchCards());
-    // }, [dispatch])
-    // console.log(getCateringFoodTypes, "getCateringFoodTypes"); 
-
     useEffect(() => {
-        dispatch(fetchCateringFoodTypes());
-    }, []);
+        if (!getCateringFoodTypes.length) {
+            dispatch(fetchCateringFoodTypes());
+        }
+    }, [dispatch, getCateringFoodTypes.length]);
+
 
     // handleCheckboxChange 
     const onHandleFoodFilter = useCallback((priceType) => {

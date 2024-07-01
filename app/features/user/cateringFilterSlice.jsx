@@ -75,6 +75,7 @@ export const fetchCateringFoodTypes = createAsyncThunk(
 export const fetchOccasionCateringTypes = createAsyncThunk(
     'user/fetchOccasionCateringTypes',
     async (occasionCount, thunkAPI) => {
+        console.log(occasionCount, "occasionCount gbhty");
         try {
             const response = await api.get(`${BASE_URL}/get-all-occasions?current_page=1&limit=${occasionCount}`, {
                 headers: {
@@ -250,10 +251,16 @@ export const fetchCateringSearchCards = createAsyncThunk(
             return { id: Number(price.id), start_price: parseFloat(price.start_price), end_price: parseFloat(price.end_price) };
         });
 
-        // &cuisines_filter=${JSON.stringify(cuisinetype_filter_Data)} 
+
+        // 
+        // &occasions_filter=${JSON.stringify(occasions_filter_formatted)}
+        // 
+        // 
+        //  
+
 
         try {
-            const response = await api.get(`${BASE_URL}/search-vendors?search_term=${people}&order_by=distance&limit=${(current_page * limit)}&save_filter=1&vendor_type=Caterer&app_type=web&service_types_filter=${JSON.stringify(service_filter_formatted)}&order_by_filter=${cateringSortBy_filter}&serving_types_filter=${JSON.stringify(serving_filter_formatted)}&subscription_types_filter=${JSON.stringify(subscriptionTypes_formatted)}&occasions_filter=${JSON.stringify(occasions_filter_formatted)}&price_ranges=${JSON.stringify(updatedPriceTypes_formatted)}&food_types_filter=${JSON.stringify(foodtype_filter_formatted)}&cuisines_filter=${JSON.stringify(finalCuisineresult)}&latitude=${locationValuesGlobal?.latitude || ""}&longitude=${locationValuesGlobal?.longitude || ""}&city=${locationValuesGlobal?.city?.long_name || ""}&pincode=${locationValuesGlobal?.pincode || ""}&place_id=${locationValuesGlobal?.place_id || ''}&start_date=${moment(startDate).format('YYYY-MM-DD')}&end_date=${moment(endDate).format('YYYY-MM-DD')}`, {
+            const response = await api.get(`${BASE_URL}/search-vendors?search_term=${people}&order_by=distance&limit=${(current_page * limit)}&save_filter=1&vendor_type=Caterer&app_type=web&order_by_filter=${cateringSortBy_filter}&food_types_filter=${JSON.stringify(foodtype_filter_formatted)}&price_ranges=${JSON.stringify(updatedPriceTypes_formatted)}&subscription_types_filter=${JSON.stringify(subscriptionTypes_formatted)}&cuisines_filter=${JSON.stringify(finalCuisineresult)}&serving_types_filter=${JSON.stringify(serving_filter_formatted)}&service_types_filter=${JSON.stringify(service_filter_formatted)}&latitude=${locationValuesGlobal?.latitude || ""}&longitude=${locationValuesGlobal?.longitude || ""}&city=${locationValuesGlobal?.city?.long_name || ""}&pincode=${locationValuesGlobal?.pincode || ""}&place_id=${locationValuesGlobal?.place_id || ''}&start_date=${moment(startDate).format('YYYY-MM-DD')}&end_date=${moment(endDate).format('YYYY-MM-DD')}`, {
                 headers: {
                     authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
                 },
@@ -509,30 +516,30 @@ export const cateringFilterSlice = createSlice({
         },
         setSubscriptionFilter: (state, action) => {
             console.log(action, "actionactionaction");
-            // First, update the selected subscription type
-            let updatedSubscriptionFilter = state.subscriptionTypes.map((subscription) => {
+
+            const updatedSubscriptionFilter = state.subscriptionTypes.map(subscription => {
                 if (subscription.id === action.payload) {
-                    return { ...subscription, selectedweb: subscription.selectedweb === 1 ? 0 : 1 };
-                } else if (["2", "3"].includes(action.payload) && subscription.id === "9999") {
-                    return { ...subscription, selectedweb: 0 };
+                    // Toggle the selectedweb value for the clicked subscription type
+                    return {
+                        ...subscription,
+                        selectedweb: subscription.selectedweb === 1 ? 0 : 1
+                    };
+                } else if (["2", "3"].includes(action.payload)) {
+                    // If selecting 5 or 6, ensure all others are deselected
+                    return {
+                        ...subscription,
+                        selectedweb: 0
+                    };
+                } else if (action.payload === "9999") {
+                    // Always keep 9999 selected and deselect others
+                    return {
+                        ...subscription,
+                        selectedweb: subscription.id === "9999" ? 1 : 0
+                    };
                 } else {
                     return subscription;
                 }
             });
-
-            // Then, check if all "Free", "Popular", and "Branded" are deselected
-            const allDeselected = updatedSubscriptionFilter
-                .filter(sub => ["2", "3"].includes(sub.id))
-                .every(sub => sub.selectedweb === 0);
-
-            if (allDeselected) {
-                updatedSubscriptionFilter = updatedSubscriptionFilter.map(subscription => {
-                    if (subscription.id === "9999") {
-                        return { ...subscription, selectedweb: 1 };
-                    }
-                    return subscription;
-                });
-            }
 
             state.subscriptionTypes = updatedSubscriptionFilter;
         },

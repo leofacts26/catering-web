@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchPopularCaterers } from '@/app/features/user/homeSlice';
 import PopularCaterersShimmer from '../shimmer/PopularCaterersShimmer';
 import Heading from '../Heading';
-import { fetchCateringSearchCards, setSubscriptionFilter } from '@/app/features/user/cateringFilterSlice';
+import {  setSubscriptionFilter } from '@/app/features/user/cateringFilterSlice';
 import { useRouter } from 'next/navigation';
 
 const PopularCaters = ({ title }) => {
