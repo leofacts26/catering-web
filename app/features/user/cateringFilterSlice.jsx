@@ -425,7 +425,7 @@ export const cateringFilterSlice = createSlice({
         // },
         setCuisineTypeFilter: (state, action) => {
             const { cuisineId, isParent } = action.payload;
-            // console.log(cuisineId, "cuisineId");
+            console.log(cuisineId, "cuisineId");
             // console.log(isParent, "isParent");
             const updatedCuisines = state.getCateringCuisines.map((cuisine) => {
                 if (cuisine.id === cuisineId) {

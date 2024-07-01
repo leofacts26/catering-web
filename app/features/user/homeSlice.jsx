@@ -83,9 +83,9 @@ export const fetchRecentSearches = createAsyncThunk(
 export const fetchBrandedCaterers = createAsyncThunk(
     'homepage/fetchBrandedCaterers',
     async (data, thunkAPI) => {
-        // console.log(data, "GTTTTTTT");
+        const { latitude, longitude } = data;
         try {
-            const response = await api.get(`${BASE_URL}/get-vendors-home-page?vendor_type=Caterer&subscription_type_id=3`, {
+            const response = await api.get(`${BASE_URL}/get-vendors-home-page?vendor_type=Caterer&latitude=${latitude ? latitude : ''}&longitude=${longitude ? longitude : ''}&subscription_type_id=3`, {
                 headers: {
                     authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
                 },
@@ -116,9 +116,10 @@ export const fetchBrandedTiffins = createAsyncThunk(
 
 export const fetchPopularCaterers = createAsyncThunk(
     'homepage/fetchPopularCaterers',
-    async (user, thunkAPI) => {
+    async (data, thunkAPI) => {
+        const { latitude, longitude } = data;
         try {
-            const response = await api.get(`${BASE_URL}/get-vendors-home-page?vendor_type=Caterer&subscription_type_id=2`, {
+            const response = await api.get(`${BASE_URL}/get-vendors-home-page?vendor_type=Caterer&latitude=${latitude ? latitude : ''}&longitude=${longitude ? longitude : ''}&subscription_type_id=2`, {
                 headers: {
                     authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
                 },

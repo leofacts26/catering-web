@@ -16,11 +16,16 @@ const PopularCaters = ({ title }) => {
 
     const { popularCaterer, isLoading } = useSelector((state) => state.homepage)
     const dispatch = useDispatch()
+    const { userDetails } = useSelector((state) => state.user)
 
-    console.log(popularCaterer, "popularCaterer");
+    // console.log(popularCaterer, "popularCaterer"); 
+    const data = {
+        latitude: userDetails?.latitude,
+        longitude: userDetails?.longitude
+      }
 
     useEffect(() => {
-        dispatch(fetchPopularCaterers())
+        dispatch(fetchPopularCaterers(data))
     }, [])
 
     // console.log(popularCaterer, "popularCaterer"); 
@@ -51,7 +56,7 @@ const PopularCaters = ({ title }) => {
                                 {popularCaterer?.length > 0 && popularCaterer?.map((cater, index) => (
                                     <Grid item xs={12} sm={6} md={4} lg={2.4} xl={2.4} key={cater?.vendor_id}>
                                         <Box onClick={() => handleImageClick()}>
-                                            <img src={cater.gallery_images["vendor-brand-logo"][0].image_name[0]?.original} alt={cater?.catering_service_name} className="img-fluid popular-caterers-img image-shadow" />
+                                            <img src={cater.gallery_images["vendor-brand-logo"][0].image_name[0]?.original} alt={cater?.catering_service_name} className="img-fluid popular-caterers-img image-shadow cursor-pointer" />
                                             <h4 className='popular-caterers-heading'>{cater?.catering_service_name}</h4>
                                             <p className='popular-caterers-des'> {cater?.street_name} {cater?.area} </p>
                                         </Box>

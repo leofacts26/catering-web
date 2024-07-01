@@ -48,7 +48,7 @@ const BrandedTiffenCaters = () => {
 
   return (
     <>
-      {tiffinList?.length > 0 && <Heading title="Recommended Tiffins in Chennai" subHeading />}
+      {tiffinList?.length > 0 && <Heading title={`Recommended Tiffins in ${userDetails?.city ? userDetails?.city : 'Chennai'}`} subHeading />}
       <Container maxWidth="lg" className="branded-cater-slider" style={{ marginTop: '25px' }}>
         <Box sx={{ flexGrow: 1 }}>
           <Grid container spacing={2}>

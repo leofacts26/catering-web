@@ -11,10 +11,9 @@ import useGetLocationResults from '@/hooks/catering/useGetLocationResults';
 import { setlLocationValuesGlobal } from '@/app/features/user/globalNavSlice';
 import { fetchtiffinSearchCards } from '@/app/features/tiffin/tiffinFilterSlice';
 import { useRouter } from 'next/navigation';
-import { fetchCateringSearchCards } from '@/app/features/user/cateringFilterSlice';
 
 
-const ExploreCaters = () => {
+const ExploreTiffins = () => {
     // const { isPlacePredictionsLoading, placePredictions, getPlacePredictions, selectLocation } = useGetLocationResults()
     const router = useRouter()
 
@@ -28,12 +27,12 @@ const ExploreCaters = () => {
     const onHandleCityFilter = (explorecater) => {
         const { latitude, longitude, name: city } = explorecater;
     dispatch(setlLocationValuesGlobal({ latitude, longitude, city: { long_name: city } }));
-        dispatch(fetchCateringSearchCards());
-        const url = `/catering-search`;
+        dispatch(fetchtiffinSearchCards());
+        const url = `/tiffin-search`;
         router.push(url);
     }
 
-    // console.log(getAllCities, "getAllCities");
+    console.log(getAllCities, "getAllCities");
     // console.log(getAllCities, "getAllCities"); 
 
     return (
@@ -64,4 +63,4 @@ const ExploreCaters = () => {
     )
 }
 
-export default ExploreCaters
+export default ExploreTiffins

@@ -1,3 +1,4 @@
+"use client"
 import Faq from '@/components/Faq';
 import Footer from '@/components/Footer';
 import Heading from '@/components/Heading';
@@ -11,9 +12,12 @@ import PopularCaters from '@/components/cards/PopularCaters';
 import RecentSearchCard from '@/components/cards/RecentSearchCard';
 import Container from '@mui/material/Container';
 import CateringSearchBar from '@/components/catering/CateringSearchBar';
+import { useSelector } from 'react-redux';
 
 
 const page = () => {
+    const { userDetails } = useSelector((state) => state.user)
+
     return (
         <>
             <section className='nav-bg'>
@@ -31,11 +35,11 @@ const page = () => {
             <ExpoloreCuisinesCard />
             <Heading title="Explore Caterers around INDIA" subHeading />
             <ExploreCaters />
-            
-            <Heading title="Branded Caterers in Chennai" subHeading />
+
+            <Heading title={`Branded Caterers in ${userDetails?.city ? userDetails?.city : 'Chennai'}`} subHeading />
             <BrandedCaters />
-            
-            <PopularCaters title="Popular Caterers in Chennai" />
+
+            <PopularCaters title={`Popular Caterers in ${userDetails?.city ? userDetails?.city : 'Chennai'}`} />
             <Heading title="Explore Caterers by Occasions" subHeading />
             <ExploreCaterersByOccasion />
             <Heading title="FAQ's" center subHeading />

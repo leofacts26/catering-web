@@ -15,10 +15,11 @@ import { useEffect } from 'react';
 import { clearFiltersGlobal } from '@/app/features/tiffin/tiffinFilterSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import PopularTiffins from '@/components/cards/PopularTiffins';
+import ExploreTiffins from '@/components/cards/ExploreTiffins';
 
 const page = () => {
-    const { userDetails, accessToken } = useSelector((state) => state.user)
-    console.log(userDetails, "userDetails");
+    const { userDetails } = useSelector((state) => state.user)
+    // console.log(userDetails, "userDetails");
     return (
         <>
             <section className='nav-bg-tiffin'>
@@ -35,12 +36,12 @@ const page = () => {
 
             <ExpoloreCuisinesCard />
             <Heading title="Explore Tiffins around INDIA" subHeading />
-            <ExploreCaters />
+            <ExploreTiffins />
 
 
             <BrandedTiffenCaters />
 
-            <Heading title={`Popular Tiffins in ${userDetails?.city ? userDetails?.city : 'Allow'}`} subHeading />
+            <Heading title={`Popular Tiffins in ${userDetails?.city ? userDetails?.city : 'Chennai'}`} subHeading />
             <PopularTiffins />
 
             {/* <Heading title="Explore Tiffins by Occasions" subHeading /> */}

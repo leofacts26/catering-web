@@ -22,11 +22,17 @@ import { useRouter } from 'next/navigation';
 const BrandedCaters = () => {
   const router = useRouter()
   const { brandedList, isLoading } = useSelector((state) => state.homepage)
+  const { userDetails } = useSelector((state) => state.user)
 
   const dispatch = useDispatch()
 
+  const data = {
+    latitude: userDetails?.latitude,
+    longitude: userDetails?.longitude
+  }
+
   useEffect(() => {
-    dispatch(fetchBrandedCaterers())
+    dispatch(fetchBrandedCaterers(data))
   }, [])
 
   const handleImageClick = () => {
@@ -75,7 +81,7 @@ const BrandedCaters = () => {
                 <SwiperSlide key={brandedcaterer?.id}>
                   <CardContent key={brandedcaterer?.id} style={{ padding: '10px 20px' }}>
                     <Stack direction="row" justifyContent="center" className='recent-search-card w-100'>
-                      <img onClick={() => handleImageClick()} src={brandedcaterer?.gallery_images['vendor-brand-logo']?.[0]?.image_name[0]?.original ? brandedcaterer?.gallery_images['vendor-brand-logo']?.[0]?.image_name[0]?.original : '/img/no-image.jpg'} alt="" className="img-fluid explore-cuisine-img" />
+                      <img onClick={() => handleImageClick()} src={brandedcaterer?.gallery_images['vendor-brand-logo']?.[0]?.image_name[0]?.original ? brandedcaterer?.gallery_images['vendor-brand-logo']?.[0]?.image_name[0]?.original : '/img/no-image.jpg'} alt="" className="img-fluid explore-cuisine-img cursor-pointer" />
                     </Stack>
                   </CardContent>
                 </SwiperSlide>

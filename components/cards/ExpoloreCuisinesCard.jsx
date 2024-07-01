@@ -16,9 +16,12 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { Navigation, Autoplay } from 'swiper/modules';
+import { fetchCateringSearchCards, setCuisineTypeFilter } from '@/app/features/user/cateringFilterSlice';
+import { useRouter } from 'next/navigation';
 
 const ExpoloreCuisinesCard = () => {
 
+    const router = useRouter()
 
     const { getAllcuisines, isLoading } = useSelector((state) => state.homepage)
     const dispatch = useDispatch()
@@ -27,8 +30,15 @@ const ExpoloreCuisinesCard = () => {
         dispatch(fetchCuisines())
     }, [])
 
-    console.log(getAllcuisines, "getAllcuisines");
-
+    // console.log(getAllcuisines, "getAllcuisines");
+    const onHandleCuisineFilter = (explorecuisine) => {
+        console.log(explorecuisine, "explorecuisine");
+        const cuisineId = explorecuisine.id;
+        dispatch(setCuisineTypeFilter({ cuisineId }));
+        dispatch(fetchCateringSearchCards());
+        const url = `/catering-search`;
+        router.push(url);
+    }
 
     return (
         <>
@@ -73,7 +83,8 @@ const ExpoloreCuisinesCard = () => {
                                 <Grid item xs={6} sm={3} md={3} lg={2} xl={2} className={`p-0 w-100 first-card`} key={index}>
                                     <SwiperSlide>
                                         <CardContent key={explorecuisine.id} className='w-100' style={{ padding: '5px 10px' }}>
-                                            <Stack direction="row" justifyContent="center" className='explore-cuisine-card border-radius-two w-100'>
+                                            <Stack direction="row" justifyContent="center" className='explore-cuisine-card border-radius-two w-100 cursor-pointer'
+                                                onClick={() => onHandleCuisineFilter(explorecuisine)}>
                                                 <img src={explorecuisine?.file_name?.original ? explorecuisine?.file_name?.original : '/img/no-image.jpg'} alt="" className="img-fluid explore-cuisine-img image-shadow" />
                                             </Stack>
                                         </CardContent>
