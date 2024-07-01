@@ -32,7 +32,7 @@ const ExpoloreCuisinesCard = () => {
 
     // console.log(getAllcuisines, "getAllcuisines");
     const onHandleCuisineFilter = (explorecuisine) => {
-        console.log(explorecuisine, "explorecuisine");
+        // console.log(explorecuisine, "explorecuisine");
         const cuisineId = explorecuisine.id;
         dispatch(setCuisineTypeFilter({ cuisineId }));
         dispatch(fetchCateringSearchCards());

@@ -190,10 +190,6 @@ export const fetchCateringSearchCards = createAsyncThunk(
         const limit = thunkAPI.getState().cateringFilter?.limit;
         const total_count = thunkAPI.getState().cateringFilter?.total_count;
 
-        // console.log(cateringSortBy, "cateringSortBy ppppppppppppppppppppppppp");
-        // console.log(data, "data22334455");
-        // console.log(getCateringPriceRanges, "getCateringPriceRanges");
-
         // cateringSortBy_filter
         const cateringSortBy_filter = JSON.stringify(cateringSortBy)
 
@@ -204,7 +200,6 @@ export const fetchCateringSearchCards = createAsyncThunk(
             selected: occasion.selectedweb
         }));
 
-        console.log(getCateringCuisines, "getCateringCuisines");
         // cuisinetype_filter_formatted 
         function extractChildrenData(data) {
             return data.flatMap(item => item.children.map(({ id, selectedweb }) => ({ id: Number(id), selected: selectedweb })));
@@ -215,10 +210,6 @@ export const fetchCateringSearchCards = createAsyncThunk(
         const cuisinetype_filter_Data = extractChildrenData(getCateringCuisines);
         const cuisinetype_filter_Parent_Data = extractParentData(getCateringCuisines);
         const finalCuisineresult = [...cuisinetype_filter_Data, ...cuisinetype_filter_Parent_Data]
-
-        // console.log(finalCuisineresult, "finalCuisineresult");
-
-        // console.log(JSON.stringify(cuisinetype_filter_Data), "cuisinetype_filter_Data cuisinetype_filter_Data");
 
         // service_filter_formatted
         const service_filter_formatted = getCateringServiceTypes.map(service => ({
@@ -302,7 +293,6 @@ export const fetchCateringMapviewSearchCards = createAsyncThunk(
             selected: occasion.selectedweb
         }));
 
-        console.log(getCateringCuisines, "getCateringCuisines");
         // cuisinetype_filter_formatted 
         function extractChildrenData(data) {
             return data.flatMap(item => item.children.map(({ id, selectedweb }) => ({ id: Number(id), selected: selectedweb })));
@@ -313,10 +303,6 @@ export const fetchCateringMapviewSearchCards = createAsyncThunk(
         const cuisinetype_filter_Data = extractChildrenData(getCateringCuisines);
         const cuisinetype_filter_Parent_Data = extractParentData(getCateringCuisines);
         const finalCuisineresult = [...cuisinetype_filter_Data, ...cuisinetype_filter_Parent_Data]
-
-        // console.log(finalCuisineresult, "finalCuisineresult");
-
-        // console.log(JSON.stringify(cuisinetype_filter_Data), "cuisinetype_filter_Data cuisinetype_filter_Data");
 
         // service_filter_formatted
         const service_filter_formatted = getCateringServiceTypes.map(service => ({
@@ -348,6 +334,8 @@ export const fetchCateringMapviewSearchCards = createAsyncThunk(
         const updatedPriceTypes_formatted = selectedPriceRanges.map(price => {
             return { id: Number(price.id), start_price: parseFloat(price.start_price), end_price: parseFloat(price.end_price) };
         });
+
+        
 
         try {
             const response = await api.get(`${BASE_URL}/search-vendors?search_term=${people}&order_by=distance&limit=${(current_page * limit)}&save_filter=1&vendor_type=Caterer&app_type=web&service_types_filter=${JSON.stringify(service_filter_formatted)}&order_by_filter=${cateringSortBy_filter}&serving_types_filter=${JSON.stringify(serving_filter_formatted)}&subscription_types_filter=${JSON.stringify(subscriptionTypes_formatted)}&occasions_filter=${JSON.stringify(occasions_filter_formatted)}&price_ranges=${JSON.stringify(updatedPriceTypes_formatted)}&food_types_filter=${JSON.stringify(foodtype_filter_formatted)}&cuisines_filter=${JSON.stringify(finalCuisineresult)}&latitude=${locationValuesGlobal?.latitude || ""}&longitude=${locationValuesGlobal?.longitude || ""}&city=${locationValuesGlobal?.city?.long_name || ""}&pincode=${locationValuesGlobal?.pincode || ""}&place_id=${locationValuesGlobal?.place_id || ''}&start_date=${moment(startDate).format('YYYY-MM-DD')}&end_date=${moment(endDate).format('YYYY-MM-DD')}`, {
