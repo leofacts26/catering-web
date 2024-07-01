@@ -23,6 +23,8 @@ const page = () => {
     const [zoom, setZoom] = useState(10);
     const router = useRouter();
 
+    console.log(getCateringMapviewSearchCards, "getCateringMapviewSearchCards");
+
     const searchParams = useSearchParams()
     const detailLat = searchParams.get('lat')
     const detailLng = searchParams.get('lng')
