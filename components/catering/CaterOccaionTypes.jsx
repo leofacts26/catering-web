@@ -22,8 +22,8 @@ const CaterOccaionTypes = () => {
     // onHandleSelectOccasion 
     const onHandleSelectOccasion = (getOccasionType) => {
         dispatch(setOccasionTypes(getOccasionType?.occasion_id))
-        // dispatch(fetchCateringSearchCards());
-        // dispatch(fetchCateringMapviewSearchCards());
+        dispatch(fetchCateringSearchCards());
+        dispatch(fetchCateringMapviewSearchCards());
     }
 
     const onShowAllOccasions = useCallback(() => {

@@ -42,7 +42,7 @@ const ExploreCaterersByOccasion = () => {
                             homeOccasions?.map((caterersbyoccasion) => (
                                 <Grid item xs={12} sm={6} md={6} lg={3} xl={3}>
                                     <div className="explore-cator-box" key={caterersbyoccasion?.occasion_id}>
-                                        <img onClick={() => handleImageClick(caterersbyoccasion?.occasion_id)} src={caterersbyoccasion.file_name.original} alt={caterersbyoccasion?.occasion_name} className="img-fluid caterers-occasion-img image-shadow" />
+                                        <img onClick={() => handleImageClick(caterersbyoccasion?.occasion_id)} src={caterersbyoccasion.file_name.original} alt={caterersbyoccasion?.occasion_name} className="img-fluid caterers-occasion-img image-shadow cursor-pointer" />
                                         <h4 className='text-center caterers-occasion-title'>{caterersbyoccasion?.occasion_name}</h4>
                                     </div>
                                 </Grid>
