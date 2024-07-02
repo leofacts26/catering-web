@@ -34,12 +34,18 @@ import TiffinDetailSave from '@/components/TiffinDetailSave';
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import { useParams } from 'next/navigation'
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setlLocationValuesGlobal, setManualLocation } from '@/app/features/user/globalNavSlice';
+import { fetchCateringSearchCards } from '@/app/features/user/cateringFilterSlice';
+import { useRouter } from 'next/navigation';
+import { fetchtiffinSearchCards } from '@/app/features/tiffin/tiffinFilterSlice';
 
 
 const page = () => {
   const accessToken = useSelector((state) => state.user.accessToken);
   const { slug } = useParams()
+  const dispatch = useDispatch()
+  const router = useRouter()
 
   const vendorId = slug[0];
   const branchId = slug[1];
@@ -63,6 +69,17 @@ const page = () => {
     }
   }
 
+
+  const onBreadcrumbLocationSearch = () => {
+    const { latitude, longitude, city, place_id, pincode, formatted_address, vendor_service_name } = data;
+    dispatch(setManualLocation(city));
+    dispatch(setlLocationValuesGlobal({ latitude, longitude, place_id, pincode, search_term: vendor_service_name, city: { long_name: city }, formatted_address }));
+    dispatch(fetchtiffinSearchCards());
+    const url = `/tiffin-search`;
+    router.push(url);
+  }
+
+
   console.log(data, "data");
 
   return (
@@ -77,7 +94,8 @@ const page = () => {
           </Container>
         </div>
       </div>
-      <Breadcrumb service="Tiffin Service" city={data?.city} title={data?.vendor_service_name} results="Search results" />
+      <Breadcrumb homeLink="/tiffin" serviceLink="/tiffin-search" service="Tiffin Service" city={data?.city} title={data?.vendor_service_name}
+        onBreadcrumbLocationSearch={onBreadcrumbLocationSearch} />
 
       <Container maxWidth="lg">
         <Stack sx={{ marginTop: '20px' }} direction={{ xs: 'column', sm: 'column', md: 'column', lg: 'row' }} alignItems="end" justifyContent="space-between">

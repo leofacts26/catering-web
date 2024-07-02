@@ -68,7 +68,7 @@ const page = () => {
           </Container>
         </div>
       </div>
-      <Breadcrumb service="Catering Service" title="Search Results" />
+      <Breadcrumb homeLink="/catering" serviceLink="/catering-search" service="Catering Service" title="Search Results" />
 
       <Container maxWidth="xl">
         <Box sx={{ flexGrow: 1 }} style={{ marginTop: '20px' }}>

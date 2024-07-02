@@ -28,16 +28,20 @@ import OurGallery from "@/components/OurGallery";
 import TimeRange from "@/components/TimeRange";
 import ContactBtn from "@/components/ContactBtn";
 import CateringDetailSave from "@/components/CateringDetailSave";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useParams } from 'next/navigation'
+import { setlLocationValuesGlobal } from "@/app/features/user/globalNavSlice";
+import { fetchCateringSearchCards } from "@/app/features/user/cateringFilterSlice";
+import { useRouter } from 'next/navigation';
 
 
 const page = () => {
-
+    const dispatch = useDispatch()
     const accessToken = useSelector((state) => state.user.accessToken);
     const { slug } = useParams()
-  
+    const router = useRouter()
+
     const vendorId = slug[0];
     const branchId = slug[1];
   
@@ -60,6 +64,16 @@ const page = () => {
       }
     }
 
+    console.log(data, "data TTT");
+
+    const onBreadcrumbLocationSearch = () =>{
+        const {latitude, longitude, city, place_id, pincode, formatted_address} = data;
+        dispatch(setlLocationValuesGlobal({ latitude, longitude, place_id, pincode, city: { long_name: city }, formatted_address }));
+        dispatch(fetchCateringSearchCards());
+        const url = `/catering-search`;
+        router.push(url);
+    }
+
     return (
         <>
             <section className='nav-bg'>
@@ -72,7 +86,7 @@ const page = () => {
                     </Container>
                 </div>
             </div>
-            <Breadcrumb service="Catering Service" city={data?.city} title={data?.vendor_service_name} results="Search results" />
+            <Breadcrumb homeLink="/catering" serviceLink="/catering-search" service="Catering Service" city={data?.city} title={data?.vendor_service_name} onBreadcrumbLocationSearch={onBreadcrumbLocationSearch}  />
 
             <Container maxWidth="lg">
                 <Stack sx={{ marginTop: '20px' }} direction={{ xs: 'column', sm: 'column', md: 'column', lg: 'row' }} alignItems="center" justifyContent="space-between">

@@ -11,6 +11,7 @@ import { addchWishlist, fetchWishlist } from '@/app/features/user/settingSlice';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { fetchCateringSearchCards, incrementPage } from '@/app/features/user/cateringFilterSlice';
 import toast from 'react-hot-toast';
+import ShowOnMap from '../ShowOnMap';
 
 
 const ListView = () => {
@@ -105,7 +106,7 @@ const ListView = () => {
                                             {getSearchCard?.subscription_type_name}
                                         </div>
                                     </div>
-                                    <div className="list-card-center">
+                                    <div className="list-card-center h-100">
                                         <h2 className='list-card-title'>{getSearchCard?.catering_service_name}</h2>
                                         <p className='list-card-desc'>
                                             {getSearchCard?.street_name ? `${getSearchCard.street_name}, ` : ''}
@@ -113,7 +114,7 @@ const ListView = () => {
                                             {getSearchCard?.city ? getSearchCard.city : ''}
                                         </p>
 
-                                        <Stack direction="row" spacing={1} sx={{ marginTop: '15px', marginBottom: '15px' }}>
+                                        {getSearchCard?.food_types?.length > 0 && <Stack direction="row" spacing={1} sx={{ marginTop: '15px', marginBottom: '15px' }}>
                                             {
                                                 getSearchCard?.food_types?.map((food_type, index) => {
                                                     let iconSrc = '';
@@ -132,7 +133,7 @@ const ListView = () => {
                                                     )
                                                 })
                                             }
-                                        </Stack>
+                                        </Stack>}
 
                                         {getSearchCard?.cuisines.length > 0 && <Stack
                                             // direction={{ xs: 'row', sm: 'row', md: 'row', lg: "row" }} 
@@ -182,14 +183,15 @@ const ListView = () => {
                                     <div>
                                         <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} className='mb-2 share-love'>
                                             <ShareIcon className='lse-icons' style={{ marginRight: '10px', cursor: 'pointer' }} />
-                                           {accessToken ? <>
-                                            {wishlist[getSearchCard?.id] ? <FavoriteIcon className='lse-icons cursor-pointer fill-heart-catering' onClick={() => onHandleAddFavourite(getSearchCard?.id)} /> : <FavoriteBorderIcon className='lse-icons cursor-pointer' onClick={() => onHandleAddFavourite(getSearchCard?.id)} />}
-                                           </> : <FavoriteBorderIcon className='lse-icons cursor-pointer' onClick={() => toast.error("Login before Adding to Wishlist")} />  } 
+                                            {accessToken ? <>
+                                                {wishlist[getSearchCard?.id] ? <FavoriteIcon className='lse-icons cursor-pointer fill-heart-catering' onClick={() => onHandleAddFavourite(getSearchCard?.id)} /> : <FavoriteBorderIcon className='lse-icons cursor-pointer' onClick={() => onHandleAddFavourite(getSearchCard?.id)} />}
+                                            </> : <FavoriteBorderIcon className='lse-icons cursor-pointer' onClick={() => toast.error("Login before Adding to Wishlist")} />}
                                         </Stack>
                                         <Stack direction="row" alignItems="center" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} style={{ marginTop: '8px' }}>
                                             <span className='cat-red' style={{ fontSize: '14px' }}>
                                                 <Stack direction="row" alignItems="center">
-                                                    <LocationOnIcon style={{ fontSize: '15px', marginRight: '5px' }} /> <span className='lse-map-icon'>Show On Map</span>
+                                                    {/* <LocationOnIcon style={{ fontSize: '15px', marginRight: '5px' }} /> <span className='lse-map-icon'>Show On Map</span> */}
+                                                    <ShowOnMap locLatitude={item?.latitude} locLongtitude={item?.longitude} />
                                                 </Stack>
                                             </span>
                                         </Stack>

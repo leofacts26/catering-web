@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import ListViewSkeleton from '../ListViewSkeleton ';
 import { addchWishlist } from '@/app/features/user/settingSlice';
 import { fetchtiffinSearchCards, incrementTiffinPage } from '@/app/features/tiffin/tiffinFilterSlice';
+import ShowOnMap from '../ShowOnMap';
 
 const ListViewTiffin = () => {
     const accessToken = useSelector((state) => state.user.accessToken);
@@ -115,33 +116,37 @@ const ListViewTiffin = () => {
                                                     {item?.subscription_type_name}
                                                 </div>
                                             </div>
-                                            <div className="list-card-center">
+                                            <div className="list-card-center h-100">
                                                 <h2 className='list-card-title'>{item?.catering_service_name}</h2>
                                                 <p className='list-card-desc'>
                                                     {item?.street_name ? `${item.street_name}, ` : ''}
                                                     {/* {item?.area ? `${item.area}, ` : ''} */}
                                                     {item?.city ? item.city : ''}
                                                 </p>
-                                                <Stack direction="row" spacing={1} sx={{ marginTop: '15px', marginBottom: '15px' }}>
-                                                    {
-                                                        item?.food_types?.map((food_type, index) => {
-                                                            let iconSrc = '';
-                                                            if (food_type === 'Veg') {
-                                                                iconSrc = '/img/icons/list-card-veg.png';
-                                                            } else if (food_type === 'Non Veg') {
-                                                                iconSrc = '/img/icons/list-card-non-veg.png';
-                                                            } else {
-                                                                iconSrc = '/img/icons/list-card-veg.png';
-                                                            }
-                                                            return (
-                                                                <Stack direction="row" alignItems="center" spacing={0} key={index}>
-                                                                    <img src={iconSrc} className='list-card-veg' alt="" />
-                                                                    <p className='list-card-veg-font'> {food_type} </p>
-                                                                </Stack>
-                                                            )
-                                                        })
-                                                    }
-                                                </Stack>
+
+                                                {
+                                                    item?.food_types?.length > 0 && <Stack direction="row" spacing={1} sx={{ marginTop: '15px', marginBottom: '15px' }}>
+                                                        {
+                                                            item?.food_types?.map((food_type, index) => {
+                                                                let iconSrc = '';
+                                                                if (food_type === 'Veg') {
+                                                                    iconSrc = '/img/icons/list-card-veg.png';
+                                                                } else if (food_type === 'Non Veg') {
+                                                                    iconSrc = '/img/icons/list-card-non-veg.png';
+                                                                } else {
+                                                                    iconSrc = '/img/icons/list-card-veg.png';
+                                                                }
+                                                                return (
+                                                                    <Stack direction="row" alignItems="center" spacing={0} key={index}>
+                                                                        <img src={iconSrc} className='list-card-veg' alt="" />
+                                                                        <p className='list-card-veg-font'> {food_type} </p>
+                                                                    </Stack>
+                                                                )
+                                                            })
+                                                        }
+                                                    </Stack>
+                                                }
+
                                                 {/* <Stack direction={{ xs: 'row', sm: 'row', md: 'row', lg: "row" }} flexWrap="wrap" spacing={1} className='list-card-dish-loc'>
                                     <span>South Indian | </span>  <span>North Indian | </span>  <span>hyderabadi | </span>  <span>Mughlai | </span>  <span>Kerala </span>
                                 </Stack> */}
@@ -203,7 +208,9 @@ const ListViewTiffin = () => {
                                                 <Stack direction="row" alignItems="center" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} style={{ marginTop: '8px' }}>
                                                     <span className='cat-yellow' style={{ fontSize: '14px' }}>
                                                         <Stack direction="row" alignItems="center">
-                                                            <LocationOnIcon style={{ fontSize: '15px', marginRight: '5px' }} /> <span className='lse-map-icon-orange'>Show On Map</span>
+                                                            {/* <LocationOnIcon style={{ fontSize: '15px', marginRight: '5px' }} /> 
+                                                            <span className='lse-map-icon-orange'>Show On Map</span> */}
+                                                            <ShowOnMap locLatitude={item?.latitude} locLongtitude={item?.longitude} />
                                                         </Stack>
                                                     </span>
                                                 </Stack>

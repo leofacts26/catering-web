@@ -2,11 +2,11 @@
 import React from 'react'
 import Typography from '@mui/material/Typography';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
-import Link from '@mui/material/Link';
 import Container from '@mui/material/Container';
+import Link from 'next/link'
 
 
-const Breadcrumb = ({ service, city, results, title }) => {
+const Breadcrumb = ({ homeLink, serviceLink, service, city, results, title, onBreadcrumbLocationSearch }) => {
 
     function handleClick(event) {
         event.preventDefault();
@@ -20,27 +20,27 @@ const Breadcrumb = ({ service, city, results, title }) => {
                 <Breadcrumbs separator=">" aria-label="breadcrumb">
                     <Link
                         className="breadcrumb-link"
-                        underline="hover" color="inherit" href="/">
+                        underline="hover" href={homeLink}>
                         Home
                     </Link>
 
-                    {service && <Link
+                    {service && serviceLink && <Link
                         className="breadcrumb-link"
                         underline="hover"
-                        color="inherit"
-                        href="#"
+                        href={serviceLink}
                     >
                         {service}
                     </Link>}
 
-                    {city && <Link
+                    {city && <div
+                        onClick={onBreadcrumbLocationSearch}
                         className="breadcrumb-link"
                         underline="hover"
-                        color="inherit"
-                        href="#"
+                        color="inherit" 
+                        style={{cursor: 'pointer'}}
                     >
                         {city}
-                    </Link>}
+                    </div>}
 
                     {results && <Link
                         className="breadcrumb-link"
