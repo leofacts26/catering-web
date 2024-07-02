@@ -62,13 +62,13 @@ const ExpoloreCuisinesCard = () => {
                         }}
                         modules={[Navigation, Autoplay]}
                         style={{ padding: '0px 5px' }}
-                        className="mySwiper branded-cater-slider"
+                        className="mySwiper cuisine-slider"
                         breakpoints={{
                             0: {
-                                slidesPerView: 1,
+                                slidesPerView: 2,
                             },
                             600: {
-                                slidesPerView: 3,
+                                slidesPerView: 4,
                             },
                             960: {
                                 slidesPerView: 6,

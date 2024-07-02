@@ -175,7 +175,7 @@ h6 {
   overflow: hidden;
 }
 
-.text-wrap{
+.text-wrap {
   text-wrap: wrap;
 }
 
@@ -927,9 +927,63 @@ h6 {
   padding-left: 0px !important;
 }
 
+/* cuisine-slider  */
+
+.cuisine-slider .swiper-button-prev:after,
+.swiper-rtl .swiper-button-next:after {
+  /* display: none !important; */
+  font-size: 19px !important;
+  font-weight: 600 !important;
+}
+
+.cuisine-slider .swiper-button-prev,
+.swiper-rtl .swiper-button-next {
+  right: var(--swiper-navigation-sides-offset, 3px);
+  left: 22px !important;
+  color: #322d2d;
+  font-size: 1px;
+  background: #fff;
+  border-radius: 50%;
+  width: 45px;
+  box-shadow: var(--card-box-shadow) !important;
+}
+
+.cuisine-slider .swiper-button-next,
+.swiper-rtl .swiper-button-prev {
+  right: var(--swiper-navigation-sides-offset, 3px);
+  left: auto;
+  color: #322d2d;
+  font-size: 1px;
+  background: #fff;
+  border-radius: 50%;
+  width: 45px;
+  box-shadow: var(--card-box-shadow) !important;
+}
+
+.cuisine-slider .swiper-button-next:after,
+.swiper-rtl .swiper-button-prev:after {
+  font-size: 19px !important;
+}
+
+/* cuisine-slider  */
+
 .branded-cater-slider .swiper-button-prev:after,
 .swiper-rtl .swiper-button-next:after {
-  display: none !important;
+  /* display: none !important; */
+  font-size: 19px !important;
+  font-weight: 600 !important;
+}
+
+.branded-cater-slider .swiper-button-prev,
+.swiper-rtl .swiper-button-next {
+  right: var(--swiper-navigation-sides-offset, 3px);
+  left: 0px !important;
+  color: #322d2d;
+  font-size: 1px;
+  background: #fff;
+  border-radius: 50%;
+  width: 45px;
+  box-shadow: var(--card-box-shadow) !important;
 }
 
 .branded-cater-slider .swiper-button-next,
