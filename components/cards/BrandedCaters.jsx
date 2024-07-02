@@ -79,7 +79,7 @@ const BrandedCaters = () => {
             {brandedList?.length > 0 && brandedList?.map((brandedcaterer) => (
               <>
                 <SwiperSlide key={brandedcaterer?.id}>
-                  <CardContent key={brandedcaterer?.id} style={{ padding: '10px 20px' }}>
+                  <CardContent style={{ padding: '10px 20px' }}>
                     <Stack direction="row" justifyContent="center" className='recent-search-card w-100'>
                       <img onClick={() => handleImageClick()} src={brandedcaterer?.gallery_images['vendor-brand-logo']?.[0]?.image_name[0]?.original ? brandedcaterer?.gallery_images['vendor-brand-logo']?.[0]?.image_name[0]?.original : '/img/no-image.jpg'} alt="" className="img-fluid explore-cuisine-img cursor-pointer" />
                     </Stack>
