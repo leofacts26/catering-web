@@ -10,23 +10,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addchWishlist, fetchWishlist } from '@/app/features/user/settingSlice';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { fetchCateringSearchCards, incrementPage } from '@/app/features/user/cateringFilterSlice';
+import toast from 'react-hot-toast';
 
 
 const ListView = () => {
-    const accessToken = useSelector((state) => state.user.accessToken);
     const dispatch = useDispatch()
     const { getCateringSearchCards, isLoading, current_page, limit, total_count } = useSelector((state) => state.cateringFilter)
+    const accessToken = useSelector((state) => state.user.accessToken);
 
-    // console.log({ current_page, total_count }, "current_page, total_count");
-
-
-    // const [whishlistStatus, setWhishlistStatus] = useState(0)
-
-    // useEffect(() => {
-    //     if(accessToken){
-    //         dispatch(fetchWishlist())
-    //     }
-    // }, [whishlistStatus])
+    console.log(accessToken, "accessToken accessToken");
 
     const [wishlist, setWishlist] = useState({});
 
@@ -91,7 +83,7 @@ const ListView = () => {
             ))}
         </>
     }
-    // console.log(getCateringSearchCards, "getCateringSearchCards");
+    console.log(getCateringSearchCards, "getCateringSearchCards");
 
 
 
@@ -106,7 +98,7 @@ const ListView = () => {
                         <div className="list-view-card" key={getSearchCard?.id}>
                             <Stack spacing={{ xs: 1, sm: 2, md: 0 }} direction={{ xs: 'column', sm: 'row', md: 'row', lg: "row" }} justifyContent="space-between" flexWrap="wrap">
 
-                                <Stack direction={{ xs: 'column', sm: 'row', md: 'row', lg: "row" }} spacing={2}>
+                                <Stack direction={{ xs: 'column', sm: 'row', md: 'row', lg: "row" }} alignItems="center" spacing={2}>
                                     <div className="list-card-img position-relative">
                                         <img src={imageSrc} alt="" className="img-fluid listview-img" style={{ borderRadius: '8px', height: '100%' }} />
                                         <div className="position-absolute list-card-tag">
@@ -115,7 +107,11 @@ const ListView = () => {
                                     </div>
                                     <div className="list-card-center">
                                         <h2 className='list-card-title'>{getSearchCard?.catering_service_name}</h2>
-                                        <p className='list-card-desc'>{getSearchCard?.street_name} {getSearchCard?.area} {getSearchCard?.city}</p>
+                                        <p className='list-card-desc'>
+                                            {getSearchCard?.street_name ? `${getSearchCard.street_name}, ` : ''}
+                                            {/* {getSearchCard?.area ? `${getSearchCard.area}, ` : ''} */}
+                                            {getSearchCard?.city ? getSearchCard.city : ''}
+                                        </p>
 
                                         <Stack direction="row" spacing={1} sx={{ marginTop: '15px', marginBottom: '15px' }}>
                                             {
@@ -138,31 +134,35 @@ const ListView = () => {
                                             }
                                         </Stack>
 
-                                        <Stack
+                                        {getSearchCard?.cuisines.length > 0 && <Stack
                                             // direction={{ xs: 'row', sm: 'row', md: 'row', lg: "row" }} 
                                             direction="flex"
                                             flexWrap="wrap"
                                             spacing={1} className='list-card-dish-loc'
                                             style={{ width: '375px' }}
                                         >
-                                            {
-                                                getSearchCard?.cuisines?.slice(0, 3)?.map((cuisine, index) => {
-                                                    return (
-                                                        <span className='me-2' key={index}> {cuisine} </span>
-                                                    )
-                                                })
-                                            }
-                                        </Stack>
+                                            <span className='me-2 text-ellipse-one-listcard'>
+                                                {getSearchCard?.cuisines?.slice(0, 8)?.map((cuisine) => cuisine).join(" | ")}
+                                            </span>
+                                        </Stack>}
 
 
-                                        <Stack direction="flex" flexWrap="wrap" spacing={1} sx={{ marginTop: '15px' }}>
-                                            {
-                                                getSearchCard?.occasions?.slice(0, 4)?.map((occasion, index) => {
-                                                    return (
-                                                        <span className='list-card-chip me-2' key={index}>{occasion}</span>
-                                                    )
-                                                })
-                                            }
+
+
+                                        <Stack direction="flex" flexWrap="wrap" spacing={1} sx={{ marginTop: '15px' }} className='listview-three'>
+
+                                            {getSearchCard?.service_types?.length > 0 && <span className='list-card-chip me-2'>
+                                                {getSearchCard?.service_types?.map((service_type) => service_type).join(" & ")}
+                                            </span>}
+
+                                            {getSearchCard?.minimum_quantity && <span className='list-card-chip me-2'>
+                                                Min. Order - {getSearchCard?.minimum_quantity}
+                                            </span>}
+
+                                            {getSearchCard?.total_staffs_approx && <span className='list-card-chip me-2'>
+                                                No.Of Staffs: {getSearchCard?.total_staffs_approx}
+                                            </span>}
+
                                         </Stack>
                                         <Stack direction={{ xs: 'row', sm: 'row', md: 'row', lg: "row" }} className='cat-types' spacing={2}>
                                             <Stack direction="row" alignItems="center">
@@ -178,13 +178,13 @@ const ListView = () => {
                                 </Stack>
 
 
-                                <Stack className="list-card-end" direction="column" justifyContent="space-between">
+                                <Stack className="list-card-end m-0 p-0" direction="column" justifyContent="space-between">
                                     <div>
-                                        <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} className='mb-2'>
+                                        <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} className='mb-2 share-love'>
                                             <ShareIcon className='lse-icons' style={{ marginRight: '10px', cursor: 'pointer' }} />
-                                            {
-                                                wishlist[getSearchCard?.id] ? <FavoriteIcon className='lse-icons cursor-pointer fill-heart-catering' onClick={() => onHandleAddFavourite(getSearchCard?.id)} /> : <FavoriteBorderIcon className='lse-icons cursor-pointer' onClick={() => onHandleAddFavourite(getSearchCard?.id)} />
-                                            }
+                                           {accessToken ? <>
+                                            {wishlist[getSearchCard?.id] ? <FavoriteIcon className='lse-icons cursor-pointer fill-heart-catering' onClick={() => onHandleAddFavourite(getSearchCard?.id)} /> : <FavoriteBorderIcon className='lse-icons cursor-pointer' onClick={() => onHandleAddFavourite(getSearchCard?.id)} />}
+                                           </> : <FavoriteBorderIcon className='lse-icons cursor-pointer' onClick={() => toast.error("Login before Adding to Wishlist")} />  } 
                                         </Stack>
                                         <Stack direction="row" alignItems="center" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} style={{ marginTop: '8px' }}>
                                             <span className='cat-red' style={{ fontSize: '14px' }}>
@@ -200,9 +200,10 @@ const ListView = () => {
 
 
                                     <div>
-                                        <Stack className="lv-price mb-2" direction="row" justifyContent={{ xs: 'start', sm: 'start', lg: "end" }}>
+                                        {getSearchCard?.start_price && <Stack className="lv-price mb-2" direction="row" justifyContent={{ xs: 'start', sm: 'start', lg: "end" }}>
                                             <span className='lse-starting-price'>Starting Price - <span className='lse-rupees'>₹ {getSearchCard?.start_price}/- </span> </span>
-                                        </Stack>
+                                        </Stack>}
+
                                         <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} style={{ marginTop: '6px' }}>
                                             <span className='lse-starting-price'>Inclusive All Taxes</span>
                                         </Stack>

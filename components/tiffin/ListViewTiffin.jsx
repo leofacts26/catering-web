@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import BrunchDiningIcon from '@mui/icons-material/BrunchDining';
 import FastfoodIcon from '@mui/icons-material/Fastfood';
@@ -11,10 +12,10 @@ import ShareIcon from '@mui/icons-material/Share';
 import { useDispatch, useSelector } from 'react-redux';
 import ListViewSkeleton from '../ListViewSkeleton ';
 import { addchWishlist } from '@/app/features/user/settingSlice';
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import { fetchtiffinSearchCards, incrementTiffinPage } from '@/app/features/tiffin/tiffinFilterSlice';
 
 const ListViewTiffin = () => {
+    const accessToken = useSelector((state) => state.user.accessToken);
 
     const { getTiffinSearchCards, isLoading, current_page, limit, total_count } = useSelector((state) => state.tiffinFilter)
     const dispatch = useDispatch()
@@ -116,7 +117,11 @@ const ListViewTiffin = () => {
                                             </div>
                                             <div className="list-card-center">
                                                 <h2 className='list-card-title'>{item?.catering_service_name}</h2>
-                                                <p className='list-card-desc'> {item?.area}, {item?.street_name}</p>
+                                                <p className='list-card-desc'>
+                                                    {item?.street_name ? `${item.street_name}, ` : ''}
+                                                    {/* {item?.area ? `${item.area}, ` : ''} */}
+                                                    {item?.city ? item.city : ''}
+                                                </p>
                                                 <Stack direction="row" spacing={1} sx={{ marginTop: '15px', marginBottom: '15px' }}>
                                                     {
                                                         item?.food_types?.map((food_type, index) => {
@@ -191,8 +196,8 @@ const ListViewTiffin = () => {
                                                 <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} className='mb-2'>
                                                     <ShareIcon className='lse-icons' style={{ marginRight: '10px' }} />
                                                     {
-                                                        wishlist[item?.id] ? <FavoriteIcon className='lse-icons cursor-pointer fill-heart-tiffin' onClick={() => onHandleAddFavourite(item?.id)} /> : 
-                                                        <FavoriteBorderIcon className='lse-icons cursor-pointer' onClick={() => onHandleAddFavourite(item?.id)} />
+                                                        wishlist[item?.id] ? <FavoriteIcon className='lse-icons cursor-pointer fill-heart-tiffin' onClick={() => onHandleAddFavourite(item?.id)} /> :
+                                                            <FavoriteBorderIcon className='lse-icons cursor-pointer' onClick={() => onHandleAddFavourite(item?.id)} />
                                                     }
                                                 </Stack>
                                                 <Stack direction="row" alignItems="center" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} style={{ marginTop: '8px' }}>
