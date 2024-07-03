@@ -39,6 +39,7 @@ import { setlLocationValuesGlobal, setManualLocation, setPeople } from '@/app/fe
 import { fetchCateringSearchCards } from '@/app/features/user/cateringFilterSlice';
 import { useRouter } from 'next/navigation';
 import { fetchtiffinSearchCards } from '@/app/features/tiffin/tiffinFilterSlice';
+import OutdoorGrillIcon from '@mui/icons-material/OutdoorGrill';
 
 
 const page = () => {
@@ -101,7 +102,7 @@ const page = () => {
       <Container maxWidth="lg">
         <Stack sx={{ marginTop: '20px' }} direction={{ xs: 'column', sm: 'column', md: 'column', lg: 'row' }} alignItems="end" justifyContent="space-between">
           <div>
-            <Stack direction="row" alignItems="center" spacing={2}>
+            <Stack direction={{ xs: 'column', sm: 'column', md: 'row', lg: 'row' }} alignItems="center" spacing={2}>
               {data?.vendor_service_name && <h2 className="vc-heading"> {data?.vendor_service_name} </h2>}
               <span className='vc-chip-tiffin'>{data?.subscription_type_display} {data?.vendor_type}</span>
             </Stack>
@@ -176,11 +177,12 @@ const page = () => {
 
       <Container maxWidth="xl" style={{ marginTop: '30px', marginBottom: '30px' }}>
         <Grid container spacing={2}>
-          {data?.serviceTypes?.length > 0 && <Grid item xs={12} sm={12} md={4} lg={2.5}>
+          {data?.serviceTypes?.length > 0 && <Grid item xs={12} sm={6} md={3} lg={2.5}>
             <div className="vc-shadow-tiffin">
               <CardContent>
                 <div className="text-center">
-                  <img src="/img/icons/service-type-filled.svg" className='vc-icon-svg' alt="" />
+                  {/* <img src="/img/icons/service-type-filled.svg" className='vc-icon-svg' alt="" /> */}
+                  <OutdoorGrillIcon className="vc-icon-label-tiffin" />
                   <p className="vc-service-type">Service Type</p>
                   <h3 className="vc-service-heading">
                     {data?.serviceTypes?.slice(0, 8)?.map((item) => item?.service_type_name).join(" , ")}
@@ -190,7 +192,7 @@ const page = () => {
             </div>
           </Grid>}
 
-          {data?.mealTimes?.length > 0 && <Grid item xs={12} sm={12} md={4} lg={2.5}>
+          {data?.mealTimes?.length > 0 && <Grid item xs={12} sm={6} md={3} lg={2.5}>
             <div className="vc-shadow-tiffin">
               <CardContent>
                 <div className="text-center">
@@ -204,7 +206,7 @@ const page = () => {
             </div>
           </Grid>}
 
-          {data?.start_day && data?.end_day && data?.start_time && data?.end_time && <Grid item xs={12} sm={12} md={4} lg={3}>
+          {data?.start_day && data?.end_day && data?.start_time && data?.end_time && <Grid item xs={12} sm={6} md={3} lg={3}>
             <div className="vc-shadow-tiffin">
               <CardContent>
                 <div className="text-center">
@@ -218,7 +220,7 @@ const page = () => {
           </Grid>}
 
 
-          {data?.working_since && <Grid item xs={12} sm={12} md={4} lg={2}>
+          {data?.working_since && <Grid item xs={12} sm={6} md={3} lg={2}>
             <div className="vc-shadow-tiffin">
               <CardContent>
                 <div className="text-center">

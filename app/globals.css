@@ -2831,6 +2831,10 @@ h6 {
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
+
+  .vc-address{
+    margin: 20px 0px;
+  }
   
   .vc-heading{
     width: 100%;
@@ -2937,6 +2941,12 @@ h6 {
 }
 
 @media screen and (max-width: 425px) {
+  .vc-icon-box{
+    width: 100%;
+  }
+  .vc-heading{
+    font-size: 14px;
+  }
   .listview-img{
     width: 100%;
   }
@@ -2953,6 +2963,9 @@ h6 {
   .list-card-title{
     max-width: 280px;
   }
+  .job-textarea{
+    width: 265px !important;
+  }
 }
 
 @media screen and (max-width: 376px) {
@@ -2962,6 +2975,9 @@ h6 {
   .listview-img{
     width: 89% !important;
   }
+  .job-textarea {
+    width: 210px !important;
+}
 }
 @media screen and (max-width: 326px) {
   .listview-img{
