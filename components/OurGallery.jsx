@@ -27,7 +27,7 @@ const OurGallery = ({ galleryImages, bennerMenuMixGalleryImages }) => {
         }
     });
 
-    console.log(bennerMenuMixGalleryImages, "bennerMenuMixGalleryImages");
+    // console.log(bennerMenuMixGalleryImages, "bennerMenuMixGalleryImages");
 
     return (
         <>
@@ -40,7 +40,7 @@ const OurGallery = ({ galleryImages, bennerMenuMixGalleryImages }) => {
             />
             <Container maxWidth="xl" style={{ marginTop: '30px', marginBottom: '30px' }}>
                 <div className='cursor-pointer'>
-                    <h2 className="text-center mx-auto vc-gallery">Our Gallery</h2>
+                  {combinedImages?.length > 0 && <h2 className="text-center mx-auto vc-gallery">Our Gallery</h2>}  
                     <Grid container spacing={2} onClick={() => setOpen(true)}>
                         {combinedImages.map((image, index) => (
                             <Grid item xs={6} sm={4} md={3} key={index}>

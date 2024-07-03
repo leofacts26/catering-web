@@ -102,14 +102,15 @@ const page = () => {
         <Stack sx={{ marginTop: '20px' }} direction={{ xs: 'column', sm: 'column', md: 'column', lg: 'row' }} alignItems="end" justifyContent="space-between">
           <div>
             <Stack direction="row" alignItems="center" spacing={2}>
-              <h2 className="vc-heading"> {data?.vendor_service_name} </h2>
-              <span className='vc-chip-tiffin'>Populat {data?.vendor_type}</span>
+              {data?.vendor_service_name && <h2 className="vc-heading"> {data?.vendor_service_name} </h2>}
+              <span className='vc-chip-tiffin'>{data?.subscription_type_display} {data?.vendor_type}</span>
             </Stack>
-            <h3 className="vc-address">{data?.formatted_address}</h3>
+            {data?.formatted_address && <h3 className="vc-address">{data?.formatted_address}</h3>}
           </div>
           <div className='vc-icon-box'>
             <Stack direction='row' justifyContent="space-between" alignItems="end">
-              <Stack direction="row" alignItems="center" spacing={1} className="vc-icons-tiffin"> <ShareIcon style={{ fontSize: '18px' }} /> <span>Share</span></Stack>
+              <Stack direction="row" alignItems="center" spacing={1} className="vc-icons-tiffin"> <ShareIcon style={{ fontSize: '18px' }} />
+                <span>Share</span></Stack>
               {/* TiffinDetailSave  */}
               <TiffinDetailSave branchId={branchId} is_wishlisted={data?.is_wishlisted} />
               <ShowOnMap locLatitude={data?.latitude} locLongtitude={data?.longitude} />
@@ -124,10 +125,11 @@ const page = () => {
         <Box sx={{ flexGrow: 1 }} className="mb-4">
           <Grid container spacing={2}>
             <Grid item sm={12} lg={7}>
-              <Stack direction="row" alignItems="center" spacing={1} className="mb-4">
+
+              {data?.foodTypes?.length > 0 && <Stack direction="row" alignItems="center" spacing={1} className="mb-4">
                 <h2 className="food-type-tiffin">Food Type :</h2>
                 {
-                  data?.foodTypes?.map((food_type, index) => {
+                  data?.foodTypes?.slice(1, 3).map((food_type, index) => {
                     let iconSrc = '';
                     if (food_type?.food_type_name === 'Veg') {
                       iconSrc = '/img/icons/list-card-veg.png';
@@ -144,23 +146,28 @@ const page = () => {
                     )
                   })
                 }
-              </Stack>
+              </Stack>}
 
-              <h2 className="vc-cater-tiffin">Cuisines We Cater</h2>
-              <h2 className="vc-locations"> {data?.cuisines?.slice(0, 8)?.map((item) => item?.cuisine_name).join(" | ")}... </h2>
+
+              {data?.cuisines?.length > 0 && <div>
+                <h2 className="vc-cater-tiffin">Cuisines We Cater</h2>
+                <h2 className="vc-locations"> {data?.cuisines?.slice(0, 8)?.map((item) => item?.cuisine_name).join(" | ")}... </h2>
+              </div>}
             </Grid>
+
+
             <Grid item sm={12} lg={5}>
               <Stack direction="column" alignContent="end" alignItems="end" justifyContent="end">
-                <Stack direction="row" alignItems="center" className="mb-4">
+                {data?.start_price && <Stack direction="row" alignItems="center" className="mb-4">
                   <span className="vc-price">Starting Price / Plate -</span>
                   <Stack direction="row" alignItems="center" spacing={0}>
                     <CurrencyRupeeIcon className="vc-price-one-tiffin" /> <span className="vc-price-one-tiffin"> {data?.start_price} </span>
                   </Stack>
-                </Stack>
+                </Stack>}
                 <p className="vc-reviews-tiffin">See Reviews (352)</p>
-                <Stack direction="row" spacing={2} style={{ marginTop: '10px' }}>
+                {data?.business_phone_number && <Stack direction="row" spacing={2} style={{ marginTop: '10px' }}>
                   <ContactBtn number={data?.business_phone_number} />
-                </Stack>
+                </Stack>}
               </Stack>
             </Grid>
           </Grid>
@@ -169,8 +176,8 @@ const page = () => {
 
       <Container maxWidth="xl" style={{ marginTop: '30px', marginBottom: '30px' }}>
         <Grid container spacing={2}>
-          <Grid item xs={12} sm={12} md={4} lg={2.5}>
-            <div className="vc-shadow">
+          {data?.serviceTypes?.length > 0 && <Grid item xs={12} sm={12} md={4} lg={2.5}>
+            <div className="vc-shadow-tiffin">
               <CardContent>
                 <div className="text-center">
                   <img src="/img/icons/service-type-filled.svg" className='vc-icon-svg' alt="" />
@@ -181,9 +188,10 @@ const page = () => {
                 </div>
               </CardContent>
             </div>
-          </Grid>
-          <Grid item xs={12} sm={12} md={4} lg={2.5}>
-            <div className="vc-shadow">
+          </Grid>}
+
+          {data?.mealTimes?.length > 0 && <Grid item xs={12} sm={12} md={4} lg={2.5}>
+            <div className="vc-shadow-tiffin">
               <CardContent>
                 <div className="text-center">
                   <WbSunnyIcon className="vc-icon-label-tiffin" />
@@ -194,9 +202,10 @@ const page = () => {
                 </div>
               </CardContent>
             </div>
-          </Grid>
-          <Grid item xs={12} sm={12} md={4} lg={3}>
-            <div className="vc-shadow">
+          </Grid>}
+
+          {data?.start_day && data?.end_day && data?.start_time && data?.end_time && <Grid item xs={12} sm={12} md={4} lg={3}>
+            <div className="vc-shadow-tiffin">
               <CardContent>
                 <div className="text-center">
                   <AccessTimeIcon className="vc-icon-label-tiffin" />
@@ -206,9 +215,11 @@ const page = () => {
                 </div>
               </CardContent>
             </div>
-          </Grid>
-          <Grid item xs={12} sm={12} md={4} lg={2}>
-            <div className="vc-shadow">
+          </Grid>}
+
+
+          {data?.working_since && <Grid item xs={12} sm={12} md={4} lg={2}>
+            <div className="vc-shadow-tiffin">
               <CardContent>
                 <div className="text-center">
                   <TimelineIcon className="vc-icon-label-tiffin" />
@@ -217,13 +228,17 @@ const page = () => {
                 </div>
               </CardContent>
             </div>
-          </Grid>
+          </Grid>}
+
         </Grid>
       </Container>
 
       <Container maxWidth="xl" style={{ marginTop: '30px', marginBottom: '30px' }}>
-        <h3 className="vc-about-us-tiffin">About Us</h3>
-        <p className="vc-para">{data?.about_description}</p>
+
+        {data?.about_description && <div>
+          <h3 className="vc-about-us-tiffin">About Us</h3>
+          <p className="vc-para">{data?.about_description}</p>
+        </div>}
 
         {data?.branches > 0 && <>
           <h3 className="vc-about-us-tiffin" style={{ marginTop: '20px' }}>Our Branches</h3>

@@ -34,7 +34,7 @@ const Breadcrumb = ({ homeLink, serviceLink, service, city, results, title, onBr
 
                     {city && <div
                         onClick={onBreadcrumbLocationSearch}
-                        className="breadcrumb-link"
+                        className="breadcrumb-link cityHover"
                         underline="hover"
                         color="inherit" 
                         style={{cursor: 'pointer'}}

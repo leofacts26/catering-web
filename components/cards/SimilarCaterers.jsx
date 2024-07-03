@@ -23,14 +23,17 @@ const SimilarCaterers = ({ tiffin }) => {
         dispatch(fetchCatererSimilarCaterer())
     }, [])
 
-    console.log(getCateringSimilarTypes, "getCateringSimilarTypes 666666");
+    // console.log(getCateringSimilarTypes, "getCateringSimilarTypes 666666");
 
     return (
         <Container maxWidth="xl" style={{ marginTop: '30px', marginBottom: '30px' }}>
-            <Stack sx={{ marginBottom: '10px' }} alignItems="center" justifyContent="space-between" direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 1, sm: 2, md: 4 }}>
-                <h2 className='font-24 similar-caterers'>Similar Caterers / Popular Caterers in your area</h2>
-                <Link href="/" className="vc-see-all" style={{ color: tiffin ? '#D9822B' : '#C33332' }}>See all</Link>
-            </Stack>
+            {
+                getCateringSimilarTypes.length > 0 && <Stack sx={{ marginBottom: '10px' }} alignItems="center" justifyContent="space-between" direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 1, sm: 2, md: 4 }}>
+                    <h2 className='font-24 similar-caterers'>Similar Caterers / Popular Caterers in your area</h2>
+                    <Link href="/catering-search" className="vc-see-all" style={{ color: tiffin ? '#D9822B' : '#C33332' }}>See all</Link>
+                </Stack>
+            }
+
 
             <Swiper
                 navigation={true}
@@ -68,47 +71,52 @@ const SimilarCaterers = ({ tiffin }) => {
                         <div className="vc-similar-card" key={item}>
                             <img src="/img/occasions/03.jpg" alt="" className="img-fluid vc-similar-card-img" />
                             <div className="vc-similar-card-description">
-                                <Stack direction="row" justifyContent="space-between" alignItems="start" style={{ marginTop: '10px', marginBottom: '10px' }}>
-                                    <div className="text-start">
-                                        <h3 className='sc-title'>{item?.catering_service_name}</h3>
-                                        <p className='vc-similar-card-small text-left'> {item?.city !== null && `${item?.city},`} {item?.area} </p>
-                                    </div>
-                                    {/* <span className='vc-similar-card-cost' style={{ color: tiffin ? '#D9822B' : '#C33332' }}>270 / Plate</span> */}
-                                </Stack>
+                                <div>
+                                    <Stack direction="row" justifyContent="space-between" alignItems="start" style={{ marginTop: '10px', marginBottom: '10px' }}>
+                                        <div className="text-start">
+                                            {item?.catering_service_name && <h3 className='sc-title text-ellipse-one'>{item?.catering_service_name}</h3>}
+                                            <p className='vc-similar-card-small text-left text-ellipse-one'>
+                                                {item?.city ? `${item?.city}, ` : ''}
+                                                {item?.area ? `${item?.area} ` : ''}
+                                            </p>
 
-                                <Stack direction="row" spacing={1}>
-                                    {
-                                        item?.food_types?.map((food_type, index) => {
-                                            let iconSrc = '';
-                                            if (food_type === 'Veg') {
-                                                iconSrc = '/img/icons/list-card-veg.png';
-                                            } else if (food_type === 'Non Veg') {
-                                                iconSrc = '/img/icons/list-card-non-veg.png';
-                                            } else {
-                                                iconSrc = '/img/icons/list-card-veg.png';
-                                            }
-                                            return (
-                                                <Stack direction="row" alignItems="center" spacing={0} key={index}>
-                                                    <img src={iconSrc} className='list-card-veg' alt="" />
-                                                    <p className='list-card-veg-font'> {food_type} </p>
-                                                </Stack>
-                                            )
-                                        })
-                                    }
-                                </Stack>
-
-
-
-                                <span className="vc-similar-blue text-ellipse-two"> {item?.cuisines?.slice(0, 6)?.map((item) => item).join(" | ")}</span>
-
-                                {
-                                    item?.start_price !== null && <Stack direction="row" alignItems="center" justifyContent="end" className="mb-2 mt-2">
-                                        <Stack direction="row" alignItems="center" justifyContent="end" spacing={0}>
-                                            <CurrencyRupeeIcon style={{ fontSize: '15px' }} className={tiffin ? 'vc-price-one-similar-tiffin' : 'vc-price-one-similar-catering'} />
-                                            <span className={tiffin ? 'vc-price-one-similar-tiffin' : 'vc-price-one-similar-catering'}> {`${item?.start_price}`} / Plate </span>
-                                        </Stack>
+                                        </div>
                                     </Stack>
-                                }
+
+                                    {item?.food_types?.slice(1, 3)?.length > 0 && <Stack direction="row" spacing={1}>
+                                        {
+                                            item?.food_types?.map((food_type, index) => {
+                                                let iconSrc = '';
+                                                if (food_type === 'Veg') {
+                                                    iconSrc = '/img/icons/list-card-veg.png';
+                                                } else if (food_type === 'Non Veg') {
+                                                    iconSrc = '/img/icons/list-card-non-veg.png';
+                                                } else {
+                                                    iconSrc = '/img/icons/list-card-veg.png';
+                                                }
+                                                return (
+                                                    <Stack direction="row" alignItems="center" spacing={0} key={index}>
+                                                        <img src={iconSrc} className='list-card-veg' alt="" />
+                                                        <p className='list-card-veg-font'> {food_type} </p>
+                                                    </Stack>
+                                                )
+                                            })
+                                        }
+                                    </Stack>}
+
+                                    {item?.cuisines?.length > 0 && <span className="vc-similar-blue text-ellipse-two"> {item?.cuisines?.slice(0, 6)?.map((item) => item).join(" | ")}</span>}
+                                </div>
+
+                                <div className='w-100'>
+                                    {
+                                        item?.start_price !== null && <Stack direction="row" alignItems="center" justifyContent="end" className="mb-2 mt-2">
+                                            <Stack direction="row" alignItems="center" justifyContent="end" spacing={0}>
+                                                <CurrencyRupeeIcon style={{ fontSize: '15px' }} className={tiffin ? 'vc-price-one-similar-tiffin' : 'vc-price-one-similar-catering'} />
+                                                <span className={tiffin ? 'vc-price-one-similar-tiffin' : 'vc-price-one-similar-catering'}> {`${item?.start_price}`} / Plate </span>
+                                            </Stack>
+                                        </Stack>
+                                    }
+                                </div>
 
 
                             </div>

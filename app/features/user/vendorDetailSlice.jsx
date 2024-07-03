@@ -47,7 +47,7 @@ export const vendorDetailsSlice = createSlice({
     name: 'vendorDetails',
     initialState,
     reducers: {
-       
+
     },
     extraReducers: (builder) => {
         builder
@@ -70,8 +70,9 @@ export const vendorDetailsSlice = createSlice({
                 state.isLoading = false;
             })
             .addCase(addReviews.rejected, (state, { payload }) => {
+                console.log(payload, "payload payload ");
                 state.isLoading = false;
-                toast.error(datavalidationerror(payload));
+                toast.error('You cannot update your review within three months of your last review.');
             })
     }
 })
@@ -79,7 +80,7 @@ export const vendorDetailsSlice = createSlice({
 
 
 // Action creators are generated for each case reducer function
-export const {  } = vendorDetailsSlice.actions
+export const { } = vendorDetailsSlice.actions
 
 export default vendorDetailsSlice.reducer
 

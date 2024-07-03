@@ -117,68 +117,80 @@ const ListViewTiffin = () => {
                                                 </div>
                                             </div>
                                             <div className="list-card-center h-100">
-                                                <h2 className='list-card-title'>{item?.catering_service_name}</h2>
-                                                <p className='list-card-desc'>
-                                                    {item?.street_name ? `${item.street_name}, ` : ''}
-                                                    {/* {item?.area ? `${item.area}, ` : ''} */}
-                                                    {item?.city ? item.city : ''}
-                                                </p>
 
-                                                {
-                                                    item?.food_types?.length > 0 && <Stack direction="row" spacing={1} sx={{ marginTop: '15px', marginBottom: '15px' }}>
-                                                        {
-                                                            item?.food_types?.map((food_type, index) => {
+                                                <Stack className='h-100' justifyContent="space-between">
+                                                    <div>
+                                                        <h2 className='list-card-title'>{item?.catering_service_name}</h2>
+                                                        <p className='list-card-desc'>
+                                                            {item?.street_name ? `${item.street_name}, ` : ''}
+                                                            {/* {item?.area ? `${item.area}, ` : ''} */}
+                                                            {item?.city ? item.city : ''}
+                                                        </p>
+                                                        <div className='m-0 p-0'>
+                                                            {
+                                                                item?.food_types?.length > 0 && <Stack direction="row" spacing={1} sx={{ marginTop: '10px', marginBottom: '4px' }}>
+                                                                    {
+                                                                        item?.food_types?.slice(1, 3).map((food_type, index) => {
+                                                                            let iconSrc = '';
+                                                                            if (food_type === 'Veg') {
+                                                                                iconSrc = '/img/icons/list-card-veg.png';
+                                                                            } else if (food_type === 'Non Veg') {
+                                                                                iconSrc = '/img/icons/list-card-non-veg.png';
+                                                                            } else {
+                                                                                iconSrc = '/img/icons/list-card-veg.png';
+                                                                            }
+                                                                            return (
+                                                                                <Stack direction="row" alignItems="center" spacing={0} key={index} className='m-0 p-0'>
+                                                                                    <img src={iconSrc} className='list-card-veg' alt="" />
+                                                                                    <p className='list-card-veg-font'> {food_type} </p>
+                                                                                </Stack>
+                                                                            )
+                                                                        })
+                                                                    }
+                                                                </Stack>
+                                                            }
+                                                            <Stack className='m-0 p-0' direction={{ xs: 'row', sm: 'row', md: 'row', lg: "row" }} flexWrap="wrap" spacing={0} sx={{ marginTop: '15px' }}>
+                                                                {
+                                                                    item?.meal_times?.map((mealtime, index) => {
+                                                                        const isLast = index === item.meal_times.length - 1;
+                                                                        return (
+                                                                            <span className='list-card-chip-tiffin'> {mealtime}{!isLast && ' |'} </span>
+                                                                        )
+                                                                    })
+                                                                }
+                                                            </Stack>
+                                                        </div>
+                                                    </div>
+
+                                                    <div>
+                                                        <Stack direction={{ xs: 'row', sm: 'row', md: 'row', lg: "row" }} className='cat-types' spacing={2}>
+                                                            {item?.service_types?.map((serviceType) => {
                                                                 let iconSrc = '';
-                                                                if (food_type === 'Veg') {
-                                                                    iconSrc = '/img/icons/list-card-veg.png';
-                                                                } else if (food_type === 'Non Veg') {
-                                                                    iconSrc = '/img/icons/list-card-non-veg.png';
+                                                                if (serviceType.toLowerCase() === 'delivery') {
+                                                                    iconSrc = '/img/icons/delivery.png';
+                                                                } else if (serviceType.toLowerCase() === 'dine in') {
+                                                                    iconSrc = '/img/icons/Dine-In.png';
+                                                                } else if (serviceType.toLowerCase() === 'takeaway') {
+                                                                    iconSrc = '/img/icons/Takeaway.png';
                                                                 } else {
-                                                                    iconSrc = '/img/icons/list-card-veg.png';
+                                                                    iconSrc = '/img/icons/delivery.png';
                                                                 }
                                                                 return (
-                                                                    <Stack direction="row" alignItems="center" spacing={0} key={index}>
-                                                                        <img src={iconSrc} className='list-card-veg' alt="" />
-                                                                        <p className='list-card-veg-font'> {food_type} </p>
+                                                                    <Stack direction="row" alignItems="center">
+
+                                                                        <img src={iconSrc} alt={serviceType} className="img-fluid list-view-icons" />
+                                                                        <span className='list-view-icon-text'> {serviceType} </span>
                                                                     </Stack>
                                                                 )
-                                                            })
-                                                        }
-                                                    </Stack>
-                                                }
-                                                <Stack direction={{ xs: 'row', sm: 'row', md: 'row', lg: "row" }} flexWrap="wrap" spacing={0} sx={{ marginTop: '15px' }}>
-                                                    {
-                                                        item?.meal_times?.map((mealtime, index) => {
-                                                            const isLast = index === item.meal_times.length - 1;
-                                                            return (
-                                                                <span className='list-card-chip-tiffin'>    {mealtime}{!isLast && ' |'}</span>
-                                                            )
-                                                        })
-                                                    }
+                                                            })}
+                                                        </Stack>
+                                                    </div>
                                                 </Stack>
-                                                <Stack direction={{ xs: 'row', sm: 'row', md: 'row', lg: "row" }} className='cat-types' spacing={2}>
 
-                                                    {item?.service_types?.map((serviceType) => {
-                                                        let iconSrc = '';
-                                                        if (serviceType.toLowerCase() === 'delivery') {
-                                                            iconSrc = '/img/icons/delivery.png';
-                                                        } else if (serviceType.toLowerCase() === 'dine in') { 
-                                                            iconSrc = '/img/icons/Dine-In.png';
-                                                        } else if (serviceType.toLowerCase() === 'takeaway') {
-                                                            iconSrc = '/img/icons/Takeaway.png';
-                                                        } else {
-                                                            iconSrc = '/img/icons/delivery.png';
-                                                        }
-                                                        return (
-                                                            <Stack direction="row" alignItems="center">
 
-                                                                <img src={iconSrc} alt={serviceType} className="img-fluid list-view-icons" />
-                                                                <span className='list-view-icon-text'> {serviceType} </span>
-                                                            </Stack>
-                                                        )
-                                                    })}
 
-                                                </Stack>
+
+
                                             </div>
                                         </Stack>
 
@@ -206,9 +218,10 @@ const ListViewTiffin = () => {
 
 
                                             <div>
-                                                <Stack className="lv-price mb-2" direction="row" justifyContent={{ xs: 'start', sm: 'start', lg: "end" }}>
+                                                {item?.start_price && <Stack className="lv-price mb-2" direction="row" justifyContent={{ xs: 'start', sm: 'start', lg: "end" }}>
                                                     <span className='lse-starting-price'>Monyhly plan Cost - <span className='lse-rupees-orange'>₹ {item?.start_price}/- </span> </span>
-                                                </Stack>
+                                                </Stack>}
+
                                                 <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} style={{ marginTop: '6px' }}>
                                                     <span className='lse-starting-price'>Inclusive All Taxes</span>
                                                 </Stack>

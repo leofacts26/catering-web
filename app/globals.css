@@ -183,6 +183,13 @@ h6 {
   overflow: hidden;
 }
 
+.text-ellipse-vc-heading {
+  display: -webkit-box;
+  max-width: 75%;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
 
 .text-wrap {
   text-wrap: wrap;
@@ -1369,6 +1376,8 @@ h6 {
   color: #ffffff;
   padding: 5px 10px;
   border-radius: 99px;
+  width: 160px;
+  text-align: center;
 }
 
 .vc-chip-tiffin {
@@ -1377,6 +1386,8 @@ h6 {
   color: #ffffff;
   padding: 5px 10px;
   border-radius: 99px;
+  width: 160px;
+  text-align: center;
 }
 
 .vc-heading {
@@ -1384,6 +1395,7 @@ h6 {
   color: #245396;
   font-weight: 600;
   font-family: "Outfit", sans-serif;
+  width: 75%;
 }
 
 .vc-heading-tiffin {
@@ -1391,6 +1403,7 @@ h6 {
   color: #459412;
   font-weight: 600;
   font-family: "Outfit", sans-serif;
+  width: 75%;
 }
 
 .vc-address {
@@ -1398,10 +1411,11 @@ h6 {
   color: #245396;
   font-weight: 400;
   margin-top: 5px;
+  width: 75%;
 }
 
 .vc-icon-box {
-  width: 28%;
+  width: 25%;
 }
 
 .vc-icons {
@@ -1687,6 +1701,10 @@ h6 {
 
 .vc-shadow {
   box-shadow: var(--card-box-shadow);
+}
+.vc-shadow-tiffin {
+  box-shadow: var(--card-box-shadow);
+  height: 130px;
 }
 
 .vc-icon-svg {
@@ -2814,6 +2832,12 @@ h6 {
     overflow: hidden;
   }
   
+  .vc-heading{
+    width: 100%;
+  }
+  .vc-heading-tiffin{
+    width: 100%;
+  }
 
   .sub-input {
     width: 100%;
@@ -3134,12 +3158,6 @@ textarea:-webkit-autofill:active {
   font-size: 18px !important;
 }
 
-
-/* test  */
-
-/* .gm-style-iw {
-  background: #fff !important;
-  padding: 1px 0px 0px 1px !important;
-  margin: 0px !important;
-  height: 100px !important;
-} */
+.cityHover{
+  text-decoration: underline;
+}
