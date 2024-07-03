@@ -72,10 +72,10 @@ const page = () => {
 
 
   const onBreadcrumbLocationSearch = () => {
-    const { latitude, longitude, city, place_id, pincode, formatted_address, vendor_service_name } = data;
+    const { latitude, longitude, city, place_id, pincode, formatted_address } = data;
     dispatch(setManualLocation(city));
-    dispatch(setPeople(vendor_service_name));
-    dispatch(setlLocationValuesGlobal({ latitude, longitude, place_id, pincode, search_term: vendor_service_name, city: { long_name: city }, formatted_address }));
+    // dispatch(setPeople(vendor_service_name));
+    dispatch(setlLocationValuesGlobal({ latitude, longitude, place_id, pincode, city: { long_name: city }, formatted_address }));
     dispatch(fetchtiffinSearchCards());
     const url = `/tiffin-search`;
     router.push(url);
@@ -114,7 +114,7 @@ const page = () => {
                 <span>Share</span></Stack>
               {/* TiffinDetailSave  */}
               <TiffinDetailSave branchId={branchId} is_wishlisted={data?.is_wishlisted} />
-              <ShowOnMap locLatitude={data?.latitude} locLongtitude={data?.longitude} />
+              <ShowOnMap tiffinColor locLatitude={data?.latitude} locLongtitude={data?.longitude} />
             </Stack>
           </div>
         </Stack>
