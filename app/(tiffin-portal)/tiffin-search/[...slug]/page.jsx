@@ -35,7 +35,7 @@ import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import { useParams } from 'next/navigation'
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setlLocationValuesGlobal, setManualLocation } from '@/app/features/user/globalNavSlice';
+import { setlLocationValuesGlobal, setManualLocation, setPeople } from '@/app/features/user/globalNavSlice';
 import { fetchCateringSearchCards } from '@/app/features/user/cateringFilterSlice';
 import { useRouter } from 'next/navigation';
 import { fetchtiffinSearchCards } from '@/app/features/tiffin/tiffinFilterSlice';
@@ -73,6 +73,7 @@ const page = () => {
   const onBreadcrumbLocationSearch = () => {
     const { latitude, longitude, city, place_id, pincode, formatted_address, vendor_service_name } = data;
     dispatch(setManualLocation(city));
+    dispatch(setPeople(vendor_service_name));
     dispatch(setlLocationValuesGlobal({ latitude, longitude, place_id, pincode, search_term: vendor_service_name, city: { long_name: city }, formatted_address }));
     dispatch(fetchtiffinSearchCards());
     const url = `/tiffin-search`;

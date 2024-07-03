@@ -191,7 +191,7 @@ const ListView = () => {
                                             <span className='cat-red' style={{ fontSize: '14px' }}>
                                                 <Stack direction="row" alignItems="center">
                                                     {/* <LocationOnIcon style={{ fontSize: '15px', marginRight: '5px' }} /> <span className='lse-map-icon'>Show On Map</span> */}
-                                                    <ShowOnMap locLatitude={item?.latitude} locLongtitude={item?.longitude} />
+                                                    <ShowOnMap locLatitude={getSearchCard?.latitude} locLongtitude={getSearchCard?.longitude} />
                                                 </Stack>
                                             </span>
                                         </Stack>
