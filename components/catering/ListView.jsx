@@ -12,6 +12,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import { fetchCateringSearchCards, incrementPage } from '@/app/features/user/cateringFilterSlice';
 import toast from 'react-hot-toast';
 import ShowOnMap from '../ShowOnMap';
+import StarIcon from '@mui/icons-material/Star';
 
 
 const ListView = () => {
@@ -197,6 +198,15 @@ const ListView = () => {
                                         </Stack>
                                         <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} style={{ marginTop: '8px' }}>
                                             <span className='lse-reviews'> {getSearchCard?.review_count} Reviews</span>
+                                        </Stack>
+                                        <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} style={{ marginTop: '8px' }}>
+                                            <div className="mt-2">
+                                                {[...Array(parseInt(getSearchCard.rating.slice(0, 1)))].map((star, index) => (
+                                                    <StarIcon key={index} style={{ color: '#C33332', fontSize: 20 }} />
+                                                ))}
+                                                <p className='vc-review-card-para text-ellipse-three text-start'>{getSearchCard?.review_text}</p>
+                                               
+                                            </div>
                                         </Stack>
                                     </div>
 

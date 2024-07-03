@@ -18,13 +18,13 @@ import ListView from '@/components/catering/ListView';
 import GridViewList from '@/components/catering/GridView';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
-import { fetchCateringCuisines, fetchCateringFoodTypes, fetchCateringSearchCards, fetchCateringServingTypes, fetchHeadCounts, fetchOccasionCateringTypes, fetchPriceRanges, fetchServiceTypes } from '@/app/features/user/cateringFilterSlice';
+import { fetchCateringCuisines, fetchCateringFoodTypes, fetchCateringSearchCards, fetchCateringServingTypes, fetchCaterRatings, fetchHeadCounts, fetchOccasionCateringTypes, fetchPriceRanges, fetchServiceTypes } from '@/app/features/user/cateringFilterSlice';
 
 const page = () => {
   const [checked, setChecked] = useState(true);
   const router = useRouter()
   const dispatch = useDispatch()
-  const { getCateringSearchCards, getCateringPriceRanges, getCateringFoodTypes, getCateringCuisines, getCateringServiceTypes, getCateringHeadCount, getCateringServingTypes, total_count } = useSelector((state) => state.cateringFilter)
+  const { getCateringSearchCards, getCateringPriceRanges, getCateringFoodTypes, getCateringCuisines, getCateringServiceTypes, getCateringRatings, getCateringHeadCount, getCateringServingTypes, total_count } = useSelector((state) => state.cateringFilter)
   console.log(getCateringSearchCards, "getCateringSearchCards");
 
   useEffect(() => {
@@ -44,18 +44,21 @@ const page = () => {
     if (getCateringServiceTypes.length === 0) {
       dispatch(fetchServiceTypes());
     }
+    if (getCateringRatings.length === 0) {
+      dispatch(fetchCaterRatings());
+    }
     if (getCateringServingTypes.length === 0) {
       dispatch(fetchCateringServingTypes());
     }
 
-  }, [dispatch, getCateringPriceRanges.length, getCateringHeadCount.length, getCateringFoodTypes.length, getCateringCuisines.length, getCateringServiceTypes.length, getCateringServingTypes.length]);
+  }, [dispatch, getCateringPriceRanges.length, getCateringHeadCount.length, getCateringFoodTypes.length, getCateringCuisines.length, getCateringRatings.length, getCateringServiceTypes.length, getCateringServingTypes.length]);
 
   useEffect(() => {
     // Dispatch search cards only if all necessary data is available
-    if (getCateringPriceRanges.length > 0 && getCateringHeadCount.length > 0 && getCateringFoodTypes.length && getCateringCuisines.length && getCateringServiceTypes.length && getCateringServingTypes.length) {
+    if (getCateringPriceRanges.length > 0 && getCateringHeadCount.length > 0 && getCateringFoodTypes.length && getCateringCuisines.length && getCateringRatings.length && getCateringServiceTypes.length && getCateringServingTypes.length) {
       dispatch(fetchCateringSearchCards());
     }
-  }, [dispatch, getCateringPriceRanges.length, getCateringHeadCount.length, getCateringFoodTypes.length, getCateringCuisines.length, getCateringServiceTypes.length, getCateringServingTypes.length]);
+  }, [dispatch, getCateringPriceRanges.length, getCateringHeadCount.length, getCateringFoodTypes.length, getCateringCuisines.length, getCateringRatings.length, getCateringServiceTypes.length, getCateringServingTypes.length]);
 
 
 
@@ -76,7 +79,7 @@ const page = () => {
       <Container maxWidth="xl">
         <Box sx={{ flexGrow: 1 }} style={{ marginTop: '20px' }}>
           <Grid container spacing={2}>
-            <Grid item xs={12} md={12} lg={3} xl={2.8}>
+            <Grid item xs={12} md={12} lg={3} xl={2.9}>
               <div className="position-relative">
                 <img src="/img/Search-Result-View-Page-Images/01-map.png" alt="" className="img-fluid" style={{ borderRadius: '5px', marginBottom: '4px' }} />
                 <div className="position-absolute map-box">
@@ -87,7 +90,7 @@ const page = () => {
               <Filters />
 
             </Grid>
-            <Grid item xs={12} md={12} lg={9} xl={9.2}>
+            <Grid item xs={12} md={12} lg={9} xl={9.1}>
               {getCateringSearchCards.length > 0 && <Stack direction={{ xs: 'column', sm: 'column', md: 'row' }} justifyContent="space-between" style={{ margin: '0px 0px 0px 0px' }}>
                 <h2 className='catering-found'>Chennai: {total_count} Catering service providers found</h2>
                 <SwitchSearchResult checked={checked} setChecked={setChecked} />

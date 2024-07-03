@@ -207,7 +207,7 @@ const ListViewTiffin = () => {
                                                 <Stack direction="row" alignItems="center" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} style={{ marginTop: '8px' }}>
                                                     <span className='cat-yellow' style={{ fontSize: '14px' }}>
                                                         <Stack direction="row" alignItems="center">
-                                                            <ShowOnMap locLatitude={item?.latitude} locLongtitude={item?.longitude} />
+                                                            <ShowOnMap tiffinColor locLatitude={item?.latitude} locLongtitude={item?.longitude} />
                                                         </Stack>
                                                     </span>
                                                 </Stack>

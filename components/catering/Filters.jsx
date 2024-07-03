@@ -14,6 +14,7 @@ import { useDispatch } from 'react-redux';
 import { resetFilters } from '@/app/features/user/cateringFilterSlice';
 import toast from 'react-hot-toast';
 import CaterHeadCount from './CaterHeadCount';
+import CaterRatingCount from './CaterRatingCount';
 
 
 const Filters = () => {
@@ -45,6 +46,13 @@ const Filters = () => {
                     <CardContent>
                         <h3 className='font-20 font-weight-500 filter-text'>Choose Head Count:</h3>
                         <CaterHeadCount />
+                    </CardContent>
+                    <Divider />
+
+
+                    <CardContent>
+                        <h3 className='font-20 font-weight-500 filter-text'>Choose Catering Rating:</h3>
+                        <CaterRatingCount />
                     </CardContent>
                     <Divider />
 

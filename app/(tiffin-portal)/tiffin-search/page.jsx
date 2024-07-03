@@ -75,7 +75,7 @@ const page = () => {
       <Container maxWidth="xl">
         <Box sx={{ flexGrow: 1 }} style={{ marginTop: '20px' }}>
           <Grid container spacing={2}>
-            <Grid item xs={12} md={12} lg={3} xl={2.8}>
+            <Grid item xs={12} md={12} lg={3} xl={2.9}>
               <div className="position-relative">
                 <img src="/img/Search-Result-View-Page-Images/01-map.png" alt="" className="img-fluid" style={{ borderRadius: '5px', marginBottom: '4px' }} />
                 <div className="position-absolute map-box">
@@ -84,7 +84,7 @@ const page = () => {
               </div>
               <TiffinFilters />
             </Grid>
-            <Grid item xs={12} md={12} lg={9} xl={9.2}>
+            <Grid item xs={12} md={12} lg={9} xl={9.1}>
 
               {getTiffinSearchCards?.length > 0 && <Stack direction='row' justifyContent="space-between" style={{ margin: '0px 0px 0px 0px' }}>
                 <h2 className='catering-found'>Chennai: {`${total_count}`} Tiffin service providers found</h2>

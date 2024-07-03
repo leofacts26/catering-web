@@ -4,10 +4,10 @@ import Stack from '@mui/material/Stack';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { useRouter } from 'next/navigation';
 
-const ShowOnMap = ({ locLatitude, locLongtitude, zoomLevel = 15  }) => {
+const ShowOnMap = ({ tiffinColor, locLatitude, locLongtitude, zoomLevel = 15 }) => {
     const router = useRouter();
     // console.log(locData, "locData locData");
-    
+
     const handleClick = () => {
         router.push(`/tiffin-search/tiffin-map?lat=${locLatitude}&lng=${locLongtitude}&zoom=${zoomLevel}`);
     };
@@ -15,8 +15,8 @@ const ShowOnMap = ({ locLatitude, locLongtitude, zoomLevel = 15  }) => {
     return (
         <>
             <Stack direction="row" alignItems="center" spacing={1} className="vc-icons-tiffin">
-                <LocationOnIcon style={{ fontSize: '14px' }} />
-                <span className="font-12" onClick={handleClick}>Show On Map</span>
+                <LocationOnIcon style={{ fontSize: '14px'  }} className={`${tiffinColor ? 'secondary' : 'primary'}`} />
+                <span className={`${tiffinColor ? 'secondary' : 'primary'} font-12`} onClick={handleClick}>Show On Map</span>
             </Stack>
         </>
     );

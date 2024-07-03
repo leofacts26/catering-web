@@ -13,6 +13,7 @@ const initialState = {
     getOccasionCateringTypes: [],
     getCateringCuisines: [],
     getCateringServiceTypes: [],
+    getCateringRatings: [],
     getCateringServingTypes: [],
     getCateringSearchCards: [],
     getCateringMapviewSearchCards: [],
@@ -22,7 +23,7 @@ const initialState = {
     getAllSortOrders: [],
     subscriptionTypes: [],
     current_page: 1,
-    limit: 7,
+    limit: 10,
     total_count: null,
     // detail page 
     getCateringSimilarTypes: [],
@@ -140,6 +141,22 @@ export const fetchServiceTypes = createAsyncThunk(
     }
 )
 
+export const fetchCaterRatings = createAsyncThunk(
+    'user/fetchCaterRatings',
+    async (user, thunkAPI) => {
+        try {
+            const response = await api.get(`${BASE_URL}/get-all-ratings?limit=10&current_page=1`, {
+                headers: {
+                    authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
+                },
+            });
+            return response?.data?.data;
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error.response.data.msg);
+        }
+    }
+)
+
 export const fetchCateringServingTypes = createAsyncThunk(
     'user/fetchCateringServingTypes',
     async (user, thunkAPI) => {
@@ -202,6 +219,7 @@ export const fetchCateringSearchCards = createAsyncThunk(
         const getCateringFoodTypes = thunkAPI.getState().cateringFilter?.getCateringFoodTypes;
         const getCateringServingTypes = thunkAPI.getState().cateringFilter?.getCateringServingTypes;
         const getCateringServiceTypes = thunkAPI.getState().cateringFilter?.getCateringServiceTypes;
+        const getCateringRatings = thunkAPI.getState().cateringFilter?.getCateringRatings;
         const getCateringCuisines = thunkAPI.getState().cateringFilter?.getCateringCuisines;
         const getOccasionCateringTypes = thunkAPI.getState().cateringFilter?.getOccasionCateringTypes;
         const subscriptionTypes = thunkAPI.getState().cateringFilter?.subscriptionTypes;
@@ -236,6 +254,15 @@ export const fetchCateringSearchCards = createAsyncThunk(
             selected: service.selectedweb
         }));
 
+        // rating_filter_formatted
+        const rating_filter_formatted = getCateringRatings.map(item => ({
+            rating: item.rating,
+            selected: item.selectedweb
+        }));
+
+        console.log(rating_filter_formatted, "rating_filter_formatted");
+
+
         // serving_filter_formatted 
         const serving_filter_formatted = getCateringServingTypes.map(serving => ({
             id: Number(serving.id),
@@ -269,7 +296,7 @@ export const fetchCateringSearchCards = createAsyncThunk(
 
 
         try {
-            const response = await api.get(`${BASE_URL}/search-vendors?search_term=${people}&order_by=distance&limit=${(current_page * limit)}&save_filter=1&vendor_type=Caterer&app_type=web&order_by_filter=${cateringSortBy_filter}&occasions_filter=${JSON.stringify(occasions_filter_formatted)}&food_types_filter=${JSON.stringify(foodtype_filter_formatted)}&head_count_ranges=${JSON.stringify(updatedHeadcount_formatted)}&price_ranges=${JSON.stringify(updatedPriceTypes_formatted)}&subscription_types_filter=${JSON.stringify(subscriptionTypes_formatted)}&cuisines_filter=${JSON.stringify(finalCuisineresult)}&serving_types_filter=${JSON.stringify(serving_filter_formatted)}&service_types_filter=${JSON.stringify(service_filter_formatted)}&latitude=${locationValuesGlobal?.latitude || ""}&longitude=${locationValuesGlobal?.longitude || ""}&city=${locationValuesGlobal?.city?.long_name || ""}&pincode=${locationValuesGlobal?.pincode || ""}&place_id=${locationValuesGlobal?.place_id || ''}&start_date=${moment(startDate).format('YYYY-MM-DD')}&end_date=${moment(endDate).format('YYYY-MM-DD')}`, {
+            const response = await api.get(`${BASE_URL}/search-vendors?search_term=${people}&order_by=distance&limit=${(current_page * limit)}&save_filter=1&vendor_type=Caterer&app_type=web&order_by_filter=${cateringSortBy_filter}&occasions_filter=${JSON.stringify(occasions_filter_formatted)}&food_types_filter=${JSON.stringify(foodtype_filter_formatted)}&head_count_ranges=${JSON.stringify(updatedHeadcount_formatted)}&price_ranges=${JSON.stringify(updatedPriceTypes_formatted)}&subscription_types_filter=${JSON.stringify(subscriptionTypes_formatted)}&cuisines_filter=${JSON.stringify(finalCuisineresult)}&serving_types_filter=${JSON.stringify(serving_filter_formatted)}&ratings_filter=${JSON.stringify(rating_filter_formatted)}&service_types_filter=${JSON.stringify(service_filter_formatted)}&latitude=${locationValuesGlobal?.latitude || ""}&longitude=${locationValuesGlobal?.longitude || ""}&city=${locationValuesGlobal?.city?.long_name || ""}&pincode=${locationValuesGlobal?.pincode || ""}&place_id=${locationValuesGlobal?.place_id || ''}&start_date=${moment(startDate).format('YYYY-MM-DD')}&end_date=${moment(endDate).format('YYYY-MM-DD')}`, {
                 headers: {
                     authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
                 },
@@ -301,6 +328,7 @@ export const fetchCateringMapviewSearchCards = createAsyncThunk(
         const current_page = thunkAPI.getState().cateringFilter?.current_page;
         const limit = thunkAPI.getState().cateringFilter?.limit;
         const total_count = thunkAPI.getState().cateringFilter?.total_count;
+        const getCateringRatings = thunkAPI.getState().cateringFilter?.getCateringRatings;
 
         // cateringSortBy_filter
         const cateringSortBy_filter = JSON.stringify(cateringSortBy)
@@ -360,10 +388,17 @@ export const fetchCateringMapviewSearchCards = createAsyncThunk(
              return { id: Number(headcount.id), start: parseFloat(headcount.start), end: parseFloat(headcount.end) };
          });
 
+          // rating_filter_formatted
+        const rating_filter_formatted = getCateringRatings.map(item => ({
+            rating: item.rating,
+            selected: item.selectedweb
+        }));
+
+
         
 
         try {
-            const response = await api.get(`${BASE_URL}/search-vendors?search_term=${people}&order_by=distance&limit=${total_count}&save_filter=1&vendor_type=Caterer&app_type=web&service_types_filter=${JSON.stringify(service_filter_formatted)}&order_by_filter=${cateringSortBy_filter}&serving_types_filter=${JSON.stringify(serving_filter_formatted)}&head_count_ranges=${JSON.stringify(updatedHeadcount_formatted)}&subscription_types_filter=${JSON.stringify(subscriptionTypes_formatted)}&occasions_filter=${JSON.stringify(occasions_filter_formatted)}&price_ranges=${JSON.stringify(updatedPriceTypes_formatted)}&food_types_filter=${JSON.stringify(foodtype_filter_formatted)}&cuisines_filter=${JSON.stringify(finalCuisineresult)}&latitude=${locationValuesGlobal?.latitude || ""}&longitude=${locationValuesGlobal?.longitude || ""}&city=${locationValuesGlobal?.city?.long_name || ""}&pincode=${locationValuesGlobal?.pincode || ""}&place_id=${locationValuesGlobal?.place_id || ''}&start_date=${moment(startDate).format('YYYY-MM-DD')}&end_date=${moment(endDate).format('YYYY-MM-DD')}`, {
+            const response = await api.get(`${BASE_URL}/search-vendors?search_term=${people}&order_by=distance&limit=${total_count}&save_filter=1&vendor_type=Caterer&app_type=web&service_types_filter=${JSON.stringify(service_filter_formatted)}&order_by_filter=${cateringSortBy_filter}&serving_types_filter=${JSON.stringify(serving_filter_formatted)}&head_count_ranges=${JSON.stringify(updatedHeadcount_formatted)}&subscription_types_filter=${JSON.stringify(subscriptionTypes_formatted)}&occasions_filter=${JSON.stringify(occasions_filter_formatted)}&ratings_filter=${JSON.stringify(rating_filter_formatted)}&price_ranges=${JSON.stringify(updatedPriceTypes_formatted)}&food_types_filter=${JSON.stringify(foodtype_filter_formatted)}&cuisines_filter=${JSON.stringify(finalCuisineresult)}&latitude=${locationValuesGlobal?.latitude || ""}&longitude=${locationValuesGlobal?.longitude || ""}&city=${locationValuesGlobal?.city?.long_name || ""}&pincode=${locationValuesGlobal?.pincode || ""}&place_id=${locationValuesGlobal?.place_id || ''}&start_date=${moment(startDate).format('YYYY-MM-DD')}&end_date=${moment(endDate).format('YYYY-MM-DD')}`, {
                 headers: {
                     authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
                 },
@@ -495,6 +530,16 @@ export const cateringFilterSlice = createSlice({
                 }
             })
             state.getCateringServiceTypes = updatedServiceTypes;
+        },
+        setRatingTypesFilter: (state, action) => {
+            const updatedRatingTypes = state.getCateringRatings.map((getRatingType) => {
+                if (getRatingType.rating === action.payload) {
+                    return { ...getRatingType, selectedweb: getRatingType.selectedweb === 1 ? 0 : 1 }
+                } else {
+                    return getRatingType;
+                }
+            })
+            state.getCateringRatings = updatedRatingTypes;
         },
         setServingTypesFilter: (state, action) => {
             const updatedServingTypes = state.getCateringServingTypes.map((servingType) => {
@@ -649,6 +694,18 @@ export const cateringFilterSlice = createSlice({
                 state.isLoading = false;
                 toast.error(datavalidationerror(payload));
             })
+            // fetchCaterRatings 
+            .addCase(fetchCaterRatings.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(fetchCaterRatings.fulfilled, (state, { payload }) => {
+                state.isLoading = false;
+                state.getCateringRatings = payload;
+            })
+            .addCase(fetchCaterRatings.rejected, (state, { payload }) => {
+                state.isLoading = false;
+                toast.error(datavalidationerror(payload));
+            })
             // fetchCateringServingTypes
             .addCase(fetchCateringServingTypes.pending, (state) => {
                 state.isLoading = true;
@@ -746,7 +803,7 @@ export const {
     // setEndDate,
     // setDateRange,
 
-
+    setRatingTypesFilter,
     setServiceTypesFilter,
     setServingTypesFilter,
     servingFilters,

@@ -3188,3 +3188,10 @@ textarea:-webkit-autofill:active {
 .cityHover{
   text-decoration: underline;
 }
+
+.primary{
+   color: var(--secondary) !important;
+}
+.secondary{
+   color: var(--primary) !important;
+}
