@@ -22,6 +22,7 @@ import TiffinFoodTypes from './TiffinFoodTypes';
 import TiffinMealtypes from './TiffinMealtypes';
 import TiffinServiceTypes from './TiffinServiceTypes';
 import TiffinkitchenTypes from './TiffinkitchenTypes';
+import TiffinRatingCount from './TiffinRatingCount';
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 const CssTextField = styled(TextField)(({ theme }) => ({
     '& .MuiOutlinedInput-root': {
@@ -68,8 +69,15 @@ const TiffinFilters = () => {
                     <Divider />
 
                     <CardContent>
+                        <h3 className='font-20 font-weight-500 filter-text'>Choose Tiffin Rating:</h3>
+                        <TiffinRatingCount />
+                    </CardContent>
+                    <Divider />
+
+
+                    <CardContent>
                         <h3 className='font-20 font-weight-500 filter-text'>Choose Meal Time:</h3>
-                       <TiffinMealtypes />
+                        <TiffinMealtypes />
                     </CardContent>
                     <Divider />
 
@@ -81,7 +89,7 @@ const TiffinFilters = () => {
 
                     <CardContent>
                         <h3 className='font-20 font-weight-500 filter-text'>Choose Kitchen Type:</h3>
-                       <TiffinkitchenTypes />
+                        <TiffinkitchenTypes />
                     </CardContent>
                     <Divider />
 

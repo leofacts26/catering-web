@@ -260,7 +260,7 @@ export const fetchCateringSearchCards = createAsyncThunk(
             selected: item.selectedweb
         }));
 
-        console.log(rating_filter_formatted, "rating_filter_formatted");
+        // console.log(rating_filter_formatted, "rating_filter_formatted");
 
 
         // serving_filter_formatted 

@@ -14,6 +14,9 @@ import ListViewSkeleton from '../ListViewSkeleton ';
 import { addchWishlist } from '@/app/features/user/settingSlice';
 import { fetchtiffinSearchCards, incrementTiffinPage } from '@/app/features/tiffin/tiffinFilterSlice';
 import ShowOnMap from '../ShowOnMap';
+import StarIcon from '@mui/icons-material/Star';
+
+
 
 const ListViewTiffin = () => {
     const accessToken = useSelector((state) => state.user.accessToken);
@@ -94,7 +97,7 @@ const ListViewTiffin = () => {
         </>
     }
 
-    // console.log(getTiffinSearchCards, "getTiffinSearchCards getTiffinSearchCards");
+    console.log(getTiffinSearchCards, "getTiffinSearchCards getTiffinSearchCards");
 
     return (
         <>
@@ -213,6 +216,15 @@ const ListViewTiffin = () => {
                                                 </Stack>
                                                 <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} style={{ marginTop: '8px' }}>
                                                     <span className='lse-reviews'> {item?.review_count} Reviews</span>
+                                                </Stack>
+                                                <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} style={{ marginTop: '8px' }}>
+                                                    <div className="mt-2">
+                                                        {[...Array(parseInt(item.rating.slice(0, 1)))].map((star, index) => (
+                                                            <StarIcon key={index} style={{ color: '#C33332', fontSize: 20 }} />
+                                                        ))}
+                                                        <p className='vc-review-card-para text-ellipse-three text-start'>{item?.review_text}</p>
+
+                                                    </div>
                                                 </Stack>
                                             </div>
 

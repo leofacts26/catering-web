@@ -17,13 +17,13 @@ import GridViewTiffin from '@/components/tiffin/GridViewTiffin';
 import TiffinFilters from '@/components/tiffin/TiffinFilters';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
-import { fetchTiffinFoodTypes, fetchTiffinKitchenTypes, fetchTiffinMealTypes, fetchTiffinPriceRanges, fetchtiffinSearchCards, fetchTiffinServiceTypes } from '@/app/features/tiffin/tiffinFilterSlice';
+import { fetchTiffinFoodTypes, fetchTiffinKitchenTypes, fetchTiffinMealTypes, fetchTiffinPriceRanges, fetchTiffinRatings, fetchtiffinSearchCards, fetchTiffinServiceTypes } from '@/app/features/tiffin/tiffinFilterSlice';
 
 
 
 const page = () => {
   const router = useRouter()
-  const { getTiffinSearchCards, getTiffinFoodTypes, getTiffinPriceRanges, getTiffinServiceTypes, getTiffinMealTypes, getTiffinKitchenTypes, total_count } = useSelector((state) => state.tiffinFilter)
+  const { getTiffinSearchCards, getTiffinRatings, getTiffinFoodTypes, getTiffinPriceRanges, getTiffinServiceTypes, getTiffinMealTypes, getTiffinKitchenTypes, total_count } = useSelector((state) => state.tiffinFilter)
   const [checked, setChecked] = useState(true);
   const dispatch = useDispatch();
 
@@ -45,14 +45,17 @@ const page = () => {
     if (getTiffinFoodTypes.length === 0) {
       dispatch(fetchTiffinFoodTypes());
     }
-  }, [dispatch, getTiffinKitchenTypes.length, getTiffinServiceTypes.length, getTiffinMealTypes.length, getTiffinPriceRanges.length, getTiffinFoodTypes.length]);
+    if (getTiffinRatings.length === 0) {
+      dispatch(fetchTiffinRatings());
+    }
+  }, [dispatch, getTiffinKitchenTypes.length, getTiffinRatings.length, getTiffinServiceTypes.length, getTiffinMealTypes.length, getTiffinPriceRanges.length, getTiffinFoodTypes.length]);
 
   useEffect(() => {
     // Dispatch search cards only if all necessary data is available
-    if (getTiffinKitchenTypes.length > 0 && getTiffinServiceTypes.length > 0 && getTiffinMealTypes.length > 0 && getTiffinPriceRanges.length > 0 && getTiffinFoodTypes.length > 0) {
+    if (getTiffinKitchenTypes.length > 0 && getTiffinRatings.length > 0 && getTiffinServiceTypes.length > 0 && getTiffinMealTypes.length > 0 && getTiffinPriceRanges.length > 0 && getTiffinFoodTypes.length > 0) {
       dispatch(fetchtiffinSearchCards());
     }
-  }, [dispatch, getTiffinKitchenTypes.length, getTiffinServiceTypes.length, getTiffinMealTypes.length, getTiffinPriceRanges.length, getTiffinFoodTypes.length]);
+  }, [dispatch, getTiffinKitchenTypes.length, getTiffinRatings.length, getTiffinServiceTypes.length, getTiffinMealTypes.length, getTiffinPriceRanges.length, getTiffinFoodTypes.length]);
 
 
 
