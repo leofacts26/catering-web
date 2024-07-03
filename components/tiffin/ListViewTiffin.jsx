@@ -146,10 +146,6 @@ const ListViewTiffin = () => {
                                                         }
                                                     </Stack>
                                                 }
-
-                                                {/* <Stack direction={{ xs: 'row', sm: 'row', md: 'row', lg: "row" }} flexWrap="wrap" spacing={1} className='list-card-dish-loc'>
-                                    <span>South Indian | </span>  <span>North Indian | </span>  <span>hyderabadi | </span>  <span>Mughlai | </span>  <span>Kerala </span>
-                                </Stack> */}
                                                 <Stack direction={{ xs: 'row', sm: 'row', md: 'row', lg: "row" }} flexWrap="wrap" spacing={0} sx={{ marginTop: '15px' }}>
                                                     {
                                                         item?.meal_times?.map((mealtime, index) => {
@@ -166,7 +162,7 @@ const ListViewTiffin = () => {
                                                         let iconSrc = '';
                                                         if (serviceType.toLowerCase() === 'delivery') {
                                                             iconSrc = '/img/icons/delivery.png';
-                                                        } else if (serviceType.toLowerCase() === 'dine in') { // Corrected to all lowercase
+                                                        } else if (serviceType.toLowerCase() === 'dine in') { 
                                                             iconSrc = '/img/icons/Dine-In.png';
                                                         } else if (serviceType.toLowerCase() === 'takeaway') {
                                                             iconSrc = '/img/icons/Takeaway.png';
@@ -182,15 +178,6 @@ const ListViewTiffin = () => {
                                                         )
                                                     })}
 
-
-                                                    {/* <Stack direction="row" alignItems="center" spacing={1} className='tablet-second'>
-                                                    <img src="/img/icons/Dine-In.png" alt="" className="img-fluid list-view-icons" />
-                                                    <span className='list-view-icon-text'>Dine In</span>
-                                                </Stack>
-                                                <Stack direction="row" alignItems="center" spacing={1} className='tablet-second'>
-                                                    <img src="/img/icons/Takeaway.png" alt="" className="img-fluid list-view-icons" />
-                                                    <span className='list-view-icon-text'>Takeaway</span>
-                                                </Stack> */}
                                                 </Stack>
                                             </div>
                                         </Stack>
@@ -208,8 +195,6 @@ const ListViewTiffin = () => {
                                                 <Stack direction="row" alignItems="center" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} style={{ marginTop: '8px' }}>
                                                     <span className='cat-yellow' style={{ fontSize: '14px' }}>
                                                         <Stack direction="row" alignItems="center">
-                                                            {/* <LocationOnIcon style={{ fontSize: '15px', marginRight: '5px' }} /> 
-                                                            <span className='lse-map-icon-orange'>Show On Map</span> */}
                                                             <ShowOnMap locLatitude={item?.latitude} locLongtitude={item?.longitude} />
                                                         </Stack>
                                                     </span>

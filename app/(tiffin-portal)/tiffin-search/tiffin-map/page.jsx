@@ -15,6 +15,7 @@ import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 import { styled } from '@mui/material/styles';
 import MapAsyncSelect from '@/components/MapAsyncSelect';
+import MapTiffinInfoCard from '@/components/MapTiffinInfoCard';
 
 
 
@@ -54,6 +55,8 @@ const Page = () => {
             start_price: card.start_price,
             branch_id: card.id,
             vendor_id: card.vendor_id,
+            brand_logo: card.brand_logo,
+            getSearchCard: card
         }));
     }, [getTiffinMapviewSearchCards]);
 
@@ -101,9 +104,9 @@ const Page = () => {
         }
     }, [mapRef, zoom]);
 
-    const handleMarkerHover = (index, lat, lng, catering_service_name, start_price, vendor_id, branch_id) => {
+    const handleMarkerHover = (index, lat, lng, catering_service_name, start_price, vendor_id, branch_id, getSearchCard) => {
         setHoveredMarker(index);
-        setInfoWindowData({ index, catering_service_name, start_price, vendor_id, branch_id });
+        setInfoWindowData({ index, catering_service_name, start_price, vendor_id, branch_id, getSearchCard });
         setIsOpen(true);
     };
 
@@ -121,7 +124,7 @@ const Page = () => {
     };
 
 
-    //  console.log(getTiffinMapviewSearchCards, "getTiffinMapviewSearchCards");
+     console.log(getTiffinMapviewSearchCards, "getTiffinMapviewSearchCards");
 
     return (
         <>
@@ -165,11 +168,11 @@ const Page = () => {
                                         onLoad={onMapLoad}
                                         onClick={() => setIsOpen(false)}
                                     >
-                                        {markers.map(({ catering_service_name, lat, lng, start_price, vendor_id, branch_id }, index) => (
+                                        {markers.map(({ catering_service_name, lat, lng, start_price, vendor_id, branch_id, getSearchCard }, index) => (
                                             <Marker
                                                 key={index}
                                                 position={{ lat, lng }}
-                                                onMouseOver={() => handleMarkerHover(index, lat, lng, catering_service_name, start_price, vendor_id, branch_id)}
+                                                onMouseOver={() => handleMarkerHover(index, lat, lng, catering_service_name, start_price, vendor_id, branch_id, getSearchCard)}
                                                 onMouseOut={handleMarkerHoverOut}
                                                 icon={customMarker}
                                                 onClick={() => router.push(`/tiffin-search/${vendor_id}/${branch_id}`)}
@@ -178,10 +181,7 @@ const Page = () => {
                                                     <InfoWindow
                                                         onCloseClick={() => setIsOpen(false)}
                                                     >
-                                                        <div>
-                                                            <p> <b>Name:-</b> {infoWindowData.catering_service_name}</p>
-                                                            <p className='mt-2'> <b>Start Price:-</b> {infoWindowData.start_price}</p>
-                                                        </div>
+                                                        <MapTiffinInfoCard infoWindowData={infoWindowData} />
                                                     </InfoWindow>
                                                 )}
                                             </Marker>

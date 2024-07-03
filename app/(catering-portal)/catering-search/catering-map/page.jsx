@@ -12,6 +12,7 @@ import Filters from '@/components/catering/Filters';
 import GridViewList from '@/components/catering/GridView';
 import MapAsyncSelectCatering from '@/components/MapAsyncSelectCatering';
 import LoaderSpinner from '@/components/LoaderSpinner';
+import MapTiffinInfoCard from '@/components/MapTiffinInfoCard';
 
 const page = () => {
     const { getCateringMapviewSearchCards, isLoading } = useSelector((state) => state.cateringFilter)
@@ -51,6 +52,7 @@ const page = () => {
             start_price: card.start_price,
             branch_id: card.id,
             vendor_id: card.vendor_id,
+            getSearchCard: card
         }));
     }, [getCateringMapviewSearchCards]);
 
@@ -107,9 +109,9 @@ const page = () => {
         }
     }, [mapRef, zoom]);
 
-    const handleMarkerHover = (index, lat, lng, catering_service_name, start_price, vendor_id, branch_id) => {
+    const handleMarkerHover = (index, lat, lng, catering_service_name, start_price, vendor_id, branch_id, getSearchCard) => {
         setHoveredMarker(index);
-        setInfoWindowData({ index, catering_service_name, start_price, vendor_id, branch_id });
+        setInfoWindowData({ index, catering_service_name, start_price, vendor_id, branch_id, getSearchCard });
         setIsOpen(true);
     };
 
@@ -169,11 +171,11 @@ const page = () => {
                                         onLoad={onMapLoad}
                                         onClick={() => setIsOpen(false)}
                                     >
-                                        {markers.map(({ catering_service_name, lat, lng, start_price, vendor_id, branch_id }, index) => (
+                                        {markers.map(({ catering_service_name, lat, lng, start_price, vendor_id, branch_id, getSearchCard }, index) => (
                                             <Marker
                                                 key={index}
                                                 position={{ lat, lng }}
-                                                onMouseOver={() => handleMarkerHover(index, lat, lng, catering_service_name, start_price, vendor_id, branch_id)}
+                                                onMouseOver={() => handleMarkerHover(index, lat, lng, catering_service_name, start_price, vendor_id, branch_id, getSearchCard)}
                                                 onMouseOut={handleMarkerHoverOut}
                                                 icon={customMarker}
                                                 onClick={() => router.push(`/catering-search/${vendor_id}/${branch_id}`)}
@@ -182,10 +184,7 @@ const page = () => {
                                                     <InfoWindow
                                                         onCloseClick={() => setIsOpen(false)}
                                                     >
-                                                        <div>
-                                                            <p> <b>Name:-</b> {infoWindowData.catering_service_name}</p>
-                                                            <p className='mt-2'> <b>Start Price:-</b> {infoWindowData.start_price}</p>
-                                                        </div>
+                                                       <MapTiffinInfoCard infoWindowData={infoWindowData} />
                                                     </InfoWindow>
                                                 )}
                                             </Marker>
