@@ -8,6 +8,7 @@ import moment from 'moment';
 const initialState = {
     isLoading: false,
     getCateringPriceRanges: [],
+    getCateringHeadCount: [],
     getCateringFoodTypes: [],
     getOccasionCateringTypes: [],
     getCateringCuisines: [],
@@ -45,6 +46,23 @@ export const fetchPriceRanges = createAsyncThunk(
     async (user, thunkAPI) => {
         try {
             const response = await api.get(`${BASE_URL}/get-all-price-ranges?current_page=1&limit=10`, {
+                headers: {
+                    authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
+                },
+            });
+            return response?.data?.data;
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error.response.data.msg);
+        }
+    }
+)
+
+
+export const fetchHeadCounts = createAsyncThunk(
+    'user/fetchHeadCounts',
+    async (user, thunkAPI) => {
+        try {
+            const response = await api.get(`${BASE_URL}/get-all-head-count-ranges?current_page=1&limit=10`, {
                 headers: {
                     authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
                 },
@@ -180,6 +198,7 @@ export const fetchCateringSearchCards = createAsyncThunk(
         const locationValuesGlobal = thunkAPI.getState().globalnavbar?.locationValuesGlobal;
         const cateringSortBy = thunkAPI.getState().cateringFilter?.cateringSortBy;
         const getCateringPriceRanges = thunkAPI.getState().cateringFilter?.getCateringPriceRanges;
+        const getCateringHeadCount = thunkAPI.getState().cateringFilter?.getCateringHeadCount;
         const getCateringFoodTypes = thunkAPI.getState().cateringFilter?.getCateringFoodTypes;
         const getCateringServingTypes = thunkAPI.getState().cateringFilter?.getCateringServingTypes;
         const getCateringServiceTypes = thunkAPI.getState().cateringFilter?.getCateringServiceTypes;
@@ -242,16 +261,15 @@ export const fetchCateringSearchCards = createAsyncThunk(
             return { id: Number(price.id), start_price: parseFloat(price.start_price), end_price: parseFloat(price.end_price) };
         });
 
-
-        // 
-        // &occasions_filter=${JSON.stringify(occasions_filter_formatted)}
-        // 
-        // 
-        //  
+        // headcount_filter_formatted 
+        const selectedHeadcountRanges = getCateringHeadCount?.filter(headcount => headcount?.selectedweb === 1);
+        const updatedHeadcount_formatted = selectedHeadcountRanges.map(headcount => {
+            return { id: Number(headcount.id), start: parseFloat(headcount.start), end: parseFloat(headcount.end) };
+        });
 
 
         try {
-            const response = await api.get(`${BASE_URL}/search-vendors?search_term=${people}&order_by=distance&limit=${(current_page * limit)}&save_filter=1&vendor_type=Caterer&app_type=web&order_by_filter=${cateringSortBy_filter}&occasions_filter=${JSON.stringify(occasions_filter_formatted)}&food_types_filter=${JSON.stringify(foodtype_filter_formatted)}&price_ranges=${JSON.stringify(updatedPriceTypes_formatted)}&subscription_types_filter=${JSON.stringify(subscriptionTypes_formatted)}&cuisines_filter=${JSON.stringify(finalCuisineresult)}&serving_types_filter=${JSON.stringify(serving_filter_formatted)}&service_types_filter=${JSON.stringify(service_filter_formatted)}&latitude=${locationValuesGlobal?.latitude || ""}&longitude=${locationValuesGlobal?.longitude || ""}&city=${locationValuesGlobal?.city?.long_name || ""}&pincode=${locationValuesGlobal?.pincode || ""}&place_id=${locationValuesGlobal?.place_id || ''}&start_date=${moment(startDate).format('YYYY-MM-DD')}&end_date=${moment(endDate).format('YYYY-MM-DD')}`, {
+            const response = await api.get(`${BASE_URL}/search-vendors?search_term=${people}&order_by=distance&limit=${(current_page * limit)}&save_filter=1&vendor_type=Caterer&app_type=web&order_by_filter=${cateringSortBy_filter}&occasions_filter=${JSON.stringify(occasions_filter_formatted)}&food_types_filter=${JSON.stringify(foodtype_filter_formatted)}&head_count_ranges=${JSON.stringify(updatedHeadcount_formatted)}&price_ranges=${JSON.stringify(updatedPriceTypes_formatted)}&subscription_types_filter=${JSON.stringify(subscriptionTypes_formatted)}&cuisines_filter=${JSON.stringify(finalCuisineresult)}&serving_types_filter=${JSON.stringify(serving_filter_formatted)}&service_types_filter=${JSON.stringify(service_filter_formatted)}&latitude=${locationValuesGlobal?.latitude || ""}&longitude=${locationValuesGlobal?.longitude || ""}&city=${locationValuesGlobal?.city?.long_name || ""}&pincode=${locationValuesGlobal?.pincode || ""}&place_id=${locationValuesGlobal?.place_id || ''}&start_date=${moment(startDate).format('YYYY-MM-DD')}&end_date=${moment(endDate).format('YYYY-MM-DD')}`, {
                 headers: {
                     authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
                 },
@@ -273,6 +291,7 @@ export const fetchCateringMapviewSearchCards = createAsyncThunk(
         const locationValuesGlobal = thunkAPI.getState().globalnavbar?.locationValuesGlobal;
         const cateringSortBy = thunkAPI.getState().cateringFilter?.cateringSortBy;
         const getCateringPriceRanges = thunkAPI.getState().cateringFilter?.getCateringPriceRanges;
+        const getCateringHeadCount = thunkAPI.getState().cateringFilter?.getCateringHeadCount;
         const getCateringFoodTypes = thunkAPI.getState().cateringFilter?.getCateringFoodTypes;
         const getCateringServingTypes = thunkAPI.getState().cateringFilter?.getCateringServingTypes;
         const getCateringServiceTypes = thunkAPI.getState().cateringFilter?.getCateringServiceTypes;
@@ -335,10 +354,16 @@ export const fetchCateringMapviewSearchCards = createAsyncThunk(
             return { id: Number(price.id), start_price: parseFloat(price.start_price), end_price: parseFloat(price.end_price) };
         });
 
+         // headcount_filter_formatted 
+         const selectedHeadcountRanges = getCateringHeadCount?.filter(headcount => headcount?.selectedweb === 1);
+         const updatedHeadcount_formatted = selectedHeadcountRanges.map(headcount => {
+             return { id: Number(headcount.id), start: parseFloat(headcount.start), end: parseFloat(headcount.end) };
+         });
+
         
 
         try {
-            const response = await api.get(`${BASE_URL}/search-vendors?search_term=${people}&order_by=distance&limit=${total_count}&save_filter=1&vendor_type=Caterer&app_type=web&service_types_filter=${JSON.stringify(service_filter_formatted)}&order_by_filter=${cateringSortBy_filter}&serving_types_filter=${JSON.stringify(serving_filter_formatted)}&subscription_types_filter=${JSON.stringify(subscriptionTypes_formatted)}&occasions_filter=${JSON.stringify(occasions_filter_formatted)}&price_ranges=${JSON.stringify(updatedPriceTypes_formatted)}&food_types_filter=${JSON.stringify(foodtype_filter_formatted)}&cuisines_filter=${JSON.stringify(finalCuisineresult)}&latitude=${locationValuesGlobal?.latitude || ""}&longitude=${locationValuesGlobal?.longitude || ""}&city=${locationValuesGlobal?.city?.long_name || ""}&pincode=${locationValuesGlobal?.pincode || ""}&place_id=${locationValuesGlobal?.place_id || ''}&start_date=${moment(startDate).format('YYYY-MM-DD')}&end_date=${moment(endDate).format('YYYY-MM-DD')}`, {
+            const response = await api.get(`${BASE_URL}/search-vendors?search_term=${people}&order_by=distance&limit=${total_count}&save_filter=1&vendor_type=Caterer&app_type=web&service_types_filter=${JSON.stringify(service_filter_formatted)}&order_by_filter=${cateringSortBy_filter}&serving_types_filter=${JSON.stringify(serving_filter_formatted)}&head_count_ranges=${JSON.stringify(updatedHeadcount_formatted)}&subscription_types_filter=${JSON.stringify(subscriptionTypes_formatted)}&occasions_filter=${JSON.stringify(occasions_filter_formatted)}&price_ranges=${JSON.stringify(updatedPriceTypes_formatted)}&food_types_filter=${JSON.stringify(foodtype_filter_formatted)}&cuisines_filter=${JSON.stringify(finalCuisineresult)}&latitude=${locationValuesGlobal?.latitude || ""}&longitude=${locationValuesGlobal?.longitude || ""}&city=${locationValuesGlobal?.city?.long_name || ""}&pincode=${locationValuesGlobal?.pincode || ""}&place_id=${locationValuesGlobal?.place_id || ''}&start_date=${moment(startDate).format('YYYY-MM-DD')}&end_date=${moment(endDate).format('YYYY-MM-DD')}`, {
                 headers: {
                     authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
                 },
@@ -502,6 +527,17 @@ export const cateringFilterSlice = createSlice({
 
             state.getCateringPriceRanges = updatedPriceRanges;
         },
+        setHeadcountTypeFilter: (state, action) => {
+            const updatedHeadcountRanges = state.getCateringHeadCount.map((headCount) => {
+                if (headCount.id === action.payload) {
+                    return { ...headCount, selectedweb: headCount.selectedweb === 1 ? 0 : 1 }
+                } else {
+                    return headCount;
+                }
+            })
+
+            state.getCateringHeadCount = updatedHeadcountRanges;
+        },
         setSubscriptionFilter: (state, action) => {
             console.log(action, "actionactionaction");
 
@@ -548,6 +584,18 @@ export const cateringFilterSlice = createSlice({
                 state.getCateringPriceRanges = payload;
             })
             .addCase(fetchPriceRanges.rejected, (state, { payload }) => {
+                state.isLoading = false;
+                toast.error(datavalidationerror(payload));
+            })
+            // fetchHeadCounts 
+            .addCase(fetchHeadCounts.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(fetchHeadCounts.fulfilled, (state, { payload }) => {
+                state.isLoading = false;
+                state.getCateringHeadCount = payload;
+            })
+            .addCase(fetchHeadCounts.rejected, (state, { payload }) => {
                 state.isLoading = false;
                 toast.error(datavalidationerror(payload));
             })
@@ -705,6 +753,7 @@ export const {
     setFoodTypeFilter,
     foodtypeFilters,
     setPriceTypeFilter,
+    setHeadcountTypeFilter,
     setCuisineTypeFilter,
     setCateringSort,
     setSubscriptionFilter

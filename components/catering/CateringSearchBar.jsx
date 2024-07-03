@@ -144,7 +144,7 @@ const CateringSearchBar = () => {
                             value={localPeople}
                             onChange={handlePeopleChange}
                             id="outlined-number"
-                            placeholder="How many people attending?"
+                            placeholder="Search Query"
                             variant="outlined"
                             className='mt-0'
                             style={{ width: '100%' }}

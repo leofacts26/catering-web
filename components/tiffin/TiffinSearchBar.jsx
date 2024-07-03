@@ -144,7 +144,7 @@ const TiffinSearchBar = () => {
                             value={localPeople}
                             onChange={handlePeopleChange}
                             id="outlined-number"
-                            placeholder="How many people attending?"
+                            placeholder="Search Query"
                             variant="outlined"
                             // label="How many people attending?"
                             className='mt-0'

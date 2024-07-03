@@ -18,19 +18,22 @@ import ListView from '@/components/catering/ListView';
 import GridViewList from '@/components/catering/GridView';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
-import { fetchCateringCuisines, fetchCateringFoodTypes, fetchCateringSearchCards, fetchCateringServingTypes, fetchOccasionCateringTypes, fetchPriceRanges, fetchServiceTypes } from '@/app/features/user/cateringFilterSlice';
+import { fetchCateringCuisines, fetchCateringFoodTypes, fetchCateringSearchCards, fetchCateringServingTypes, fetchHeadCounts, fetchOccasionCateringTypes, fetchPriceRanges, fetchServiceTypes } from '@/app/features/user/cateringFilterSlice';
 
 const page = () => {
   const [checked, setChecked] = useState(true);
   const router = useRouter()
   const dispatch = useDispatch()
-  const { getCateringSearchCards, getCateringPriceRanges, getCateringFoodTypes, getCateringCuisines, getCateringServiceTypes, getCateringServingTypes, total_count } = useSelector((state) => state.cateringFilter)
+  const { getCateringSearchCards, getCateringPriceRanges, getCateringFoodTypes, getCateringCuisines, getCateringServiceTypes, getCateringHeadCount, getCateringServingTypes, total_count } = useSelector((state) => state.cateringFilter)
   console.log(getCateringSearchCards, "getCateringSearchCards");
 
   useEffect(() => {
     // Fetch all necessary data
     if (getCateringPriceRanges.length === 0) {
       dispatch(fetchPriceRanges());
+    }
+    if (getCateringHeadCount.length === 0) {
+      dispatch(fetchHeadCounts());
     }
     if (getCateringFoodTypes.length === 0) {
       dispatch(fetchCateringFoodTypes());
@@ -45,14 +48,14 @@ const page = () => {
       dispatch(fetchCateringServingTypes());
     }
 
-  }, [dispatch, getCateringPriceRanges.length, getCateringFoodTypes.length, getCateringCuisines.length, getCateringServiceTypes.length, getCateringServingTypes.length]);
+  }, [dispatch, getCateringPriceRanges.length, getCateringHeadCount.length, getCateringFoodTypes.length, getCateringCuisines.length, getCateringServiceTypes.length, getCateringServingTypes.length]);
 
   useEffect(() => {
     // Dispatch search cards only if all necessary data is available
-    if (getCateringPriceRanges.length > 0 && getCateringFoodTypes.length && getCateringCuisines.length && getCateringServiceTypes.length && getCateringServingTypes.length) {
+    if (getCateringPriceRanges.length > 0 && getCateringHeadCount.length > 0 && getCateringFoodTypes.length && getCateringCuisines.length && getCateringServiceTypes.length && getCateringServingTypes.length) {
       dispatch(fetchCateringSearchCards());
     }
-  }, [dispatch, getCateringPriceRanges.length, getCateringFoodTypes.length, getCateringCuisines.length, getCateringServiceTypes.length, getCateringServingTypes.length]);
+  }, [dispatch, getCateringPriceRanges.length, getCateringHeadCount.length, getCateringFoodTypes.length, getCateringCuisines.length, getCateringServiceTypes.length, getCateringServingTypes.length]);
 
 
 
