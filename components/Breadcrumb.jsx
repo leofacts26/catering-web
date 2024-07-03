@@ -6,7 +6,7 @@ import Container from '@mui/material/Container';
 import Link from 'next/link'
 
 
-const Breadcrumb = ({ homeLink, serviceLink, service, city, results, title, onBreadcrumbLocationSearch }) => {
+const Breadcrumb = ({ tiffinColor, homeLink, serviceLink, service, city, results, title, onBreadcrumbLocationSearch }) => {
 
     function handleClick(event) {
         event.preventDefault();
@@ -19,13 +19,13 @@ const Breadcrumb = ({ homeLink, serviceLink, service, city, results, title, onBr
             <div role="presentation" onClick={handleClick} className='breadcrumb'>
                 <Breadcrumbs separator=">" aria-label="breadcrumb">
                     <Link
-                        className="breadcrumb-link"
+                        className={tiffinColor ? 'breadcrumb-link-tiffin' : 'breadcrumb-link'}
                         underline="hover" href={homeLink}>
                         Home
                     </Link>
 
                     {service && serviceLink && <Link
-                        className="breadcrumb-link"
+                        className={tiffinColor ? 'breadcrumb-link-tiffin' : 'breadcrumb-link'}
                         underline="hover"
                         href={serviceLink}
                     >
@@ -34,7 +34,7 @@ const Breadcrumb = ({ homeLink, serviceLink, service, city, results, title, onBr
 
                     {city && <div
                         onClick={onBreadcrumbLocationSearch}
-                        className="breadcrumb-link cityHover"
+                        className={tiffinColor ? 'breadcrumb-link-tiffin cityHover' : 'breadcrumb-link cityHover'}
                         underline="hover"
                         color="inherit" 
                         style={{cursor: 'pointer'}}
@@ -43,7 +43,7 @@ const Breadcrumb = ({ homeLink, serviceLink, service, city, results, title, onBr
                     </div>}
 
                     {results && <Link
-                        className="breadcrumb-link"
+                        className={tiffinColor ? 'breadcrumb-link-tiffin' : 'breadcrumb-link'}
                         underline="hover"
                         color="inherit"
                         href="#"
@@ -51,7 +51,7 @@ const Breadcrumb = ({ homeLink, serviceLink, service, city, results, title, onBr
                         {results}
                     </Link>}
 
-                    <Typography sx={{ color: '#C33332', fontSize: '12px', marginTop: '4px', fontFamily: "Readex Pro, sans-serif" }}>{title}</Typography>
+                    <Typography className={tiffinColor ? 'breadcrumb-link-tiffin' : 'breadcrumb-link'} sx={{ fontSize: '12px', marginTop: '4px', fontFamily: "Readex Pro, sans-serif" }}>{title}</Typography>
                 </Breadcrumbs>
             </div>
         </Container>

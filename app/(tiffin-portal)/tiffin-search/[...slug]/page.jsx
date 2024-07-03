@@ -92,11 +92,11 @@ const page = () => {
       <div className="search-container">
         <div className="container-search">
           <Container maxWidth="md">
-            <TiffinSearchBar searchLink="/tiffin-search" />
+            <TiffinSearchBar  searchLink="/tiffin-search" />
           </Container>
         </div>
       </div>
-      <Breadcrumb homeLink="/tiffin" serviceLink="/tiffin-search" service="Tiffin Service" city={data?.city} title={data?.vendor_service_name}
+      <Breadcrumb tiffinColor homeLink="/tiffin" serviceLink="/tiffin-search" service="Tiffin Service" city={data?.city} title={data?.vendor_service_name}
         onBreadcrumbLocationSearch={onBreadcrumbLocationSearch} />
 
       <Container maxWidth="lg">

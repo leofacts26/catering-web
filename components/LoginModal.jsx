@@ -112,7 +112,7 @@ const OtpInput = ({ length = 6, user, setShowOtp, handleClose, loginUserData }) 
     )
 }
 
-const LoginModal = () => {
+const LoginModal = ({ detailModal }) => {
     const { loading, loginVendor, open, setOpen, handleClickOpen, handleClose, resendLoginOtp } = useRegistration();
     const [showOtp, setShowOtp] = useState(true);
     const [minutes, setMinutes] = useState(0);

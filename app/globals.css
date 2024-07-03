@@ -621,7 +621,7 @@ h6 {
 
 .nav-link:hover {
   background-color: #fff;
-  color: #C33332;
+  color: #121111b0;
   border-radius: 99px;
   font-size: 14px;
   padding: 10px 20px;
@@ -632,7 +632,7 @@ h6 {
 
 .active {
   background-color: #fff;
-  color: #C33332;
+  color: #121111b0;
   text-transform: capitalize;
   font-size: 14px;
   font-weight: 400;
@@ -1348,6 +1348,17 @@ h6 {
 
 .breadcrumb-link:hover {
   color: #C33332;
+  text-decoration: none;
+}
+
+.breadcrumb-link-tiffin {
+  font-size: 12px !important;
+  font-family: "Readex Pro", sans-serif;
+  color: var(--primary);
+}
+
+.breadcrumb-link-tiffin:hover {
+  color: var(--primary);
   text-decoration: none;
 }
 
