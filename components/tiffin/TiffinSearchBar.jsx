@@ -144,7 +144,7 @@ const TiffinSearchBar = () => {
                             value={localPeople}
                             onChange={handlePeopleChange}
                             id="outlined-number"
-                            placeholder="Search Query"
+                            placeholder="Search"
                             variant="outlined"
                             // label="How many people attending?"
                             className='mt-0'
@@ -156,14 +156,15 @@ const TiffinSearchBar = () => {
                                 style: {
                                     borderRadius: '0px',
                                     backgroundColor: '#f4f4fc6b',
+                                    paddingLeft: '10px',
                                 },
-                                startAdornment: (
-                                    <InputAdornment
-                                        position="start"
-                                    >
-                                        <GroupAddIcon />
-                                    </InputAdornment>
-                                ),
+                                // startAdornment: (
+                                //     <InputAdornment
+                                //         position="start"
+                                //     >
+                                //         <GroupAddIcon />
+                                //     </InputAdornment>
+                                // ),
                             }}
                         />
                     </div>

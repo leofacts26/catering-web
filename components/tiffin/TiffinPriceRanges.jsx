@@ -32,6 +32,7 @@ const TiffinPriceRanges = () => {
                 getTiffinPriceRanges?.map((price) => (
                     <Stack className='text-muted' key={price?.id} direction="row" alignItems="center" sx={{ marginLeft: '-10px', marginTop: '5px' }}>
                         <Checkbox {...label} size="small" className='checkbox-color'
+                            style={{ color: price.selectedweb === 1 && '#d9822b' }}
                             checked={price.selectedweb === 1}
                             onChange={() => onHandlePriceRanges(price)}
                         />

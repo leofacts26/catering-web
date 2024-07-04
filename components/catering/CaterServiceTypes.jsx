@@ -35,6 +35,7 @@ const CaterServiceTypes = () => {
                         <Stack className='text-muted' direction="row" alignItems="center" sx={{ marginLeft: '-10px', marginTop: '5px' }} key={getServiceType?.id}>
                             <Checkbox {...label}
                                 size="small"
+                                style={{color: getServiceType.selectedweb === 1 && '#c33332'}}
                                 className='checkbox-color'
                                 checked={getServiceType?.selectedweb === 1}
                                 onChange={() => onHandleServiceFilter(getServiceType)}

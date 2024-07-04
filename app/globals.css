@@ -953,7 +953,7 @@ h6 {
 
 .explore-cuisine-img {
   width: 150px;
-  height: 100px;
+  height: 150px;
   object-fit: cover;
   border-radius: var(--radiusTwo);
 }

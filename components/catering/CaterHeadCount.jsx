@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
-const CaterHeadCount = () => {    
+const CaterHeadCount = () => {
     const { getCateringHeadCount, isLoading } = useSelector((state) => state.cateringFilter)
     const dispatch = useDispatch()
 
@@ -33,6 +33,7 @@ const CaterHeadCount = () => {
                 getCateringHeadCount?.map((headCount) => (
                     <Stack className='text-muted' key={headCount?.id} direction="row" alignItems="center" sx={{ marginLeft: '-10px', marginTop: '5px' }}>
                         <Checkbox {...label} size="small" className='checkbox-color'
+                            style={{ color: headCount.selectedweb === 1 && '#c33332' }}
                             checked={headCount.selectedweb === 1}
                             onChange={() => onHandleHeadCount(headCount)}
                         />

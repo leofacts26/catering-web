@@ -220,7 +220,7 @@ const ListViewTiffin = () => {
                                                 <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} style={{ marginTop: '8px' }}>
                                                     <div className="mt-2">
                                                         {[...Array(parseInt(item.rating.slice(0, 1)))].map((star, index) => (
-                                                            <StarIcon key={index} style={{ color: '#C33332', fontSize: 20 }} />
+                                                            <StarIcon key={index} style={{ color: '#d9822b', fontSize: 20 }} />
                                                         ))}
                                                         <p className='vc-review-card-para text-ellipse-three text-start'>{item?.review_text}</p>
 

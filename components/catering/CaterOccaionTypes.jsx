@@ -46,6 +46,9 @@ const CaterOccaionTypes = () => {
                                 className='checkbox-color'
                                 checked={getOccasionType?.selectedweb === 1}
                                 onChange={() => onHandleSelectOccasion(getOccasionType)}
+                                style={{
+                                    color: getOccasionType.selectedweb === 1 && '#c33332',
+                                }}
                             />
                             <span className='checkbox-text'>{getOccasionType?.occasion_name}</span>
                         </Stack>

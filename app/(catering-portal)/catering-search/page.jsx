@@ -19,9 +19,14 @@ import GridViewList from '@/components/catering/GridView';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import { fetchCateringCuisines, fetchCateringFoodTypes, fetchCateringSearchCards, fetchCateringServingTypes, fetchCaterRatings, fetchHeadCounts, fetchOccasionCateringTypes, fetchPriceRanges, fetchServiceTypes } from '@/app/features/user/cateringFilterSlice';
+import useGetLocationResults from '@/hooks/catering/useGetLocationResults';
 
 const page = () => {
   const [checked, setChecked] = useState(true);
+  const { selectedLocation } = useGetLocationResults()
+  // console.log(manualLocation, "locationValuesGlobal, locationPlaceId, manualLocation, selectedLocation");
+  // console.log(selectedLocation, "selectedLocationselectedLocationselectedLocation");
+
   const router = useRouter()
   const dispatch = useDispatch()
   const { getCateringSearchCards, getCateringPriceRanges, getCateringFoodTypes, getCateringCuisines, getCateringServiceTypes, getCateringRatings, getCateringHeadCount, getCateringServingTypes, total_count } = useSelector((state) => state.cateringFilter)
@@ -92,7 +97,11 @@ const page = () => {
             </Grid>
             <Grid item xs={12} md={12} lg={9} xl={9.1}>
               {getCateringSearchCards.length > 0 && <Stack direction={{ xs: 'column', sm: 'column', md: 'row' }} justifyContent="space-between" style={{ margin: '0px 0px 0px 0px' }}>
-                <h2 className='catering-found'>Chennai: {total_count} Catering service providers found</h2>
+                <h2 className='catering-found'>
+                  {selectedLocation?.terms?.length > 0 && selectedLocation?.terms[0]?.value
+                    ? `${selectedLocation?.terms[0].value} : ${total_count} Catering service providers found`
+                    : 'India : ' + total_count + ' Catering service providers found'}
+                </h2>
                 <SwitchSearchResult checked={checked} setChecked={setChecked} />
               </Stack>
               }

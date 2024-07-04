@@ -39,6 +39,7 @@ const CaterServingTypes = () => {
                             key={getServingType?.id}>
                             <Checkbox {...label}
                                 size="small"
+                                style={{color: getServingType.selectedweb === 1 && '#c33332'}}
                                 className='checkbox-color'
                                 checked={getServingType?.selectedweb === 1}
                                 onChange={() => onHandleServingFilter(getServingType)}

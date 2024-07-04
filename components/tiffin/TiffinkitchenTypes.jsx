@@ -36,6 +36,7 @@ const TiffinkitchenTypes = () => {
                             <Checkbox {...label}
                                 size="small"
                                 className='checkbox-color'
+                                style={{color: getKitchenType.selectedweb === 1 && '#d9822b'}}
                                 checked={getKitchenType?.selectedweb === 1}
                                 onChange={() => onHandlekitchenFilter(getKitchenType)}
                             />

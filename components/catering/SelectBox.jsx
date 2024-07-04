@@ -39,7 +39,7 @@ const SelectBox = () => {
 
     return (
         <>
-            <Stack direction="row" alignItems="center" flexWrap="wrap" spacing={2} style={{ margin: '10px 0px 15px 0px' }}>
+            <Stack direction="row" alignItems="center" flexWrap="wrap" spacing={2} style={{ margin: '0px 0px 15px 0px' }}>
                 <ReactSelectRed text1="Sort by" onChange={handleSortChange} />
                 <Stack direction="row" alignItems="center" flexWrap="wrap" spacing={2} style={{ marginTop: '15px' }}>
                     {

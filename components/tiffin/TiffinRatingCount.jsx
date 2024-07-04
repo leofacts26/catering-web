@@ -39,13 +39,14 @@ const TiffinRatingCount = () => {
                         <Stack className='text-muted' direction="row" alignItems="center" sx={{ marginLeft: '-10px', marginTop: '5px' }} key={getRating?.rating}>
                             <Checkbox {...label}
                                 size="small"
+                                style={{color: getRating.selectedweb === 1 && '#d9822b'}}
                                 className='checkbox-color'
                                 checked={getRating?.selectedweb === 1}
                                 onChange={() => onHandleRatingFilter(getRating)}
                             />
-                            <div className="mt-2">
+                            <div className="mt-1">
                                 {[...Array(parseInt(getRating.rating))].map((star, index) => (
-                                    <StarIcon key={index} style={{ color: '#C33332', fontSize: 20 }} />
+                                    <StarIcon key={index} style={{ color: '#d9822b', fontSize: 20 }} />
                                 ))}                               
                             </div>
                             {/* <span className='checkbox-text'>{getRating?.rating}</span> */}

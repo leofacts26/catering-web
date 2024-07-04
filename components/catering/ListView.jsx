@@ -162,7 +162,7 @@ const ListView = () => {
                                             </span>}
 
                                             {getSearchCard?.total_staffs_approx && <span className='list-card-chip me-2'>
-                                                No.Of Staffs: {getSearchCard?.total_staffs_approx}
+                                                No. of Staffs: {getSearchCard?.total_staffs_approx}
                                             </span>}
 
                                         </Stack>

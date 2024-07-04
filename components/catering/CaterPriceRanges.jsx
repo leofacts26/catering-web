@@ -36,6 +36,7 @@ const CaterPriceRanges = () => {
                         <Checkbox {...label} size="small" className='checkbox-color'
                             checked={price.selectedweb === 1}
                             onChange={() => onHandlePriceRanges(price)}
+                            style={{color: price.selectedweb === 1 && '#c33332'}}
                         />
                         <span className='checkbox-text'>{`Rs. ${price?.start_price} - Rs. ${price?.end_price}`}</span>
                     </Stack>

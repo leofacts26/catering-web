@@ -18,6 +18,7 @@ import TiffinFilters from '@/components/tiffin/TiffinFilters';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import { fetchTiffinFoodTypes, fetchTiffinKitchenTypes, fetchTiffinMealTypes, fetchTiffinPriceRanges, fetchTiffinRatings, fetchtiffinSearchCards, fetchTiffinServiceTypes } from '@/app/features/tiffin/tiffinFilterSlice';
+import useGetLocationResults from '@/hooks/catering/useGetLocationResults';
 
 
 
@@ -26,6 +27,7 @@ const page = () => {
   const { getTiffinSearchCards, getTiffinRatings, getTiffinFoodTypes, getTiffinPriceRanges, getTiffinServiceTypes, getTiffinMealTypes, getTiffinKitchenTypes, total_count } = useSelector((state) => state.tiffinFilter)
   const [checked, setChecked] = useState(true);
   const dispatch = useDispatch();
+  const { selectedLocation } = useGetLocationResults()
 
 
   useEffect(() => {
@@ -72,7 +74,7 @@ const page = () => {
         </div>
       </div>
 
-      
+
       <Breadcrumb tiffinColor homeLink="/tiffin" serviceLink="/tiffin-search" service="Tiffin Service" title="Search Results" />
 
       <Container maxWidth="xl">
@@ -90,7 +92,12 @@ const page = () => {
             <Grid item xs={12} md={12} lg={9} xl={9.1}>
 
               {getTiffinSearchCards?.length > 0 && <Stack direction='row' justifyContent="space-between" style={{ margin: '0px 0px 0px 0px' }}>
-                <h2 className='catering-found'>Chennai: {`${total_count}`} Tiffin service providers found</h2>
+                <h2 className='catering-found'>
+                  {selectedLocation?.terms?.length > 0 && selectedLocation?.terms[0]?.value
+                    ? `${selectedLocation?.terms[0]?.value} : ${total_count} Catering service providers found`
+                    : 'India : ' + total_count + ' Catering service providers found'}
+                </h2>
+
                 <TiffinSwitchSearchResult checked={checked} setChecked={setChecked} />
               </Stack>}
 
