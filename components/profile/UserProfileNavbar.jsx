@@ -8,6 +8,12 @@ import Link from 'next/link'
 import Divider from '@mui/material/Divider';
 import { useActivePathProfile } from '@/helper';
 import EditIcon from '@mui/icons-material/Edit';
+import EditNoteIcon from '@mui/icons-material/EditNote';
+import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
+import InfoIcon from '@mui/icons-material/Info';
+import ViewListIcon from '@mui/icons-material/ViewList';
+import LiveHelpIcon from '@mui/icons-material/LiveHelp';
+import ShareIcon from '@mui/icons-material/Share';
 
 const dataLinks = [
     {
@@ -16,52 +22,54 @@ const dataLinks = [
         url: '/user-profile',
         icon: <EditIcon className='user-profile-icon' />
     },
-    {
-        id: 2,
-        name: 'Notification Settings',
-        url: '/user-profile/notification-settings',
-        icon: <NotificationsActiveIcon className='user-profile-icon' />
-    },
+    // {
+    //     id: 2,
+    //     name: 'Notification Settings',
+    //     url: '/user-profile/notification-settings',
+    //     icon: <NotificationsActiveIcon className='user-profile-icon' />
+    // },
     {
         id: 2,
         name: 'My Wishlist',
         url: '/user-profile/my-wishlist',
         icon: <FavoriteBorderIcon className='user-profile-icon' />
+    },
+    {
+        id: 2,
+        name: 'My Inquiries',
+        url: '/user-profile/my-inquiries',
+        icon: <EditNoteIcon className='user-profile-icon' />
     }
 ]
 
-const csBookings = [
+const ctLinks = [
     {
         id: 1,
-        name: 'Current Bookings',
-        url: '/user-profile/current-bookings',
+        name: 'About Us',
+        url: '/user-profile/about-us',
+        icon: <InfoIcon className='user-profile-icon' />
     },
     {
         id: 1,
-        name: 'Bookings History',
-        url: '/user-profile/bookings-history',
-    },
-]
-
-const tiffinServiceSubscriptions = [
-    {
-        id: 1,
-        name: 'Current Subscription',
-        url: '/user-profile/current-subscription',
-    },
-    {
-        id: 1,
-        name: 'Subscription History',
-        url: '/user-profile/subscription-history',
+        name: `FAQ's`,
+        url: '/user-profile/faq',
+        icon: <QuestionMarkIcon className='user-profile-icon' />
     },
 ]
 
-const settingLinks = [
+
+const getInTouch = [
     {
         id: 1,
-        name: 'Settings',
-        url: '/user-profile/user-settings',
-        icon: <SettingsIcon className='user-profile-icon' />
+        name: 'List your Service',
+        url: '/user-profile/list-your-service',
+        icon: <ViewListIcon className='user-profile-icon' />
+    },
+    {
+        id: 2,
+        name: 'Helpdesk & Support',
+        url: '/user-profile/helpdesk-support',
+        icon: <LiveHelpIcon className='user-profile-icon' />
     }
 ]
 
@@ -91,60 +99,17 @@ const UserProfileNavbar = () => {
                 }
 
 
-                {/* <Divider style={{ marginTop: '30px' }} />
-                <h2 className='manage-account' style={{ marginTop: '30px' }}>Catering Service Bookings</h2>
-
-                {
-                    csBookings.map((csBooking) => {
-                        return (
-                            <Link href={csBooking.url} >
-                                <Stack direction="row" alignItems="center" justifyContent="space-between"
-                                    className={checkActivePath(csBooking.url) ? 'active-up user-profile-box' : 'user-profile-box'} >
-                                    <Stack direction="row" alignItems="center" spacing={2}>
-                                        <p className='user-profile-links'> {csBooking.name} </p>
-                                    </Stack>
-                                    <KeyboardArrowRightIcon className='user-profile-icon' />
-                                </Stack>
-                            </Link>
-                        )
-                    })
-                } */}
-
-
-
-                {/* <Divider style={{ marginTop: '30px' }} />
-                <h2 className='manage-account' style={{ marginTop: '30px' }}>Tiffin Service Subscription</h2>
-
-                {
-                    tiffinServiceSubscriptions.map((tiffinServiceSubscription) => {
-                        return (
-                            <Link href={tiffinServiceSubscription.url} >
-                                <Stack direction="row" alignItems="center" justifyContent="space-between"
-                                    className={checkActivePath(tiffinServiceSubscription.url) ? 'active-up user-profile-box' : 'user-profile-box'} >
-                                    <Stack direction="row" alignItems="center" spacing={2}>
-                                        <p className='user-profile-links'> {tiffinServiceSubscription.name} </p>
-                                    </Stack>
-                                    <KeyboardArrowRightIcon className='user-profile-icon' />
-                                </Stack>
-                            </Link>
-                        )
-                    })
-                } */}
-
-
-
                 <Divider style={{ marginTop: '30px' }} />
-                <h2 className='manage-account' style={{ marginTop: '30px' }}>Settings</h2>
-
+                <h2 className='manage-account' style={{ marginTop: '30px' }}>Links</h2>
                 {
-                    settingLinks.map((settingLink) => {
+                    ctLinks.map((ctLink) => {
                         return (
-                            <Link href={settingLink.url} className='text-decoration-none'>
+                            <Link href={ctLink.url} className='text-decoration-none'>
                                 <Stack direction="row" alignItems="center" justifyContent="space-between"
-                                    className={checkActivePath(settingLink.url) ? 'active-up user-profile-box' : 'user-profile-box'} >
+                                    className={checkActivePath(ctLink.url) ? 'active-up user-profile-box' : 'user-profile-box'} >
                                     <Stack direction="row" alignItems="center" spacing={2}>
-                                        <p>{settingLink.icon}</p>
-                                        <p className='user-profile-links'> {settingLink.name} </p>
+                                        <p>{ctLink.icon}</p>
+                                        <p className='user-profile-links'> {ctLink.name} </p>
                                     </Stack>
                                     <KeyboardArrowRightIcon className='user-profile-icon' />
                                 </Stack>
@@ -155,9 +120,50 @@ const UserProfileNavbar = () => {
 
 
 
+                <Divider style={{ marginTop: '30px' }} />
+                <h2 className='manage-account' style={{ marginTop: '30px' }}>Get In Touch</h2>
+                {
+                    getInTouch.map((gtintouch) => {
+                        return (
+                            <>
+                                <Link href={gtintouch.url} className='text-decoration-none'>
+                                    <Stack direction="row" alignItems="center" justifyContent="space-between"
+                                        className={checkActivePath(gtintouch.url) ? 'active-up user-profile-box' : 'user-profile-box'} >
+                                        <Stack direction="row" alignItems="center" spacing={2}>
+                                            <p>{gtintouch.icon}</p>
+                                            <p className='user-profile-links'> {gtintouch.name} </p>
+                                        </Stack>
+                                        <KeyboardArrowRightIcon className='user-profile-icon' />
+                                    </Stack>
+                                </Link>
+
+
+                            </>
+                        )
+                    })
+                }
+
+
+                <Link href="/user-profile/share-cateringd-tifins" className='text-decoration-none'>
+                    <Stack direction="row" alignItems="center" justifyContent="space-between"
+                        className="user-profile-box">
+                        <Stack direction="row" alignItems="center" spacing={2}>
+                            <p className='user-profile-links'> Share Caterings & Tiffin's </p>
+                        </Stack>
+                        <p><ShareIcon className='user-profile-icon' /></p>
+                        {/* <KeyboardArrowRightIcon className='user-profile-icon' /> */}
+                    </Stack>
+                </Link>
+
+
+
+
+
+
+
+
+
             </div>
-
-
             <br />
 
         </>

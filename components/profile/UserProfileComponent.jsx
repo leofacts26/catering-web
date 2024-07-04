@@ -38,12 +38,8 @@ const UserProfileComponent = () => {
                 </Link>
                 <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" spacing={2}>
                     <Stack direction="row" alignItems="center" spacing={2}>
-                        {/* <Avatar
-                            alt="Travis Howard"
-                            src="https://mui.com/static/images/avatar/1.jpg"
-                            sx={{ width: 100, height: 100 }}
-                        /> */}
-                        <Avatar sx={{ bgcolor: '#a81e1e' }} style={{ width: 100, height: 100, fontSize: '3em' }}>{userDetails?.username?.slice(0, 1).toUpperCase()}</Avatar>
+                  
+                        <Avatar className='avatar-gradient' style={{ width: 100, height: 100, fontSize: '3em' }}>{userDetails?.username?.slice(0, 1).toUpperCase()}</Avatar>
                         <div>
                             <h2 className='up-name-profile'>{userDetails?.username}</h2>
                             <p className='up-number mt-1'>{userDetails?.phone_number}</p>
@@ -52,7 +48,7 @@ const UserProfileComponent = () => {
 
                     <Stack direction="row" alignItems="center" style={{ cursor: 'pointer' }} onClick={() => onLogout()}>
                         <LogoutIcon style={{ color: '#ffffff', fontWeight: '500', fontSize: '25px' }} />
-                        <h6 className='up-signout'>Sign Out</h6>
+                        <h6 className='up-signout'>Logout</h6>
                     </Stack>
 
                 </Stack>

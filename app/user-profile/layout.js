@@ -27,10 +27,10 @@ export default function UserProfileLayout({ children }) {
 
             <Container maxWidth="xl" style={{ marginTop: '50px' }}>
                 <Grid container spacing={5} style={{ display: 'flex', justifyContent: 'center' }}>
-                    <Grid item sm={12} md={12} lg={3} xl={3} >
+                    <Grid item sm={12} md={12} lg={3.5} xl={3.5} >
                         <UserProfileNavbar />
                     </Grid>
-                    <Grid item sm={12} md={12} lg={9} xl={9} >
+                    <Grid item sm={12} md={12} lg={8.5} xl={8.5} >
                         {children}
                     </Grid>
                 </Grid>

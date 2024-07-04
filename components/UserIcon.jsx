@@ -51,6 +51,8 @@ const UserIcon = () => {
         window.location.reload();
     }
 
+    console.log(userDetails, "userDetails");
+
     return (
         <>
             <Stack direction="row" alignItems="center" sx={{ paddingLeft: '10px', cursor: 'pointer' }}>
