@@ -37,6 +37,12 @@ import { useRouter } from 'next/navigation';
 import OutdoorGrillIcon from '@mui/icons-material/OutdoorGrill';
 
 const page = () => {
+
+    const [showAll, setShowAll] = useState(true)
+    const [count, setCount] = useState(3)
+    console.log(showAll, "showAll");
+    console.log(count, "count");
+
     const dispatch = useDispatch()
     const accessToken = useSelector((state) => state.user.accessToken);
     const { slug } = useParams()
@@ -72,6 +78,19 @@ const page = () => {
         dispatch(fetchCateringSearchCards());
         const url = `/catering-search`;
         router.push(url);
+    }
+
+
+    const onHandleShow = () => {
+        console.log("true");
+        setShowAll(false)
+        setCount(100)
+    }
+
+    const onHandleClose = () => {
+        console.log("false");
+        setShowAll(true)
+        setCount(3)
     }
 
     return (
@@ -250,8 +269,11 @@ const page = () => {
 
                 {data?.branches.length > 0 && <div>
                     <h3 className="vc-about-us" style={{ marginTop: '20px' }}>Our Branches</h3>
-                    <p className="vc-para"> {data?.branches?.map((item) => item?.city).join(", ")}
-                        {data?.branches?.length >= 6 && <span className="text-red view-all">View all</span>} </p>
+                    <p className="vc-para"> {data?.branches?.slice(0, count).map((item) => item?.city).join(", ")}
+                        {showAll ? <span className="text-red view-all ms-2 cursor-pointer" onClick={() => onHandleShow()}> Show All </span> :
+                            <span className="text-red view-all ms-2 cursor-pointer" onClick={() => onHandleClose()}> Show Less </span>}
+
+                    </p>
                 </div>}
 
             </Container>
@@ -259,7 +281,7 @@ const page = () => {
             <OurGallery galleryImages={data?.galleryImages} bennerMenuMixGalleryImages={data?.bennerMenuMixGalleryImages} />
 
             <SimilarCaterers />
-            <ReciewCards  />
+            <ReciewCards />
 
 
             <Subscribe />

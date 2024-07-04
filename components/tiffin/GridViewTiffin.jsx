@@ -26,7 +26,7 @@ const GridViewTiffin = ({ xs, sm, md, lg }) => {
 
     const onHandleAddFavourite = (branchId) => {
         const currentStatus = wishlist[branchId] || false;
-        const vendor_type = "Caterer"
+        const vendor_type = "Tiffin"
         let data = {
             branchId,
             whishlistStatus: !currentStatus ? 1 : 0,
@@ -103,7 +103,7 @@ const GridViewTiffin = ({ xs, sm, md, lg }) => {
                         const imageSrc = getSearchCard?.subscription_type_name === "branded" && brandLogo || bannerImage || '/img/no-image.jpg';
                         return (
                             <Grid item xs={xs} sm={sm} md={md} lg={lg}>
-                                <div className='text-decoration-none' 
+                                <div className='text-decoration-none cursor-pointer' 
                                 onClick={(e)=> {
                                     onNavigateDetailPage(getSearchCard?.vendor_id, getSearchCard?.id)
                                     e.stopPropagation()

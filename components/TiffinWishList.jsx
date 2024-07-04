@@ -67,7 +67,7 @@ const TiffinWishList = () => {
         router.push(`/tiffin-search/${vendor_id}/${id}`)
     }
 
-
+console.log(tiffinWishlist, "tiffinWishlist");
 
     if (isLoading) {
         return (
@@ -93,9 +93,9 @@ const TiffinWishList = () => {
                             ) : (
                                 <>
                                     {tiffinWishlist?.map((getSearchCard) => {
-                                        const brandLogo = getSearchCard?.brand_logo?.[0]?.original;
-                                        const bannerImage = getSearchCard?.banner_images?.[0]?.original;
-                                        const imageSrc = getSearchCard?.subscription_type_name === "branded" && brandLogo || bannerImage || '/img/no-image.jpg';
+                                        const brandLogo = getSearchCard?.brand_logo?.original;
+                                        const bannerImage = getSearchCard?.banner_images?.original;
+                                        const imageSrc =  brandLogo || bannerImage || '/img/no-image.jpg';
                                         return (
                                             <Grid item xs={12} sm={6} md={4} lg={4}>
                                                 <div className='text-decoration-none'

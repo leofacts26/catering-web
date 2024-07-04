@@ -10,11 +10,19 @@ import { Navigation, Autoplay } from 'swiper/modules';
 // import Button from '@mui/material/Button';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { fetchTiffinSimilarCaterer } from '@/app/features/tiffin/tiffinFilterSlice';
+import ShareIcon from '@mui/icons-material/Share';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
+import { addchWishlist } from '@/app/features/user/settingSlice';
 
 
 const SimilarCaterersTiffin = ({ tiffin }) => {
+    const accessToken = useSelector((state) => state.user.accessToken);
+    const router = useRouter()
 
     const { getTiffinSimilarTypes } = useSelector((state) => state.tiffinFilter)
     const dispatch = useDispatch()
@@ -23,7 +31,37 @@ const SimilarCaterersTiffin = ({ tiffin }) => {
         dispatch(fetchTiffinSimilarCaterer())
     }, [])
 
+
+    const [wishlist, setWishlist] = useState({});
+
+    const onHandleAddFavourite = (branchId) => {
+        const currentStatus = wishlist[branchId] || false;
+        const vendor_type = "Tiffin"
+        let data = {
+            branchId,
+            whishlistStatus: !currentStatus ? 1 : 0,
+            vendor_type
+        }
+        dispatch(addchWishlist(data))
+        setWishlist((prevState) => ({ ...prevState, [branchId]: !currentStatus }));
+    }
+
+    useEffect(() => {
+        const initialWishlist = {};
+        getTiffinSimilarTypes.forEach((item) => {
+            initialWishlist[item.id] = item?.is_wishlisted
+        })
+        setWishlist(initialWishlist)
+    }, [getTiffinSimilarTypes])
+
     console.log(getTiffinSimilarTypes, "getTiffinSimilarTypes");
+
+    // onNavigateDetailPage 
+    const onNavigateDetailPage = (vendor_id, id) => {
+        router.push(`/tiffin-search/${vendor_id}/${id}`)
+    }
+
+
 
     return (
         <Container maxWidth="xl" style={{ marginTop: '30px', marginBottom: '30px' }}>
@@ -63,61 +101,87 @@ const SimilarCaterersTiffin = ({ tiffin }) => {
                     },
                 }}
             >
-                {getTiffinSimilarTypes?.map((item) => {
-                    const brandLogo = item?.brand_logo?.[0]?.original;
-                    const bannerImage = item?.banner_images?.[0]?.original;
-                    const imageSrc = item?.subscription_type_name === "branded" && brandLogo || bannerImage || '/img/no-image.jpg';
+                {getTiffinSimilarTypes?.map((getSearchCard) => {
+                    const brandLogo = getSearchCard?.brand_logo?.[0]?.original;
+                    const bannerImage = getSearchCard?.banner_images?.[0]?.original;
+                    const imageSrc = getSearchCard?.subscription_type_name === "branded" && brandLogo || bannerImage || '/img/no-image.jpg';
                     return (
                         <SwiperSlide>
-                            <div className="vc-similar-card" key={item}>
-                                <img src={imageSrc} alt="" className="img-fluid vc-similar-card-img" />
-                                <div className="vc-similar-card-description">
-                                    <div>
+                            <div className='text-decoration-none cursor-pointer'>
+                                <div className="vc-similar-card" onClick={(e) => {
+                                    onNavigateDetailPage(getSearchCard?.vendor_id, getSearchCard?.id)
+                                    e.stopPropagation()
+                                }}>
+                                    <div className="grid-img-box">
+                                        <div className="view-all-dark-overlay"></div>
+                                        <img src={imageSrc} alt="" className="img-fluid vc-similar-card-img" />
+                                        <div className="grid-icons">
+                                            <ShareIcon className='grid-lse-icons' style={{ marginRight: '10px', cursor: 'pointer' }} />
+                                            {accessToken ? <>
+                                                {wishlist[getSearchCard?.id] ? <FavoriteIcon className='grid-lse-icons cursor-pointer fill-heart-tiffin' onClick={(e) => {
+                                                    onHandleAddFavourite(getSearchCard?.id)
+                                                    e.stopPropagation()
+                                                }} /> : <FavoriteBorderIcon className='grid-lse-icons cursor-pointer'
+                                                    onClick={(e) => {
+                                                        onHandleAddFavourite(getSearchCard?.id)
+                                                        e.stopPropagation()
+                                                    }} />}
+                                            </> : <FavoriteBorderIcon className='grid-lse-icons cursor-pointer' onClick={() => toast.error("Login before Adding to Wishlist")} />}
+                                        </div>
+                                    </div>
+                                    <div className="vc-similar-card-description">
                                         <Stack direction="row" justifyContent="space-between" alignItems="start" style={{ marginTop: '10px', marginBottom: '10px' }}>
                                             <div className="text-start">
-                                                {item?.catering_service_name && <h3 className='sc-title'>{item?.catering_service_name}</h3>}
+                                                <h3 className='grid-view-title text-ellipse-two'>{getSearchCard?.catering_service_name || ""}</h3>
                                                 <p className='vc-similar-card-small text-left'>
-                                                    {item?.city ? `${item?.city}, ` : ''}
-                                                    {item?.area ? `${item?.area} ` : ''}
+                                                    {getSearchCard?.street_name ? `${getSearchCard.street_name}, ` : ''}
+                                                    {/* {getSearchCard?.area ? `${getSearchCard.area}, ` : ''} */}
+                                                    {getSearchCard?.city ? getSearchCard.city : ''}
                                                 </p>
                                             </div>
                                         </Stack>
 
-                                        {item?.food_types?.length > 0 && <Stack direction="row" spacing={1}>
+                                        <div>
+                                            {getSearchCard?.food_types.length > 0 && <Stack direction="row" spacing={1}>
+                                                {
+                                                    getSearchCard?.food_types?.map((food_type, index) => {
+                                                        let iconSrc = '';
+                                                        if (food_type === 'Veg') {
+                                                            iconSrc = '/img/icons/list-card-veg.png';
+                                                        } else if (food_type === 'Non Veg') {
+                                                            iconSrc = '/img/icons/list-card-non-veg.png';
+                                                        } else {
+                                                            iconSrc = '/img/icons/list-card-veg.png';
+                                                        }
+                                                        return (
+                                                            <Stack direction="row" alignItems="center" spacing={0} key={index}>
+                                                                <img src={iconSrc} className='list-card-veg' alt="" />
+                                                                <p className='list-card-veg-font'> {food_type} </p>
+                                                            </Stack>
+                                                        )
+                                                    })
+                                                }
+                                            </Stack>}
+
+                                            {getSearchCard?.cuisines.length > 0 && <h2 className="vc-similar-blue text-ellipse-two">
+                                                <span className='me-2 text-ellipse-one-listcard'>
+                                                    {getSearchCard?.cuisines?.slice(0, 8)?.map((cuisine) => cuisine).join(" | ")}
+                                                </span>
+                                            </h2>}
+                                        </div>
+
+                                        <div className='w-100'>
                                             {
-                                                item?.food_types?.map((food_type, index) => {
-                                                    let iconSrc = '';
-                                                    if (food_type === 'Veg') {
-                                                        iconSrc = '/img/icons/list-card-veg.png';
-                                                    } else if (food_type === 'Non Veg') {
-                                                        iconSrc = '/img/icons/list-card-non-veg.png';
-                                                    } else {
-                                                        iconSrc = '/img/icons/list-card-veg.png';
-                                                    }
-                                                    return (
-                                                        <Stack direction="row" alignItems="center" spacing={0} key={index}>
-                                                            <img src={iconSrc} className='list-card-veg' alt="" />
-                                                            <p className='list-card-veg-font'> {food_type} </p>
-                                                        </Stack>
-                                                    )
-                                                })
+                                                getSearchCard?.start_price !== null && <Stack direction="row" alignItems="center" justifyContent="end" className="mb-1 mt-1 w-100">
+                                                    <Stack direction="row" alignSelf="end" justifyContent="end" spacing={0} className='w-100'>
+                                                        <CurrencyRupeeIcon style={{ fontSize: '18px' }} className="vc-price-one-similar-catering" />
+                                                        <span className="vc-price-one-similar-catering"> {getSearchCard?.start_price} / Plate </span>
+                                                    </Stack>
+                                                </Stack>
                                             }
-                                        </Stack>}
+                                        </div>
 
-
-                                        {item?.cuisines?.length > 0 && <span className="vc-similar-blue text-ellipse-one"> {item?.cuisines?.slice(0, 6)?.map((item) => item).join(" | ")} </span>}
                                     </div>
-
-
-                                    <div className='w-100'>
-                                        {item?.start_price !== null && <Stack direction="row" alignItems="center" justifyContent="end" className="mb-2 mt-2 w-100">
-                                            <Stack direction="row" alignItems="center" justifyContent="end" spacing={0}>
-                                                <CurrencyRupeeIcon style={{ fontSize: '15px' }} className={tiffin ? 'vc-price-one-similar-tiffin' : 'vc-price-one-similar-catering'} />
-                                                <span className={tiffin ? 'vc-price-one-similar-tiffin' : 'vc-price-one-similar-catering'}> {`${item?.start_price}`} / Plate </span>
-                                            </Stack>
-                                        </Stack>}
-                                    </div>
-
                                 </div>
                             </div>
                         </SwiperSlide>

@@ -88,10 +88,10 @@ const ReciewCards = () => {
                                     clickable: true,
                                 }}
                                 loop={true}
-                                autoplay={{
-                                    delay: 2500,
-                                    disableOnInteraction: false,
-                                }}
+                                // autoplay={{
+                                //     delay: 2500,
+                                //     disableOnInteraction: false,
+                                // }}
                                 modules={[Navigation, Autoplay]}
                                 style={{ padding: '0px 5px' }}
                                 className="mySwiper branded-cater-slider"
