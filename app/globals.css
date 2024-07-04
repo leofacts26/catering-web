@@ -621,7 +621,7 @@ h6 {
 
 .nav-link:hover {
   background-color: #fff;
-  color: #121111b0;
+  color: #000000;
   border-radius: 99px;
   font-size: 14px;
   padding: 10px 20px;
@@ -632,7 +632,7 @@ h6 {
 
 .active {
   background-color: #fff;
-  color: #121111b0;
+  color: #000000;
   text-transform: capitalize;
   font-size: 14px;
   font-weight: 400;
@@ -642,7 +642,11 @@ h6 {
 }
 
 .large-icon {
-  font-size: 2em;
+  color: var(--alternate) !important;
+  font-family: var(--fontPrimary) !important;
+  text-decoration: none !important;
+  font-size: 30px !important;
+  font-weight: 600 !important;
 }
 
 .mobile-nav {
@@ -922,9 +926,34 @@ h6 {
 /* recent search end */
 
 /* explore Cuisiness start */
-.explore-cuisine-img {
+/* cuisines start */
+.cuisines-img {
+  border-top-right-radius: var(--radiusTwo);
+  border-top-left-radius: var(--radiusTwo);
   width: 150px;
   height: 125px;
+  object-fit: cover;
+}
+
+.cuisines-title {
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 10px;
+  font-family: "Outfit", sans-serif;
+  padding-bottom: 10px;
+}
+
+.explore-cator-box {
+  box-shadow: var(--card-box-shadow);
+  border-radius: var(--radiusTwo)
+}
+
+/* cuisines end */
+
+.explore-cuisine-img {
+  width: 150px;
+  height: 100px;
   object-fit: cover;
   border-radius: var(--radiusTwo);
 }
@@ -1135,6 +1164,7 @@ h6 {
 }
 
 /* caterers occasion end */
+
 
 
 /* faq start */

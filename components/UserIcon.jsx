@@ -84,7 +84,7 @@ const UserIcon = () => {
             >
                 <div className="user-link-box" style={{ padding: '20px' }}>
                     <Stack direction="row" alignItems="center" spacing={2} onClick={handleClose}>
-                        <Avatar sx={{ bgcolor: '#a81e1e' }}>{userDetails?.username?.slice(0, 1).toUpperCase()}</Avatar>
+                        <Avatar className='avatar-gradient'>{userDetails?.username?.slice(0, 1).toUpperCase()}</Avatar>
                         <Stack direction="column">
                             <h2 className='up-name'>{userDetails?.username}</h2>
                             <p className='up-domain'>{userDetails?.phone_number}</p>
@@ -145,7 +145,7 @@ const UserIcon = () => {
                     </Stack>
 
                     <Stack direction="row" justifyContent="end" sx={{ marginTop: '10px' }}>
-                        <Button variant="contained" className='logout-icon' onClick={() => onLogout()}> <LogoutIcon style={{ marginRight: '10px', fontSize: '18px' }} />
+                        <Button variant="contained" className='logout-icon avatar-gradient' onClick={() => onLogout()}> <LogoutIcon style={{ marginRight: '10px', fontSize: '18px' }} />
                             <span className='logout-icon-span'>Logout</span> </Button>
                     </Stack>
                 </div>

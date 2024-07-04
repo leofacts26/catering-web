@@ -38,7 +38,7 @@ const Navbar = () => {
             <Container maxWidth="lg">
                 <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={1} className='desktop-nav'>
                     <Stack direction="row" alignItems="center" spacing={1}>
-                        <Link href="/" className='text-decoration-none'><HomeIcon className='nav-heading large-icon' /></Link>
+                        <Link href="/" className='text-decoration-none'><HomeIcon className='large-icon' /></Link>
                         <Link href="/" className='text-decoration-none'>
                             <h2 className='nav-heading'> Caterings & Tiffins</h2></Link>
                     </Stack>

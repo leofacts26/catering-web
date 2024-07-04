@@ -99,7 +99,7 @@ const CateringSearchBar = () => {
     return (
         <>
             <form onSubmit={onHandleSubmit}>
-                <Stack className='search-bg' direction={{ xs: 'column', sm: 'column', md: 'column', lg: "row" }} justifyContent="space-between" spacing={0.2}>
+                <Stack className='search-bg' direction={{ xs: 'column', sm: 'column', md: 'column', lg: "row" }} justifyContent="space-between" spacing={0}>
                     <div className='w-100'>
                         <CssTextFieldRadius
                             // required
@@ -144,7 +144,7 @@ const CateringSearchBar = () => {
                             value={localPeople}
                             onChange={handlePeopleChange}
                             id="outlined-number"
-                            placeholder="Search Query"
+                            placeholder="Search"
                             variant="outlined"
                             className='mt-0'
                             style={{ width: '100%' }}
@@ -155,14 +155,9 @@ const CateringSearchBar = () => {
                                 style: {
                                     borderRadius: '0px',
                                     backgroundColor: '#f4f4fc6b',
+                                    paddingLeft: '10px',
                                 },
-                                startAdornment: (
-                                    <InputAdornment
-                                        position="start"
-                                    >
-                                        <GroupAddIcon />
-                                    </InputAdornment>
-                                ),
+                               
                             }}
                         />
                     </div>

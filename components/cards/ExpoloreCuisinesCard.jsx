@@ -40,9 +40,11 @@ const ExpoloreCuisinesCard = () => {
         router.push(url);
     }
 
+    // console.log(getAllcuisines, "getAllcuisines");
+
     return (
         <>
-            {getAllcuisines?.length > 0 && <Heading title="Explore Cuisines" />}
+            {getAllcuisines?.length > 0 && <Heading subHeading title="Explore Cuisines" />}
             <Container maxWidth="lg">
 
 
@@ -57,7 +59,7 @@ const ExpoloreCuisinesCard = () => {
                         loop={true}
 
                         autoplay={{
-                            delay: 26666500,
+                            delay: 2000,
                             disableOnInteraction: false,
                         }}
                         modules={[Navigation, Autoplay]}
@@ -85,7 +87,13 @@ const ExpoloreCuisinesCard = () => {
                                         <CardContent key={explorecuisine.id} className='w-100' style={{ padding: '5px 10px' }}>
                                             <Stack direction="row" justifyContent="center" className='explore-cuisine-card border-radius-two w-100 cursor-pointer'
                                                 onClick={() => onHandleCuisineFilter(explorecuisine)}>
-                                                <img src={explorecuisine?.file_name?.original ? explorecuisine?.file_name?.original : '/img/no-image.jpg'} alt="" className="img-fluid explore-cuisine-img image-shadow" />
+                                                {/* <img src={explorecuisine?.file_name?.original ? explorecuisine?.file_name?.original : '/img/no-image.jpg'} alt="" className="img-fluid explore-cuisine-img image-shadow" /> */}
+
+                                                <div className="explore-cator-box" key={explorecuisine?.occasion_id}>
+                                                    <img onClick={() => handleImageClick(explorecuisine?.occasion_id)} src={explorecuisine?.file_name?.original ? explorecuisine?.file_name?.original : '/img/no-image.jpg'} className="img-fluid cuisines-img image-shadow cursor-pointer" />
+                                                    <h4 className='text-center cuisines-title'>{explorecuisine?.name}</h4>
+                                                </div>
+
                                             </Stack>
                                         </CardContent>
                                     </SwiperSlide>

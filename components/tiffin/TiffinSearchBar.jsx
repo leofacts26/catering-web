@@ -100,7 +100,7 @@ const TiffinSearchBar = () => {
     return (
         <>
             <form onSubmit={onHandleSubmit}>
-                <Stack className='search-bg' direction={{ xs: 'column', sm: 'column', md: 'column', lg: "row" }} justifyContent="space-between" spacing={0.2}>
+                <Stack className='search-bg' direction={{ xs: 'column', sm: 'column', md: 'column', lg: "row" }} justifyContent="space-between" spacing={0}>
                     <div className='w-100'>
                         <CssTextFieldRadius
                             // required

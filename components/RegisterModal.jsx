@@ -44,7 +44,7 @@ const OtpInput = ({ length = 6, user, setShowOtp, handleClose }) => {
     const { loading, verifyOtp } = useRegistration();
     const { accessToken } = useSelector((state) => state.user)
 
-    
+
 
     useEffect(() => {
         if (inputRefs.current[0]) {
@@ -186,33 +186,33 @@ const OtpInput = ({ length = 6, user, setShowOtp, handleClose }) => {
 
 
     return (
-       <>
-        <div className='otp-input-fields'>
-            <form onSubmit={onOtpSubmit}>
+        <>
+            <div className='otp-input-fields'>
+                <form onSubmit={onOtpSubmit}>
 
-                {
-                    otp.map((value, index) => {
-                        return <input
-                            required
-                            ref={(input) => (inputRefs.current[index] = input)}
-                            key={index}
-                            type="text"
-                            value={value}
-                            onChange={(e) => handleChange(index, e)}
-                            onClick={() => handleClick(index)}
-                            onKeyDown={(e) => handleKeyDown(index, e)}
-                            className='otp__digit mb-4 me-1'
-                        />
-                    })
-                }
-                <Button disabled={loading} variant="contained" type="submit" className='ct-box-btn-catering mb-3'
-                    style={{ textTransform: 'capitalize', margin: '0px auto', display: 'block' }}>
-                    {loading ? 'Loading...' : 'Submit'}
-                </Button>
-            </form>
-        </div>
+                    {
+                        otp.map((value, index) => {
+                            return <input
+                                required
+                                ref={(input) => (inputRefs.current[index] = input)}
+                                key={index}
+                                type="text"
+                                value={value}
+                                onChange={(e) => handleChange(index, e)}
+                                onClick={() => handleClick(index)}
+                                onKeyDown={(e) => handleKeyDown(index, e)}
+                                className='otp__digit mb-4 me-1'
+                            />
+                        })
+                    }
+                    <Button disabled={loading} variant="contained" type="submit" className='ct-box-btn-catering mb-3'
+                        style={{ textTransform: 'capitalize', margin: '0px auto', display: 'block' }}>
+                        {loading ? 'Loading...' : 'Submit'}
+                    </Button>
+                </form>
+            </div>
 
-       </>
+        </>
     )
 }
 
@@ -227,7 +227,11 @@ const RegisterModal = () => {
 
     // validation schema
     const schema = Yup.object().shape({
-        name: Yup.string().required('Name is required.'),
+        name: Yup.string()
+            .required('Name is required.')
+            .matches(/^[A-Za-z\s]+$/, 'Enter Valid Name')
+            .min(2, 'Name must be at least 2 characters.')
+            .max(50, 'Name must be less than 50 characters.'),
         phone_number: Yup.string()
             .required('Phone number is required.')
             .matches(/^[0-9]+$/, 'Phone number must contain only digits')
@@ -406,7 +410,7 @@ const RegisterModal = () => {
                                         <button
                                             disabled={seconds > 0 || minutes > 0}
                                             style={{
-                                                color: seconds > 0 || minutes > 0 ? "#ffffff" : "#ffffff",
+                                                color: seconds > 0 || minutes > 0 ? "#e0e3e7" : "#e0e3e7",
                                                 margin: '0px auto', textAlign: 'center', border: 'none',
                                                 background: 'transparent', cursor: 'pointer'
                                             }}

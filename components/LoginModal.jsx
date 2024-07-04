@@ -285,7 +285,7 @@ const LoginModal = ({ detailModal }) => {
                                         <button
                                             disabled={seconds > 0 || minutes > 0}
                                             style={{
-                                                color: seconds > 0 || minutes > 0 ? "#ffffff" : "#ffffff",
+                                                color: seconds > 0 || minutes > 0 ? "#e0e3e7" : "#e0e3e7",
                                                 margin: '0px auto', textAlign: 'center', border: 'none',
                                                 background: 'transparent', cursor: 'pointer'
                                             }}

@@ -84,7 +84,7 @@ const DatePickerSearchTiffin = () => {
                     fontWeight: 'bold',
                     color: '#d9822b',
                     width: '100%',
-                    padding: '11px 10px',
+                    padding: '11.50px 10px',
                     border: '2px solid #d9822b',
                     textTransform: 'capitalize',
                 }}

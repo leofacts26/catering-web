@@ -116,7 +116,7 @@ const ReviewCardTiffin = ({ tiffin }) => {
                                         <div className="vc-review-card" key={item?.id}>
                                             <Stack direction="row" spacing={1}>
                                                 <div className="">
-                                                    <Avatar sx={{ bgcolor: '#a81e1e' }}>{item?.username?.slice(0, 1).toUpperCase()}</Avatar>
+                                                    <Avatar sx={{ bgcolor: '#D9822B' }}>{item?.username?.slice(0, 1).toUpperCase()}</Avatar>
                                                 </div>
                                                 <div className="">
                                                     <h3 className='vc-review-card-title'>{item?.username}</h3>
@@ -125,7 +125,7 @@ const ReviewCardTiffin = ({ tiffin }) => {
                                             </Stack>
                                             <div className="mt-2">
                                                 {[...Array(parseInt(item.rating.slice(0, 1)))].map((star, index) => (
-                                                    <StarIcon key={index} style={{ color: '#C33332', fontSize: 20 }} />
+                                                    <StarIcon key={index} style={{ color: '#D9822B', fontSize: 20 }} />
                                                 ))}
                                                 <p className='vc-review-card-para text-ellipse-three text-start'>{item?.review_text}</p>
                                                 <div className="text-start">
@@ -172,7 +172,7 @@ const ReviewCardTiffin = ({ tiffin }) => {
                                     <Stack direction="row" justifyContent="space-between" spacing={1}>
                                         <Stack direction="row" spacing={1}>
                                             <div className="">
-                                                <Avatar sx={{ bgcolor: '#a81e1e' }}>{item?.username?.slice(0, 1).toUpperCase()}</Avatar>
+                                                <Avatar sx={{ bgcolor: '#d9822b' }}>{item?.username?.slice(0, 1).toUpperCase()}</Avatar>
                                             </div>
                                             <div className="">
                                                 <h3 className='vc-review-card-title'>{item?.username}</h3>
@@ -181,7 +181,7 @@ const ReviewCardTiffin = ({ tiffin }) => {
                                         </Stack>
                                         <div className="mt-2">
                                             {[...Array(parseInt(item.rating.slice(0, 1)))].map((star, index) => (
-                                                <StarIcon key={index} style={{ color: '#C33332', fontSize: 20 }} />
+                                                <StarIcon key={index} style={{ color: '#d9822b', fontSize: 20 }} />
                                             ))}
                                         </div>
                                     </Stack>
