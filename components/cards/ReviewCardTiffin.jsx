@@ -30,6 +30,7 @@ import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
+import AddReviewTiffin from '../AddReviewTiffin';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     '& .MuiDialogContent-root': {
@@ -43,7 +44,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 
 
 
-const ReciewCards = () => {
+const ReviewCardTiffin = ({ tiffin }) => {
     const dispatch = useDispatch()
     const { slug } = useParams()
     const { accessToken } = useSelector((state) => state.user)
@@ -77,7 +78,7 @@ const ReciewCards = () => {
                         <>
                             <Stack sx={{ marginBottom: '0px' }} alignItems="center" justifyContent="space-between" direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 1, sm: 2, md: 4 }}>
                                 <h2 className='review-cards'>Reviews: See What customers loved the most</h2>
-                                <a href="javascript:void(0)" className="vc-see-all" style={{ color: "#C33332" }} onClick={handleClickOpen}>Read all Reviews</a>
+                                <a href="javascript:void(0)" className="vc-see-all" style={{ color: tiffin ? '#D9822B' : '#C33332' }} onClick={handleClickOpen}>Read all Reviews</a>
                             </Stack>
 
                             <Swiper
@@ -128,7 +129,7 @@ const ReciewCards = () => {
                                                 ))}
                                                 <p className='vc-review-card-para text-ellipse-three text-start'>{item?.review_text}</p>
                                                 <div className="text-start">
-                                                    <Link href="javascript:void(0)" className='vc-review-card-link' style={{ color: '#C33332'  }} onClick={handleClickOpen}>Read more</Link>
+                                                    <Link href="javascript:void(0)" className='vc-review-card-link' style={{ color: tiffin ? '#D9822B' : '#C33332' }} onClick={handleClickOpen}>Read more</Link>
                                                 </div>
                                             </div>
                                         </div>
@@ -139,7 +140,7 @@ const ReciewCards = () => {
                     )
                 }
                 {/* <Divider /> */}
-                <AddReview />
+                <AddReviewTiffin tiffin />
             </Container>
 
             <React.Fragment>
@@ -196,4 +197,4 @@ const ReciewCards = () => {
     )
 }
 
-export default ReciewCards
+export default ReviewCardTiffin

@@ -37,7 +37,7 @@ export const addReviews = createAsyncThunk(
                 },
             });
             toast.success(successToast(response))
-            window.location.reload();
+            // window.location.reload();
         } catch (error) {
             return thunkAPI.rejectWithValue(error.response.data.msg);
         }

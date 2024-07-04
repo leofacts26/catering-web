@@ -25,7 +25,7 @@ const initialState = {
 
 
 
-const AddReview = () => {
+const AddReviewTiffin = ({ tiffin }) => {
 
     const { accessToken } = useSelector((state) => state.user)
     const { isLoading } = useSelector((state) => state.vendorDetails)
@@ -82,24 +82,24 @@ const AddReview = () => {
                                                         sx={{
                                                             '& .MuiOutlinedInput-root': {
                                                                 '& fieldset': {
-                                                                    borderColor: touched.rating && errors.rating ? '#C33332'  : 'default',
+                                                                    borderColor: touched.rating && errors.rating ? `${tiffin ? '#d9822b' : '#C33332' }`  : 'default',
                                                                 },
                                                                 '&:hover fieldset': {
-                                                                    borderColor: '#C33332',
+                                                                    borderColor: `${tiffin ? '#d9822b' : '#C33332' }`,
                                                                 },
                                                                 '&.Mui-focused fieldset': {
-                                                                    borderColor: '#C33332',
+                                                                    borderColor: `${tiffin ? '#d9822b' : '#C33332' }`,
                                                                 },
                                                             },
                                                             '& .MuiInputLabel-root.Mui-focused': {
-                                                                color: '#C33332',
+                                                                color: `${tiffin ? '#d9822b' : '#C33332' }`,
                                                             },
                                                             '& .MuiSelect-icon': {
-                                                                color: '#C33332',
+                                                                color: `${tiffin ? '#d9822b' : '#C33332' }`,
                                                             },
                                                         }}
                                                     >
-                                                        <InputLabel id="demo-simple-select-label" style={{color: '#57636c'}}>
+                                                        <InputLabel id="demo-simple-select-label" style={{color: `${tiffin ? '#57636c' : '#C33332' }`}}>
                                                         Select Rating </InputLabel>
                                                         <Select
                                                             labelId="demo-simple-select-label"
@@ -116,7 +116,7 @@ const AddReview = () => {
                                                             <MenuItem value={5}>5</MenuItem>
                                                         </Select>
                                                     </FormControl>
-                                                    <ErrorMessage name="rating" component="small" className="text-red mb-2 ms-1" />
+                                                    <ErrorMessage name="rating" component="small" className={`${tiffin ? 'text-orange' : 'text-red'} mb-2 ms-1`} />
                                                 </Box>
                                                 <Box>
                                                     <Field
@@ -126,26 +126,26 @@ const AddReview = () => {
                                                         id="comment_text"
                                                         cols="40"
                                                         placeholder="Comments..."
-                                                        className="job-textarea mt-3 mb-0 custom-textarea"
+                                                        className={`${tiffin ? 'job-textarea-tiffin' : 'job-textarea'} mt-3 mb-0 custom-textarea`}
                                                         autoComplete="off"
                                                         role="textbox"
                                                         aria-autocomplete="list"
                                                         aria-haspopup="true"
                                                     />
                                                     <Box>
-                                                        <ErrorMessage name="ratingText" component="small" className="text-red mb-2 ms-1" />
+                                                        <ErrorMessage name="ratingText" component="small" className={`${tiffin ? 'text-orange' : 'text-red'} mb-2 ms-1`} />
                                                     </Box>
                                                 </Box>
                                                 <Button className="ratingBtn mb-3 mt-2" disabled={isLoading} type="submit" variant="contained" sx={{
                                                     height: '40px',
-                                                    backgroundColor: '#C33332',
+                                                    backgroundColor: `${tiffin ? '#d9822b' : '#C33332' }`,
                                                     padding: '10px 30px',
                                                     fontSize: '14px',
                                                     fontWeight: '500',
                                                     textTransform: 'capitalize',
                                                     borderRadius: '8px',
                                                     '&:hover': {
-                                                        backgroundColor: '#C33332',
+                                                        backgroundColor: `${tiffin ? '#d9822b' : '#C33332' }`,
                                                     }
                                                 }}>
                                                     {isLoading ? 'Loading...' : 'Submit'}
@@ -167,4 +167,4 @@ const AddReview = () => {
     )
 }
 
-export default AddReview;
+export default AddReviewTiffin;

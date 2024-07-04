@@ -40,6 +40,7 @@ import { fetchCateringSearchCards } from '@/app/features/user/cateringFilterSlic
 import { useRouter } from 'next/navigation';
 import { fetchtiffinSearchCards } from '@/app/features/tiffin/tiffinFilterSlice';
 import OutdoorGrillIcon from '@mui/icons-material/OutdoorGrill';
+import ReviewCardTiffin from '@/components/cards/ReviewCardTiffin';
 
 
 const page = () => {
@@ -253,7 +254,7 @@ const page = () => {
       <OurGallery galleryImages={data?.galleryImages} bennerMenuMixGalleryImages={data?.bennerMenuMixGalleryImages} />
 
       <SimilarCaterersTiffin tiffin />
-      <ReciewCards tiffin />
+      <ReviewCardTiffin tiffin />
       <Subscribe />
       <Footer />
     </>

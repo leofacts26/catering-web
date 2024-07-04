@@ -1348,22 +1348,31 @@ h6 {
   font-size: 12px !important;
   font-family: "Readex Pro", sans-serif;
   color: #C33332;
+  text-decoration: none;
 }
 
 .breadcrumb-link:hover {
   color: #C33332;
-  text-decoration: none;
+  text-decoration: underline !important;
 }
 
 .breadcrumb-link-tiffin {
   font-size: 12px !important;
   font-family: "Readex Pro", sans-serif;
   color: var(--primary);
+  text-decoration: none;
 }
 
 .breadcrumb-link-tiffin:hover {
   color: var(--primary);
-  text-decoration: none;
+  text-decoration: underline !important;
+}
+
+.cityHover{
+  text-decoration: none !important;
+}
+.cityHover:hover{
+  text-decoration: underline !important;
 }
 
 /* breadcrumb end */
@@ -2699,6 +2708,39 @@ h6 {
   outline-width: 0 !important;
 }
 
+/* tiffin  */
+
+.job-textarea-tiffin {
+  border: 1px solid #ccc !important;
+  transition: border-color 0.3s !important;
+}
+
+.job-textarea-tiffin:focus,
+.job-textarea-tiffin:active {
+  border: 2px solid var(--primary) !important;
+}
+
+.job-textarea-tiffin {
+  width: auto !important;
+  height: 150px;
+  border: 1px solid #D2D2D2 !important;
+  /* background: none repeat scroll 0 0 rgba(0, 0, 0, 0.07) !important; */
+  border-image: none !important;
+  border-radius: 6px 6px 6px 6px !important;
+  box-shadow: 0px 0px 11px 2px #4B44D40F inset !important;
+  color: #555555 !important;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+  font-size: 1em !important;
+  line-height: 1.4em !important;
+  padding: 5px 8px !important;
+  transition: background-color 0.2s ease 0s !important;
+}
+
+.job-textarea-tiffin:focus {
+  background: none repeat scroll 0 0 #FFFFFF !important;
+  outline-width: 0 !important;
+}
+
 .notification-width {
   width: 50%;
 }
@@ -3264,4 +3306,14 @@ textarea:-webkit-autofill:active {
   color: var(--secondarytext);
   font-size: 16px;
   font-family: var(--fontPrimary);
+}
+
+.custom-textarea::placeholder {
+  font-size: 16px;
+  font-family: var(--fontPrimary);
+  font-weight: 400;
+}
+
+.ratingBtn{
+  font-family: var(--fontPrimary) !important;
 }
