@@ -12,11 +12,28 @@ import PopularCaters from '@/components/cards/PopularCaters';
 import RecentSearchCard from '@/components/cards/RecentSearchCard';
 import Container from '@mui/material/Container';
 import CateringSearchBar from '@/components/catering/CateringSearchBar';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { clearFiltersGlobal } from '@/app/features/tiffin/tiffinFilterSlice';
+import { unwrapResult } from '@reduxjs/toolkit';
 
 
 const page = () => {
     const { userDetails } = useSelector((state) => state.user)
+    const dispatch = useDispatch()
+
+    // useEffect(() => {
+    //     const executeClearFilters = async () => {
+    //         try {
+    //             const resultAction = await dispatch(clearFiltersGlobal());
+    //             unwrapResult(resultAction);
+    //         } catch (error) {
+    //             console.error("Failed to clear filters:", error);
+    //         }
+    //     };
+
+    //     executeClearFilters();
+    // }, [dispatch])
 
     return (
         <>
