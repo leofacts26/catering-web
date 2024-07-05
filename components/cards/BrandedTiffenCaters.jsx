@@ -83,11 +83,20 @@ const BrandedTiffenCaters = () => {
               {tiffinList?.length > 0 && tiffinList?.map((brandedcaterer) => (
                 <>
                   <SwiperSlide key={brandedcaterer?.id}>
-                    <CardContent key={brandedcaterer?.id} style={{ padding: '10px 20px' }}>
+                    {/* <CardContent key={brandedcaterer?.id} style={{ padding: '10px 5px' }}>
                       <Stack direction="row" justifyContent="center" className='recent-search-card w-100'>
                         <img onClick={() => onHandleBrandedFilter()} src={brandedcaterer?.gallery_images['vendor-brand-logo']?.[0]?.image_name[0]?.original ? brandedcaterer?.gallery_images['vendor-brand-logo']?.[0]?.image_name[0]?.original : '/img/no-image.jpg'} alt="" className="img-fluid explore-cuisine-img cursor-pointer" />
                       </Stack>
-                    </CardContent>
+                    </CardContent> */}
+
+
+                    <SwiperSlide key={brandedcaterer?.id}>
+                      <Box onClick={() => onHandleBrandedFilter()} style={{ padding: '10px 0px 10px 15px' }}>
+                        <img src={brandedcaterer?.gallery_images['vendor-brand-logo']?.[0]?.image_name[0]?.original ? brandedcaterer?.gallery_images['vendor-brand-logo']?.[0]?.image_name[0]?.original : '/img/no-image.jpg'} alt="logo" className="img-fluid popular-caterers-img image-shadow cursor-pointer" />
+                      </Box>
+                    </SwiperSlide>
+
+
                   </SwiperSlide>
                 </>
               ))}

@@ -20,6 +20,12 @@ import { fetchUserData, logoutUser } from '@/app/features/user/userSlice';
 import { resetFilters } from '@/app/features/user/cateringFilterSlice';
 import { clearTiffinSlice } from '@/app/features/tiffin/tiffinFilterSlice';
 import { useRouter } from 'next/navigation'
+import EditIcon from '@mui/icons-material/Edit';
+import EditNoteIcon from '@mui/icons-material/EditNote';
+import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
+import InfoIcon from '@mui/icons-material/Info';
+import ViewListIcon from '@mui/icons-material/ViewList';
+import LiveHelpIcon from '@mui/icons-material/LiveHelp';
 
 
 const UserIcon = () => {
@@ -112,32 +118,61 @@ const UserIcon = () => {
                         </Stack>
                     </Link>
 
-                    <Link href="/user-profile/my-wishlist">
+                    <Link href="/user-profile/my-inquiries">
                         <Stack direction="row" justifyContent="space-between" className='up-card'>
                             <Stack direction="row" spacing={1} alignItems="center">
-                                <DownloadDoneIcon className="up-profile-icon" />
-                                <p>View Bookings</p>
+                                <EditNoteIcon className="up-profile-icon" />
+                                <p>My Inquiries</p>
                             </Stack>
                             <ChevronRightIcon />
                         </Stack>
                     </Link>
 
-                    <p style={{ marginTop: '10px', fontSize: '12px' }}>Settings</p>
-                    <Link href="/user-profile/user-settings">
+                    <p style={{ marginTop: '10px', fontSize: '12px' }}>Links</p>
+                    <Link href="/user-profile/about-us">
                         <Stack direction="row" justifyContent="space-between" className='up-card'>
                             <Stack direction="row" spacing={1} alignItems="center">
-                                <SettingsIcon className="up-profile-icon" />
-                                <p>Settings</p>
+                                <InfoIcon className="up-profile-icon" />
+                                <p>About Us</p>
                             </Stack>
                             <ChevronRightIcon />
                         </Stack>
                     </Link>
+
+                    <Link href="/user-profile/faq">
+                        <Stack direction="row" justifyContent="space-between" className='up-card'>
+                            <Stack direction="row" spacing={1} alignItems="center">
+                                <QuestionMarkIcon className="up-profile-icon" />
+                                <p>FAQ's</p>
+                            </Stack>
+                            <ChevronRightIcon />
+                        </Stack>
+                    </Link>
+
+
 
                     <p style={{ marginTop: '10px', fontSize: '12px' }}>Get in Touch</p>
-                    <Stack direction="row" justifyContent="space-between" className='up-card'>
-                        <p>Help & Support</p>
-                        <ChevronRightIcon className="up-profile-icon" />
-                    </Stack>
+                    <Link href="/user-profile/list-your-service">
+                        <Stack direction="row" justifyContent="space-between" className='up-card'>
+                            <Stack direction="row" spacing={1} alignItems="center">
+                                <ViewListIcon className="up-profile-icon" />
+                                <p>List your Service</p>
+                            </Stack>
+                            <ChevronRightIcon />
+                        </Stack>
+                    </Link>
+
+
+                    <Link href="/user-profile/helpdesk-support">
+                        <Stack direction="row" justifyContent="space-between" className='up-card'>
+                            <Stack direction="row" spacing={1} alignItems="center">
+                                <LiveHelpIcon className="up-profile-icon" />
+                                <p>Helpdesk & Support</p>
+                            </Stack>
+                            <ChevronRightIcon />
+                        </Stack>
+                    </Link>
+
 
                     <Stack direction="row" justifyContent="space-between" className='up-card'>
                         <p>Share Caterings & Tiffins</p>

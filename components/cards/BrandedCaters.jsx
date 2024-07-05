@@ -40,7 +40,7 @@ const BrandedCaters = () => {
     dispatch(setSubscriptionFilter(id))
     const url = `/catering-search`;
     router.push(url);
-}; 
+  };
 
   // console.log(brandedList, "brandedList 666"); 
 
@@ -62,29 +62,36 @@ const BrandedCaters = () => {
             className="mySwiper"
             breakpoints={{
               0: {
-                slidesPerView: 2,
+                slidesPerView: 1,
               },
               600: {
                 slidesPerView: 3,
               },
               960: {
-                slidesPerView: 5,
+                slidesPerView: 4,
               },
               1280: {
-                slidesPerView: 6,
+                slidesPerView: 5,
               },
             }}
 
           >
             {brandedList?.length > 0 && brandedList?.map((brandedcaterer) => (
               <>
-                <SwiperSlide key={brandedcaterer?.id}>
+                {/* <SwiperSlide key={brandedcaterer?.id}>
                   <CardContent style={{ padding: '10px 20px' }}>
-                    <Stack direction="row" justifyContent="center" className='recent-search-card w-100'>
+                    <Stack direction="row" justifyContent="center" className='branded-caters-card w-100'>
                       <img onClick={() => handleImageClick()} src={brandedcaterer?.gallery_images['vendor-brand-logo']?.[0]?.image_name[0]?.original ? brandedcaterer?.gallery_images['vendor-brand-logo']?.[0]?.image_name[0]?.original : '/img/no-image.jpg'} alt="" className="img-fluid explore-cuisine-img cursor-pointer" />
                     </Stack>
                   </CardContent>
+                </SwiperSlide> */}
+
+                <SwiperSlide key={brandedcaterer?.id}>
+                  <Box onClick={() => handleImageClick()} style={{ padding: '10px 0px 10px 15px' }}>
+                    <img src={brandedcaterer?.gallery_images['vendor-brand-logo']?.[0]?.image_name[0]?.original ? brandedcaterer?.gallery_images['vendor-brand-logo']?.[0]?.image_name[0]?.original : '/img/no-image.jpg'} alt="logo" className="img-fluid popular-caterers-img image-shadow cursor-pointer" />
+                  </Box>
                 </SwiperSlide>
+
               </>
             ))}
           </Swiper>
