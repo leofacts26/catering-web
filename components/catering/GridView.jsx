@@ -101,11 +101,11 @@ const GridViewList = ({ xs, sm, md, lg }) => {
                         const imageSrc = getSearchCard?.subscription_type_name === "branded" && brandLogo || bannerImage || '/img/no-image.jpg';
                         return (
                             <Grid item xs={xs} sm={sm} md={md} lg={lg}>
-                                <div className='text-decoration-none cursor-pointer' 
-                                onClick={(e)=> {
-                                    onNavigateDetailPage(getSearchCard?.vendor_id, getSearchCard?.id)
-                                    e.stopPropagation()
-                                }}>
+                                <div className='text-decoration-none cursor-pointer'
+                                    onClick={(e) => {
+                                        onNavigateDetailPage(getSearchCard?.vendor_id, getSearchCard?.id)
+                                        e.stopPropagation()
+                                    }}>
                                     <div className="vc-similar-card">
                                         <div className="grid-img-box">
                                             <div className="view-all-dark-overlay"></div>
@@ -113,56 +113,60 @@ const GridViewList = ({ xs, sm, md, lg }) => {
                                             <div className="grid-icons">
                                                 <ShareIcon className='grid-lse-icons' style={{ marginRight: '10px', cursor: 'pointer' }} />
                                                 {accessToken ? <>
-                                                    {wishlist[getSearchCard?.id] ? <FavoriteIcon className='grid-lse-icons cursor-pointer fill-heart-catering' onClick={(e) => {
+                                                    {wishlist[getSearchCard?.id] ? <FavoriteIcon className='grid-lse-icons cursor-pointer fill-heart-tiffin' onClick={(e) => {
                                                         onHandleAddFavourite(getSearchCard?.id)
                                                         e.stopPropagation()
-                                                    }} /> : <FavoriteBorderIcon className='grid-lse-icons cursor-pointer' 
-                                                    onClick={(e) => {
-                                                        onHandleAddFavourite(getSearchCard?.id)
-                                                        e.stopPropagation()
-                                                    }} />}
+                                                    }} /> : <FavoriteBorderIcon className='grid-lse-icons cursor-pointer'
+                                                        onClick={(e) => {
+                                                            onHandleAddFavourite(getSearchCard?.id)
+                                                            e.stopPropagation()
+                                                        }} />}
                                                 </> : <FavoriteBorderIcon className='grid-lse-icons cursor-pointer' onClick={() => toast.error("Login before Adding to Wishlist")} />}
                                             </div>
                                         </div>
                                         <div className="vc-similar-card-description">
-                                            <Stack direction="row" justifyContent="space-between" alignItems="start" style={{ marginTop: '10px', marginBottom: '10px' }}>
-                                                <div className="text-start">
-                                                    <h3 className='grid-view-title text-ellipse-two'>{getSearchCard?.catering_service_name || ""}</h3>
-                                                    <p className='vc-similar-card-small text-left'>
-                                                        {getSearchCard?.street_name ? `${getSearchCard.street_name}, ` : ''}
-                                                        {/* {getSearchCard?.area ? `${getSearchCard.area}, ` : ''} */}
-                                                        {getSearchCard?.city ? getSearchCard.city : ''}
-                                                    </p>
-                                                </div>
-                                            </Stack>
 
+                                        <Stack className='w-100 h-100' direction="row" justifyContent="space-between" alignItems="space-between" flexDirection="column">
                                             <div>
-                                                {getSearchCard?.food_types.length > 0 && <Stack direction="row" spacing={1}>
-                                                    {
-                                                        getSearchCard?.food_types?.map((food_type, index) => {
-                                                            let iconSrc = '';
-                                                            if (food_type === 'Veg') {
-                                                                iconSrc = '/img/icons/list-card-veg.png';
-                                                            } else if (food_type === 'Non Veg') {
-                                                                iconSrc = '/img/icons/list-card-non-veg.png';
-                                                            } else {
-                                                                iconSrc = '/img/icons/list-card-veg.png';
-                                                            }
-                                                            return (
-                                                                <Stack direction="row" alignItems="center" spacing={0} key={index}>
-                                                                    <img src={iconSrc} className='list-card-veg' alt="" />
-                                                                    <p className='list-card-veg-font'> {food_type} </p>
-                                                                </Stack>
-                                                            )
-                                                        })
-                                                    }
-                                                </Stack>}
+                                                <Stack className='w-100' direction="row" justifyContent="space-between" alignItems="start" style={{ marginTop: '10px', marginBottom: '10px' }}>
+                                                    <div className="text-start w-100">
+                                                        <h3 className='grid-view-title text-ellipse-one'>{getSearchCard?.catering_service_name || ""}</h3>
+                                                        <p className='vc-similar-card-small text-left'>
+                                                            {getSearchCard?.street_name ? `${getSearchCard.street_name}, ` : ''}
+                                                            {/* {getSearchCard?.area ? `${getSearchCard.area}, ` : ''} */}
+                                                            {getSearchCard?.city ? getSearchCard.city : ''}
+                                                        </p>
+                                                    </div>
+                                                </Stack>
 
-                                                {getSearchCard?.cuisines.length > 0 && <h2 className="vc-similar-blue text-ellipse-two">
-                                                    <span className='me-2 text-ellipse-one-listcard'>
-                                                        {getSearchCard?.cuisines?.slice(0, 8)?.map((cuisine) => cuisine).join(" | ")}
-                                                    </span>
-                                                </h2>}
+                                                <div>
+                                                    {getSearchCard?.food_types.length > 0 && <Stack direction="row" spacing={1}>
+                                                        {
+                                                            getSearchCard?.food_types?.map((food_type, index) => {
+                                                                let iconSrc = '';
+                                                                if (food_type === 'Veg') {
+                                                                    iconSrc = '/img/icons/list-card-veg.png';
+                                                                } else if (food_type === 'Non Veg') {
+                                                                    iconSrc = '/img/icons/list-card-non-veg.png';
+                                                                } else {
+                                                                    iconSrc = '/img/icons/list-card-veg.png';
+                                                                }
+                                                                return (
+                                                                    <Stack direction="row" alignItems="center" spacing={0} key={index}>
+                                                                        <img src={iconSrc} className='list-card-veg' alt="" />
+                                                                        <p className='list-card-veg-font'> {food_type} </p>
+                                                                    </Stack>
+                                                                )
+                                                            })
+                                                        }
+                                                    </Stack>}
+
+                                                    {getSearchCard?.cuisines.length > 0 && <h2 className="vc-similar-blue text-ellipse-two">
+                                                        <span className='me-2 text-ellipse-one-listcard'>
+                                                            {getSearchCard?.cuisines?.slice(0, 8)?.map((cuisine) => cuisine).join(" | ")}
+                                                        </span>
+                                                    </h2>}
+                                                </div>
                                             </div>
 
                                             <div className='w-100'>
@@ -175,6 +179,9 @@ const GridViewList = ({ xs, sm, md, lg }) => {
                                                     </Stack>
                                                 }
                                             </div>
+
+                                            </Stack>
+
 
                                         </div>
                                     </div>
@@ -189,7 +196,8 @@ const GridViewList = ({ xs, sm, md, lg }) => {
             {getCateringSearchCards?.length > 0 && <>
                 <Stack direction="row" justifyContent="space-between" style={{ marginBottom: '20px 0px 0px 0px' }} className='mb-5 mt-5'>
                     <h2 className='pagination-heading'>Total {total_count} Catering service providers found</h2>
-                    <p className='pagination-showing'>Showing 20 - 30</p>
+                    {/* <p className='pagination-showing'>Showing 20 - 30</p> */}
+                    <Link href="#" className='pagination-showing'>Go to Top</Link>
                 </Stack>
             </>}
 

@@ -23,7 +23,7 @@ const initialState = {
     getAllSortOrders: [],
     subscriptionTypes: [],
     current_page: 1,
-    limit: 10,
+    limit: 50,
     total_count: null,
     // detail page 
     getCateringSimilarTypes: [],

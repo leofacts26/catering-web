@@ -57,11 +57,11 @@ const ReactSelectTiffin = ({ text1, onChange }) => {
         }),
         option: (baseStyles, { isFocused, isSelected }) => ({
           ...baseStyles,
-          backgroundColor: isSelected ? '#d9822b' : isFocused ? '#FADBD8' : 'transparent',
+          backgroundColor: isSelected ? '#d9822b' : isFocused ? '#d9822b63' : 'transparent',
           color: isSelected ? 'white' : '#d9822b',
           fontSize: '12px',
           '&:hover': {
-            backgroundColor: isSelected ? '#d9822b' : '#FADBD8',
+            backgroundColor: isSelected ? '#d9822b' : '#d9822b63',
           },
         }),
         placeholder: (baseStyles) => ({

@@ -97,7 +97,7 @@ const ListViewTiffin = () => {
         </>
     }
 
-    console.log(getTiffinSearchCards, "getTiffinSearchCards getTiffinSearchCards");
+    // console.log(getTiffinSearchCards, "getTiffinSearchCards getTiffinSearchCards");
 
     return (
         <>
@@ -109,7 +109,7 @@ const ListViewTiffin = () => {
                             const bannerImage = item?.banner_images?.[0]?.original;
                             const imageSrc = item?.subscription_type_name === "branded" && brandLogo || item?.brand_logo?.original || bannerImage || 'img/no-image.jpg';
                             return (
-                                <div className="list-view-card" key={item?.vendor_id}>
+                                <div className="list-view-card-tiffin" key={item?.vendor_id}>
                                     <Stack spacing={{ xs: 1, sm: 2, md: 0 }} direction={{ xs: 'column', sm: 'row', md: 'row', lg: "row" }} justifyContent="space-between" flexWrap="wrap">
 
                                         <Stack direction={{ xs: 'column', sm: 'row', md: 'row', lg: "row" }} spacing={2}>
@@ -162,31 +162,39 @@ const ListViewTiffin = () => {
                                                                     })
                                                                 }
                                                             </Stack>
-                                                        </div>
-                                                    </div>
 
-                                                    <div>
-                                                        <Stack direction={{ xs: 'row', sm: 'row', md: 'row', lg: "row" }} className='cat-types' spacing={2}>
-                                                            {item?.service_types?.map((serviceType) => {
-                                                                let iconSrc = '';
-                                                                if (serviceType.toLowerCase() === 'delivery') {
-                                                                    iconSrc = '/img/icons/delivery.png';
-                                                                } else if (serviceType.toLowerCase() === 'dine in') {
-                                                                    iconSrc = '/img/icons/Dine-In.png';
-                                                                } else if (serviceType.toLowerCase() === 'takeaway') {
-                                                                    iconSrc = '/img/icons/Takeaway.png';
-                                                                } else {
-                                                                    iconSrc = '/img/icons/delivery.png';
+                                                            <Stack direction="row" spacing={1}>
+                                                                {item?.kitchen_types.length > 0 &&  item?.kitchen_types?.slice(0, 4).map((item) => (
+                                                                <span className='list-card-chip-kitchentypes mt-3'>
+                                                                   {item}
+                                                                </span>
+                                                                ))
                                                                 }
-                                                                return (
-                                                                    <Stack direction="row" alignItems="center">
+                                                            </Stack>
+                                                            <div>
+                                                                <Stack direction={{ xs: 'row', sm: 'row', md: 'row', lg: "row" }} className='cat-types' spacing={2}>
+                                                                    {item?.service_types?.map((serviceType) => {
+                                                                        let iconSrc = '';
+                                                                        if (serviceType.toLowerCase() === 'delivery') {
+                                                                            iconSrc = '/img/icons/delivery.png';
+                                                                        } else if (serviceType.toLowerCase() === 'dine in') {
+                                                                            iconSrc = '/img/icons/Dine-In.png';
+                                                                        } else if (serviceType.toLowerCase() === 'takeaway') {
+                                                                            iconSrc = '/img/icons/Takeaway.png';
+                                                                        } else {
+                                                                            iconSrc = '/img/icons/delivery.png';
+                                                                        }
+                                                                        return (
+                                                                            <Stack direction="row" alignItems="center">
 
-                                                                        <img src={iconSrc} alt={serviceType} className="img-fluid list-view-icons" />
-                                                                        <span className='list-view-icon-text'> {serviceType} </span>
-                                                                    </Stack>
-                                                                )
-                                                            })}
-                                                        </Stack>
+                                                                                <img src={iconSrc} alt={serviceType} className="img-fluid list-view-icons" />
+                                                                                <span className='list-view-icon-text'> {serviceType} </span>
+                                                                            </Stack>
+                                                                        )
+                                                                    })}
+                                                                </Stack>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </Stack>
 
@@ -217,12 +225,12 @@ const ListViewTiffin = () => {
                                                 <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} style={{ marginTop: '8px' }}>
                                                     <span className='lse-reviews'> {item?.review_count} Reviews</span>
                                                 </Stack>
-                                                <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} style={{ marginTop: '8px' }}>
+                                                <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} style={{ marginTop: '0px' }}>
                                                     <div className="mt-2">
                                                         {[...Array(parseInt(item.rating.slice(0, 1)))].map((star, index) => (
                                                             <StarIcon key={index} style={{ color: '#d9822b', fontSize: 20 }} />
                                                         ))}
-                                                        <p className='vc-review-card-para text-ellipse-three text-start'>{item?.review_text}</p>
+                                                        {/* <p className='vc-review-card-para text-ellipse-three text-start'>{item?.review_text}</p> */}
 
                                                     </div>
                                                 </Stack>
@@ -265,7 +273,7 @@ const ListViewTiffin = () => {
             {getTiffinSearchCards?.length > 0 && <>
                 <Stack direction="row" justifyContent="space-between" style={{ marginBottom: '20px 0px 0px 0px' }} className='mb-5 mt-5'>
                     <h2 className='pagination-heading'>Chennai: {total_count} Tiffin service providers found</h2>
-                    <p className='pagination-showing'>Showing 20 - 30</p>
+                    <Link href="#" className='pagination-showing'>Go to Top</Link>
                 </Stack>
             </>}
 

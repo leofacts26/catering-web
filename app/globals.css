@@ -29,6 +29,9 @@
   --radiusTwo: 24px;
 }
 
+html {
+  scroll-behavior: smooth !important;
+}
 
 @media (prefers-color-scheme: dark) {
   :root {
@@ -2150,6 +2153,14 @@ h6 {
   margin: 20px 0px 10px 0px;
   border-radius: 8px !important;
   padding: 5px;
+  height: 215px !important;
+}
+.list-view-card-tiffin {
+  box-shadow: rgba(0, 0, 0, 0.114) 0px 10px 36px 0px, rgba(0, 0, 0, 0.086) 0px 0px 0px 1px;
+  margin: 20px 0px 10px 0px;
+  border-radius: 8px !important;
+  padding: 5px;
+  height: 200px;
 }
 
 .list-card-img {
@@ -2164,13 +2175,13 @@ h6 {
 
 .listview-img {
   width: 200px;
-  height: 200px;
+  height: 205px !important;
   object-fit: cover;
 }
 
 .listview-img-tiffin {
   width: 170px;
-  height: 200px;
+  height: 190px !important;
   object-fit: cover;
 }
 
@@ -2243,6 +2254,18 @@ h6 {
   font-family: var(--fontPrimary);
 }
 
+.list-card-chip-kitchentypes {
+  font-size: 10px;
+  background-color: #c3323227;
+  color: var(--primary);
+  padding: 5px 8px;
+  border-radius: 99px;
+  width: fit-content;
+  font-weight: 500;
+  font-family: var(--fontPrimary);
+}
+
+
 .list-card-chip-tiffin {
   font-size: 12px;
   /* background-color: #d9822b15; */
@@ -2313,7 +2336,7 @@ h6 {
 }
 
 .list-card-tag-tiffin {
-  top: 0px;
+  top: 10px;
   background-color: var(--accent3);
   padding: 6px 20px;
   color: var(--secondarybg);
@@ -2354,6 +2377,11 @@ h6 {
   color: var(--secondarytext);
   font-weight: 500;
   font-family: var(--fontSecondary);
+  text-decoration: none;
+}
+
+.pagination-showing:hover{
+  text-decoration: underline;
 }
 
 /* pagination end */
@@ -3245,7 +3273,7 @@ textarea:-webkit-autofill:active {
   align-items: start;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: start;
 }
 .grid-img-box{
   position: relative;

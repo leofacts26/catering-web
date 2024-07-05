@@ -100,7 +100,7 @@ const ListView = () => {
                         <div className="list-view-card" key={getSearchCard?.id}>
                             <Stack spacing={{ xs: 1, sm: 2, md: 0 }} direction={{ xs: 'column', sm: 'row', md: 'row', lg: "row" }} justifyContent="space-between" flexWrap="wrap">
 
-                                <Stack direction={{ xs: 'column', sm: 'row', md: 'row', lg: "row" }} alignItems="center" spacing={2}>
+                                <Stack direction={{ xs: 'column', sm: 'row', md: 'row', lg: "row" }} alignItems="start" spacing={2}>
                                     <div className="list-card-img position-relative">
                                         <img src={imageSrc} alt="" className="img-fluid listview-img" style={{ borderRadius: '8px', height: '100%' }} />
                                         <div className="position-absolute list-card-tag">
@@ -199,12 +199,12 @@ const ListView = () => {
                                         <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} style={{ marginTop: '8px' }}>
                                             <span className='lse-reviews'> {getSearchCard?.review_count} Reviews</span>
                                         </Stack>
-                                        <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} style={{ marginTop: '8px' }}>
+                                        <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} style={{ marginTop: '4px' }}>
                                             <div className="mt-2">
                                                 {[...Array(parseInt(getSearchCard.rating.slice(0, 1)))].map((star, index) => (
                                                     <StarIcon key={index} style={{ color: '#C33332', fontSize: 20 }} />
                                                 ))}
-                                                <p className='vc-review-card-para text-ellipse-three text-start'>{getSearchCard?.review_text}</p>
+                                                {/* <p className='vc-review-card-para text-ellipse-three text-start'>{getSearchCard?.review_text}</p> */}
                                                
                                             </div>
                                         </Stack>
@@ -248,7 +248,8 @@ const ListView = () => {
             {getCateringSearchCards?.length > 0 && <>
                 <Stack direction="row" justifyContent="space-between" style={{ marginBottom: '20px 0px 0px 0px' }} className='mb-5 mt-5'>
                     <h2 className='pagination-heading'>Chennai: {total_count} Catering service providers found</h2>
-                    <p className='pagination-showing'>Showing 20 - 30</p>
+                    {/* <p className='pagination-showing'>Showing 20 - 30</p> */}
+                    <Link href="#" className='pagination-showing'>Go to Top</Link>
                 </Stack>
             </>}
 

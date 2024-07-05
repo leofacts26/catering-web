@@ -26,7 +26,7 @@ const initialState = {
 
     // filter 
     current_page: 1,
-    limit: 6,
+    limit: 50,
     total_count: null,
 
 }
