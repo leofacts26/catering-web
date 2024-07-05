@@ -13,12 +13,14 @@ import LoaderSpinner from '../LoaderSpinner';
 import Card from '@mui/material/Card';
 import useGetLocationResults from '@/hooks/catering/useGetLocationResults';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchCateringSearchCards, 
+import {
+    fetchCateringSearchCards,
     // setManualLocation, setPeople, setSelectedLocation 
 } from '@/app/features/user/cateringFilterSlice';
 import { useRouter } from 'next/navigation'
 // import useDebounce from '@/hooks/useDebounce';
 import { setManualLocation, setPeople, setSelectedLocation } from '@/app/features/user/globalNavSlice';
+import useAllowLocation from '@/hooks/useAllowLocation';
 
 
 const CssTextField = styled(TextField)(({ theme }) => ({
@@ -77,7 +79,7 @@ const CateringSearchBar = () => {
     const { manualLocation, selectedLocation, isLoading } = useSelector((state) => state.globalnavbar);
 
     const [isAdornmentClicked, setIsAdornmentClicked] = useState(false);
-    
+
     const dispatch = useDispatch();
     const people = useSelector(state => state.globalnavbar.people);
     const [localPeople, setLocalPeople] = useState(people);
@@ -87,9 +89,11 @@ const CateringSearchBar = () => {
     };
 
     const router = useRouter()
+    const { getCurrentLocation } = useAllowLocation()
 
     const onHandleSubmit = (event) => {
         event.preventDefault();
+        getCurrentLocation();
         dispatch(setPeople(localPeople));
         dispatch(fetchCateringSearchCards())
         router.push('/catering-search')
@@ -140,7 +144,7 @@ const CateringSearchBar = () => {
                     </div>
                     <div className="three w-100">
                         <CssTextField
-                            required 
+                            required
                             value={localPeople}
                             onChange={handlePeopleChange}
                             id="outlined-number"
@@ -157,7 +161,7 @@ const CateringSearchBar = () => {
                                     backgroundColor: '#f4f4fc6b',
                                     paddingLeft: '10px',
                                 },
-                               
+
                             }}
                         />
                     </div>

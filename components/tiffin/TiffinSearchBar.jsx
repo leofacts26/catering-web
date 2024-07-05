@@ -18,6 +18,7 @@ import { useRouter } from 'next/navigation'
 import DatePickerSearchTiffin from '../search/DatePickerSearchTiffin';
 import { fetchtiffinSearchCards } from '@/app/features/tiffin/tiffinFilterSlice';
 import { setManualLocation, setPeople, setSelectedLocation } from '@/app/features/user/globalNavSlice';
+import useAllowLocation from '@/hooks/useAllowLocation';
 
 
 const CssTextField = styled(TextField)(({ theme }) => ({
@@ -88,8 +89,11 @@ const TiffinSearchBar = () => {
 
     const router = useRouter()
 
+    const {getCurrentLocation} = useAllowLocation()
+
     const onHandleSubmit = (event) => {
         event.preventDefault();
+        getCurrentLocation()
         dispatch(setPeople(localPeople));
         dispatch(fetchtiffinSearchCards())
         router.push('/tiffin-search')
@@ -136,7 +140,7 @@ const TiffinSearchBar = () => {
                         />
                     </div>
                     <div className="w-100">
-                    <DatePickerSearchTiffin />
+                        <DatePickerSearchTiffin />
                     </div>
                     <div className="three w-100">
                         <CssTextField
@@ -169,12 +173,13 @@ const TiffinSearchBar = () => {
                         />
                     </div>
                     <div>
-                        <Button type='submit' className='red-btn' variant="contained" sx={{
-                            boxShadow: 'none',
-                            width: '100%', fontWeight: '600', padding: '11px 20px', fontSize: '14px', backgroundColor: '#d9822b', textTransform: 'capitalize', '&:hover': {
-                                backgroundColor: '#d9822b',
-                            },
-                        }}>
+                        <Button
+                                type='submit' className='red-btn' variant="contained" sx={{
+                                boxShadow: 'none',
+                                width: '100%', fontWeight: '600', padding: '11px 20px', fontSize: '14px', backgroundColor: '#d9822b', textTransform: 'capitalize', '&:hover': {
+                                    backgroundColor: '#d9822b',
+                                },
+                            }}>
                             <SearchIcon style={{ marginRight: '5px', fontSize: '18px' }} /> Search
                         </Button>
                     </div>
