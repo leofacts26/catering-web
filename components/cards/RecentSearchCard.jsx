@@ -61,7 +61,7 @@ const RecentSearchCard = () => {
                         }}
                         modules={[Navigation, Autoplay]}
                         style={{ padding: '0px 5px' }}
-                        className="mySwiper cuisine-slider"
+                        className="mySwiper cuisine-slider w-100"
                         breakpoints={{
                             0: {
                                 slidesPerView: 2,
@@ -80,8 +80,8 @@ const RecentSearchCard = () => {
                         {
                             recentSearches.length > 0 && recentSearches?.slice(0, 4)?.map((recentSearch) => (
                                 <SwiperSlide>
-                                    <CardContent key={recentSearch.id} style={{ padding: '0px', margin: '0px 10px 10px 0px' }}>
-                                        <Stack direction="row" alignItems="center" spacing={1} className='recent-search-card'>
+                                    <CardContent className='w-100' key={recentSearch.id} style={{ padding: '0px', margin: '10px 10px 10px 0px' }}>
+                                        <Stack direction="row" alignItems="center" spacing={1} className='recent-search-card w-100'>
                                             <Box>
                                                 <img src="/img/no-image.jpg" alt="" className="img-fluid recent-search-img" />
                                             </Box>
