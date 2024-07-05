@@ -14,6 +14,9 @@ const CaterOccaionTypes = () => {
     const [occCount, setoccCount] = useState(false)
     const dispatch = useDispatch()
 
+    const [showAll, setShowAll] = useState(true)
+    const [count, setCount] = useState(8)
+
 
     useEffect(() => {
         dispatch(fetchOccasionCateringTypes(occasionCount));
@@ -34,10 +37,23 @@ const CaterOccaionTypes = () => {
 
     // console.log(occasionCount, "occasionCount");
 
+
+    const onHandleShow = () => {
+        console.log("true");
+        setShowAll(false)
+        setCount(100)
+    }
+
+    const onHandleClose = () => {
+        console.log("false");
+        setShowAll(true)
+        setCount(8)
+    }
+
     return (
         <>
             {
-                getOccasionCateringTypes?.slice(0, !occCount ? 5 : occasionCount)?.map((getOccasionType) => {
+                getOccasionCateringTypes?.slice(0, count)?.map((getOccasionType) => {
                     return (
                         <Stack className='text-muted' direction="row" alignItems="center" sx={{ marginLeft: '-10px', marginTop: '5px' }} key={getOccasionType?.id}>
                             <Checkbox
@@ -55,10 +71,16 @@ const CaterOccaionTypes = () => {
                     )
                 })
             }
-            <p className='text-center' style={{ color: '#245396', fontSize: '12px', cursor: 'pointer' }}
-                onClick={onShowAllOccasions}
-            >
-                {isLoading ? 'Loading...' : `Show All ${occasionCount}`}  </p>
+
+            {showAll ? <p className='text-center' style={{ color: '#245396', fontSize: '12px', cursor: 'pointer' }} onClick={() => onHandleShow()}>
+                {`Show All ${occasionCount}`}
+            </p> : <p className='text-center' style={{ color: '#245396', fontSize: '12px', cursor: 'pointer' }} onClick={() => onHandleClose()}>
+                {`Show Less`}
+            </p>}
+
+            {/* {showAll ? <span className="text-red view-all ms-2 cursor-pointer" onClick={() => onHandleShow()}> Show All </span> :
+                <span className="text-red view-all ms-2 cursor-pointer" onClick={() => onHandleClose()}> Show Less </span>} */}
+
         </>
     )
 }
