@@ -15,6 +15,9 @@ const useRegistration = () => {
     // const loginUserData = useSelector((state) => state.user.loginUserData)
     // console.log(loginUserData, "00000");
 
+    const [incorrectAttempts, setIncorrectAttempts] = useState(0);
+
+
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -53,6 +56,10 @@ const useRegistration = () => {
         };
         setLoading(true);
         try {
+            if (incorrectAttempts + 1 >= 3) {
+                setShowOtp(true)
+                alert('You have reached the maximum number of attempts. Please try again later.')
+            }
             const response = await api.post('/register-user-verify-otp', data);
             // console.log(response, "response ****000");
             dispatch(setAccessToken(response?.data?.data?.token));
@@ -63,8 +70,13 @@ const useRegistration = () => {
             setShowOtp(true)
             if (response.status === 200) {
                 handleClose()
+                setShowOtp(true)
+            }
+            if (response.status === 200) {
+                setIncorrectAttempts(0);
             }
         } catch (error) {
+            setIncorrectAttempts(prev => prev + 1);
             console.log(error, "Error");
             setLoading(false);
             toast.error(datavalidationerror(error));
@@ -111,6 +123,10 @@ const useRegistration = () => {
         };
         setLoading(true);
         try {
+            if (incorrectAttempts + 1 >= 3) {
+                setShowOtp(true)
+                alert('You have reached the maximum number of attempts. Please try again later.')
+            }
             const response = await api.post('/login-verify-user-otp', data);
             dispatch(setAccessToken(response?.data?.data?.token));
             // console.log(response, "response");
@@ -120,8 +136,13 @@ const useRegistration = () => {
             setShowOtp(true)
             if (response.status === 200) {
                 handleClose()
+                setShowOtp(true)
+            }
+            if (response.status === 200) {
+                setIncorrectAttempts(0);
             }
         } catch (error) {
+            setIncorrectAttempts(prev => prev + 1);
             console.log(error, "Error");
             setLoading(false);
             toast.error(datavalidationerror(error));
