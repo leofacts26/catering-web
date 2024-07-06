@@ -41,7 +41,7 @@ const page = () => {
 
             <BrandedTiffenCaters />
 
-            <Heading title={`Popular Tiffins in ${userDetails?.city ? userDetails?.city : 'Chennai'}`} subHeading />
+            <Heading title={`Popular Tiffins in ${userDetails?.city ? userDetails?.city : 'INDIA'}`} subHeading />
             <PopularTiffins />
 
             {/* <Heading title="Explore Tiffins by Occasions" subHeading /> */}

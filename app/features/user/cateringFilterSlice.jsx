@@ -96,7 +96,7 @@ export const fetchOccasionCateringTypes = createAsyncThunk(
     async (occasionCount, thunkAPI) => {
         console.log(occasionCount, "occasionCount gbhty");
         try {
-            const response = await api.get(`${BASE_URL}/get-all-occasions?current_page=1&limit=${occasionCount}`, {
+            const response = await api.get(`${BASE_URL}/get-all-occasions?current_page=1&limit=100`, {
                 headers: {
                     authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
                 },

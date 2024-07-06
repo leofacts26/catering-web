@@ -22,18 +22,18 @@ const page = () => {
     const { userDetails } = useSelector((state) => state.user)
     const dispatch = useDispatch()
 
-    // useEffect(() => {
-    //     const executeClearFilters = async () => {
-    //         try {
-    //             const resultAction = await dispatch(clearFiltersGlobal());
-    //             unwrapResult(resultAction);
-    //         } catch (error) {
-    //             console.error("Failed to clear filters:", error);
-    //         }
-    //     };
+    useEffect(() => {
+        const executeClearFilters = async () => {
+            try {
+                const resultAction = await dispatch(clearFiltersGlobal());
+                unwrapResult(resultAction);
+            } catch (error) {
+                console.error("Failed to clear filters:", error);
+            }
+        };
 
-    //     executeClearFilters();
-    // }, [dispatch])
+        executeClearFilters();
+    }, [dispatch])
 
     return (
         <>
@@ -53,10 +53,10 @@ const page = () => {
             <Heading title="Explore Caterers around INDIA" subHeading />
             <ExploreCaters />
 
-            <Heading title={`Branded Caterers in ${userDetails?.city ? userDetails?.city : 'Chennai'}`} subHeading />
+            <Heading title={`Branded Caterers in ${userDetails?.city ? userDetails?.city : 'INDIA'}`} subHeading />
             <BrandedCaters />
 
-            <PopularCaters title={`Popular Caterers in ${userDetails?.city ? userDetails?.city : 'Chennai'}`} />
+            <PopularCaters title={`Popular Caterers in ${userDetails?.city ? userDetails?.city : 'INDIA'}`} />
             <Heading title="Explore Caterers by Occasions" subHeading />
             <ExploreCaterersByOccasion />
             <Heading title="FAQ's" center subHeading />

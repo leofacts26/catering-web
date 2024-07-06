@@ -1,5 +1,5 @@
 "use client"
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
@@ -67,17 +67,17 @@ const ListViewTiffin = () => {
         }
     }
 
-    const handleScroll = myThrottle(() => {
+    const handleScroll = useCallback(myThrottle(() => {
         if (
-            window.innerHeight + document.documentElement.scrollTop + 1000 >
-            document.documentElement.offsetHeight && !isLoading &&
-            ((current_page - 1) * limit) < total_count
+            window.innerHeight + document.documentElement.scrollTop + 1000 > document.documentElement.offsetHeight &&
+            !isLoading &&
+            (current_page * limit) < total_count
         ) {
-            dispatch(fetchtiffinSearchCards()).then(() => {
-                dispatch(incrementTiffinPage());
-            });
+            dispatch(incrementTiffinPage());
+            dispatch(fetchtiffinSearchCards());
         }
-    }, 500);
+    }, 500), [dispatch, isLoading, current_page, limit, total_count]);
+
 
     useEffect(() => {
         window.addEventListener("scroll", handleScroll)

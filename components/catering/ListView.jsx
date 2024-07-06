@@ -1,5 +1,5 @@
 "use client"
-import React, { memo, useEffect, useState } from 'react';
+import React, { memo, useCallback, useEffect, useState } from 'react';
 import Stack from '@mui/material/Stack';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -57,17 +57,30 @@ const ListView = () => {
         }
     }
 
-    const handleScroll = myThrottle(() => {
+    // const handleScroll = myThrottle(() => {
+    //     if (
+    //         window.innerHeight + document.documentElement.scrollTop + 2000 >
+    //         document.documentElement.offsetHeight && !isLoading &&
+    //         ((current_page - 1) * limit) < total_count // Adjust condition here
+    //     ) {
+    //         dispatch(fetchCateringSearchCards()).then(() => {
+    //             dispatch(incrementPage());
+    //         });
+    //     }
+    // }, 500);
+
+
+    const handleScroll = useCallback(myThrottle(() => {
         if (
-            window.innerHeight + document.documentElement.scrollTop + 2000 >
-            document.documentElement.offsetHeight && !isLoading &&
-            ((current_page - 1) * limit) < total_count // Adjust condition here
+            window.innerHeight + document.documentElement.scrollTop + 1000 > document.documentElement.offsetHeight &&
+            !isLoading &&
+            (current_page * limit) < total_count
         ) {
-            dispatch(fetchCateringSearchCards()).then(() => {
-                dispatch(incrementPage());
-            });
+            dispatch(incrementTiffinPage());
+            dispatch(fetchCateringSearchCards());
         }
-    }, 500);
+    }, 500), [dispatch, isLoading, current_page, limit, total_count]);
+
 
     useEffect(() => {
         window.addEventListener("scroll", handleScroll)

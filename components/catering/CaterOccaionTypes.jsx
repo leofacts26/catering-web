@@ -29,23 +29,23 @@ const CaterOccaionTypes = () => {
         dispatch(fetchCateringMapviewSearchCards());
     }
 
-    const onShowAllOccasions = useCallback(() => {
-        setoccCount(true)
-        dispatch(setShowAllOccasions(occasionTotalCount));
-        dispatch(fetchOccasionCateringTypes(occasionCount));
-    }, [dispatch])
+    // const onShowAllOccasions = useCallback(() => {
+    //     setoccCount(true)
+    //     dispatch(setShowAllOccasions(occasionTotalCount));
+    //     dispatch(fetchOccasionCateringTypes(occasionCount));
+    // }, [dispatch])
 
     // console.log(occasionCount, "occasionCount");
 
 
     const onHandleShow = () => {
-        console.log("true");
+        // console.log("true");
         setShowAll(false)
         setCount(100)
     }
 
     const onHandleClose = () => {
-        console.log("false");
+        // console.log("false");
         setShowAll(true)
         setCount(8)
     }
