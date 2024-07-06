@@ -138,6 +138,8 @@ const page = () => {
     // const [showOtp, setShowOtp] = useState(false)
     const dispatch = useDispatch();
     const { showOtp, isLoading } = useSelector((state) => state.settings)
+    const { userDetails } = useSelector((state) => state.user)
+    const [values, setValues] = useState(initialState)
 
     // validation schema
     const schema = Yup.object().shape({
@@ -154,16 +156,25 @@ const page = () => {
         // console.log(data, "data"); 
         dispatch(setEditProfile(data))
         dispatch(sendUpdateProfileOTP(data))
-        resetForm(initialState);
+        resetForm(values);
     }
 
-    console.log(showOtp, "showOtp showOtp");
+
+    useEffect(() =>{
+        setValues({
+            ...values,
+            username: userDetails?.username || '',
+            phone_number: userDetails?.phone_number || "",
+        })
+    }, [])
+
+    console.log(userDetails, "userDetails userDetails");
 
     return (
         <>
             {
                 showOtp ? (
-                    <Formik initialValues={initialState} validationSchema={schema} onSubmit={(values, { resetForm }) => handleSubmit(values, resetForm)}>
+                    <Formik enableReinitialize={true} initialValues={values} validationSchema={schema} onSubmit={(values, { resetForm }) => handleSubmit(values, resetForm)}>
                         {({ values, errors, handleChange, handleSubmit }) => (
                             <form onSubmit={handleSubmit} className="px-4" autocomplete="off">
                                 <h2 className="user-profile-title" style={{ marginTop: '30px' }}>Edit Profile</h2>
