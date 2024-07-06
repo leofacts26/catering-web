@@ -75,6 +75,7 @@ const CssTextFieldRadius = styled(TextField)(({ theme }) => ({
 
 const TiffinSearchBar = () => {
     const { isPlacePredictionsLoading, placePredictions, getPlacePredictions, selectLocation } = useGetLocationResults()
+    const { accessToken } = useSelector((state) => state.user)
 
 
     const inputRef = useRef(null);
@@ -103,7 +104,9 @@ const TiffinSearchBar = () => {
 
     const onHandleSubmit = (event) => {
         event.preventDefault();
-        getCurrentLocation()
+        if(accessToken){
+            getCurrentLocation()
+        }
         dispatch(setPeople(localPeople));
         dispatch(fetchtiffinSearchCards())
         router.push('/tiffin-search')

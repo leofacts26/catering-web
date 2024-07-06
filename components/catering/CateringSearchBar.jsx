@@ -78,6 +78,7 @@ const CssTextFieldRadius = styled(TextField)(({ theme }) => ({
 
 const CateringSearchBar = () => {
     const { isPlacePredictionsLoading, placePredictions, getPlacePredictions, selectLocation } = useGetLocationResults()
+    const { accessToken } = useSelector((state) => state.user)
 
     const inputRef = useRef(null);
     const { manualLocation, selectedLocation, isLoading } = useSelector((state) => state.globalnavbar);
@@ -104,7 +105,9 @@ const CateringSearchBar = () => {
 
     const onHandleSubmit = (event) => {
         event.preventDefault();
-        getCurrentLocation();
+        if(accessToken){
+            getCurrentLocation();
+        }
         dispatch(setPeople(localPeople));
         dispatch(fetchCateringSearchCards())
         router.push('/catering-search')
