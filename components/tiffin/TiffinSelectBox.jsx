@@ -4,10 +4,11 @@ import { Select, MenuItem, FormControl, Stack, Button, TextField } from '@mui/ma
 import { styled } from '@mui/material/styles';
 import ReactSelectTiffin from "./ReactSelectTiffin";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchGetAllTiffinSubscriptionTypes, fetchtiffinSearchCards, setTiffinSort, setTiffinSubscriptionFilter } from "@/app/features/tiffin/tiffinFilterSlice";
+import { clearFiltersGlobal, fetchGetAllTiffinSubscriptionTypes, fetchtiffinSearchCards, setTiffinSort, setTiffinSubscriptionFilter } from "@/app/features/tiffin/tiffinFilterSlice";
+import toast from "react-hot-toast";
+import FilterListOffIcon from '@mui/icons-material/FilterListOff';
 
-
-const TiffinSelectBox = ( ) => {
+const TiffinSelectBox = () => {
     const dispatch = useDispatch();
     const { tiffinSubscriptionTypes } = useSelector((state) => state.tiffinFilter);
 
@@ -33,25 +34,42 @@ const TiffinSelectBox = ( ) => {
         dispatch(fetchtiffinSearchCards())
     }
 
-    console.log(tiffinSubscriptionTypes, "tiffinSubscriptionTypes"); 
+
+    // onHandleFIlterClear 
+    const onHandleFIlterClear = async () =>{
+        await dispatch(clearFiltersGlobal());
+        window.location.reload()
+    }
+
+    // console.log(tiffinSubscriptionTypes, "tiffinSubscriptionTypes"); 
 
     return (
         <>
-            <Stack direction="row" alignItems="center" flexWrap="wrap" spacing={2} style={{ margin: '10px 0px 15px 0px' }}>
-                <ReactSelectTiffin text1="Sort by" onChange={handleSortChange} />
-                <Stack direction="row" alignItems="center" flexWrap="wrap" spacing={2} style={{ marginTop: '15px' }}>
-                    {
-                        tiffinSubscriptionTypes?.map((subscriptionType) => {
-                            return (
-                                <Button size="small" className={`btn-pill ${subscriptionType.selectedweb === 1 && 'btn-pill-active-catering'}`} key={subscriptionType?.id}
-                                    onClick={() => onHandlesubscriptionTypes(subscriptionType?.id)}
-                                >{subscriptionType?.name}</Button>
-                            )
-                        })
-                    }
+            <Stack direction={{ xs: 'column', sm: 'column', md: 'row' }} justifyContent="space-between" alignItems="center">
+                <Stack direction="row" alignItems="center" flexWrap="wrap" spacing={2} style={{ margin: '10px 0px 15px 0px' }}>
+                    <ReactSelectTiffin text1="Sort by" onChange={handleSortChange} />
+                    <Stack direction="row" alignItems="center" flexWrap="wrap" spacing={2} style={{ marginTop: '15px' }}>
+                        {
+                            tiffinSubscriptionTypes?.map((subscriptionType) => {
+                                return (
+                                    <Button size="small" className={`btn-pill ${subscriptionType.selectedweb === 1 && 'btn-pill-active-catering'}`} key={subscriptionType?.id}
+                                        onClick={() => onHandlesubscriptionTypes(subscriptionType?.id)}
+                                    >{subscriptionType?.name}</Button>
+                                )
+                            })
+                        }
+                    </Stack>
                 </Stack>
-            </Stack>
 
+
+                <div >
+                    <Button className="cursor-pointer clear-filter" onClick={() => onHandleFIlterClear()}> 
+                       <Stack direction="row" alignItems="center">
+                       <FilterListOffIcon className="tiffin-removefilter-icon" /> Clear Filter
+                       </Stack>
+                    </Button>
+                </div>
+            </Stack>
         </>
     )
 }

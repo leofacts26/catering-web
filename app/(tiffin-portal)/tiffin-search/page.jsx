@@ -91,7 +91,7 @@ const page = () => {
             </Grid>
             <Grid item xs={12} md={12} lg={9} xl={9.1}>
 
-              {getTiffinSearchCards?.length > 0 && <Stack direction='row' justifyContent="space-between" style={{ margin: '0px 0px 0px 0px' }}>
+              {getTiffinSearchCards?.length > 0 && <Stack direction='row' alignItems="center" justifyContent="space-between" style={{ margin: '0px 0px 0px 0px' }}>
                 <h2 className='catering-found'>
                   {selectedLocation?.terms?.length > 0 && selectedLocation?.terms[0]?.value
                     ? `${selectedLocation?.terms[0]?.value} : ${total_count} Catering service providers found`

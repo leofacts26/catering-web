@@ -3405,3 +3405,30 @@ textarea:-webkit-autofill:active {
 .ratingBtn {
   font-family: var(--fontPrimary) !important;
 }
+
+.clear-filter{
+  background-color: #E0E3E7 !important;
+  color: var(--accent1) !important;
+  padding: 5px !important;
+  border-radius: 5px !important;
+  font-size: 12px !important;
+}
+
+.tiffin-removefilter-icon{
+  margin-right: 5px;
+  color: var(--accent1);
+  font-size: 16px !important;
+}
+.cater-clear-filter{
+  background-color: #E0E3E7 !important;
+  color: var(--accent2) !important;
+  padding: 5px !important;
+  border-radius: 5px !important;
+  font-size: 12px !important;
+}
+
+.cater-removefilter-icon{
+  margin-right: 5px;
+  color: var(--accent2);
+  font-size: 16px !important;
+}
