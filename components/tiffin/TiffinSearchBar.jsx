@@ -1,6 +1,7 @@
 "use client"
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import TextField from '@mui/material/TextField';
+import IconButton from '@mui/material/IconButton';
 import { styled } from '@mui/material/styles';
 import MyLocationIcon from '@mui/icons-material/MyLocation';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -19,6 +20,7 @@ import DatePickerSearchTiffin from '../search/DatePickerSearchTiffin';
 import { fetchtiffinSearchCards } from '@/app/features/tiffin/tiffinFilterSlice';
 import { setManualLocation, setPeople, setSelectedLocation } from '@/app/features/user/globalNavSlice';
 import useAllowLocation from '@/hooks/useAllowLocation';
+import ClearIcon from '@mui/icons-material/Clear';
 
 
 const CssTextField = styled(TextField)(({ theme }) => ({
@@ -74,9 +76,10 @@ const CssTextFieldRadius = styled(TextField)(({ theme }) => ({
 const TiffinSearchBar = () => {
     const { isPlacePredictionsLoading, placePredictions, getPlacePredictions, selectLocation } = useGetLocationResults()
 
+
+    const inputRef = useRef(null);
     const { locationValuesGlobal, manualLocation, selectedLocation } = useSelector((state) => state.globalnavbar);
     // const { startDate, endDate } = useSelector((state) => state.cateringFilter);
-
     const [isAdornmentClicked, setIsAdornmentClicked] = useState(false);
 
     const dispatch = useDispatch();
@@ -89,7 +92,14 @@ const TiffinSearchBar = () => {
 
     const router = useRouter()
 
-    const {getCurrentLocation} = useAllowLocation()
+    const { getCurrentLocation } = useAllowLocation()
+
+    const handleClear = () => {
+        dispatch(setSelectedLocation(null));
+        dispatch(setManualLocation(''));
+        inputRef.current.focus();
+    };
+
 
     const onHandleSubmit = (event) => {
         event.preventDefault();
@@ -112,6 +122,7 @@ const TiffinSearchBar = () => {
                             placeholder="Enter your location..."
                             variant="outlined"
                             className='mt-0'
+                            inputRef={inputRef}
                             style={{ width: '100%' }}
                             onChange={(evt) => {
                                 dispatch(setSelectedLocation(null));
@@ -135,6 +146,15 @@ const TiffinSearchBar = () => {
                                     >
                                         <MyLocationIcon />
                                     </InputAdornment>
+                                ),
+                                endAdornment: (
+                                    manualLocation && (
+                                        <InputAdornment position="end">
+                                            <IconButton onClick={handleClear}>
+                                                <ClearIcon />
+                                            </IconButton>
+                                        </InputAdornment>
+                                    )
                                 ),
                             }}
                         />
@@ -174,7 +194,7 @@ const TiffinSearchBar = () => {
                     </div>
                     <div>
                         <Button
-                                type='submit' className='red-btn' variant="contained" sx={{
+                            type='submit' className='red-btn' variant="contained" sx={{
                                 boxShadow: 'none',
                                 width: '100%', fontWeight: '600', padding: '11px 20px', fontSize: '14px', backgroundColor: '#d9822b', textTransform: 'capitalize', '&:hover': {
                                     backgroundColor: '#d9822b',

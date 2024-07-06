@@ -97,7 +97,7 @@ const ListViewTiffin = () => {
         </>
     }
 
-    // console.log(getTiffinSearchCards, "getTiffinSearchCards getTiffinSearchCards");
+    console.log(getTiffinSearchCards, "getTiffinSearchCards getTiffinSearchCards");
 
     return (
         <>
@@ -109,7 +109,7 @@ const ListViewTiffin = () => {
                             const bannerImage = item?.banner_images?.[0]?.original;
                             const imageSrc = item?.subscription_type_name === "branded" && brandLogo || item?.brand_logo?.original || bannerImage || 'img/no-image.jpg';
                             return (
-                                <div className="list-view-card-tiffin" key={item?.vendor_id}>
+                                <div className="list-view-card-tiffin" key={item?.id}>
                                     <Stack spacing={{ xs: 1, sm: 2, md: 0 }} direction={{ xs: 'column', sm: 'row', md: 'row', lg: "row" }} justifyContent="space-between" flexWrap="wrap">
 
                                         <Stack direction={{ xs: 'column', sm: 'row', md: 'row', lg: "row" }} spacing={2}>
@@ -164,10 +164,10 @@ const ListViewTiffin = () => {
                                                             </Stack>
 
                                                             <Stack direction="row" spacing={1}>
-                                                                {item?.kitchen_types.length > 0 &&  item?.kitchen_types?.slice(0, 4).map((item) => (
-                                                                <span className='list-card-chip-kitchentypes mt-3'>
-                                                                   {item}
-                                                                </span>
+                                                                {item?.kitchen_types.length > 0 && item?.kitchen_types?.slice(0, 4).map((item) => (
+                                                                    <span className='list-card-chip-kitchentypes mt-3'>
+                                                                        {item}
+                                                                    </span>
                                                                 ))
                                                                 }
                                                             </Stack>
@@ -210,10 +210,10 @@ const ListViewTiffin = () => {
                                             <div>
                                                 <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} className='mb-2'>
                                                     <ShareIcon className='lse-icons' style={{ marginRight: '10px' }} />
-                                                    {
-                                                        wishlist[item?.id] ? <FavoriteIcon className='lse-icons cursor-pointer fill-heart-tiffin' onClick={() => onHandleAddFavourite(item?.id)} /> :
-                                                            <FavoriteBorderIcon className='lse-icons cursor-pointer' onClick={() => onHandleAddFavourite(item?.id)} />
-                                                    }
+
+                                                    {accessToken ? <>
+                                                        {wishlist[item?.id] ? <FavoriteIcon className='lse-icons cursor-pointer fill-heart-tiffin' onClick={() => onHandleAddFavourite(item?.id)} /> : <FavoriteBorderIcon className='lse-icons cursor-pointer' onClick={() => onHandleAddFavourite(item?.id)} />}
+                                                    </> : <FavoriteBorderIcon className='lse-icons cursor-pointer' onClick={() => toast.error("Login before Adding to Wishlist")} />}
                                                 </Stack>
                                                 <Stack direction="row" alignItems="center" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} style={{ marginTop: '8px' }}>
                                                     <span className='cat-yellow' style={{ fontSize: '14px' }}>

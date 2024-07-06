@@ -1,6 +1,7 @@
 "use client"
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import TextField from '@mui/material/TextField';
+import IconButton from '@mui/material/IconButton';
 import { styled } from '@mui/material/styles';
 import MyLocationIcon from '@mui/icons-material/MyLocation';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -21,6 +22,8 @@ import { useRouter } from 'next/navigation'
 // import useDebounce from '@/hooks/useDebounce';
 import { setManualLocation, setPeople, setSelectedLocation } from '@/app/features/user/globalNavSlice';
 import useAllowLocation from '@/hooks/useAllowLocation';
+import ClearIcon from '@mui/icons-material/Clear';
+
 
 
 const CssTextField = styled(TextField)(({ theme }) => ({
@@ -76,6 +79,7 @@ const CssTextFieldRadius = styled(TextField)(({ theme }) => ({
 const CateringSearchBar = () => {
     const { isPlacePredictionsLoading, placePredictions, getPlacePredictions, selectLocation } = useGetLocationResults()
 
+    const inputRef = useRef(null);
     const { manualLocation, selectedLocation, isLoading } = useSelector((state) => state.globalnavbar);
 
     const [isAdornmentClicked, setIsAdornmentClicked] = useState(false);
@@ -90,6 +94,13 @@ const CateringSearchBar = () => {
 
     const router = useRouter()
     const { getCurrentLocation } = useAllowLocation()
+
+    const handleClear = () => {
+        dispatch(setSelectedLocation(null));
+        dispatch(setManualLocation(''));
+        inputRef.current.focus();
+    };
+
 
     const onHandleSubmit = (event) => {
         event.preventDefault();
@@ -111,6 +122,7 @@ const CateringSearchBar = () => {
                             placeholder="Enter your location..."
                             variant="outlined"
                             className='mt-0'
+                            inputRef={inputRef}
                             style={{ width: '100%' }}
                             onChange={(evt) => {
                                 dispatch(setSelectedLocation(null));
@@ -134,6 +146,15 @@ const CateringSearchBar = () => {
                                     >
                                         <MyLocationIcon />
                                     </InputAdornment>
+                                ),
+                                endAdornment: (
+                                    manualLocation && (
+                                        <InputAdornment position="end">
+                                            <IconButton onClick={handleClear}>
+                                                <ClearIcon />
+                                            </IconButton>
+                                        </InputAdornment>
+                                    )
                                 ),
                             }}
                         />
