@@ -1030,7 +1030,7 @@ h6 {
 .cuisine-slider .swiper-button-prev,
 .swiper-rtl .swiper-button-next {
   right: var(--swiper-navigation-sides-offset, 3px);
-  left: 22px !important;
+  left: 6px  !important;
   color: #322d2d;
   font-size: 1px;
   background: #fff;
@@ -2995,7 +2995,8 @@ h6 {
   }
 
   .landing-heading {
-    font-size: 2rem;
+    font-size: 2.1rem;
+    font-weight: bold;
   }
 
   .landing-left {
