@@ -14,6 +14,8 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import GridViewSkeleton from './GridViewSkeleton';
+import { unwrapResult } from '@reduxjs/toolkit';
+
 
 const CateringWishlist = () => {
 
@@ -38,7 +40,7 @@ const CateringWishlist = () => {
 
     const [wishlist, setWishlist] = useState({});
 
-    const onHandleAddFavourite = (branchId) => {
+    const onHandleAddFavourite = async (branchId) => {
         const currentStatus = wishlist[branchId] || false;
         const vendor_type = "Caterer"
         let data = {
@@ -46,11 +48,12 @@ const CateringWishlist = () => {
             whishlistStatus: !currentStatus ? 1 : 0,
             vendor_type
         }
-        dispatch(addchWishlist(data))
+        const resultAction = await dispatch(addchWishlist(data));
+        unwrapResult(resultAction); 
         setWishlist((prevState) => ({ ...prevState, [branchId]: !currentStatus }));
         setTimeout(() => {
-            window.location.reload()
-        }, 2000)
+            dispatch(fetchWishlist())
+        }, 1000)
     }
 
     useEffect(() => {
@@ -97,7 +100,7 @@ const CateringWishlist = () => {
                                         const imageSrc = getSearchCard?.subscription_type_name === "branded" && brandLogo || bannerImage || '/img/no-image.jpg';
                                         return (
                                             <Grid item xs={12} sm={6} md={4} lg={4}>
-                                                <div className='text-decoration-none'
+                                                <div className='text-decoration-none cursor-pointer'
                                                     onClick={(e) => {
                                                         onNavigateDetailPage(getSearchCard?.vendor_id, getSearchCard?.id)
                                                         e.stopPropagation()

@@ -15,6 +15,8 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import CateringWishlist from '@/components/CateringWishlist';
 import GridViewSkeleton from './GridViewSkeleton';
+import { unwrapResult } from '@reduxjs/toolkit';
+
 
 const TiffinWishList = () => {
 
@@ -39,7 +41,7 @@ const TiffinWishList = () => {
 
     const [wishlist, setWishlist] = useState({});
 
-    const onHandleAddFavourite = (branchId) => {
+    const onHandleAddFavourite = async (branchId) => {
         const currentStatus = wishlist[branchId] || false;
         const vendor_type = "Tiffin"
         let data = {
@@ -47,10 +49,12 @@ const TiffinWishList = () => {
             whishlistStatus: !currentStatus ? 1 : 0,
             vendor_type
         }
-        dispatch(addchWishlist(data))
+        // dispatch(addchWishlist(data))
+        const resultAction = await dispatch(addchWishlist(data));
+        unwrapResult(resultAction); 
         setWishlist((prevState) => ({ ...prevState, [branchId]: !currentStatus }));
         setTimeout(() => {
-            window.location.reload()
+            dispatch(fetchWishlistTiffin())
         }, 2000)
     }
 
@@ -98,7 +102,7 @@ console.log(tiffinWishlist, "tiffinWishlist");
                                         const imageSrc =  brandLogo || bannerImage || '/img/no-image.jpg';
                                         return (
                                             <Grid item xs={12} sm={6} md={4} lg={4}>
-                                                <div className='text-decoration-none'
+                                                <div className='text-decoration-none cursor-pointer'
                                                     onClick={(e) => {
                                                         onNavigateDetailPage(getSearchCard?.vendor_id, getSearchCard?.id)
                                                         e.stopPropagation()
