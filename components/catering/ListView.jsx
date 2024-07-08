@@ -226,9 +226,9 @@ const ListView = () => {
 
 
                                     <div>
-                                        {getSearchCard?.start_price && <Stack className="lv-price mb-2" direction="row" justifyContent={{ xs: 'start', sm: 'start', lg: "end" }}>
+                                         <Stack className="lv-price mb-2" direction="row" justifyContent={{ xs: 'start', sm: 'start', lg: "end" }}>
                                             <span className='lse-starting-price'>Starting Price - <span className='lse-rupees'>₹ {getSearchCard?.start_price}/- </span> </span>
-                                        </Stack>}
+                                        </Stack>
 
                                         <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} style={{ marginTop: '6px' }}>
                                             <span className='lse-starting-price'>Inclusive All Taxes</span>
