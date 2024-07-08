@@ -230,7 +230,6 @@ const ListViewTiffin = () => {
                                                         {[...Array(parseInt(item.rating.slice(0, 1)))].map((star, index) => (
                                                             <StarIcon key={index} style={{ color: '#d9822b', fontSize: 20 }} />
                                                         ))}
-                                                        {/* <p className='vc-review-card-para text-ellipse-three text-start'>{item?.review_text}</p> */}
 
                                                     </div>
                                                 </Stack>
@@ -238,9 +237,9 @@ const ListViewTiffin = () => {
 
 
                                             <div>
-                                                {item?.start_price && <Stack className="lv-price mb-2" direction="row" justifyContent={{ xs: 'start', sm: 'start', lg: "end" }}>
+                                                <Stack className="lv-price mb-2" direction="row" justifyContent={{ xs: 'start', sm: 'start', lg: "end" }}>
                                                     <span className='lse-starting-price'>Monyhly plan Cost - <span className='lse-rupees-orange'>₹ {item?.start_price}/- </span> </span>
-                                                </Stack>}
+                                                </Stack>
 
                                                 <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} style={{ marginTop: '6px' }}>
                                                     <span className='lse-starting-price'>Inclusive All Taxes</span>
