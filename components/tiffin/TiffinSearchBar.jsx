@@ -199,7 +199,7 @@ const TiffinSearchBar = () => {
                         <Button
                             type='submit' className='red-btn' variant="contained" sx={{
                                 boxShadow: 'none',
-                                width: '100%', fontWeight: '600', padding: '11px 20px', fontSize: '14px', backgroundColor: '#d9822b', textTransform: 'capitalize', '&:hover': {
+                                width: '100%', fontWeight: '600', marginTop:'-0.5px', padding: '11.6px 20px', fontSize: '14px', backgroundColor: '#d9822b', textTransform: 'capitalize', '&:hover': {
                                     backgroundColor: '#d9822b',
                                 },
                             }}>
