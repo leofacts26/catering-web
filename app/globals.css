@@ -3436,3 +3436,7 @@ textarea:-webkit-autofill:active {
   color: var(--accent2);
   font-size: 16px !important;
 }
+
+.share-icon-modal{
+  padding: 8px !important;
+}

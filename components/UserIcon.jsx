@@ -174,12 +174,12 @@ const UserIcon = () => {
                     </Link>
 
 
-                    <Stack direction="row" justifyContent="space-between" className='up-card'>
+                    <Stack direction="row" justifyContent="space-between" className='up-card share-icon-modal'>
                         <p>Share Caterings & Tiffins</p>
                         <ShareIcon className="up-profile-icon" />
                     </Stack>
 
-                    <Stack direction="row" justifyContent="end" sx={{ marginTop: '10px' }}>
+                    <Stack direction="row" justifyContent="end" sx={{ marginTop: '20px' }}>
                         <Button variant="contained" className='logout-icon avatar-gradient' onClick={() => onLogout()}> <LogoutIcon style={{ marginRight: '10px', fontSize: '18px' }} />
                             <span className='logout-icon-span'>Logout</span> </Button>
                     </Stack>
