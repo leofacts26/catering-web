@@ -77,13 +77,22 @@ const page = () => {
         setMapRef(map);
         if (markers.length > 0) {
             const bounds = new window.google.maps.LatLngBounds();
-            markers.forEach(({ lat, lng }) => {
-                if (typeof lat === 'number' && typeof lng === 'number') {
-                    bounds.extend({ lat, lng });
+            // markers.forEach(({ lat, lng }) => {
+            //     if (typeof lat === 'number' && typeof lng === 'number') {
+            //         bounds.extend({ lat, lng });
+            //     } else {
+            //         console.error('Invalid marker coordinates:', { lat, lng });
+            //     }
+            // });
+            markers.forEach(marker => {
+                const lat = parseFloat(marker.lat);
+                const lng = parseFloat(marker.lng);
+                if (!isNaN(lat) && !isNaN(lng)) {
+                  bounds.extend({ lat, lng });
                 } else {
-                    console.error('Invalid marker coordinates:', { lat, lng });
+                  console.error(`Invalid lat or lng value for marker: ${marker}`);
                 }
-            });
+              });
             if (!bounds.isEmpty()) {
                 map.fitBounds(bounds);
             }

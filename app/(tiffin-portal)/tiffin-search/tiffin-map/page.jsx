@@ -81,7 +81,16 @@ const Page = () => {
         setMapRef(map);
         if (markers.length > 0) {
             const bounds = new window.google.maps.LatLngBounds();
-            markers.forEach(({ lat, lng }) => bounds.extend({ lat, lng }));
+            // markers.forEach(({ lat, lng }) => bounds.extend({ lat, lng }));
+            markers.forEach(marker => {
+                const lat = parseFloat(marker.lat);
+                const lng = parseFloat(marker.lng);
+                if (!isNaN(lat) && !isNaN(lng)) {
+                    bounds.extend({ lat, lng });
+                } else {
+                    console.error(`Invalid lat or lng value for marker: ${marker}`);
+                }
+            });
             map.fitBounds(bounds);
         }
     };
@@ -124,7 +133,7 @@ const Page = () => {
     };
 
 
-     console.log(getTiffinMapviewSearchCards, "getTiffinMapviewSearchCards");
+    console.log(getTiffinMapviewSearchCards, "getTiffinMapviewSearchCards");
 
     return (
         <>
@@ -147,7 +156,7 @@ const Page = () => {
                     <Grid item xs={8}>
                         <div className="map-box-container">
 
-                           <MapAsyncSelect onSelect={handleSelect} />
+                            <MapAsyncSelect onSelect={handleSelect} />
 
                             <button className='btn-close-tiffin' onClick={() => router.push('/tiffin-search')}>
                                 Close Map

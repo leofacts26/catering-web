@@ -35,6 +35,7 @@ import { setlLocationValuesGlobal } from "@/app/features/user/globalNavSlice";
 import { fetchCateringSearchCards } from "@/app/features/user/cateringFilterSlice";
 import { useRouter } from 'next/navigation';
 import OutdoorGrillIcon from '@mui/icons-material/OutdoorGrill';
+import ShowOnMapCatering from "@/components/ShowOnMapCatering";
 
 const page = () => {
 
@@ -122,7 +123,10 @@ const page = () => {
                                 <ShareIcon style={{ fontSize: '18px' }} /> <span>Share</span></Stack>
                             {/* <Stack direction="row" alignItems="center" spacing={1} className="vc-icons"> <FavoriteBorderIcon style={{ fontSize: '18px' }} /> <span>Save</span></Stack> */}
                             <CateringDetailSave branchId={branchId} is_wishlisted={data?.is_wishlisted} />
-                            <Stack direction="row" alignItems="center" spacing={1} className="vc-icons"> <LocationOnIcon style={{ fontSize: '14px' }} /> <span className="font-12">Show On Map</span></Stack>
+                            {/* <Stack direction="row" alignItems="center" spacing={1} className="vc-icons"> 
+                                <LocationOnIcon style={{ fontSize: '14px' }} /> <span className="font-12">Show On Map</span></Stack> */}
+                            <ShowOnMapCatering locLatitude={data?.latitude} locLongtitude={data?.longitude} />
+
                         </Stack>
                     </div>
                 </Stack>

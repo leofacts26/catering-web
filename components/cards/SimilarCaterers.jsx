@@ -54,8 +54,8 @@ const SimilarCaterers = ({ tiffin }) => {
     }, [getCateringSimilarTypes])
 
 
-      // onNavigateDetailPage 
-      const onNavigateDetailPage = (vendor_id, id) =>{
+    // onNavigateDetailPage 
+    const onNavigateDetailPage = (vendor_id, id) => {
         router.push(`/catering-search/${vendor_id}/${id}`)
     }
 
@@ -109,7 +109,7 @@ const SimilarCaterers = ({ tiffin }) => {
                         <SwiperSlide>
                             <div className='text-decoration-none  cursor-pointer' onClick={(e) => {
                                 onNavigateDetailPage(getSearchCard?.vendor_id, getSearchCard?.id)
-                                e.stopPropagation()
+                                // e.stopPropagation()
                             }}>
                                 <div className="vc-similar-card">
                                     <div className="grid-img-box">

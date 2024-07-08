@@ -13,6 +13,7 @@ import { fetchCateringSearchCards, incrementPage } from '@/app/features/user/cat
 import toast from 'react-hot-toast';
 import ShowOnMap from '../ShowOnMap';
 import StarIcon from '@mui/icons-material/Star';
+import ShowOnMapCatering from '../ShowOnMapCatering';
 
 
 const ListView = () => {
@@ -76,7 +77,7 @@ const ListView = () => {
             !isLoading &&
             (current_page * limit) < total_count
         ) {
-            dispatch(incrementTiffinPage());
+            dispatch(incrementPage());
             dispatch(fetchCateringSearchCards());
         }
     }, 500), [dispatch, isLoading, current_page, limit, total_count]);
@@ -205,7 +206,7 @@ const ListView = () => {
                                             <span className='cat-red' style={{ fontSize: '14px' }}>
                                                 <Stack direction="row" alignItems="center">
                                                     {/* <LocationOnIcon style={{ fontSize: '15px', marginRight: '5px' }} /> <span className='lse-map-icon'>Show On Map</span> */}
-                                                    <ShowOnMap locLatitude={getSearchCard?.latitude} locLongtitude={getSearchCard?.longitude} />
+                                                    <ShowOnMapCatering locLatitude={getSearchCard?.latitude} locLongtitude={getSearchCard?.longitude} />
                                                 </Stack>
                                             </span>
                                         </Stack>
