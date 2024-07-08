@@ -183,7 +183,7 @@ const useGetPriceRanges = () => {
 
     const fetchServiceTypes = async () => {
         try {
-            const response = await api.get(`${BASE_URL}/get-all-service-types?current_page=1&limit=2`, {
+            const response = await api.get(`${BASE_URL}/get-all-service-types?current_page=1&limit=2&vendor_type=Tiffin`, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
                 }

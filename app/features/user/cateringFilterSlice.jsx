@@ -129,7 +129,7 @@ export const fetchServiceTypes = createAsyncThunk(
     'user/fetchServiceTypes',
     async (user, thunkAPI) => {
         try {
-            const response = await api.get(`${BASE_URL}/get-all-service-types?current_page=1&limit=2`, {
+            const response = await api.get(`${BASE_URL}/get-all-service-types?current_page=1&limit=2&vendor_type=Caterer`, {
                 headers: {
                     authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
                 },
