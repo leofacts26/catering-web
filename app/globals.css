@@ -855,7 +855,7 @@ h6 {
 }
 
 .red-btn {
-  border-radius: 0px 8px 8px 0px;
+  border-radius: 0px 8px 8px 0px !important;
 }
 
 .rdrDefinedRangesWrapper {

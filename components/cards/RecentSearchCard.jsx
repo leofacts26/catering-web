@@ -60,7 +60,7 @@ const RecentSearchCard = () => {
                             disableOnInteraction: false,
                         }}
                         modules={[Navigation, Autoplay]}
-                        style={{ padding: '0px 5px' }}
+                        style={{ padding: '0px 1px' }}
                         className="mySwiper cuisine-slider w-100"
                         breakpoints={{
                             0: {
