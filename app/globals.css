@@ -3031,6 +3031,9 @@ h6 {
 }
 
 @media screen and (max-width: 600px) {
+  .list-view-card{
+    height: auto !important;
+  }
   .text-ellipse-one-listcard {
     display: -webkit-box;
     max-width: 70%;
