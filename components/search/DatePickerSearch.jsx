@@ -84,9 +84,10 @@ const DatePickerSearch = () => {
                     fontWeight: 'bold',
                     color: '#C33332',
                     width: '100%',
-                    padding: '11.50px 10px',
+                    padding: '11.9px 10px',
                     border: '2px solid #C33332',
                     textTransform: 'capitalize',
+                    marginTop: '-0.5px'
                 }}
                 startIcon={<CalendarTodayIcon />}
                 onClick={togglePicker}
