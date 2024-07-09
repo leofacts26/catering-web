@@ -2217,7 +2217,7 @@ h6 {
   color: var(--primarytext);
   display: -webkit-box;
   max-width: 300px;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-wrap: wrap;
