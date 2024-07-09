@@ -142,7 +142,7 @@ const GridViewList = ({ xs, sm, md, lg }) => {
                                                 <div>
                                                     {getSearchCard?.food_types.length > 0 && <Stack direction="row" spacing={1}>
                                                         {
-                                                            getSearchCard?.food_types?.map((food_type, index) => {
+                                                            getSearchCard?.food_types?.slice(1,3).map((food_type, index) => {
                                                                 let iconSrc = '';
                                                                 if (food_type === 'Veg') {
                                                                     iconSrc = '/img/icons/list-card-veg.png';

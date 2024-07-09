@@ -67,6 +67,27 @@ export const addchWishlist = createAsyncThunk(
     }
 )
 
+
+export const removeAllWishlist = createAsyncThunk(
+    'user/removeAllWishlist',
+    async (data, thunkAPI) => {
+        let body = {
+           status: 0
+        }
+        try {
+            const response = await api.post(`user-remove-all-wishlist`, body, {
+                headers: {
+                    authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
+                },
+            });
+            toast.success(successToast(response))
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error.response.data.msg);
+        }
+    }
+)
+
+
 export const sendUpdateProfileOTP = createAsyncThunk(
     'user/sendUpdateProfileOTP',
     async (data, thunkAPI) => {
@@ -158,6 +179,17 @@ export const settingSlice = createSlice({
                 state.isLoading = false;
                 toast.error(datavalidationerror(payload));
             })
+            // removeAllWishlist 
+            .addCase(removeAllWishlist.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(removeAllWishlist.fulfilled, (state, { payload }) => {
+                state.isLoading = false;
+            })
+            .addCase(removeAllWishlist.rejected, (state, { payload }) => {
+                state.isLoading = false;
+                toast.error(datavalidationerror(payload));
+            }) 
 
     }
 })
