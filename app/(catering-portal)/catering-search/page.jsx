@@ -30,7 +30,7 @@ const page = () => {
   const router = useRouter()
   const dispatch = useDispatch()
   const { getCateringSearchCards, getCateringPriceRanges, getCateringFoodTypes, getCateringCuisines, getCateringServiceTypes, getCateringRatings, getCateringHeadCount, getCateringServingTypes, total_count } = useSelector((state) => state.cateringFilter)
-  console.log(getCateringSearchCards, "getCateringSearchCards");
+  // console.log(getCateringSearchCards, "getCateringSearchCards");
 
   useEffect(() => {
     // Fetch all necessary data

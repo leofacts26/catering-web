@@ -1229,6 +1229,15 @@ h6 {
 /* subscribe end */
 
 /* Footer start */
+.footer-container a {
+  text-decoration: none !important;
+  color: #252525;
+}
+
+.nav-bg-footer {
+  padding: 25px 0px 25px 0px;
+}
+
 .footer-bg {
   background-color: #E0E3E7;
   padding: 10px 0px;
@@ -3441,4 +3450,51 @@ textarea:-webkit-autofill:active {
 
 .share-icon-modal {
   padding: 8px !important;
+}
+
+.about-us h1 {
+  font-size: 1.8em;
+  font-family: var(--fontPrimary);
+  font-weight: 500;
+  color: var(--primarytext);
+}
+
+.about-us h2 {
+  font-size: 1.4em;
+  font-family: var(--fontPrimary);
+  font-weight: 500;
+  color: var(--primarytext);
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
+.about-us p {
+  color: var(--secondarytext);
+  font-size: 16px;
+  font-family: var(--fontPrimary);
+  line-height: 1.8em;
+}
+
+.about-us ul li {
+  color: var(--secondarytext);
+  font-size: 16px;
+  font-family: var(--fontPrimary);
+  line-height: 1.8em;
+  list-style-position: inside;
+}
+
+.disclaimer h2{
+  font-size: 1.2em;
+  font-family: var(--fontPrimary);
+  font-weight: 500;
+  color: var(--primarytext);
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
+.disclaimer p {
+  color: var(--secondarytext);
+  font-size: 16px;
+  font-family: var(--fontPrimary);
+  line-height: 1.8em;
 }

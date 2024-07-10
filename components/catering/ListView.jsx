@@ -21,7 +21,7 @@ const ListView = () => {
     const { getCateringSearchCards, isLoading, current_page, limit, total_count } = useSelector((state) => state.cateringFilter)
     const accessToken = useSelector((state) => state.user.accessToken);
 
-    console.log(accessToken, "accessToken accessToken");
+    // console.log(accessToken, "accessToken accessToken");
 
     const [wishlist, setWishlist] = useState({});
 

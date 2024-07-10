@@ -32,7 +32,7 @@ const ExploreTiffins = () => {
         router.push(url);
     }
 
-    console.log(getAllCities, "getAllCities");
+    // console.log(getAllCities, "getAllCities"); 
     // console.log(getAllCities, "getAllCities"); 
 
     return (

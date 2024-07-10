@@ -28,7 +28,7 @@ const CaterRatingCount = () => {
         dispatch(fetchCateringMapviewSearchCards());
     }, [dispatch])
 
-    console.log(getCateringRatings, "getCateringRatings getCateringRatings");
+    // console.log(getCateringRatings, "getCateringRatings getCateringRatings");
 
     return (
         <>

@@ -41,7 +41,7 @@ const PopularTiffins = () => {
         router.push(url);
     };
 
-    console.log(userDetails, "userDetails");
+    // console.log(userDetails, "userDetails");
     // popularTiffinssShimmer 
     return (
         <>

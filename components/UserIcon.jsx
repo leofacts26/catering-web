@@ -57,7 +57,7 @@ const UserIcon = () => {
         window.location.reload();
     }
 
-    console.log(userDetails, "userDetails");
+    // console.log(userDetails, "userDetails");
 
     return (
         <>
