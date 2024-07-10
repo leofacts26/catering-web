@@ -3498,3 +3498,50 @@ textarea:-webkit-autofill:active {
   font-family: var(--fontPrimary);
   line-height: 1.8em;
 }
+
+.ct-box-padding {
+  padding-bottom: 20px;
+}
+
+.card-box-shadow {
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+  border-radius: var(--radiusOne);
+}
+
+.bg-primary {
+  background-color: var(--bgprimary);
+  height: 155px;
+  border-radius: var(--radiusOne);
+}
+
+.rt-heading {
+  font-size: 16px;
+  font-family: var(--fontPrimary);
+  font-weight: 500;
+  margin-bottom: 5px;
+  text-align: center;
+  text-transform: capitalize;
+  color: var(--primarytext);
+}
+
+.job-textarea {
+  border: 1px solid #ccc !important;
+  transition: border-color 0.3s !important;
+}
+
+.job-textarea:focus,
+.job-textarea:active {
+  border: 2px solid var(--secondary) !important;
+}
+
+.support-bg{
+  background-image: linear-gradient(to right, #c33332, #d9822b) !important;
+}
+
+.support-bg:hover{
+  background-image: linear-gradient(to right, #c33332, #d9822b) !important;
+}
+
+.text-danger {
+   color: #c33332; 
+}
