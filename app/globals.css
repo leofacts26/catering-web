@@ -3545,3 +3545,7 @@ textarea:-webkit-autofill:active {
 .text-danger {
    color: #c33332; 
 }
+
+.vc-markdown p{
+  margin: 1em 0px;
+}

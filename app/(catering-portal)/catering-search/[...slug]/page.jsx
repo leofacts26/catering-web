@@ -36,6 +36,9 @@ import { fetchCateringSearchCards } from "@/app/features/user/cateringFilterSlic
 import { useRouter } from 'next/navigation';
 import OutdoorGrillIcon from '@mui/icons-material/OutdoorGrill';
 import ShowOnMapCatering from "@/components/ShowOnMapCatering";
+import ReactMarkdown from 'react-markdown';
+
+
 
 const page = () => {
 
@@ -267,7 +270,7 @@ const page = () => {
 
                 {data?.about_description && <div>
                     <h3 className="vc-about-us">About Us</h3>
-                    <p className="vc-para">{data?.about_description}</p>
+                    <p className="vc-para vc-markdown my-3"> <ReactMarkdown>{data?.about_description}</ReactMarkdown></p>
                 </div>}
 
 

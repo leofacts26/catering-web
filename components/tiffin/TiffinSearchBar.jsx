@@ -167,7 +167,7 @@ const TiffinSearchBar = () => {
                     </div>
                     <div className="three w-100">
                         <CssTextField
-                            required
+                            // required
                             value={localPeople}
                             onChange={handlePeopleChange}
                             id="outlined-number"

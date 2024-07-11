@@ -77,28 +77,28 @@ const Footer = () => {
                                         <ul className="footer-ul">
                                         <li>
                                                 {accessToken ? (
-                                                    <Link href={'javascript:void(0)'}>Raise Ticket</Link>
+                                                    <Link href='/user-profile/helpdesk-support'>Raise Ticket</Link>
                                                 ) : (
                                                     <Link onClick={onHandleError} href='javascript:void(0)'>Raise Ticket</Link>
                                                 )}
                                             </li>
                                             <li>
                                                 {accessToken ? (
-                                                    <Link href={'/user-profile/my-inquiries'}>My Inquires</Link>
+                                                    <Link href='/user-profile/my-inquiries'>My Inquires</Link>
                                                 ) : (
                                                     <Link onClick={onHandleError} href='javascript:void(0)'>My Inquires</Link>
                                                 )}
                                             </li>
                                             <li>
                                                 {accessToken ? (
-                                                    <Link href={'/user-profile/my-wishlist'}>My Wishlist</Link>
+                                                    <Link href='/user-profile/my-wishlist'>My Wishlist</Link>
                                                 ) : (
                                                     <Link onClick={onHandleError} href='javascript:void(0)'>My Wishlist</Link>
                                                 )}
                                             </li>
                                             <li>
                                                 {accessToken ? (
-                                                    <Link href={'/user-profile/user-profile'}>My Account</Link>
+                                                    <Link href='/user-profile/user-profile'>My Account</Link>
                                                 ) : (
                                                     <Link onClick={onHandleError} href='javascript:void(0)'>My Account</Link>
                                                 )}

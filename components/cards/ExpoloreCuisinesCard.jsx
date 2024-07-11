@@ -59,7 +59,7 @@ const ExpoloreCuisinesCard = () => {
                         loop={true}
 
                         autoplay={{
-                            delay: 2000,
+                            delay: 2000000000,
                             disableOnInteraction: false,
                         }}
                         modules={[Navigation, Autoplay]}
@@ -92,7 +92,7 @@ const ExpoloreCuisinesCard = () => {
                                                 <div className="explore-cator-box" key={explorecuisine?.occasion_id}>
                                                     <img 
                                                     // onClick={() => handleImageClick(explorecuisine?.occasion_id)}  
-                                                    src={explorecuisine?.file_name?.original ? explorecuisine?.file_name?.original : '/img/no-image.jpg'} className="img-fluid cuisines-img image-shadow cursor-pointer" />
+                                                    src={explorecuisine?.file_name?.original ? explorecuisine?.file_name?.original : '/img/no-image.jpg'} className="img-fluid cuisines-img cursor-pointer" />
                                                     <h4 className='text-center cuisines-title'>{explorecuisine?.name}</h4>
                                                 </div>
 
