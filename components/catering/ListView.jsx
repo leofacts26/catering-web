@@ -14,12 +14,14 @@ import toast from 'react-hot-toast';
 import ShowOnMap from '../ShowOnMap';
 import StarIcon from '@mui/icons-material/Star';
 import ShowOnMapCatering from '../ShowOnMapCatering';
+import useGetLocationResults from '@/hooks/catering/useGetLocationResults';
 
 
 const ListView = () => {
     const dispatch = useDispatch()
     const { getCateringSearchCards, isLoading, current_page, limit, total_count } = useSelector((state) => state.cateringFilter)
     const accessToken = useSelector((state) => state.user.accessToken);
+    const { selectedLocation } = useGetLocationResults()
 
     // console.log(accessToken, "accessToken accessToken");
 
@@ -219,14 +221,14 @@ const ListView = () => {
                                                     <StarIcon key={index} style={{ color: '#C33332', fontSize: 20 }} />
                                                 ))}
                                                 {/* <p className='vc-review-card-para text-ellipse-three text-start'>{getSearchCard?.review_text}</p> */}
-                                               
+
                                             </div>
                                         </Stack>
                                     </div>
 
 
                                     <div>
-                                         <Stack className="lv-price mb-2" direction="row" justifyContent={{ xs: 'start', sm: 'start', lg: "end" }}>
+                                        <Stack className="lv-price mb-2" direction="row" justifyContent={{ xs: 'start', sm: 'start', lg: "end" }}>
                                             <span className='lse-starting-price'>Starting Price - <span className='lse-rupees'>₹ {getSearchCard?.start_price}/- </span> </span>
                                         </Stack>
 
@@ -261,7 +263,11 @@ const ListView = () => {
 
             {getCateringSearchCards?.length > 0 && <>
                 <Stack direction="row" justifyContent="space-between" style={{ marginBottom: '20px 0px 0px 0px' }} className='mb-5 mt-5'>
-                    <h2 className='pagination-heading'>Chennai: {total_count} Catering service providers found</h2>
+                    <h2 className='catering-found'>
+                        {selectedLocation?.terms?.length > 0 && selectedLocation?.terms[0]?.value
+                            ? `${selectedLocation?.terms[0].value} : ${total_count} Catering service providers found`
+                            : 'India : ' + total_count + ' Catering service providers found'}
+                    </h2>
                     {/* <p className='pagination-showing'>Showing 20 - 30</p> */}
                     <Link href="#" className='pagination-showing'>Go to Top</Link>
                 </Stack>
