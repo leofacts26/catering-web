@@ -27,3 +27,11 @@ export function useActivePathProfile() {
 
   return checkActivePath;
 }
+
+
+export function getRandomCuisines(cuisines, count) {
+  // Create a copy of the array and shuffle it
+  const shuffled = [...cuisines].sort(() => 0.5 - Math.random());
+  // Get the first `count` elements
+  return shuffled.slice(0, count);
+}

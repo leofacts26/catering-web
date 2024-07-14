@@ -117,9 +117,10 @@ const CateringWishlist = () => {
                             ) : (
                                 <>
                                     {caterWishlist?.map((getSearchCard) => {
-                                        const brandLogo = getSearchCard?.brand_logo?.[0]?.original;
+                                        const brandLogo = getSearchCard?.brand_logo?.original;
                                         const bannerImage = getSearchCard?.banner_images?.[0]?.original;
-                                        const imageSrc = getSearchCard?.subscription_type_name === "branded" && brandLogo || bannerImage || '/img/no-image.jpg';
+                                        const imageSrc = brandLogo || bannerImage || '/img/no-image.jpg';
+                                        const filterFoodTypes = getSearchCard?.food_types.filter((item) => item !== 'All')
                                         return (
                                             <Grid item xs={12} sm={6} md={4} lg={4}>
                                                 <div className='text-decoration-none cursor-pointer'
@@ -161,21 +162,25 @@ const CateringWishlist = () => {
                                                                     </Stack>
 
                                                                     <div>
-                                                                        {getSearchCard?.food_types.length > 0 && <Stack direction="row" spacing={1}>
+                                                                        {filterFoodTypes?.length > 0 && <Stack direction="row" spacing={1}>
                                                                             {
-                                                                                getSearchCard?.food_types?.slice(1, 3).map((food_type, index) => {
+                                                                                filterFoodTypes?.map((food_type, index) => {
                                                                                     let iconSrc = '';
+                                                                                    let foodClassName = '';
                                                                                     if (food_type === 'Veg') {
                                                                                         iconSrc = '/img/icons/list-card-veg.png';
+                                                                                        foodClassName = 'food-veg-color';
                                                                                     } else if (food_type === 'Non Veg') {
                                                                                         iconSrc = '/img/icons/list-card-non-veg.png';
+                                                                                        foodClassName = 'food-nonveg-color';
                                                                                     } else {
                                                                                         iconSrc = '/img/icons/list-card-veg.png';
+                                                                                        foodClassName = 'food-veg-color';
                                                                                     }
                                                                                     return (
                                                                                         <Stack direction="row" alignItems="center" spacing={0} key={index}>
                                                                                             <img src={iconSrc} className='list-card-veg' alt="" />
-                                                                                            <p className='list-card-veg-font'> {food_type} </p>
+                                                                                            <p className={`list-card-veg-font ${foodClassName}`}> {food_type} </p>
                                                                                         </Stack>
                                                                                     )
                                                                                 })

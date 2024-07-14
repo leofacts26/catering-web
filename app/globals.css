@@ -194,6 +194,14 @@ h6 {
   overflow: hidden;
 }
 
+.similarcard-ellipse-one {
+  display: -webkit-box;
+  max-width: 220px;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 .text-wrap {
   text-wrap: wrap;
 }
@@ -1421,6 +1429,7 @@ h6 {
 
 .cityHover {
   text-decoration: none !important;
+  margin-top: 2px !important;
 }
 
 .cityHover:hover {
@@ -1555,6 +1564,13 @@ h6 {
   width: 100%;
   height: 17%;
   background-color: #0000000a;
+}
+
+.view-all-dark-overlay-detail-page {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #00000094;
 }
 
 .vc-img-right {
@@ -1915,6 +1931,7 @@ h6 {
 .vc-similar-card-img {
   border-radius: 8px;
   height: 200px !important;
+  object-fit: cover;
 }
 
 .vc-similar-card-cost {
@@ -3483,7 +3500,7 @@ textarea:-webkit-autofill:active {
   list-style-position: inside;
 }
 
-.disclaimer h2{
+.disclaimer h2 {
   font-size: 1.2em;
   font-family: var(--fontPrimary);
   font-weight: 500;
@@ -3534,18 +3551,30 @@ textarea:-webkit-autofill:active {
   border: 2px solid var(--secondary) !important;
 }
 
-.support-bg{
+.support-bg {
   background-image: linear-gradient(to right, #c33332, #d9822b) !important;
 }
 
-.support-bg:hover{
+.support-bg:hover {
   background-image: linear-gradient(to right, #c33332, #d9822b) !important;
 }
 
 .text-danger {
-   color: #c33332; 
+  color: #c33332;
 }
 
-.vc-markdown p{
+.vc-markdown p {
   margin: 1em 0px;
+}
+
+.food-veg-color {
+  color: #266920 !important;
+}
+
+.food-nonveg-color {
+  color: #7C1E1E !important;
+}
+
+.detailname-width {
+  width: 70%;
 }

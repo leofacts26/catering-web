@@ -135,17 +135,21 @@ const ListViewTiffin = () => {
                                                                     {
                                                                         item?.food_types?.slice(1, 3).map((food_type, index) => {
                                                                             let iconSrc = '';
+                                                                            let foodClassName = '';
                                                                             if (food_type === 'Veg') {
                                                                                 iconSrc = '/img/icons/list-card-veg.png';
+                                                                                foodClassName = 'food-veg-color';
                                                                             } else if (food_type === 'Non Veg') {
                                                                                 iconSrc = '/img/icons/list-card-non-veg.png';
+                                                                                foodClassName = 'food-nonveg-color';
                                                                             } else {
                                                                                 iconSrc = '/img/icons/list-card-veg.png';
+                                                                                foodClassName = 'food-veg-color';
                                                                             }
                                                                             return (
                                                                                 <Stack direction="row" alignItems="center" spacing={0} key={index} className='m-0 p-0'>
                                                                                     <img src={iconSrc} className='list-card-veg' alt="" />
-                                                                                    <p className='list-card-veg-font'> {food_type} </p>
+                                                                                    <p className={`list-card-veg-font ${foodClassName}`}> {food_type} </p>
                                                                                 </Stack>
                                                                             )
                                                                         })

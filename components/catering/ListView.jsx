@@ -15,6 +15,7 @@ import ShowOnMap from '../ShowOnMap';
 import StarIcon from '@mui/icons-material/Star';
 import ShowOnMapCatering from '../ShowOnMapCatering';
 import useGetLocationResults from '@/hooks/catering/useGetLocationResults';
+import { getRandomCuisines } from '@/helper';
 
 
 const ListView = () => {
@@ -104,7 +105,6 @@ const ListView = () => {
     // console.log(getCateringSearchCards, "getCateringSearchCards");
 
 
-
     return (
         <>
             {getCateringSearchCards.length > 0 ? (
@@ -112,6 +112,8 @@ const ListView = () => {
                     const brandLogo = getSearchCard?.brand_logo?.[0]?.original;
                     const bannerImage = getSearchCard?.banner_images?.[0]?.original;
                     const imageSrc = getSearchCard?.subscription_type_name === "branded" && brandLogo || bannerImage || 'img/no-image.jpg';
+                    const randomCuisines = getRandomCuisines(getSearchCard?.cuisines || [], 8);
+                    const filterFoodTypes = getSearchCard?.food_types.filter((item)=> item !== 'All')
                     return (
                         <div className="list-view-card" key={getSearchCard?.id}>
                             <Stack spacing={{ xs: 1, sm: 2, md: 0 }} direction={{ xs: 'column', sm: 'row', md: 'row', lg: "row" }} justifyContent="space-between" flexWrap="wrap">
@@ -131,21 +133,25 @@ const ListView = () => {
                                             {getSearchCard?.city ? getSearchCard.city : ''}
                                         </p>
 
-                                        {getSearchCard?.food_types?.length > 0 && <Stack direction="row" spacing={1} sx={{ marginTop: '15px', marginBottom: '15px' }}>
+                                        {filterFoodTypes?.length > 0 && <Stack direction="row" spacing={1} sx={{ marginTop: '15px', marginBottom: '15px' }}>
                                             {
-                                                getSearchCard?.food_types?.slice(1, 3).map((food_type, index) => {
+                                                filterFoodTypes?.map((food_type, index) => {
                                                     let iconSrc = '';
+                                                    let foodClassName = '';
                                                     if (food_type === 'Veg') {
                                                         iconSrc = '/img/icons/list-card-veg.png';
+                                                        foodClassName = 'food-veg-color';
                                                     } else if (food_type === 'Non Veg') {
                                                         iconSrc = '/img/icons/list-card-non-veg.png';
+                                                        foodClassName = 'food-nonveg-color';
                                                     } else {
                                                         iconSrc = '/img/icons/list-card-veg.png';
+                                                        foodClassName = 'food-veg-color';
                                                     }
                                                     return (
                                                         <Stack direction="row" alignItems="center" spacing={0} key={index}>
                                                             <img src={iconSrc} className='list-card-veg' alt="" />
-                                                            <p className='list-card-veg-font'> {food_type} </p>
+                                                            <p className={`list-card-veg-font ${foodClassName}`}> {food_type} </p>
                                                         </Stack>
                                                     )
                                                 })
@@ -160,7 +166,7 @@ const ListView = () => {
                                             style={{ width: '375px' }}
                                         >
                                             <span className='me-2 text-ellipse-one-listcard'>
-                                                {getSearchCard?.cuisines?.slice(0, 8)?.map((cuisine) => cuisine).join(" | ")}
+                                                {randomCuisines.join(" | ")}
                                             </span>
                                         </Stack>}
 
@@ -194,7 +200,7 @@ const ListView = () => {
                                         </Stack>
                                     </div>
                                 </Stack>
-                                
+
 
 
                                 <Stack className="list-card-end m-0 p-0" direction="column" justifyContent="space-between">

@@ -60,10 +60,10 @@ const ShowAllImages = ({ galleryImages, bennerMenuMixGalleryImages }) => {
                             ))}
                             <Grid item xs={12} sm={12} lg={6}>
                                 <div className="view-all-photos">
-                                    <span className="view-all-dark-overlay"></span>
-                                    <span className="view-show-vc">+ {Math.max(0, slides.length - 4)} Show All</span>
-                                    {slides[4] && (
-                                        <img src={slides[4].src} alt={slides[4].alt} className="img-fluid vc-img-right" />
+                                    <span className="view-all-dark-overlay-detail-page"></span>
+                                    <span className="view-show-vc">+ {Math.max(0, slides.length - 5)} Show All</span>
+                                    {slides[5] && (
+                                        <img src={slides[5].src} alt={slides[5].alt} className="img-fluid vc-img-right" />
                                     )}
                                 </div>
                             </Grid>
