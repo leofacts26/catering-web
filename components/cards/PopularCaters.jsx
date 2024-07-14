@@ -108,14 +108,60 @@ const PopularCaters = ({ title }) => {
                             }}
                         >
                             <>
-                                {popularCaterer?.length > 0 && popularCaterer?.map((cater, index) => (
+                                {popularCaterer?.length > 0 && popularCaterer?.slice(0, 6).map((cater, index) => (
                                     <SwiperSlide key={popularCaterer?.id}>
-                                    <Box onClick={() => handleImageClick()} style={{ padding: '10px 0px 10px 15px' }}>
-                                        <img src={cater.gallery_images["vendor-brand-logo"][0].image_name[0]?.original} alt={cater?.catering_service_name} className="img-fluid popular-caterers-img image-shadow cursor-pointer" />
-                                        <h4 className='popular-caterers-heading'>{cater?.catering_service_name}</h4>
-                                        <p className='popular-caterers-des'> {cater?.street_name} {cater?.area} </p>
-                                    </Box>
-                                </SwiperSlide>
+                                        <Box onClick={() => handleImageClick()} style={{ padding: '10px 0px 10px 15px' }}>
+                                            <img src={cater.gallery_images["vendor-brand-logo"][0].image_name[0]?.original} alt={cater?.catering_service_name} className="img-fluid popular-caterers-img image-shadow cursor-pointer" />
+                                            <h4 className='popular-caterers-heading'>{cater?.catering_service_name}</h4>
+                                            <p className='popular-caterers-des'> {cater?.street_name} {cater?.area} </p>
+                                        </Box>
+                                    </SwiperSlide>
+                                ))}
+                            </>
+                        </Swiper>
+                    </Grid>
+                </Box>
+            </Container>
+
+            <Container maxWidth="lg" className="popular-cater-slider" style={{ marginTop: '25px' }}>
+                <Box sx={{ flexGrow: 1 }}>
+                    <Grid container spacing={2}>
+                        <Swiper
+                            slidesPerView={6}
+                            spaceBetween={30}
+                            loop={true}
+                            autoplay={{
+                                delay: 2500,
+                                disableOnInteraction: false,
+                            }}
+                            navigation={true}
+                            freeMode={true}
+                            modules={[Autoplay, FreeMode, Navigation]}
+                            className="mySwiper"
+                            breakpoints={{
+                                0: {
+                                    slidesPerView: 1,
+                                },
+                                600: {
+                                    slidesPerView: 3,
+                                },
+                                960: {
+                                    slidesPerView: 4,
+                                },
+                                1280: {
+                                    slidesPerView: 5,
+                                },
+                            }}
+                        >
+                            <>
+                                {popularCaterer?.length > 0 && popularCaterer?.slice(6, 13).map((cater, index) => (
+                                    <SwiperSlide key={popularCaterer?.id}>
+                                        <Box onClick={() => handleImageClick()} style={{ padding: '10px 0px 10px 15px' }}>
+                                            <img src={cater.gallery_images["vendor-brand-logo"][0].image_name[0]?.original} alt={cater?.catering_service_name} className="img-fluid popular-caterers-img image-shadow cursor-pointer" />
+                                            <h4 className='popular-caterers-heading'>{cater?.catering_service_name}</h4>
+                                            <p className='popular-caterers-des'> {cater?.street_name} {cater?.area} </p>
+                                        </Box>
+                                    </SwiperSlide>
                                 ))}
                             </>
                         </Swiper>
