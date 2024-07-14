@@ -45,8 +45,10 @@ const page = () => {
 
     const [showAll, setShowAll] = useState(true)
     const [count, setCount] = useState(3)
-    console.log(showAll, "showAll");
-    console.log(count, "count");
+
+    const [showAllCuisines, setShowAllCuisines] = useState(true)
+    const [cuisineCount, setCuisineCount] = useState(12)
+
 
     const dispatch = useDispatch()
     const accessToken = useSelector((state) => state.user.accessToken);
@@ -87,18 +89,28 @@ const page = () => {
 
 
     const onHandleShow = () => {
-        console.log("true");
         setShowAll(false)
         setCount(100)
     }
 
     const onHandleClose = () => {
-        console.log("false");
         setShowAll(true)
         setCount(3)
     }
 
-    console.log(data?.foodTypes, "data?.foodTypes data?.foodTypes");
+    const onHandleCuisineShow = () => {
+        console.log("true");
+        setShowAllCuisines(false)
+        setCuisineCount(100)
+    }
+
+    const onHandleCuisineClose = () => {
+        console.log("false");
+        setShowAllCuisines(true)
+        setCuisineCount(12)
+    }
+
+    // console.log(data?.foodTypes, "data?.foodTypes data?.foodTypes");
 
     return (
         <>
@@ -150,10 +162,17 @@ const page = () => {
                                 <FoodType data={data?.foodTypes} />
                             </Stack>}
 
+                            {/* <p className="vc-para"> {data?.branches?.slice(0, count).map((item) => item?.city).join(", ")}
+                                {showAll ? <span className="text-red view-all ms-2 cursor-pointer" onClick={() => onHandleShow()}> Show All </span> :
+                                    <span className="text-red view-all ms-2 cursor-pointer" onClick={() => onHandleClose()}> Show Less </span>}
+                            </p> */}
+
                             {data?.cuisines?.length > 0 && <div>
                                 <h2 className="vc-cater">Cuisines We Cater</h2>
                                 <h2 className="vc-locations">
-                                    {data?.cuisines?.slice(0, 8)?.map((item) => item?.cuisine_name).join(" | ")}...
+                                    {data?.cuisines?.slice(0, cuisineCount).map((item) => item?.cuisine_name).join(" | ")}...
+                                    {showAllCuisines ? <span className="text-red view-all ms-2 cursor-pointer" onClick={() => onHandleCuisineShow()}> Show All </span> :
+                                        <span className="text-red view-all ms-2 cursor-pointer" onClick={() => onHandleCuisineClose()}> Show Less </span>}
                                 </h2>
                             </div>}
 
@@ -265,7 +284,6 @@ const page = () => {
                     <p className="vc-para"> {data?.branches?.slice(0, count).map((item) => item?.city).join(", ")}
                         {showAll ? <span className="text-red view-all ms-2 cursor-pointer" onClick={() => onHandleShow()}> Show All </span> :
                             <span className="text-red view-all ms-2 cursor-pointer" onClick={() => onHandleClose()}> Show Less </span>}
-
                     </p>
                 </div>}
 
