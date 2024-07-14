@@ -45,7 +45,7 @@ const BrandedCaters = () => {
   // console.log(brandedList, "brandedList 666"); 
 
   return (
-    <Container maxWidth="lg" className="cuisine-slider" style={{ marginTop: '25px' }}>
+    <Container maxWidth="lg" className="branded-slider-caterer" style={{ marginTop: '25px' }}>
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
           <Swiper
@@ -71,7 +71,7 @@ const BrandedCaters = () => {
                 slidesPerView: 4,
               },
               1280: {
-                slidesPerView: 5,
+                slidesPerView: 6,
               },
             }}
 
@@ -88,7 +88,7 @@ const BrandedCaters = () => {
 
                 <SwiperSlide key={brandedcaterer?.id}>
                   <Box onClick={() => handleImageClick()} style={{ padding: '10px 0px 10px 15px' }}>
-                    <img src={brandedcaterer?.gallery_images['vendor-brand-logo']?.[0]?.image_name[0]?.original ? brandedcaterer?.gallery_images['vendor-brand-logo']?.[0]?.image_name[0]?.original : '/img/no-image.jpg'} alt="logo" className="img-fluid popular-caterers-img image-shadow cursor-pointer" />
+                    <img src={brandedcaterer?.gallery_images['vendor-brand-logo']?.[0]?.image_name[0]?.original ? brandedcaterer?.gallery_images['vendor-brand-logo']?.[0]?.image_name[0]?.original : '/img/no-image.jpg'} alt="logo" className="img-fluid branded-caterers-img image-shadow cursor-pointer" />
                   </Box>
                 </SwiperSlide>
 

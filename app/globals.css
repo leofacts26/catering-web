@@ -3578,3 +3578,17 @@ textarea:-webkit-autofill:active {
 .detailname-width {
   width: 70%;
 }
+
+
+/* branded-slider-caterer */
+
+.branded-slider-caterer {
+
+}
+
+.branded-caterers-img {
+  height: 130px;
+  object-fit: contain;
+  border-radius: var(--radiusOne);
+  box-shadow: var(--card-box-shadow);
+}
