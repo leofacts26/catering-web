@@ -37,7 +37,7 @@ const CaterHeadCount = () => {
                             checked={headCount.selectedweb === 1}
                             onChange={() => onHandleHeadCount(headCount)}
                         />
-                        <span className='checkbox-text'>{`Rs. ${headCount?.start} - Rs. ${headCount?.end}`}</span>
+                        <span className='checkbox-text'>{` ${headCount?.start} -  ${headCount?.end}`}</span>
                     </Stack>
                 ))
             ) : (
