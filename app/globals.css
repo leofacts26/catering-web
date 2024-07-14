@@ -3592,3 +3592,39 @@ textarea:-webkit-autofill:active {
   border-radius: var(--radiusOne);
   box-shadow: var(--card-box-shadow);
 }
+
+/* branded-slider-caterer start  */
+.branded-slider-caterer .swiper-button-prev:after,
+.swiper-rtl .swiper-button-next:after {
+  font-size: 19px !important;
+  font-weight: 600 !important;
+}
+
+.branded-slider-caterer .swiper-button-prev,
+.swiper-rtl .swiper-button-next {
+  right: var(--swiper-navigation-sides-offset, 3px);
+  left: 18px !important;
+  color: #322d2d;
+  font-size: 1px;
+  background: #fff;
+  border-radius: 50%;
+  width: 45px;
+  box-shadow: var(--card-box-shadow) !important;
+}
+
+.branded-slider-caterer .swiper-button-next,
+.swiper-rtl .swiper-button-prev {
+  right: var(--swiper-navigation-sides-offset, 3px);
+  left: auto;
+  color: #322d2d;
+  font-size: 1px;
+  background: #fff;
+  border-radius: 50%;
+  width: 45px;
+  box-shadow: var(--card-box-shadow) !important;
+}
+
+.branded-slider-caterer .swiper-button-next:after,
+.swiper-rtl .swiper-button-prev:after {
+  font-size: 19px !important;
+}

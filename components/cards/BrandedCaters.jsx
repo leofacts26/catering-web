@@ -62,7 +62,7 @@ const BrandedCaters = () => {
             className="mySwiper"
             breakpoints={{
               0: {
-                slidesPerView: 1,
+                slidesPerView: 2,
               },
               600: {
                 slidesPerView: 3,
