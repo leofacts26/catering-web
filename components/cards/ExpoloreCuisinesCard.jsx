@@ -59,7 +59,7 @@ const ExpoloreCuisinesCard = () => {
                         loop={true}
 
                         autoplay={{
-                            delay: 2000000000,
+                            delay: 2000,
                             disableOnInteraction: false,
                         }}
                         modules={[Navigation, Autoplay]}
