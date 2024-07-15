@@ -112,7 +112,7 @@ const ListView = () => {
                     const brandLogo = getSearchCard?.brand_logo?.[0]?.original;
                     const bannerImage = getSearchCard?.banner_images?.[0]?.original;
                     const imageSrc = getSearchCard?.subscription_type_name === "branded" && brandLogo || bannerImage || 'img/no-image.jpg';
-                    const randomCuisines = getRandomCuisines(getSearchCard?.cuisines || [], 8);
+                    // const randomCuisines = getRandomCuisines(getSearchCard?.cuisines || [], 8);
                     const filterFoodTypes = getSearchCard?.food_types.filter((item)=> item !== 'All')
                     return (
                         <div className="list-view-card" key={getSearchCard?.id}>
@@ -166,7 +166,7 @@ const ListView = () => {
                                             style={{ width: '375px', marginBottom: '15px' }}
                                         >
                                             <span className='me-2 text-ellipse-one-listcard'>
-                                                {randomCuisines.join(" | ")}
+                                                {getSearchCard?.cuisines.join(" | ")}
                                             </span>
                                         </Stack>}
 
@@ -216,7 +216,6 @@ const ListView = () => {
                                         <Stack direction="row" alignItems="center" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} style={{ marginTop: '8px' }}>
                                             <span className='cat-red' style={{ fontSize: '14px' }}>
                                                 <Stack direction="row" alignItems="center">
-                                                    {/* <LocationOnIcon style={{ fontSize: '15px', marginRight: '5px' }} /> <span className='lse-map-icon'>Show On Map</span> */}
                                                     <ShowOnMapCatering locLatitude={getSearchCard?.latitude} locLongtitude={getSearchCard?.longitude} />
                                                 </Stack>
                                             </span>
@@ -229,7 +228,6 @@ const ListView = () => {
                                                 {[...Array(parseInt(getSearchCard.rating.slice(0, 1)))].map((star, index) => (
                                                     <StarIcon key={index} style={{ color: '#C33332', fontSize: 20 }} />
                                                 ))}
-                                                {/* <p className='vc-review-card-para text-ellipse-three text-start'>{getSearchCard?.review_text}</p> */}
 
                                             </div>
                                         </Stack>
@@ -244,6 +242,8 @@ const ListView = () => {
                                         <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} style={{ marginTop: '6px' }}>
                                             <span className='lse-starting-price'>Inclusive All Taxes</span>
                                         </Stack>
+
+
                                         <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} sx={{ marginBottom: '5px' }}>
                                             <Link
                                                 href={`/catering-search/${getSearchCard?.vendor_id}/${getSearchCard?.id}`}
@@ -256,6 +256,7 @@ const ListView = () => {
                                                     }
                                                 }}>Enquire Now</Link>
                                         </Stack>
+                                        
                                     </div>
 
                                 </Stack>
