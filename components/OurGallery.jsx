@@ -16,9 +16,10 @@ import "yet-another-react-lightbox/styles.css";
 
 const OurGallery = ({ galleryImages, bennerMenuMixGalleryImages }) => {
     const [open, setOpen] = useState(false);
-    const combinedImages = [...(galleryImages || []), ...(bennerMenuMixGalleryImages || [])];
+    // const combinedImages = [...(galleryImages || []), ...(bennerMenuMixGalleryImages || [])];
+    const combinedImages = [...(galleryImages || [])];
 
-    const slides = combinedImages.map(image => {
+    const slides = combinedImages?.map(image => {
         const originalImage = image.image_names[0].original || '/img/no-image.jpg';
         return {
             src: originalImage,
