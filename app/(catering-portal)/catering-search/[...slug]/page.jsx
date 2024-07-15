@@ -279,13 +279,26 @@ const page = () => {
                 </div>}
 
 
-                {data?.branches.length > 0 && <div>
-                    <h3 className="vc-about-us" style={{ marginTop: '20px' }}>Our Branches</h3>
-                    <p className="vc-para"> {data?.branches?.slice(0, count).map((item) => item?.city).join(", ")}
-                        {showAll ? <span className="text-red view-all ms-2 cursor-pointer" onClick={() => onHandleShow()}> Show All </span> :
-                            <span className="text-red view-all ms-2 cursor-pointer" onClick={() => onHandleClose()}> Show Less </span>}
-                    </p>
-                </div>}
+                {data?.branches.length > 0 && (
+                    <div>
+                        <h3 className="vc-about-us" style={{ marginTop: '20px' }}>Our Branches</h3>
+                        <p className="vc-para">
+                            {data?.branches?.slice(0, count).map((item) => item?.city).join(", ")}
+                            {data?.branches.length > 6 && (
+                                showAll ? (
+                                    <span className="text-red view-all ms-2 cursor-pointer" onClick={onHandleShow}>
+                                        Show All
+                                    </span>
+                                ) : (
+                                    <span className="text-red view-all ms-2 cursor-pointer" onClick={onHandleClose}>
+                                        Show Less
+                                    </span>
+                                )
+                            )}
+                        </p>
+                    </div>
+                )}
+
 
             </Container>
 
