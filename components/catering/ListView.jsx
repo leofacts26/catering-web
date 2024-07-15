@@ -121,19 +121,20 @@ const ListView = () => {
                                 <Stack direction={{ xs: 'column', sm: 'row', md: 'row', lg: "row" }} alignItems="start" spacing={2}>
                                     <div className="list-card-img position-relative">
                                         <img src={imageSrc} alt="" className="img-fluid listview-img" style={{ borderRadius: '8px', height: '100%' }} />
-                                        <div className="position-absolute list-card-tag">
+                                        <div className="position-absolute list-card-tag" >
                                             {getSearchCard?.subscription_type_name}
                                         </div>
                                     </div>
+
+
                                     <div className="list-card-center h-100">
                                         <h2 className='list-card-title'>{getSearchCard?.catering_service_name}</h2>
-                                        <p className='list-card-desc'>
-                                            {getSearchCard?.street_name ? `${getSearchCard.street_name}, ` : ''}
-                                            {/* {getSearchCard?.area ? `${getSearchCard.area}, ` : ''} */}
+                                        <p className='list-card-desc' style={{ marginBottom: '15px' }}>
+                                            {getSearchCard?.street_name ? `${getSearchCard?.street_name}, ` : ''}
                                             {getSearchCard?.city ? getSearchCard.city : ''}
                                         </p>
 
-                                        {filterFoodTypes?.length > 0 && <Stack direction="row" spacing={1} sx={{ marginTop: '15px', marginBottom: '15px' }}>
+                                        {filterFoodTypes?.length > 0 && <Stack direction="row" spacing={1} style={{ marginBottom: '15px' }}>
                                             {
                                                 filterFoodTypes?.map((food_type, index) => {
                                                     let iconSrc = '';
@@ -158,12 +159,11 @@ const ListView = () => {
                                             }
                                         </Stack>}
 
-                                        {getSearchCard?.cuisines.length > 0 && <Stack
-                                            // direction={{ xs: 'row', sm: 'row', md: 'row', lg: "row" }} 
+                                        {getSearchCard?.cuisines.length > 0 && <Stack 
                                             direction="flex"
                                             flexWrap="wrap"
                                             spacing={1} className='list-card-dish-loc'
-                                            style={{ width: '375px' }}
+                                            style={{ width: '375px', marginBottom: '15px' }}
                                         >
                                             <span className='me-2 text-ellipse-one-listcard'>
                                                 {randomCuisines.join(" | ")}
@@ -171,24 +171,22 @@ const ListView = () => {
                                         </Stack>}
 
 
-
-
-                                        <Stack direction="flex" flexWrap="wrap" spacing={1} sx={{ marginTop: '15px' }} className='listview-three'>
-
-                                            {getSearchCard?.service_types?.length > 0 && <span className='list-card-chip me-2'>
+                                        <Stack direction="flex" flexWrap="wrap" spacing={1}  className='listview-three'>
+                                            {getSearchCard?.service_types?.length > 0 && <span style={{ marginBottom: '15px' }} className='list-card-chip me-2'>
                                                 {getSearchCard?.service_types?.map((service_type) => service_type).join(" & ")}
                                             </span>}
 
-                                            {getSearchCard?.minimum_quantity && <span className='list-card-chip me-2'>
+                                            {getSearchCard?.minimum_quantity && <span style={{ marginBottom: '15px' }} className='list-card-chip me-2'>
                                                 Min. Order - {getSearchCard?.minimum_quantity}
                                             </span>}
 
-                                            {getSearchCard?.total_staffs_approx && <span className='list-card-chip me-2'>
+                                            {getSearchCard?.total_staffs_approx && <span style={{ marginBottom: '15px' }} className='list-card-chip me-2'>
                                                 No. of Staffs: {getSearchCard?.total_staffs_approx}
                                             </span>}
-
                                         </Stack>
-                                        <Stack direction={{ xs: 'row', sm: 'row', md: 'row', lg: "row" }} className='cat-types' spacing={2}>
+
+
+                                        <Stack direction={{ xs: 'row', sm: 'row', md: 'row', lg: "row" }} spacing={2}>
                                             <Stack direction="row" alignItems="center">
                                                 <img src="/img/icons/Table-srvice.png" alt="" className="img-fluid list-view-icons" />
                                                 <span className='list-view-icon-text'>Table Service</span>
@@ -198,8 +196,12 @@ const ListView = () => {
                                                 <span className='list-view-icon-text'>Buffet Service</span>
                                             </Stack>
                                         </Stack>
+
+
                                     </div>
                                 </Stack>
+
+
 
 
 
