@@ -949,7 +949,7 @@ h6 {
   border-top-right-radius: var(--radiusTwo);
   border-top-left-radius: var(--radiusTwo);
   width: 150px;
-  height: 125px;
+  height: 100px;
   object-fit: cover;
 }
 
@@ -959,7 +959,7 @@ h6 {
   font-weight: 500;
   margin-bottom: 10px;
   font-family: "Outfit", sans-serif;
-  padding-bottom: 10px;
+  /* padding-bottom: 10px; */
 }
 
 .explore-cator-box {
