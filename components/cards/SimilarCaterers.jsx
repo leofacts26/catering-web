@@ -105,6 +105,7 @@ const SimilarCaterers = ({ tiffin }) => {
                     const brandLogo = getSearchCard?.brand_logo?.[0]?.original;
                     const bannerImage = getSearchCard?.banner_images?.[0]?.original;
                     const imageSrc = getSearchCard?.subscription_type_name === "branded" && brandLogo || bannerImage || '/img/no-image.jpg';
+                    const filterFoodTypes = getSearchCard?.food_types.filter((item) => item !== 'All')
                     return (
                         <SwiperSlide>
                             <div className='text-decoration-none  cursor-pointer' onClick={(e) => {
@@ -136,7 +137,7 @@ const SimilarCaterers = ({ tiffin }) => {
                                                 <Stack className='w-100' direction="row" justifyContent="space-between" alignItems="start" style={{ marginTop: '10px', marginBottom: '10px' }}>
                                                     <div className="text-start w-100">
                                                         <h3 className='grid-view-title similarcard-ellipse-one'>{getSearchCard?.catering_service_name || ""}</h3>
-                                                        <p className='vc-similar-card-small text-left'>
+                                                        <p className='vc-similar-card-small similarcard-ellipse-one text-left'>
                                                             {getSearchCard?.street_name ? `${getSearchCard.street_name}, ` : ''}
                                                             {/* {getSearchCard?.area ? `${getSearchCard.area}, ` : ''} */}
                                                             {getSearchCard?.city ? getSearchCard.city : ''}
@@ -147,26 +148,30 @@ const SimilarCaterers = ({ tiffin }) => {
                                                 <div>
                                                     {getSearchCard?.food_types.length > 0 && <Stack direction="row" spacing={1}>
                                                         {
-                                                            getSearchCard?.food_types?.slice(1, 3).map((food_type, index) => {
+                                                            filterFoodTypes?.map((food_type, index) => {
                                                                 let iconSrc = '';
+                                                                let foodClassName = '';
                                                                 if (food_type === 'Veg') {
                                                                     iconSrc = '/img/icons/list-card-veg.png';
+                                                                    foodClassName = 'food-veg-color';
                                                                 } else if (food_type === 'Non Veg') {
                                                                     iconSrc = '/img/icons/list-card-non-veg.png';
+                                                                    foodClassName = 'food-nonveg-color';
                                                                 } else {
                                                                     iconSrc = '/img/icons/list-card-veg.png';
+                                                                    foodClassName = 'food-veg-color';
                                                                 }
                                                                 return (
                                                                     <Stack direction="row" alignItems="center" spacing={0} key={index}>
                                                                         <img src={iconSrc} className='list-card-veg' alt="" />
-                                                                        <p className='list-card-veg-font'> {food_type} </p>
+                                                                        <p className={`list-card-veg-font ${foodClassName}`}> {food_type} </p>
                                                                     </Stack>
                                                                 )
                                                             })
                                                         }
                                                     </Stack>}
 
-                                                    {getSearchCard?.cuisines.length > 0 && <h2 className="vc-similar-blue text-ellipse-two">
+                                                    {getSearchCard?.cuisines.length > 0 && <h2 className="vc-similar-blue similarcard-ellipse-one">
                                                         <span className='me-2 text-ellipse-one-listcard'>
                                                             {getSearchCard?.cuisines?.slice(0, 8)?.map((cuisine) => cuisine).join(" | ")}
                                                         </span>
