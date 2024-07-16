@@ -66,7 +66,17 @@ body {
   opacity: 0 !important;
 }
 
+.css-uhb5lp {
+  border-radius: 8px !important;
+}
 /* mui globals end */
+
+.overflow-ellipsis {
+  white-space: nowrap;
+  width: 96%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
 /* globals  */
 
@@ -2652,7 +2662,7 @@ h6 {
 
 .logout-icon {
   background-color: #245396;
-  border-radius: 8px;
+  border-radius: 99px !important;
   padding: 12px 20px;
 }
 
@@ -3582,15 +3592,15 @@ textarea:-webkit-autofill:active {
 
 /* branded-slider-caterer */
 
-.branded-slider-caterer {
 
-}
+.branded-slider-caterer {}
 
 .branded-caterers-img {
-  height: 130px;
+  height: 100px;
   object-fit: contain;
   border-radius: var(--radiusOne);
   box-shadow: var(--card-box-shadow);
+  width: 150px;
 }
 
 /* branded-slider-caterer start  */
@@ -3629,6 +3639,3 @@ textarea:-webkit-autofill:active {
   font-size: 19px !important;
 }
 
-.css-uhb5lp{
-  border-radius: 8px !important;
-}
