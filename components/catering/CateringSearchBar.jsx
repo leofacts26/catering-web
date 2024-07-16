@@ -118,7 +118,7 @@ const CateringSearchBar = () => {
         <>
             <form onSubmit={onHandleSubmit}>
                 <Stack className='search-bg' direction={{ xs: 'column', sm: 'column', md: 'column', lg: "row" }} justifyContent="space-between" spacing={0}>
-                    <div className='w-100 input-nav-box' style={{ flex: '0 0 32.5%' }}>
+                    <div className='w-100 input-nav-box' style={{ flex: '0 0 35%' }}>
                         <CssTextFieldRadius
                             required
                             id="outlined-number"
@@ -164,15 +164,15 @@ const CateringSearchBar = () => {
                             }}
                         />
                     </div>
-                    <div className="w-100" style={{ flex: '0 0 32.5%' }}>
+                    <div className="w-100" style={{ flex: '0 0 25%' }}>
                         <DatePickerSearch />
                     </div>
-                    <div className="three w-100" style={{ flex: '0 0 20%' }}>
+                    <div className="three w-100" style={{ flex: '0 0 25%' }}>
                         <CssTextField
                             value={localPeople}
                             onChange={handlePeopleChange}
                             id="outlined-number"
-                            placeholder="Search"
+                            placeholder="Search Caterers..."
                             variant="outlined"
                             className='mt-0 font-primary'
                             style={{ width: '100%' }}
