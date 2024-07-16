@@ -44,8 +44,8 @@ const CssTextField = styled(TextField)(({ theme }) => ({
     },
     '& input': {
         border: 'none',
-        fontSize: '15px',
-        padding: '12.9px 0px',
+        fontSize: '13px',
+        padding: '14.33px 0px',
     },
 }));
 
@@ -105,7 +105,7 @@ const CateringSearchBar = () => {
 
     const onHandleSubmit = (event) => {
         event.preventDefault();
-        if(accessToken){
+        if (accessToken) {
             getCurrentLocation();
         }
         dispatch(setPeople(localPeople));
@@ -118,13 +118,13 @@ const CateringSearchBar = () => {
         <>
             <form onSubmit={onHandleSubmit}>
                 <Stack className='search-bg' direction={{ xs: 'column', sm: 'column', md: 'column', lg: "row" }} justifyContent="space-between" spacing={0}>
-                    <div className='w-100'>
+                    <div className='w-100 input-nav-box' style={{ flex: '0 0 32.5%' }}>
                         <CssTextFieldRadius
                             required
                             id="outlined-number"
                             placeholder="Enter your location..."
                             variant="outlined"
-                            className='mt-0'
+                            className='mt-0 input-ellipse'
                             inputRef={inputRef}
                             style={{ width: '100%' }}
                             onChange={(evt) => {
@@ -140,7 +140,8 @@ const CateringSearchBar = () => {
                             InputProps={{
                                 style: {
                                     borderRadius: '0px',
-                                    backgroundColor: '#f4f4fc6b'
+                                    backgroundColor: '#ffffff',
+                                    paddingRight: '0px'
                                 },
                                 startAdornment: (
                                     <InputAdornment
@@ -159,16 +160,15 @@ const CateringSearchBar = () => {
                                         </InputAdornment>
                                     )
                                 ),
+                                className: 'input-ellipse'
                             }}
                         />
-
                     </div>
-                    <div className="w-100">
+                    <div className="w-100" style={{ flex: '0 0 32.5%' }}>
                         <DatePickerSearch />
                     </div>
-                    <div className="three w-100">
+                    <div className="three w-100" style={{ flex: '0 0 20%' }}>
                         <CssTextField
-                            // required
                             value={localPeople}
                             onChange={handlePeopleChange}
                             id="outlined-number"
@@ -177,22 +177,21 @@ const CateringSearchBar = () => {
                             className='mt-0'
                             style={{ width: '100%' }}
                             InputLabelProps={{
-                                style: { color: '#777777', fontSize: '14px' },
+                                style: { color: '#777777' },
                             }}
                             InputProps={{
                                 style: {
                                     borderRadius: '0px',
-                                    backgroundColor: '#f4f4fc6b',
+                                    backgroundColor: '#ffffff',
                                     paddingLeft: '10px',
                                 },
-
                             }}
                         />
                     </div>
-                    <div>
+                    <div style={{ flex: '0 0 15%' }}>
                         <Button disabled={isLoading} type='submit' className='red-btn' variant="contained" sx={{
                             boxShadow: 'none',
-                            width: '100%', fontWeight: '600', marginTop:'-0.5px', padding: '11.6px 20px', fontSize: '14px', backgroundColor: '#C33332', textTransform: 'capitalize', '&:hover': {
+                            width: '100%', fontWeight: '600', marginTop: '-0.5px', padding: '11.6px 20px', fontSize: '14px', backgroundColor: '#C33332', textTransform: 'capitalize', '&:hover': {
                                 backgroundColor: '#C33332',
                             },
                         }}>
@@ -200,7 +199,8 @@ const CateringSearchBar = () => {
                         </Button>
                     </div>
                 </Stack>
-            </form >
+            </form>
+
 
 
             {

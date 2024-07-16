@@ -69,6 +69,7 @@ body {
 .css-uhb5lp {
   border-radius: 8px !important;
 }
+
 /* mui globals end */
 
 .overflow-ellipsis {
@@ -76,6 +77,11 @@ body {
   width: 96%;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.input-nav-box input {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
 }
 
 /* globals  */
@@ -3638,4 +3644,3 @@ textarea:-webkit-autofill:active {
 .swiper-rtl .swiper-button-prev:after {
   font-size: 19px !important;
 }
-

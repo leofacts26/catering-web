@@ -41,8 +41,8 @@ const CssTextField = styled(TextField)(({ theme }) => ({
     },
     '& input': {
         border: 'none',
-        fontSize: '15px',
-        padding: '12.9px 0px',
+        fontSize: '13px',
+        padding: '14.33px 0px',
     },
 }));
 
@@ -79,7 +79,7 @@ const TiffinSearchBar = () => {
 
 
     const inputRef = useRef(null);
-    const { locationValuesGlobal, manualLocation, selectedLocation } = useSelector((state) => state.globalnavbar);
+    const { locationValuesGlobal, isLoading, manualLocation, selectedLocation } = useSelector((state) => state.globalnavbar);
     // const { startDate, endDate } = useSelector((state) => state.cateringFilter);
     const [isAdornmentClicked, setIsAdornmentClicked] = useState(false);
 
@@ -118,13 +118,13 @@ const TiffinSearchBar = () => {
         <>
             <form onSubmit={onHandleSubmit}>
                 <Stack className='search-bg' direction={{ xs: 'column', sm: 'column', md: 'column', lg: "row" }} justifyContent="space-between" spacing={0}>
-                    <div className='w-100'>
+                    <div className='w-100 input-nav-box' style={{ flex: '0 0 32.5%' }}>
                         <CssTextFieldRadius
                             required
                             id="outlined-number"
                             placeholder="Enter your location..."
                             variant="outlined"
-                            className='mt-0'
+                            className='mt-0 input-ellipse'
                             inputRef={inputRef}
                             style={{ width: '100%' }}
                             onChange={(evt) => {
@@ -140,7 +140,8 @@ const TiffinSearchBar = () => {
                             InputProps={{
                                 style: {
                                     borderRadius: '0px',
-                                    backgroundColor: '#f4f4fc6b'
+                                    backgroundColor: '#ffffff',
+                                    paddingRight: '0px'
                                 },
                                 startAdornment: (
                                     <InputAdornment
@@ -159,13 +160,14 @@ const TiffinSearchBar = () => {
                                         </InputAdornment>
                                     )
                                 ),
+                                className: 'input-ellipse'
                             }}
                         />
                     </div>
-                    <div className="w-100">
+                    <div className="w-100" style={{ flex: '0 0 32.5%' }}>
                         <DatePickerSearchTiffin />
                     </div>
-                    <div className="three w-100">
+                    <div className="three w-100" style={{ flex: '0 0 20%' }}>
                         <CssTextField
                             // required
                             value={localPeople}
@@ -182,7 +184,7 @@ const TiffinSearchBar = () => {
                             InputProps={{
                                 style: {
                                     borderRadius: '0px',
-                                    backgroundColor: '#f4f4fc6b',
+                                    backgroundColor: '#ffffff',
                                     paddingLeft: '10px',
                                 },
                                 // startAdornment: (
@@ -195,8 +197,9 @@ const TiffinSearchBar = () => {
                             }}
                         />
                     </div>
-                    <div>
+                    <div style={{ flex: '0 0 15%' }}>
                         <Button
+                        disabled={isLoading}
                             type='submit' className='red-btn' variant="contained" sx={{
                                 boxShadow: 'none',
                                 width: '100%', fontWeight: '600', marginTop:'-0.5px', padding: '11.6px 20px', fontSize: '14px', backgroundColor: '#d9822b', textTransform: 'capitalize', '&:hover': {
