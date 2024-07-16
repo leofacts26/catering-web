@@ -84,12 +84,13 @@ const DatePickerSearchTiffin = () => {
                     fontWeight: 'bold',
                     color: '#d9822b',
                     width: '100%',
-                    padding: '11.9px 10px',
+                    height: '47.90px',
+                    // padding: '11.9px 10px',
                     marginTop: '-0.5px',
                     border: '2px solid #d9822b',
                     textTransform: 'capitalize',
                 }}
-                startIcon={<CalendarTodayIcon />}
+                startIcon={<CalendarTodayIcon style={{width: '15px'}} />}
                 onClick={togglePicker}
             >
                 {formatSelectedRange(selectedRange)}
