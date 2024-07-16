@@ -176,7 +176,7 @@ const TiffinSearchBar = () => {
                             placeholder="Search"
                             variant="outlined"
                             // label="How many people attending?"
-                            className='mt-0'
+                            className='mt-0 font-primary'
                             style={{ width: '100%' }}
                             InputLabelProps={{
                                 style: { color: '#777777', fontSize: '14px' },

@@ -174,7 +174,7 @@ const CateringSearchBar = () => {
                             id="outlined-number"
                             placeholder="Search"
                             variant="outlined"
-                            className='mt-0'
+                            className='mt-0 font-primary'
                             style={{ width: '100%' }}
                             InputLabelProps={{
                                 style: { color: '#777777' },
