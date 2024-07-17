@@ -88,7 +88,9 @@ const BrandedCaters = () => {
 
                 <SwiperSlide key={brandedcaterer?.id}>
                   <Box onClick={() => handleImageClick()} style={{ padding: '10px 0px 10px 15px' }}>
-                    <img src={brandedcaterer?.gallery_images['vendor-brand-logo']?.[0]?.image_name[0]?.original ? brandedcaterer?.gallery_images['vendor-brand-logo']?.[0]?.image_name[0]?.original : '/img/no-image.jpg'} alt="logo" className="img-fluid branded-caterers-img image-shadow cursor-pointer" />
+                    <Box className="image-shadow branded-slider-box">
+                      <img src={brandedcaterer?.gallery_images['vendor-brand-logo']?.[0]?.image_name[0]?.original ? brandedcaterer?.gallery_images['vendor-brand-logo']?.[0]?.image_name[0]?.original : '/img/no-image.jpg'} alt="logo" className="img-fluid branded-caterers-img cursor-pointer" />
+                    </Box>
                   </Box>
                 </SwiperSlide>
 

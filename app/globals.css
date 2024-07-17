@@ -3602,14 +3602,18 @@ textarea:-webkit-autofill:active {
 /* branded-slider-caterer */
 
 
-.branded-slider-caterer {}
+.branded-slider-box {
+  border-radius: var(--radiusOne);
+  box-shadow: var(--card-box-shadow);
+  display: flex;
+  justify-content: center;
+}
 
 .branded-caterers-img {
   height: 100px;
   object-fit: contain;
+  width: fit-content;
   border-radius: var(--radiusOne);
-  box-shadow: var(--card-box-shadow);
-  width: 150px;
 }
 
 /* branded-slider-caterer start  */
