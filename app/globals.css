@@ -3347,7 +3347,7 @@ textarea:-webkit-autofill:active {
 }
 
 .vc-similar-card-description {
-  height: 150px;
+  height: 132px;
   align-items: start;
   display: flex;
   flex-direction: column;

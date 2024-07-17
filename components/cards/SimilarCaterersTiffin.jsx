@@ -132,8 +132,8 @@ const SimilarCaterersTiffin = ({ tiffin }) => {
                                     <div className="vc-similar-card-description">
                                         <Stack direction="row" justifyContent="space-between" alignItems="start" style={{ marginTop: '10px', marginBottom: '10px' }}>
                                             <div className="text-start">
-                                                <h3 className='grid-view-title text-ellipse-two'>{getSearchCard?.catering_service_name || ""}</h3>
-                                                <p className='vc-similar-card-small text-left'>
+                                                <h3 className='grid-view-title overflow-ellipsis'>{getSearchCard?.catering_service_name || ""}</h3>
+                                                <p className='vc-similar-card-small text-left overflow-ellipsis'>
                                                     {getSearchCard?.street_name ? `${getSearchCard.street_name}, ` : ''}
                                                     {/* {getSearchCard?.area ? `${getSearchCard.area}, ` : ''} */}
                                                     {getSearchCard?.city ? getSearchCard.city : ''}
@@ -142,7 +142,7 @@ const SimilarCaterersTiffin = ({ tiffin }) => {
                                         </Stack>
 
                                         <div>
-                                            {getSearchCard?.food_types.length > 0 && <Stack direction="row" spacing={1}>
+                                            {getSearchCard?.food_types.length > 0 && <Stack direction="row" spacing={1} style={{marginBottom: '8px'}}>
                                                 {
                                                     getSearchCard?.food_types?.map((food_type, index) => {
                                                         let iconSrc = '';
@@ -163,8 +163,8 @@ const SimilarCaterersTiffin = ({ tiffin }) => {
                                                 }
                                             </Stack>}
 
-                                            {getSearchCard?.cuisines.length > 0 && <h2 className="vc-similar-blue text-ellipse-two">
-                                                <span className='me-2 text-ellipse-one-listcard'>
+                                            {getSearchCard?.cuisines.length > 0 && <h2 className="vc-similar-blue overflow-ellipsis">
+                                                <span className='me-2 overflow-ellipsis'>
                                                     {getSearchCard?.cuisines?.slice(0, 8)?.map((cuisine) => cuisine).join(" | ")}
                                                 </span>
                                             </h2>}
