@@ -2268,6 +2268,7 @@ h6 {
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-wrap: wrap;
+  text-decoration: none;
 }
 
 .list-card-desc {

@@ -102,7 +102,7 @@ const ListView = () => {
             ))}
         </>
     }
-    // console.log(getCateringSearchCards, "getCateringSearchCards");
+    console.log(getCateringSearchCards, "getCateringSearchCards");
 
 
     return (
@@ -113,14 +113,16 @@ const ListView = () => {
                     const bannerImage = getSearchCard?.banner_images?.[0]?.original;
                     const imageSrc = getSearchCard?.subscription_type_name === "branded" && brandLogo || bannerImage || 'img/no-image.jpg';
                     // const randomCuisines = getRandomCuisines(getSearchCard?.cuisines || [], 8);
-                    const filterFoodTypes = getSearchCard?.food_types.filter((item)=> item !== 'All')
+                    const filterFoodTypes = getSearchCard?.food_types.filter((item) => item !== 'All')
                     return (
                         <div className="list-view-card" key={getSearchCard?.id}>
                             <Stack spacing={{ xs: 1, sm: 2, md: 0 }} direction={{ xs: 'column', sm: 'row', md: 'row', lg: "row" }} justifyContent="space-between" flexWrap="wrap">
 
                                 <Stack direction={{ xs: 'column', sm: 'row', md: 'row', lg: "row" }} alignItems="start" spacing={2}>
                                     <div className="list-card-img position-relative">
-                                        <img src={imageSrc} alt="" className="img-fluid listview-img" style={{ borderRadius: '8px', height: '100%' }} />
+                                        <Link href={`/catering-search/${getSearchCard?.vendor_id}/${getSearchCard?.id}`}>
+                                            <img src={imageSrc} alt="" className="img-fluid listview-img" style={{ borderRadius: '8px', height: '100%' }} />
+                                        </Link>
                                         <div className="position-absolute list-card-tag" >
                                             {getSearchCard?.subscription_type_name}
                                         </div>
@@ -128,7 +130,7 @@ const ListView = () => {
 
 
                                     <div className="list-card-center h-100">
-                                        <h2 className='list-card-title'>{getSearchCard?.catering_service_name}</h2>
+                                        <Link href={`/catering-search/${getSearchCard?.vendor_id}/${getSearchCard?.id}`} className='list-card-title'>{getSearchCard?.catering_service_name}</Link>
                                         <p className='list-card-desc' style={{ marginBottom: '15px' }}>
                                             {getSearchCard?.street_name ? `${getSearchCard?.street_name}, ` : ''}
                                             {getSearchCard?.city ? getSearchCard.city : ''}
@@ -159,7 +161,7 @@ const ListView = () => {
                                             }
                                         </Stack>}
 
-                                        {getSearchCard?.cuisines.length > 0 && <Stack 
+                                        {getSearchCard?.cuisines.length > 0 && <Stack
                                             direction="flex"
                                             flexWrap="wrap"
                                             spacing={1} className='list-card-dish-loc'
@@ -171,7 +173,7 @@ const ListView = () => {
                                         </Stack>}
 
 
-                                        <Stack direction="flex" flexWrap="wrap" spacing={1}  className='listview-three'>
+                                        <Stack direction="flex" flexWrap="wrap" spacing={1} className='listview-three'>
                                             {getSearchCard?.service_types?.length > 0 && <span style={{ marginBottom: '15px' }} className='list-card-chip me-2'>
                                                 {getSearchCard?.service_types?.map((service_type) => service_type).join(" & ")}
                                             </span>}
@@ -186,7 +188,7 @@ const ListView = () => {
                                         </Stack>
 
 
-                                        <Stack direction={{ xs: 'row', sm: 'row', md: 'row', lg: "row" }} spacing={2}>
+                                        {/* <Stack direction={{ xs: 'row', sm: 'row', md: 'row', lg: "row" }} spacing={2}>
                                             <Stack direction="row" alignItems="center">
                                                 <img src="/img/icons/Table-srvice.png" alt="" className="img-fluid list-view-icons" />
                                                 <span className='list-view-icon-text'>Table Service</span>
@@ -195,7 +197,28 @@ const ListView = () => {
                                                 <img src="/img/icons/Buffet-Service.png" alt="" className="img-fluid list-view-icons" />
                                                 <span className='list-view-icon-text'>Buffet Service</span>
                                             </Stack>
-                                        </Stack>
+                                        </Stack> */}
+
+                                        {getSearchCard?.serving_types?.length > 0 && <Stack direction="row" spacing={1} style={{ marginBottom: '15px' }}>
+                                            {
+                                                getSearchCard?.serving_types?.map((serving_type, index) => {
+                                                    let iconSrc = '';
+                                                    if (serving_type === 'Buffet Service') {
+                                                        iconSrc = '/img/icons/Table-srvice.png';
+                                                    } else if (serving_type === 'Table Service') {
+                                                        iconSrc = '/img/icons/Buffet-Service.png';
+                                                    }
+                                                    return (
+                                                        <Stack direction={{ xs: 'row', sm: 'row', md: 'row', lg: "row" }} spacing={2}>
+                                                            <Stack direction="row" alignItems="center">
+                                                                <img src={iconSrc} alt="cater" className="img-fluid list-view-icons" />
+                                                                <span className='list-view-icon-text'>{serving_type}</span>
+                                                            </Stack>
+                                                        </Stack>
+                                                    )
+                                                })
+                                            }
+                                        </Stack>}
 
 
                                     </div>
@@ -240,13 +263,12 @@ const ListView = () => {
                                         </Stack>
 
                                         <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} style={{ marginTop: '6px' }}>
-                                            <span className='lse-starting-price'>Inclusive All Taxes</span>
+                                            {/* <span className='lse-starting-price'>Inclusive All Taxes</span> */}
                                         </Stack>
 
 
                                         <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} sx={{ marginBottom: '5px' }}>
-                                            <Link
-                                                href={`/catering-search/${getSearchCard?.vendor_id}/${getSearchCard?.id}`}
+                                            <Link href={`/catering-search/${getSearchCard?.vendor_id}/${getSearchCard?.id}`}
                                                 className='text-decoration-none' variant="contained" style={{
                                                     color: '#ffffff', padding: '8px 14px', marginTop: '8px', fontWeight: '500',
                                                     backgroundColor: '#C33332', borderRadius: '8px', fontSize: '14px',
@@ -256,7 +278,7 @@ const ListView = () => {
                                                     }
                                                 }}>Enquire Now</Link>
                                         </Stack>
-                                        
+
                                     </div>
 
                                 </Stack>
