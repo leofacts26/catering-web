@@ -23,7 +23,7 @@ const page = () => {
     return (
         <>
             <section className='nav-bg-tiffin'>
-                <Navbar cateringHome />
+                <Navbar />
             </section>
             <div className="search-container">
                 <div className="container-search">
