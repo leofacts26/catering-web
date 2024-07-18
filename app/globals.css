@@ -626,7 +626,7 @@ h6 {
 /* navbar start */
 .nav-bg {
   background-color: #C33332;
-  padding: 25px 0px 130px 0px;
+  padding: 0px 0px 45px 0px;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
   position: relative;
@@ -879,7 +879,7 @@ h6 {
 
 .container-search {
   max-width: 90%;
-  margin: 0px auto;
+  margin: 15px auto 0px;
 }
 
 .red-btn {
@@ -2954,7 +2954,7 @@ h6 {
 /* tiffin styles start  */
 .nav-bg-tiffin {
   background-color: var(--primary);
-  padding: 25px 0px 130px 0px;
+  padding: 0px 0px 45px 0px;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
   position: relative;
@@ -3654,4 +3654,9 @@ textarea:-webkit-autofill:active {
 .branded-slider-caterer .swiper-button-next:after,
 .swiper-rtl .swiper-button-prev:after {
   font-size: 19px !important;
+}
+
+.catering-logo{
+  width: 150px;
+  height: 150px;
 }
