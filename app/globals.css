@@ -2386,7 +2386,7 @@ h6 {
 
 .list-card-tag {
   top: 10px;
-  background-color: #8E11A5;
+  /* background-color: #8E11A5; */
   padding: 8px 20px;
   color: var(--secondarybg);
   border-top-right-radius: 5px;
@@ -2397,7 +2397,7 @@ h6 {
 
 .list-card-tag-tiffin {
   top: 10px;
-  background-color: var(--accent3);
+  /* background-color: var(--accent3); */
   padding: 6px 20px;
   color: var(--secondarybg);
   border-top-right-radius: 5px;

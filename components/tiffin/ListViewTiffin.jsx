@@ -108,6 +108,16 @@ const ListViewTiffin = () => {
                             const brandLogo = item?.brand_logo?.[0]?.original;
                             const bannerImage = item?.banner_images?.[0]?.original;
                             const imageSrc = item?.subscription_type_name === "branded" && brandLogo || item?.brand_logo?.original || bannerImage || 'img/no-image.jpg';
+
+                            let tagColor = "";
+                            if (item?.subscription_type_name === "popular") {
+                                tagColor = "#459412"
+                            } else if (item?.subscription_type_name === "branded") {
+                                tagColor = "#8E11A5"
+                            } else {
+                                tagColor = "#8E11A5"
+                            }
+
                             return (
                                 <div className="list-view-card-tiffin" key={item?.id}>
                                     <Stack spacing={{ xs: 1, sm: 2, md: 0 }} direction={{ xs: 'column', sm: 'row', md: 'row', lg: "row" }} justifyContent="space-between" flexWrap="wrap">
@@ -115,7 +125,7 @@ const ListViewTiffin = () => {
                                         <Stack direction={{ xs: 'column', sm: 'row', md: 'row', lg: "row" }} spacing={2}>
                                             <div className="list-card-img-tiffin position-relative">
                                                 <img src={imageSrc} alt="" className="img-fluid listview-img-tiffin" style={{ borderRadius: '8px', height: '100%' }} />
-                                                <div className="position-absolute list-card-tag-tiffin">
+                                                <div className="position-absolute list-card-tag-tiffin" style={{backgroundColor: tagColor}}>
                                                     {item?.subscription_type_name}
                                                 </div>
                                             </div>

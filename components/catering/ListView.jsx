@@ -114,6 +114,16 @@ const ListView = () => {
                     const imageSrc = getSearchCard?.subscription_type_name === "branded" && brandLogo || bannerImage || 'img/no-image.jpg';
                     // const randomCuisines = getRandomCuisines(getSearchCard?.cuisines || [], 8);
                     const filterFoodTypes = getSearchCard?.food_types.filter((item) => item !== 'All')
+
+                    let tagColor = "";
+                    if (getSearchCard?.subscription_type_name === "popular") {
+                        tagColor = "#459412"
+                    } else if (getSearchCard?.subscription_type_name === "branded") {
+                        tagColor = "#8E11A5"
+                    } else {
+                        tagColor = "#8E11A5"
+                    }
+
                     return (
                         <div className="list-view-card" key={getSearchCard?.id}>
                             <Stack spacing={{ xs: 1, sm: 2, md: 0 }} direction={{ xs: 'column', sm: 'row', md: 'row', lg: "row" }} justifyContent="space-between" flexWrap="wrap">
@@ -123,7 +133,7 @@ const ListView = () => {
                                         <Link href={`/catering-search/${getSearchCard?.vendor_id}/${getSearchCard?.id}`}>
                                             <img src={imageSrc} alt="" className="img-fluid listview-img" style={{ borderRadius: '8px', height: '100%' }} />
                                         </Link>
-                                        <div className="position-absolute list-card-tag" >
+                                        <div className="position-absolute list-card-tag" style={{backgroundColor: tagColor}}>
                                             {getSearchCard?.subscription_type_name}
                                         </div>
                                     </div>
