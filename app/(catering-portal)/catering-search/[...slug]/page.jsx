@@ -139,12 +139,8 @@ const page = () => {
                         <Stack direction='row' justifyContent="space-between" alignItems="end">
                             <Stack direction="row" alignItems="center" spacing={1} className="vc-icons">
                                 <ShareIcon style={{ fontSize: '18px' }} /> <span>Share</span></Stack>
-                            {/* <Stack direction="row" alignItems="center" spacing={1} className="vc-icons"> <FavoriteBorderIcon style={{ fontSize: '18px' }} /> <span>Save</span></Stack> */}
                             <CateringDetailSave branchId={branchId} is_wishlisted={data?.is_wishlisted} />
-                            {/* <Stack direction="row" alignItems="center" spacing={1} className="vc-icons"> 
-                                <LocationOnIcon style={{ fontSize: '14px' }} /> <span className="font-12">Show On Map</span></Stack> */}
                             <ShowOnMapCatering locLatitude={data?.latitude} locLongtitude={data?.longitude} />
-
                         </Stack>
                     </div>
                 </Stack>
@@ -161,11 +157,6 @@ const page = () => {
                                 <h2 className="food-type">Food Type : </h2>
                                 <FoodType data={data?.foodTypes} />
                             </Stack>}
-
-                            {/* <p className="vc-para"> {data?.branches?.slice(0, count).map((item) => item?.city).join(", ")}
-                                {showAll ? <span className="text-red view-all ms-2 cursor-pointer" onClick={() => onHandleShow()}> Show All </span> :
-                                    <span className="text-red view-all ms-2 cursor-pointer" onClick={() => onHandleClose()}> Show Less </span>}
-                            </p> */}
 
                             {data?.cuisines?.length > 0 && <div>
                                 <h2 className="vc-cater">Cuisines We Cater</h2>

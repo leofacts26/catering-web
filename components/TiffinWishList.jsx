@@ -100,6 +100,7 @@ const TiffinWishList = () => {
                                         const brandLogo = getSearchCard?.brand_logo?.original;
                                         const bannerImage = getSearchCard?.banner_images?.original;
                                         const imageSrc = brandLogo || bannerImage || '/img/no-image.jpg';
+                                        const filterFoodTypes = getSearchCard?.food_types.filter((item) => item !== 'All')
                                         return (
                                             <Grid item xs={12} sm={6} md={4} lg={4}>
                                                 <div className='text-decoration-none cursor-pointer'
@@ -141,21 +142,25 @@ const TiffinWishList = () => {
                                                                     </Stack>
 
                                                                     <div>
-                                                                        {getSearchCard?.food_types.length > 0 && <Stack direction="row" spacing={1}>
+                                                                        {filterFoodTypes?.length > 0 && <Stack direction="row" spacing={1}>
                                                                             {
-                                                                                getSearchCard?.food_types?.map((food_type, index) => {
+                                                                                filterFoodTypes?.map((food_type, index) => {
                                                                                     let iconSrc = '';
+                                                                                    let foodClassName = '';
                                                                                     if (food_type === 'Veg') {
                                                                                         iconSrc = '/img/icons/list-card-veg.png';
+                                                                                        foodClassName = 'food-veg-color';
                                                                                     } else if (food_type === 'Non Veg') {
                                                                                         iconSrc = '/img/icons/list-card-non-veg.png';
+                                                                                        foodClassName = 'food-nonveg-color';
                                                                                     } else {
                                                                                         iconSrc = '/img/icons/list-card-veg.png';
+                                                                                        foodClassName = 'food-veg-color';
                                                                                     }
                                                                                     return (
                                                                                         <Stack direction="row" alignItems="center" spacing={0} key={index}>
                                                                                             <img src={iconSrc} className='list-card-veg' alt="" />
-                                                                                            <p className='list-card-veg-font'> {food_type} </p>
+                                                                                            <p className={`list-card-veg-font ${foodClassName}`}> {food_type} </p>
                                                                                         </Stack>
                                                                                     )
                                                                                 })
@@ -174,8 +179,8 @@ const TiffinWishList = () => {
                                                                     {
                                                                         getSearchCard?.start_price !== null && <Stack direction="row" alignItems="center" justifyContent="end" className="mb-1 mt-1 w-100">
                                                                             <Stack direction="row" alignSelf="end" justifyContent="end" spacing={0} className='w-100'>
-                                                                                <CurrencyRupeeIcon style={{ fontSize: '18px' }} className="vc-price-one-similar-tiffin" />
-                                                                                <span className="vc-price-one-similar-tiffin"> {getSearchCard?.start_price} / Plate </span>
+                                                                                <CurrencyRupeeIcon style={{ fontSize: '18px' }} className="vc-price-one-similar-catering" />
+                                                                                <span className="vc-price-one-similar-catering"> {getSearchCard?.start_price} / Plate </span>
                                                                             </Stack>
                                                                         </Stack>
                                                                     }

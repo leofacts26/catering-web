@@ -45,6 +45,9 @@ import ReactMarkdown from 'react-markdown';
 
 
 const page = () => {
+  const [showAllCuisines, setShowAllCuisines] = useState(true)
+  const [cuisineCount, setCuisineCount] = useState(12)
+
   const accessToken = useSelector((state) => state.user.accessToken);
   const { slug } = useParams()
   const dispatch = useDispatch()
@@ -84,17 +87,29 @@ const page = () => {
   }
 
 
+  const onHandleCuisineShow = () => {
+    console.log("true");
+    setShowAllCuisines(false)
+    setCuisineCount(100)
+  }
+
+  const onHandleCuisineClose = () => {
+    console.log("false");
+    setShowAllCuisines(true)
+    setCuisineCount(12)
+  }
+
   console.log(data, "data");
 
   return (
     <>
       <section className='nav-bg-tiffin'>
-        <Navbar cateringHome />
+        <Navbar />
       </section>
       <div className="search-container">
         <div className="container-search">
           <Container maxWidth="md">
-            <TiffinSearchBar  searchLink="/tiffin-search" />
+            <TiffinSearchBar searchLink="/tiffin-search" />
           </Container>
         </div>
       </div>
@@ -103,18 +118,25 @@ const page = () => {
 
       <Container maxWidth="lg">
         <Stack sx={{ marginTop: '20px' }} direction={{ xs: 'column', sm: 'column', md: 'column', lg: 'row' }} alignItems="end" justifyContent="space-between">
-          <div>
+          {/* <div>
             <Stack direction={{ xs: 'column', sm: 'column', md: 'row', lg: 'row' }} alignItems="center" spacing={2}>
               {data?.vendor_service_name && <h2 className="vc-heading"> {data?.vendor_service_name} </h2>}
               <span className='vc-chip-tiffin'>{data?.subscription_type_display} {data?.vendor_type}</span>
             </Stack>
             {data?.formatted_address && <h3 className="vc-address">{data?.formatted_address}</h3>}
+          </div> */}
+
+          <div className="detailname-width">
+            <Stack direction="row" alignItems="center" spacing={2}>
+              {data?.vendor_service_name && <h2 className="vc-heading text-ellipse-vc-heading"> {data?.vendor_service_name} </h2>}
+              <span className='vc-chip-tiffin'> {data?.subscription_type_display} {data?.vendor_type}</span>
+            </Stack>
+            {data?.formatted_address && <h3 className="vc-address text-ellipse-vc-heading">{data?.formatted_address}</h3>}
           </div>
           <div className='vc-icon-box'>
             <Stack direction='row' justifyContent="space-between" alignItems="end">
-              <Stack direction="row" alignItems="center" spacing={1} className="vc-icons-tiffin"> <ShareIcon style={{ fontSize: '18px' }} />
-                <span>Share</span></Stack>
-              {/* TiffinDetailSave  */}
+              <Stack direction="row" alignItems="center" spacing={1} className="vc-icons-tiffin">
+                <ShareIcon style={{ fontSize: '18px' }} /> <span>Share</span></Stack>
               <TiffinDetailSave branchId={branchId} is_wishlisted={data?.is_wishlisted} />
               <ShowOnMap tiffinColor locLatitude={data?.latitude} locLongtitude={data?.longitude} />
             </Stack>
@@ -154,15 +176,20 @@ const page = () => {
 
               {data?.cuisines?.length > 0 && <div>
                 <h2 className="vc-cater-tiffin">Cuisines We Cater</h2>
-                <h2 className="vc-locations"> {data?.cuisines?.slice(0, 8)?.map((item) => item?.cuisine_name).join(" | ")}... </h2>
+                <h2 className="vc-locations">
+                  {data?.cuisines?.slice(0, cuisineCount).map((item) => item?.cuisine_name).join(" | ")}...
+                  {showAllCuisines ? <span className="text-red view-all ms-2 cursor-pointer" onClick={() => onHandleCuisineShow()}> Show All </span> :
+                    <span className="text-red view-all ms-2 cursor-pointer" onClick={() => onHandleCuisineClose()}> Show Less </span>}
+                </h2>
               </div>}
+
             </Grid>
 
 
             <Grid item sm={12} lg={5}>
               <Stack direction="column" alignContent="end" alignItems="end" justifyContent="end">
-                {data?.start_price && <Stack direction="row" alignItems="center" className="mb-4">
-                  <span className="vc-price">Starting Price / Plate -</span>
+                {data?.start_price && <Stack direction="row" alignItems="center" className="mb-2">
+                  <span className="vc-price">Montly Plan rice -</span>
                   <Stack direction="row" alignItems="center" spacing={0}>
                     <CurrencyRupeeIcon className="vc-price-one-tiffin" /> <span className="vc-price-one-tiffin"> {data?.start_price} </span>
                   </Stack>

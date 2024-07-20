@@ -132,7 +132,7 @@ const GridViewTiffin = ({ xs, sm, md, lg }) => {
                                             <div>
                                                 <Stack className='w-100' direction="row" justifyContent="space-between" alignItems="start" style={{ marginTop: '10px', marginBottom: '10px' }}>
                                                     <div className="text-start w-100">
-                                                        <h3 className='grid-view-title text-ellipse-one'>{getSearchCard?.catering_service_name || ""}</h3>
+                                                        <h3 className='grid-view-title overflow-ellipsis'>{getSearchCard?.catering_service_name || ""}</h3>
                                                         <p className='vc-similar-card-small text-left'>
                                                             {getSearchCard?.street_name ? `${getSearchCard.street_name}, ` : ''}
                                                             {/* {getSearchCard?.area ? `${getSearchCard.area}, ` : ''} */}
@@ -163,8 +163,8 @@ const GridViewTiffin = ({ xs, sm, md, lg }) => {
                                                         }
                                                     </Stack>}
 
-                                                    {getSearchCard?.cuisines.length > 0 && <h2 className="vc-similar-blue text-ellipse-two">
-                                                        <span className='me-2 text-ellipse-one-listcard'>
+                                                    {getSearchCard?.cuisines.length > 0 && <h2 className="vc-similar-blue overflow-ellipsis">
+                                                        <span className='me-2 overflow-ellipsis'>
                                                             {getSearchCard?.cuisines?.slice(0, 8)?.map((cuisine) => cuisine).join(" | ")}
                                                         </span>
                                                     </h2>}
