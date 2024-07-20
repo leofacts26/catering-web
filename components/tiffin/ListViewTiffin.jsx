@@ -120,12 +120,14 @@ const ListViewTiffin = () => {
 
                             return (
                                 <div className="list-view-card-tiffin" key={item?.id}>
-                                    <Stack spacing={{ xs: 1, sm: 2, md: 0 }} direction={{ xs: 'column', sm: 'row', md: 'row', lg: "row" }} justifyContent="space-between" flexWrap="wrap">
+                                    <Stack spacing={{ xs: 1, sm: 2, md: 0 }} direction={{ xs: 'column', sm: 'row', md: 'row', lg: "row" }} justifyContent="space-between" flexWrap="wrap" style={{height: '100%'}}>
 
                                         <Stack direction={{ xs: 'column', sm: 'row', md: 'row', lg: "row" }} spacing={2}>
                                             <div className="list-card-img-tiffin position-relative">
-                                                <img src={imageSrc} alt="" className="img-fluid listview-img-tiffin" style={{ borderRadius: '8px', height: '100%' }} />
-                                                <div className="position-absolute list-card-tag-tiffin" style={{backgroundColor: tagColor}}>
+                                                <Link href={`/tiffin-search/${item?.vendor_id}/${item?.id}`}>
+                                                    <img src={imageSrc} alt="" className="img-fluid listview-img-tiffin" style={{ borderRadius: '8px', height: '100%' }} />
+                                                </Link>
+                                                <div className="position-absolute list-card-tag-tiffin" style={{ backgroundColor: tagColor }}>
                                                     {item?.subscription_type_name}
                                                 </div>
                                             </div>
@@ -133,7 +135,7 @@ const ListViewTiffin = () => {
 
                                                 <Stack className='h-100' justifyContent="space-between">
                                                     <div>
-                                                        <h2 className='list-card-title'>{item?.catering_service_name}</h2>
+                                                        <Link href={`/tiffin-search/${item?.vendor_id}/${item?.id}`} className='list-card-title'>{item?.catering_service_name}</Link>
                                                         <p className='list-card-desc'>
                                                             {item?.street_name ? `${item.street_name}, ` : ''}
                                                             {/* {item?.area ? `${item.area}, ` : ''} */}
@@ -247,17 +249,18 @@ const ListViewTiffin = () => {
 
                                                     </div>
                                                 </Stack>
+                                                <Stack className="lv-price mb-2" direction="row" justifyContent={{ xs: 'start', sm: 'start', lg: "end" }}>
+                                                    <span className='lse-starting-price'>Monyhly plan Cost - <span className='lse-rupees-orange'>₹ {item?.start_price}/- </span> </span>
+                                                </Stack>
                                             </div>
 
 
                                             <div>
-                                                <Stack className="lv-price mb-2" direction="row" justifyContent={{ xs: 'start', sm: 'start', lg: "end" }}>
-                                                    <span className='lse-starting-price'>Monyhly plan Cost - <span className='lse-rupees-orange'>₹ {item?.start_price}/- </span> </span>
-                                                </Stack>
 
-                                                <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} style={{ marginTop: '6px' }}>
+                                                {/* <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} style={{ marginTop: '6px' }}>
                                                     <span className='lse-starting-price'>Inclusive All Taxes</span>
-                                                </Stack>
+                                                </Stack> */}
+
                                                 <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} sx={{ marginBottom: '5px' }}>
                                                     <Link href={`/tiffin-search/${item?.vendor_id}/${item?.id}`} className='text-decoration-none' variant="contained" style={{
                                                         color: '#ffffff', padding: '8px 14px', marginTop: '8px', fontWeight: '500',
@@ -268,7 +271,7 @@ const ListViewTiffin = () => {
                                                         }
                                                     }}>Enquire Now</Link>
                                                 </Stack>
-                                            </div>
+                                                </div>
 
                                         </Stack>
                                     </Stack>

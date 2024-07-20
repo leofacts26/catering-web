@@ -107,23 +107,32 @@ const SimilarCaterersTiffin = ({ tiffin }) => {
                     const imageSrc = getSearchCard?.subscription_type_name === "branded" && brandLogo || bannerImage || '/img/no-image.jpg';
                     return (
                         <SwiperSlide>
-                            <div className='text-decoration-none cursor-pointer'>
-                            <div className="vc-similar-card">
+                            <div className='text-decoration-none cursor-pointer' onClick={(e) => {
+                                onNavigateDetailPage(getSearchCard?.vendor_id, getSearchCard?.id)
+                                // e.stopPropagation()
+                            }}>
+                                <div className="vc-similar-card">
                                     <div className="grid-img-box">
                                         <div className="view-all-dark-overlay"></div>
                                         <img src={imageSrc} alt="" className="img-fluid vc-similar-card-img" />
                                         <div className="grid-icons">
-                                            <ShareIcon className='grid-lse-icons' style={{ marginRight: '10px', cursor: 'pointer' }} />
-                                            {accessToken ? <>
-                                                {wishlist[getSearchCard?.id] ? <FavoriteIcon className='grid-lse-icons cursor-pointer fill-heart-tiffin' onClick={(e) => {
-                                                    onHandleAddFavourite(getSearchCard?.id)
-                                                    e.stopPropagation()
-                                                }} /> : <FavoriteBorderIcon className='grid-lse-icons cursor-pointer'
-                                                    onClick={(e) => {
-                                                        onHandleAddFavourite(getSearchCard?.id)
-                                                        e.stopPropagation()
-                                                    }} />}
-                                            </> : <FavoriteBorderIcon className='grid-lse-icons cursor-pointer' onClick={() => toast.error("Login before Adding to Wishlist")} />}
+                                            <Stack direction="row" alignItems="center">
+                                                <ShareIcon className='grid-lse-icons-tiffin' style={{ marginRight: '10px', cursor: 'pointer' }} />
+                                                <div>
+                                                    <span className='round-white'>
+                                                        {accessToken ? <>
+                                                            {wishlist[getSearchCard?.id] ? <FavoriteIcon className='grid-lse-icons-tiffin cursor-pointer fill-heart-tiffin' onClick={(e) => {
+                                                                onHandleAddFavourite(getSearchCard?.id)
+                                                                e.stopPropagation()
+                                                            }} /> : <FavoriteBorderIcon className='grid-lse-icons-tiffin cursor-pointer'
+                                                                onClick={(e) => {
+                                                                    onHandleAddFavourite(getSearchCard?.id)
+                                                                    e.stopPropagation()
+                                                                }} />}
+                                                        </> : <FavoriteBorderIcon className='grid-lse-icons-tiffin cursor-pointer' onClick={() => toast.error("Login before Adding to Wishlist")} />}
+                                                    </span>
+                                                </div>
+                                            </Stack>
                                         </div>
                                     </div>
                                     <div className="vc-similar-card-description">
@@ -142,7 +151,7 @@ const SimilarCaterersTiffin = ({ tiffin }) => {
                                                 </Stack>
 
                                                 <div>
-                                                    {getSearchCard?.food_types.length > 0 && <Stack direction="row" spacing={1} style={{marginBottom: '8px'}}>
+                                                    {getSearchCard?.food_types.length > 0 && <Stack direction="row" spacing={1} style={{ marginBottom: '8px' }}>
                                                         {
                                                             filterFoodTypes?.map((food_type, index) => {
                                                                 let iconSrc = '';
