@@ -152,14 +152,13 @@ const ListViewTiffin = () => {
                                                 <Stack className='h-100' justifyContent="space-between">
                                                     <div>
                                                         <Link href={`/tiffin-search/${item?.vendor_id}/${item?.id}`} className='list-card-title'>{item?.catering_service_name}</Link>
-                                                        <p className='list-card-desc'>
+                                                        <p className='list-card-desc' style={{ marginBottom: '14px' }}>
                                                             {item?.street_name ? `${item.street_name}, ` : ''}
-                                                            {/* {item?.area ? `${item.area}, ` : ''} */}
                                                             {item?.city ? item.city : ''}
                                                         </p>
-                                                        <div className='m-0 p-0'>
+                                                        <div>
                                                             {
-                                                                item?.food_types?.length > 0 && <Stack direction="row" spacing={1} sx={{ marginTop: '10px', marginBottom: '4px' }}>
+                                                                item?.food_types?.length > 0 && <Stack direction="row" spacing={1} style={{ marginBottom: '10px' }}>
                                                                     {
                                                                         item?.food_types?.slice(1, 3).map((food_type, index) => {
                                                                             let iconSrc = '';
@@ -175,7 +174,7 @@ const ListViewTiffin = () => {
                                                                                 foodClassName = 'food-veg-color';
                                                                             }
                                                                             return (
-                                                                                <Stack direction="row" alignItems="center" spacing={0} key={index} className='m-0 p-0'>
+                                                                                <Stack direction="row" alignItems="center" spacing={0} key={index}>
                                                                                     <img src={iconSrc} className='list-card-veg' alt="" />
                                                                                     <p className={`list-card-veg-font ${foodClassName}`}> {food_type} </p>
                                                                                 </Stack>
@@ -184,7 +183,9 @@ const ListViewTiffin = () => {
                                                                     }
                                                                 </Stack>
                                                             }
-                                                            <Stack className='m-0 p-0' direction={{ xs: 'row', sm: 'row', md: 'row', lg: "row" }} flexWrap="wrap" spacing={0} sx={{ marginTop: '15px' }}>
+
+
+                                                            <Stack  direction={{ xs: 'row', sm: 'row', md: 'row', lg: "row" }} flexWrap="wrap" spacing={0} style={{ marginBottom: '10px' }}>
                                                                 {
                                                                     item?.meal_times?.map((mealtime, index) => {
                                                                         const isLast = index === item.meal_times.length - 1;
@@ -197,12 +198,14 @@ const ListViewTiffin = () => {
 
                                                             <Stack direction="row" spacing={1}>
                                                                 {item?.kitchen_types.length > 0 && item?.kitchen_types?.slice(0, 4).map((item) => (
-                                                                    <span className='list-card-chip-kitchentypes mt-3'>
+                                                                    <span className='list-card-chip-kitchentypes' style={{ marginBottom: '10px' }}>
                                                                         {item}
                                                                     </span>
                                                                 ))
                                                                 }
                                                             </Stack>
+
+                                                            
                                                             <div>
                                                                 <Stack direction={{ xs: 'row', sm: 'row', md: 'row', lg: "row" }} className='cat-types' spacing={2}>
                                                                     {item?.service_types?.map((serviceType) => {
@@ -226,6 +229,8 @@ const ListViewTiffin = () => {
                                                                     })}
                                                                 </Stack>
                                                             </div>
+
+
                                                         </div>
                                                     </div>
                                                 </Stack>
@@ -240,7 +245,7 @@ const ListViewTiffin = () => {
 
                                         <Stack className="list-card-end" direction="column" justifyContent="space-between">
                                             <div>
-                                                <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} className='mb-2'>
+                                                <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} style={{ marginBottom: '8px'}}>
                                                     <ShareIcon className={`lse-icons ${isAnimating === item?.id ? 'spin-animation text-orange' : ''}`} style={{ marginRight: '10px', cursor: 'pointer' }}
                                                         onClick={() => onHandleShare(item?.id, { vendorId: item?.vendor_id, Id: item?.id })}
                                                     />
@@ -249,17 +254,17 @@ const ListViewTiffin = () => {
                                                         {wishlist[item?.id] ? <FavoriteIcon className='lse-icons cursor-pointer fill-heart-tiffin' onClick={() => onHandleAddFavourite(item?.id)} /> : <FavoriteBorderIcon className='lse-icons cursor-pointer' onClick={() => onHandleAddFavourite(item?.id)} />}
                                                     </> : <FavoriteBorderIcon className='lse-icons cursor-pointer' onClick={() => toast.error("Login before Adding to Wishlist")} />}
                                                 </Stack>
-                                                <Stack direction="row" alignItems="center" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} style={{ marginTop: '8px' }}>
+                                                <Stack direction="row" alignItems="center" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} style={{ marginBottom: '8px'}}>
                                                     <span className='cat-yellow' style={{ fontSize: '14px' }}>
                                                         <Stack direction="row" alignItems="center">
                                                             <ShowOnMap tiffinColor locLatitude={item?.latitude} locLongtitude={item?.longitude} />
                                                         </Stack>
                                                     </span>
                                                 </Stack>
-                                                <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} style={{ marginTop: '8px' }}>
+                                                <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} style={{ marginBottom: '8px'}}>
                                                     <span className='lse-reviews'> {item?.review_count} Reviews</span>
                                                 </Stack>
-                                                <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} style={{ marginTop: '0px' }}>
+                                                <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }}style={{ marginBottom: '8px'}}>
                                                     <div className="mt-2">
                                                         {[...Array(parseInt(item.rating.slice(0, 1)))].map((star, index) => (
                                                             <StarIcon key={index} style={{ color: '#d9822b', fontSize: 20 }} />
