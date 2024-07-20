@@ -1868,6 +1868,8 @@ h6 {
   font-weight: 400;
 }
 
+
+
 .text-red {
   color: #C33332 !important;
 }
@@ -3375,7 +3377,7 @@ textarea:-webkit-autofill:active {
 
 .grid-icons {
   position: absolute;
-  top: 5%;
+  top: 4%;
   right: 2%;
   z-index: 99;
 }
@@ -3688,4 +3690,21 @@ textarea:-webkit-autofill:active {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+
+
+/* Define a keyframe for the animation */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Add a class for the animation */
+.spin-animation {
+  animation: spin 1s ease-in-out;
 }

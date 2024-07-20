@@ -24,6 +24,7 @@ const SimilarCaterers = ({ tiffin }) => {
     const { getCateringSimilarTypes } = useSelector((state) => state.cateringFilter)
     const dispatch = useDispatch()
     const router = useRouter()
+    const [isAnimating, setIsAnimating] = useState(false);
 
     useEffect(() => {
         dispatch(fetchCatererSimilarCaterer())
@@ -58,6 +59,21 @@ const SimilarCaterers = ({ tiffin }) => {
     const onNavigateDetailPage = (vendor_id, id) => {
         router.push(`/catering-search/${vendor_id}/${id}`)
     }
+
+    const onHandleShare = (cardId, data) => {
+        setIsAnimating(cardId);
+        const { vendorId, Id } = data;
+        const linkToCopy = `https://cateringsandtiffins.com/catering-search/${vendorId}/${Id}`;
+        navigator.clipboard.writeText(linkToCopy)
+            .then(() => {
+                toast.success('Link copied to clipboard');
+                setTimeout(() => setIsAnimating(false), 1000); // Stop the animation after 1 second
+            })
+            .catch((error) => {
+                toast.error('Failed to copy link');
+                setTimeout(() => setIsAnimating(false), 1000); // Stop the animation after 1 second
+            });
+    };
 
 
     return (
@@ -110,29 +126,36 @@ const SimilarCaterers = ({ tiffin }) => {
                         <SwiperSlide>
                             <div className='text-decoration-none  cursor-pointer' onClick={(e) => {
                                 onNavigateDetailPage(getSearchCard?.vendor_id, getSearchCard?.id)
-                                // e.stopPropagation()
+                                e.stopPropagation()
                             }}>
                                 <div className="vc-similar-card">
                                     <div className="grid-img-box">
                                         <div className="view-all-dark-overlay"></div>
                                         <img src={imageSrc} alt="" className="img-fluid vc-similar-card-img" />
                                         <div className="grid-icons">
-                                        <Stack direction="row" alignItems="center">
-                                            <ShareIcon className='grid-lse-icons' style={{ marginRight: '10px', cursor: 'pointer' }} />
-                                            <div>
-                                            <span className='round-white'>
-                                                {accessToken ? <>
-                                                    {wishlist[getSearchCard?.id] ? <FavoriteIcon className='grid-lse-icons cursor-pointer fill-heart-catering' onClick={(e) => {
-                                                        onHandleAddFavourite(getSearchCard?.id)
-                                                        e.stopPropagation()
-                                                    }} /> : <FavoriteBorderIcon className='grid-lse-icons cursor-pointer'
+                                            <Stack direction="row" alignItems="center" spacing={1}>
+                                                <span className='round-white '>
+                                                    <ShareIcon className={`grid-lse-icons ${isAnimating === getSearchCard.id ? 'spin-animation text-red' : 'text-dark'}`} style={{ marginRight: '2px', cursor: 'pointer' }}
                                                         onClick={(e) => {
-                                                            onHandleAddFavourite(getSearchCard?.id)
+                                                            onHandleShare(getSearchCard.id, { vendorId: getSearchCard.vendor_id, Id: getSearchCard.id })
                                                             e.stopPropagation()
-                                                        }} />}
-                                                </> : <FavoriteBorderIcon className='grid-lse-icons cursor-pointer' onClick={() => toast.error("Login before Adding to Wishlist")} />}
-                                            </span>
-                                            </div>
+                                                        }}
+                                                    />
+                                                </span>
+                                                <div>
+                                                    <span className='round-white'>
+                                                        {accessToken ? <>
+                                                            {wishlist[getSearchCard?.id] ? <FavoriteIcon className='grid-lse-icons cursor-pointer fill-heart-catering' onClick={(e) => {
+                                                                onHandleAddFavourite(getSearchCard?.id)
+                                                                e.stopPropagation()
+                                                            }} /> : <FavoriteBorderIcon className='grid-lse-icons cursor-pointer text-dark'
+                                                                onClick={(e) => {
+                                                                    onHandleAddFavourite(getSearchCard?.id)
+                                                                    e.stopPropagation()
+                                                                }} />}
+                                                        </> : <FavoriteBorderIcon className='grid-lse-icons cursor-pointer' onClick={() => toast.error("Login before Adding to Wishlist")} />}
+                                                    </span>
+                                                </div>
                                             </Stack>
                                         </div>
                                     </div>

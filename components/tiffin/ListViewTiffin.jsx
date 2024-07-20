@@ -15,6 +15,7 @@ import { addchWishlist } from '@/app/features/user/settingSlice';
 import { fetchtiffinSearchCards, incrementTiffinPage } from '@/app/features/tiffin/tiffinFilterSlice';
 import ShowOnMap from '../ShowOnMap';
 import StarIcon from '@mui/icons-material/Star';
+import toast from 'react-hot-toast';
 
 
 
@@ -23,6 +24,7 @@ const ListViewTiffin = () => {
 
     const { getTiffinSearchCards, isLoading, current_page, limit, total_count } = useSelector((state) => state.tiffinFilter)
     const dispatch = useDispatch()
+    const [isAnimating, setIsAnimating] = useState(false);
 
     const [page, setPage] = useState(1);
     const handleChange = (event, value) => {
@@ -87,6 +89,20 @@ const ListViewTiffin = () => {
     }, [handleScroll])
 
 
+    const onHandleShare = (cardId, data) => {
+        setIsAnimating(cardId);
+        const { vendorId, Id } = data;
+        const linkToCopy = `https://cateringsandtiffins.com/tiffin-search/${vendorId}/${Id}`;
+        navigator.clipboard.writeText(linkToCopy)
+            .then(() => {
+                toast.success('Link copied to clipboard');
+                setTimeout(() => setIsAnimating(false), 1000); // Stop the animation after 1 second
+            })
+            .catch((error) => {
+                toast.error('Failed to copy link');
+                setTimeout(() => setIsAnimating(false), 1000); // Stop the animation after 1 second
+            });
+    };
 
 
     if (isLoading) {
@@ -120,7 +136,7 @@ const ListViewTiffin = () => {
 
                             return (
                                 <div className="list-view-card-tiffin" key={item?.id}>
-                                    <Stack spacing={{ xs: 1, sm: 2, md: 0 }} direction={{ xs: 'column', sm: 'row', md: 'row', lg: "row" }} justifyContent="space-between" flexWrap="wrap" style={{height: '100%'}}>
+                                    <Stack spacing={{ xs: 1, sm: 2, md: 0 }} direction={{ xs: 'column', sm: 'row', md: 'row', lg: "row" }} justifyContent="space-between" flexWrap="wrap" style={{ height: '100%' }}>
 
                                         <Stack direction={{ xs: 'column', sm: 'row', md: 'row', lg: "row" }} spacing={2}>
                                             <div className="list-card-img-tiffin position-relative">
@@ -225,7 +241,9 @@ const ListViewTiffin = () => {
                                         <Stack className="list-card-end" direction="column" justifyContent="space-between">
                                             <div>
                                                 <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} className='mb-2'>
-                                                    <ShareIcon className='lse-icons' style={{ marginRight: '10px' }} />
+                                                    <ShareIcon className={`lse-icons ${isAnimating === item?.id ? 'spin-animation text-orange' : ''}`} style={{ marginRight: '10px', cursor: 'pointer' }}
+                                                        onClick={() => onHandleShare(item?.id, { vendorId: item?.vendor_id, Id: item?.id })}
+                                                    />
 
                                                     {accessToken ? <>
                                                         {wishlist[item?.id] ? <FavoriteIcon className='lse-icons cursor-pointer fill-heart-tiffin' onClick={() => onHandleAddFavourite(item?.id)} /> : <FavoriteBorderIcon className='lse-icons cursor-pointer' onClick={() => onHandleAddFavourite(item?.id)} />}
@@ -271,7 +289,7 @@ const ListViewTiffin = () => {
                                                         }
                                                     }}>Enquire Now</Link>
                                                 </Stack>
-                                                </div>
+                                            </div>
 
                                         </Stack>
                                     </Stack>

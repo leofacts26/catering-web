@@ -17,11 +17,13 @@ import GridViewSkeleton from './GridViewSkeleton';
 import { unwrapResult } from '@reduxjs/toolkit';
 import FilterListOffIcon from '@mui/icons-material/FilterListOff';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import toast from 'react-hot-toast';
 
 const CateringWishlist = () => {
 
     const router = useRouter()
     const accessToken = useSelector((state) => state.user.accessToken);
+    const [isAnimating, setIsAnimating] = useState(false);
 
     const { caterWishlist, isLoading, tiffinWishlist } = useSelector((state) => state.settings)
     const dispatch = useDispatch()
@@ -80,6 +82,23 @@ const CateringWishlist = () => {
     }
 
 
+    const onHandleShare = (cardId, data) => {
+        setIsAnimating(cardId);
+        const { vendorId, Id } = data;
+        const linkToCopy = `https://cateringsandtiffins.com/catering-search/${vendorId}/${Id}`;
+        navigator.clipboard.writeText(linkToCopy)
+            .then(() => {
+                toast.success('Link copied to clipboard');
+                setTimeout(() => setIsAnimating(false), 1000); // Stop the animation after 1 second
+            })
+            .catch((error) => {
+                toast.error('Failed to copy link');
+                setTimeout(() => setIsAnimating(false), 1000); // Stop the animation after 1 second
+            });
+    };
+
+
+
 
     if (isLoading) {
         return (
@@ -133,15 +152,22 @@ const CateringWishlist = () => {
                                                             <div className="view-all-dark-overlay"></div>
                                                             <img src={imageSrc} alt="" className="img-fluid vc-similar-card-img" />
                                                             <div className="grid-icons">
-                                                                <Stack direction="row" alignItems="center">
-                                                                    <ShareIcon className='grid-lse-icons' style={{ marginRight: '10px', cursor: 'pointer' }} />
+                                                                <Stack direction="row" alignItems="center" spacing={1}>
+                                                                    <span className='round-white'>
+                                                                        <ShareIcon className={`grid-lse-icons ${isAnimating === getSearchCard?.id ? 'spin-animation text-red' : 'text-dark'}`} style={{ marginRight: '2px', cursor: 'pointer' }}
+                                                                            onClick={(e) => {
+                                                                                onHandleShare(getSearchCard?.id, { vendorId: getSearchCard?.vendor_id, Id: getSearchCard?.id })
+                                                                                e.stopPropagation()
+                                                                            }}
+                                                                        />
+                                                                    </span>
                                                                     <div>
                                                                         <span className='round-white'>
                                                                             {accessToken ? <>
                                                                                 {wishlist[getSearchCard?.id] ? <FavoriteIcon className='grid-lse-icons cursor-pointer fill-heart-catering' onClick={(e) => {
                                                                                     onHandleAddFavourite(getSearchCard?.id)
                                                                                     e.stopPropagation()
-                                                                                }} /> : <FavoriteBorderIcon className='grid-lse-icons cursor-pointer'
+                                                                                }} /> : <FavoriteBorderIcon className='text-dark grid-lse-icons cursor-pointer'
                                                                                     onClick={(e) => {
                                                                                         onHandleAddFavourite(getSearchCard?.id)
                                                                                         e.stopPropagation()

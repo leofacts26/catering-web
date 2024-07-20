@@ -23,6 +23,7 @@ const ListView = () => {
     const { getCateringSearchCards, isLoading, current_page, limit, total_count } = useSelector((state) => state.cateringFilter)
     const accessToken = useSelector((state) => state.user.accessToken);
     const { selectedLocation } = useGetLocationResults()
+    const [isAnimating, setIsAnimating] = useState(false);
 
     // console.log(accessToken, "accessToken accessToken");
 
@@ -94,6 +95,21 @@ const ListView = () => {
     }, [handleScroll])
 
 
+    const onHandleShare = (cardId, data) => {
+        setIsAnimating(cardId);
+        const { vendorId, Id } = data;
+        const linkToCopy = `https://cateringsandtiffins.com/catering-search/${vendorId}/${Id}`;
+        navigator.clipboard.writeText(linkToCopy)
+            .then(() => {
+                toast.success('Link copied to clipboard');
+                setTimeout(() => setIsAnimating(false), 1000); // Stop the animation after 1 second
+            })
+            .catch((error) => {
+                toast.error('Failed to copy link');
+                setTimeout(() => setIsAnimating(false), 1000); // Stop the animation after 1 second
+            });
+    };
+
 
     if (isLoading) {
         return <>
@@ -119,9 +135,9 @@ const ListView = () => {
                     if (getSearchCard?.subscription_type_name === "popular") {
                         tagColor = "#459412"
                     } else if (getSearchCard?.subscription_type_name === "branded") {
-                        tagColor = "#8E11A5"
+                        tagColor = "#8e11a5"
                     } else {
-                        tagColor = "#8E11A5"
+                        tagColor = "#459412"
                     }
 
                     return (
@@ -133,7 +149,7 @@ const ListView = () => {
                                         <Link href={`/catering-search/${getSearchCard?.vendor_id}/${getSearchCard?.id}`}>
                                             <img src={imageSrc} alt="" className="img-fluid listview-img" style={{ borderRadius: '8px', height: '100%' }} />
                                         </Link>
-                                        <div className="position-absolute list-card-tag" style={{backgroundColor: tagColor}}>
+                                        <div className="position-absolute list-card-tag" style={{ backgroundColor: tagColor }}>
                                             {getSearchCard?.subscription_type_name}
                                         </div>
                                     </div>
@@ -241,7 +257,9 @@ const ListView = () => {
                                 <Stack className="list-card-end m-0 p-0" direction="column" justifyContent="space-between">
                                     <div>
                                         <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} className='mb-2 share-love'>
-                                            <ShareIcon className='lse-icons' style={{ marginRight: '10px', cursor: 'pointer' }} />
+                                            <ShareIcon className={`lse-icons ${isAnimating === getSearchCard.id ? 'spin-animation text-red' : ''}`} style={{ marginRight: '10px', cursor: 'pointer' }}
+                                                onClick={() => onHandleShare(getSearchCard.id, { vendorId: getSearchCard.vendor_id, Id: getSearchCard.id })}
+                                            />
                                             {accessToken ? <>
                                                 {wishlist[getSearchCard?.id] ? <FavoriteIcon className='lse-icons cursor-pointer fill-heart-catering' onClick={() => onHandleAddFavourite(getSearchCard?.id)} /> : <FavoriteBorderIcon className='lse-icons cursor-pointer' onClick={() => onHandleAddFavourite(getSearchCard?.id)} />}
                                             </> : <FavoriteBorderIcon className='lse-icons cursor-pointer' onClick={() => toast.error("Login before Adding to Wishlist")} />}

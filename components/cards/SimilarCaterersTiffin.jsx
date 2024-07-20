@@ -23,6 +23,7 @@ import { addchWishlist } from '@/app/features/user/settingSlice';
 const SimilarCaterersTiffin = ({ tiffin }) => {
     const accessToken = useSelector((state) => state.user.accessToken);
     const router = useRouter()
+    const [isAnimating, setIsAnimating] = useState(false);
 
     const { getTiffinSimilarTypes } = useSelector((state) => state.tiffinFilter)
     const dispatch = useDispatch()
@@ -60,6 +61,22 @@ const SimilarCaterersTiffin = ({ tiffin }) => {
     const onNavigateDetailPage = (vendor_id, id) => {
         router.push(`/tiffin-search/${vendor_id}/${id}`)
     }
+
+
+    const onHandleShare = (cardId, data) => {
+        setIsAnimating(cardId);
+        const { vendorId, Id } = data;
+        const linkToCopy = `https://cateringsandtiffins.com/tiffin-search/${vendorId}/${Id}`;
+        navigator.clipboard.writeText(linkToCopy)
+            .then(() => {
+                toast.success('Link copied to clipboard');
+                setTimeout(() => setIsAnimating(false), 1000); // Stop the animation after 1 second
+            })
+            .catch((error) => {
+                toast.error('Failed to copy link');
+                setTimeout(() => setIsAnimating(false), 1000); // Stop the animation after 1 second
+            });
+    };
 
 
 
@@ -116,15 +133,23 @@ const SimilarCaterersTiffin = ({ tiffin }) => {
                                         <div className="view-all-dark-overlay"></div>
                                         <img src={imageSrc} alt="" className="img-fluid vc-similar-card-img" />
                                         <div className="grid-icons">
-                                            <Stack direction="row" alignItems="center">
-                                                <ShareIcon className='grid-lse-icons-tiffin' style={{ marginRight: '10px', cursor: 'pointer' }} />
+                                            <Stack direction="row" alignItems="center" spacing={1}>
+                                                <span className='round-white'>
+                                                    <ShareIcon className={`grid-lse-icons-tiffin ${isAnimating === getSearchCard.id ? 'spin-animation text-orange' : 'text-dark'}`} style={{ marginRight: '2px', cursor: 'pointer' }}
+                                                        onClick={(e) => {
+                                                            onHandleShare(getSearchCard.id, { vendorId: getSearchCard.vendor_id, Id: getSearchCard.id })
+                                                            e.stopPropagation()
+                                                        }}
+                                                    />
+                                                </span>
+
                                                 <div>
                                                     <span className='round-white'>
                                                         {accessToken ? <>
                                                             {wishlist[getSearchCard?.id] ? <FavoriteIcon className='grid-lse-icons-tiffin cursor-pointer fill-heart-tiffin' onClick={(e) => {
                                                                 onHandleAddFavourite(getSearchCard?.id)
                                                                 e.stopPropagation()
-                                                            }} /> : <FavoriteBorderIcon className='grid-lse-icons-tiffin cursor-pointer'
+                                                            }} /> : <FavoriteBorderIcon className='text-dark grid-lse-icons-tiffin cursor-pointer'
                                                                 onClick={(e) => {
                                                                     onHandleAddFavourite(getSearchCard?.id)
                                                                     e.stopPropagation()
