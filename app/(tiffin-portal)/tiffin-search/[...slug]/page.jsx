@@ -42,11 +42,13 @@ import { fetchtiffinSearchCards } from '@/app/features/tiffin/tiffinFilterSlice'
 import OutdoorGrillIcon from '@mui/icons-material/OutdoorGrill';
 import ReviewCardTiffin from '@/components/cards/ReviewCardTiffin';
 import ReactMarkdown from 'react-markdown';
+import toast from 'react-hot-toast';
 
 
 const page = () => {
   const [showAllCuisines, setShowAllCuisines] = useState(true)
   const [cuisineCount, setCuisineCount] = useState(12)
+  const [isAnimating, setIsAnimating] = useState(false);
 
   const accessToken = useSelector((state) => state.user.accessToken);
   const { slug } = useParams()
@@ -99,7 +101,22 @@ const page = () => {
     setCuisineCount(12)
   }
 
-  console.log(data, "data");
+  const onHandleShare = (cardId, data) => {
+    setIsAnimating(cardId);
+    const { vendorId, Id } = data;
+    const linkToCopy = `https://cateringsandtiffins.com/tiffin-search/${vendorId}/${Id}`;
+    navigator.clipboard.writeText(linkToCopy)
+      .then(() => {
+        toast.success('Link copied to clipboard');
+        setTimeout(() => setIsAnimating(false), 1000); // Stop the animation after 1 second
+      })
+      .catch((error) => {
+        toast.error('Failed to copy link');
+        setTimeout(() => setIsAnimating(false), 1000); // Stop the animation after 1 second
+      });
+  };
+
+  // console.log(data, "data");
 
   return (
     <>
@@ -136,7 +153,13 @@ const page = () => {
           <div className='vc-icon-box'>
             <Stack direction='row' justifyContent="space-between" alignItems="end">
               <Stack direction="row" alignItems="center" spacing={1} className="vc-icons-tiffin">
-                <ShareIcon style={{ fontSize: '18px' }} /> <span>Share</span></Stack>
+                <Stack direction="row" alignItems="center" spacing={1} className="vc-icons-tiffin"
+                  onClick={() => onHandleShare(data?.id, { vendorId: data?.vendor_id, Id: data?.id })}>
+                  <ShareIcon className={` ${isAnimating === data?.id ? 'spin-animation text-orange' : ''}`} style={{ fontSize: '18px' }}
+                  />
+                  <span>Share</span>
+                </Stack>
+              </Stack>
               <TiffinDetailSave branchId={branchId} is_wishlisted={data?.is_wishlisted} />
               <ShowOnMap tiffinColor locLatitude={data?.latitude} locLongtitude={data?.longitude} />
             </Stack>

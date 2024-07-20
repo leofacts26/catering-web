@@ -38,6 +38,7 @@ import OutdoorGrillIcon from '@mui/icons-material/OutdoorGrill';
 import ShowOnMapCatering from "@/components/ShowOnMapCatering";
 import ReactMarkdown from 'react-markdown';
 import FoodType from "@/components/FoodType";
+import toast from "react-hot-toast";
 
 
 
@@ -45,6 +46,7 @@ const page = () => {
 
     const [showAll, setShowAll] = useState(true)
     const [count, setCount] = useState(3)
+    const [isAnimating, setIsAnimating] = useState(false);
 
     const [showAllCuisines, setShowAllCuisines] = useState(true)
     const [cuisineCount, setCuisineCount] = useState(12)
@@ -77,7 +79,7 @@ const page = () => {
         }
     }
 
-    console.log(data, "data TTT");
+    // console.log(data, "data TTT");
 
     const onBreadcrumbLocationSearch = () => {
         const { latitude, longitude, city, place_id, pincode, formatted_address } = data;
@@ -110,6 +112,21 @@ const page = () => {
         setCuisineCount(12)
     }
 
+    const onHandleShare = (cardId, data) => {
+        setIsAnimating(cardId);
+        const { vendorId, Id } = data;
+        const linkToCopy = `https://cateringsandtiffins.com/catering-search/${vendorId}/${Id}`;
+        navigator.clipboard.writeText(linkToCopy)
+            .then(() => {
+                toast.success('Link copied to clipboard');
+                setTimeout(() => setIsAnimating(false), 1000); // Stop the animation after 1 second
+            })
+            .catch((error) => {
+                toast.error('Failed to copy link');
+                setTimeout(() => setIsAnimating(false), 1000); // Stop the animation after 1 second
+            });
+    };
+
     // console.log(data?.foodTypes, "data?.foodTypes data?.foodTypes");
 
     return (
@@ -137,8 +154,11 @@ const page = () => {
                     </div>
                     <div className='vc-icon-box'>
                         <Stack direction='row' justifyContent="space-between" alignItems="end">
-                            <Stack direction="row" alignItems="center" spacing={1} className="vc-icons">
-                                <ShareIcon style={{ fontSize: '18px' }} /> <span>Share</span></Stack>
+                            <Stack direction="row" alignItems="center" spacing={1} className="vc-icons" onClick={() => onHandleShare(data?.id, { vendorId: data?.vendor_id, Id: data?.id })}>
+                                <ShareIcon className={` ${isAnimating === data?.id ? 'spin-animation text-red' : ''}`} style={{ fontSize: '18px' }}
+                            />
+                                <span>Share</span>
+                                </Stack>
                             <CateringDetailSave branchId={branchId} is_wishlisted={data?.is_wishlisted} />
                             <ShowOnMapCatering locLatitude={data?.latitude} locLongtitude={data?.longitude} />
                         </Stack>
