@@ -122,6 +122,7 @@ const SimilarCaterersTiffin = ({ tiffin }) => {
                     const brandLogo = getSearchCard?.brand_logo?.[0]?.original;
                     const bannerImage = getSearchCard?.banner_images?.[0]?.original;
                     const imageSrc = getSearchCard?.subscription_type_name === "branded" && brandLogo || bannerImage || '/img/no-image.jpg';
+                    const filterFoodTypes = getSearchCard?.food_types.filter((item) => item !== 'All')
                     return (
                         <SwiperSlide>
                             <div className='text-decoration-none cursor-pointer' onClick={(e) => {
@@ -176,7 +177,7 @@ const SimilarCaterersTiffin = ({ tiffin }) => {
                                                 </Stack>
 
                                                 <div>
-                                                    {getSearchCard?.food_types.length > 0 && <Stack direction="row" spacing={1} style={{ marginBottom: '8px' }}>
+                                                    {filterFoodTypes?.length > 0 && <Stack direction="row" spacing={1} style={{ marginBottom: '8px' }}>
                                                         {
                                                             filterFoodTypes?.map((food_type, index) => {
                                                                 let iconSrc = '';
