@@ -212,7 +212,7 @@ const page = () => {
             <Grid item sm={12} lg={5}>
               <Stack direction="column" alignContent="end" alignItems="end" justifyContent="end">
                 {data?.start_price !== null && <Stack direction="row" alignItems="center" className="mb-2">
-                  <span className="vc-price">Montly Plan rice -</span>
+                  <span className="vc-price">Montly Plan Price -</span>
                   <Stack direction="row" alignItems="center" spacing={0}>
                     <CurrencyRupeeIcon className="vc-price-one-tiffin" /> <span className="vc-price-one-tiffin"> {data?.start_price} </span>
                   </Stack>
