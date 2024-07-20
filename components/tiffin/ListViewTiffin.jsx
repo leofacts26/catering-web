@@ -124,6 +124,7 @@ const ListViewTiffin = () => {
                             const brandLogo = item?.brand_logo?.[0]?.original;
                             const bannerImage = item?.banner_images?.[0]?.original;
                             const imageSrc = item?.subscription_type_name === "branded" && brandLogo || item?.brand_logo?.original || bannerImage || 'img/no-image.jpg';
+                            const filterFoodTypes = item?.food_types.filter((item) => item !== 'All')
 
                             let tagColor = "";
                             if (item?.subscription_type_name === "popular") {
@@ -139,7 +140,7 @@ const ListViewTiffin = () => {
                                     <Stack spacing={{ xs: 1, sm: 2, md: 0 }} direction={{ xs: 'column', sm: 'row', md: 'row', lg: "row" }} justifyContent="space-between" flexWrap="wrap" style={{ height: '100%' }}>
 
                                         <Stack direction={{ xs: 'column', sm: 'row', md: 'row', lg: "row" }} spacing={2}>
-                                            <div className="list-card-img-tiffin position-relative">
+                                            <div className="list-card-img-tiffin overflow-tiffincard-ellipsis position-relative">
                                                 <Link href={`/tiffin-search/${item?.vendor_id}/${item?.id}`}>
                                                     <img src={imageSrc} alt="" className="img-fluid listview-img-tiffin" style={{ borderRadius: '8px', height: '100%' }} />
                                                 </Link>
@@ -151,16 +152,16 @@ const ListViewTiffin = () => {
 
                                                 <Stack className='h-100' justifyContent="space-between">
                                                     <div>
-                                                        <Link href={`/tiffin-search/${item?.vendor_id}/${item?.id}`} className='list-card-title'>{item?.catering_service_name}</Link>
-                                                        <p className='list-card-desc' style={{ marginBottom: '14px' }}>
+                                                        <Link href={`/tiffin-search/${item?.vendor_id}/${item?.id}`} className='list-card-title overflow-tiffincard-ellipsis'>{item?.catering_service_name}</Link>
+                                                        <p className='list-card-desc overflow-tiffincard-ellipsis' style={{ marginBottom: '14px' }}>
                                                             {item?.street_name ? `${item.street_name}, ` : ''}
                                                             {item?.city ? item.city : ''}
                                                         </p>
                                                         <div>
                                                             {
-                                                                item?.food_types?.length > 0 && <Stack direction="row" spacing={1} style={{ marginBottom: '10px' }}>
+                                                                filterFoodTypes.length > 0 && <Stack direction="row" spacing={1} style={{ marginBottom: '10px' }}>
                                                                     {
-                                                                        item?.food_types?.slice(1, 3).map((food_type, index) => {
+                                                                        filterFoodTypes.map((food_type, index) => {
                                                                             let iconSrc = '';
                                                                             let foodClassName = '';
                                                                             if (food_type === 'Veg') {
@@ -198,7 +199,7 @@ const ListViewTiffin = () => {
 
                                                             <Stack direction="row" spacing={1}>
                                                                 {item?.kitchen_types.length > 0 && item?.kitchen_types?.slice(0, 4).map((item) => (
-                                                                    <span className='list-card-chip-kitchentypes' style={{ marginBottom: '10px' }}>
+                                                                    <span className='list-card-chip-kitchentypes' style={{ marginBottom: '12px' }}>
                                                                         {item}
                                                                     </span>
                                                                 ))

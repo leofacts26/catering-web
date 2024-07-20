@@ -91,6 +91,14 @@ body {
   text-overflow: ellipsis;
 }
 
+
+.overflow-tiffincard-ellipsis {
+  white-space: nowrap;
+  width: 414px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .input-nav-box input {
   overflow: hidden !important;
   text-overflow: ellipsis !important;
@@ -2026,6 +2034,7 @@ h6 {
   font-size: 14px;
   margin-top: 5px;
 }
+
 .vc-price-one-similar-tiffin {
   color: var(--accent1);
   font-weight: 500;
@@ -2236,7 +2245,7 @@ h6 {
   margin: 20px 0px 10px 0px;
   border-radius: 8px !important;
   padding: 5px;
-  height: 200px;
+  height: 205px;
 }
 
 .list-card-img {
@@ -2246,7 +2255,7 @@ h6 {
 
 .list-card-img-tiffin {
   width: 170px;
-  height: 170px;
+  height: 195px;
 }
 
 .listview-img {
@@ -2257,7 +2266,7 @@ h6 {
 
 .listview-img-tiffin {
   width: 170px;
-  height: 190px !important;
+  height: 195px !important;
   object-fit: cover;
 }
 
@@ -2289,10 +2298,10 @@ h6 {
 }
 
 .list-card-desc {
-  font-family: var(--fontPrimary);
-  font-size: 12px;
-  font-weight: 400;
-  color: var(--secondarytext);
+  font-family: var(--fontPrimary) !important;
+  font-size: 12px !important;
+  font-weight: 400 !important;
+  color: var(--secondarytext) !important;
 }
 
 .list-card-veg {
@@ -3386,6 +3395,7 @@ textarea:-webkit-autofill:active {
   color: var(--accent2);
   font-size: 18px !important;
 }
+
 .grid-lse-icons-tiffin {
   color: var(--accent1);
   font-size: 18px !important;
@@ -3677,12 +3687,12 @@ textarea:-webkit-autofill:active {
   font-size: 19px !important;
 }
 
-.catering-logo{
+.catering-logo {
   width: 150px;
   height: 150px;
 }
 
-.round-white{
+.round-white {
   width: 30px;
   height: 30px;
   background-color: #ffffff;
@@ -3699,6 +3709,7 @@ textarea:-webkit-autofill:active {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
