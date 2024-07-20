@@ -43,6 +43,7 @@ import OutdoorGrillIcon from '@mui/icons-material/OutdoorGrill';
 import ReviewCardTiffin from '@/components/cards/ReviewCardTiffin';
 import ReactMarkdown from 'react-markdown';
 import toast from 'react-hot-toast';
+import FoodType from '@/components/FoodType';
 
 
 const page = () => {
@@ -174,26 +175,9 @@ const page = () => {
           <Grid container spacing={2}>
             <Grid item sm={12} lg={7}>
 
-              {data?.foodTypes?.length > 0 && <Stack direction="row" alignItems="center" spacing={1} className="mb-4">
-                <h2 className="food-type-tiffin">Food Type :</h2>
-                {
-                  data?.foodTypes?.slice(1, 3).map((food_type, index) => {
-                    let iconSrc = '';
-                    if (food_type?.food_type_name === 'Veg') {
-                      iconSrc = '/img/icons/list-card-veg.png';
-                    } else if (food_type?.food_type_name === 'Non Veg') {
-                      iconSrc = '/img/icons/list-card-non-veg.png';
-                    } else {
-                      iconSrc = '/img/icons/list-card-veg.png';
-                    }
-                    return (
-                      <Stack direction="row" alignItems="center" spacing={0} key={index}>
-                        <img src={iconSrc} className='list-card-veg' alt="" />
-                        <p className='list-card-veg-font'> {food_type?.food_type_name} </p>
-                      </Stack>
-                    )
-                  })
-                }
+              {data?.foodTypes.length > 0 && <Stack direction="row" spacing={1} sx={{ marginBottom: '15px' }}>
+                <h2 className="food-type-tiffin">Food Type : </h2>
+                <FoodType data={data?.foodTypes} />
               </Stack>}
 
 
