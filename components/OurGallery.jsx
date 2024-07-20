@@ -74,7 +74,7 @@ const OurGallery = ({ galleryImages }) => {
                         ))}
                     </Grid>
                 </div> */}
-
+                {galleryImages?.length > 0 && <h2 className="text-center mx-auto vc-gallery">Our Gallery</h2>}
                 <ResponsiveMasonry columnsCountBreakPoints={{ 600: 1, 900: 4 }}>
                     <Masonry columnsCount={columnsCount} gutter="10px">
                         {galleryImages?.map((image, index) => (
