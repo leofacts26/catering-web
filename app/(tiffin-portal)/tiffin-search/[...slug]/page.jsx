@@ -178,8 +178,8 @@ const page = () => {
                 <h2 className="vc-cater-tiffin">Cuisines We Cater</h2>
                 <h2 className="vc-locations">
                   {data?.cuisines?.slice(0, cuisineCount).map((item) => item?.cuisine_name).join(" | ")}...
-                  {showAllCuisines ? <span className="text-red view-all ms-2 cursor-pointer" onClick={() => onHandleCuisineShow()}> Show All </span> :
-                    <span className="text-red view-all ms-2 cursor-pointer" onClick={() => onHandleCuisineClose()}> Show Less </span>}
+                  {showAllCuisines ? <span className="text-orange view-all ms-2 cursor-pointer" onClick={() => onHandleCuisineShow()}> Show All </span> :
+                    <span className="text-orange view-all ms-2 cursor-pointer" onClick={() => onHandleCuisineClose()}> Show Less </span>}
                 </h2>
               </div>}
 
