@@ -7,7 +7,7 @@ import Link from 'next/link';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 
 
-const MapTiffinInfoCard = ({ infoWindowData }) => {
+const MapTiffinInfoCard = ({ infoWindowData, tiffin }) => {
     const { catering_service_name, start_price, getSearchCard } = infoWindowData;
     const brandLogo = getSearchCard?.brand_logo?.[0]?.original;
     const bannerImage = getSearchCard?.banner_images?.[0]?.original;
@@ -28,8 +28,8 @@ const MapTiffinInfoCard = ({ infoWindowData }) => {
                     <div className="vc-similar-card-description">
                         <Stack direction="row" justifyContent="space-between" alignItems="start" style={{ marginTop: '10px', marginBottom: '10px' }}>
                             <div className="text-start">
-                                <h3 className='grid-view-title text-ellipse-two'>{getSearchCard?.catering_service_name || ""}</h3>
-                                <p className='vc-similar-card-small text-left'>
+                                <h3 className='grid-view-title overflow-map-ellipsis'>{getSearchCard?.catering_service_name || ""}</h3>
+                                <p className='vc-similar-card-small text-left overflow-map-ellipsis'>
                                     {getSearchCard?.street_name ? `${getSearchCard.street_name}, ` : ''}
                                     {/* {getSearchCard?.area ? `${getSearchCard.area}, ` : ''} */}
                                     {getSearchCard?.city ? getSearchCard.city : ''}
@@ -63,8 +63,8 @@ const MapTiffinInfoCard = ({ infoWindowData }) => {
                                 }
                             </Stack>}
 
-                            {getSearchCard?.cuisines.length > 0 && <h2 className="vc-similar-blue text-ellipse-two">
-                                <span className='me-2 text-ellipse-one-listcard'>
+                            {getSearchCard?.cuisines.length > 0 && <h2 className="vc-similar-blue overflow-map-ellipsis">
+                                <span className='me-2 overflow-map-ellipsis'>
                                     {getSearchCard?.cuisines?.slice(0, 8)?.map((cuisine) => cuisine).join(" | ")}
                                 </span>
                             </h2>}
@@ -74,8 +74,8 @@ const MapTiffinInfoCard = ({ infoWindowData }) => {
                             {
                                 getSearchCard?.start_price !== null && <Stack direction="row" alignItems="center" justifyContent="end" className="mb-1 mt-1 w-100">
                                     <Stack direction="row" alignSelf="end" justifyContent="end" spacing={0} className='w-100'>
-                                        <CurrencyRupeeIcon style={{ fontSize: '18px' }} className="vc-price-one-similar-catering" />
-                                        <span className="vc-price-one-similar-catering"> {getSearchCard?.start_price} / Plate </span>
+                                        <CurrencyRupeeIcon style={{ fontSize: '18px' }} className={`${tiffin ? 'vc-price-one-similar-tiffin' : 'vc-price-one-similar-catering'}`} />
+                                        <span className={`${tiffin ? 'vc-price-one-similar-tiffin' : 'vc-price-one-similar-catering'}`}> {getSearchCard?.start_price} / Plate </span>
                                     </Stack>
                                 </Stack>
                             }

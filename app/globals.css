@@ -83,6 +83,14 @@ body {
   text-overflow: ellipsis;
 }
 
+
+.overflow-map-ellipsis {
+  white-space: nowrap;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .input-nav-box input {
   overflow: hidden !important;
   text-overflow: ellipsis !important;
@@ -2011,6 +2019,13 @@ h6 {
 
 .vc-price-one-similar-catering {
   color: var(--secondary);
+  font-weight: 500;
+  font-family: "Readex Pro", sans-serif;
+  font-size: 14px;
+  margin-top: 5px;
+}
+.vc-price-one-similar-tiffin {
+  color: var(--accent1);
   font-weight: 500;
   font-family: "Readex Pro", sans-serif;
   font-size: 14px;

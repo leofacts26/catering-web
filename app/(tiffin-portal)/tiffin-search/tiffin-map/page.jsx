@@ -190,7 +190,7 @@ const Page = () => {
                                                     <InfoWindow
                                                         onCloseClick={() => setIsOpen(false)}
                                                     >
-                                                        <MapTiffinInfoCard infoWindowData={infoWindowData} />
+                                                        <MapTiffinInfoCard infoWindowData={infoWindowData} tiffin/>
                                                     </InfoWindow>
                                                 )}
                                             </Marker>
