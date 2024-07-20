@@ -91,15 +91,23 @@ const AddReviewTiffin = ({ tiffin }) => {
                                                                     borderColor: `${tiffin ? '#d9822b' : '#C33332' }`,
                                                                 },
                                                             },
+                                                            '& .MuiInputLabel-root': {
+                                                                color: '#57636c',
+                                                                fontFamily: 'Readex Pro, sans-serif', // Add your font family here
+                                                                fontSize: '14px',
+                                                            },
                                                             '& .MuiInputLabel-root.Mui-focused': {
-                                                                color: `${tiffin ? '#d9822b' : '#C33332' }`,
+                                                                color: '#d9822b',
+                                                                fontFamily: 'Readex Pro, sans-serif', // Add your font family here
+                                                                fontSize: '14px',
                                                             },
                                                             '& .MuiSelect-icon': {
-                                                                color: `${tiffin ? '#d9822b' : '#C33332' }`,
+                                                                color: '#d9822b',
                                                             },
                                                         }}
                                                     >
-                                                        <InputLabel id="demo-simple-select-label" style={{color: `${tiffin ? '#57636c' : '#C33332' }`}}>
+                                                        <InputLabel id="demo-simple-select-label" 
+                                                        style={{ color: '#57636c', fontFamily: 'Readex Pro, sans-serif' }}>
                                                         Select Rating </InputLabel>
                                                         <Select
                                                             labelId="demo-simple-select-label"

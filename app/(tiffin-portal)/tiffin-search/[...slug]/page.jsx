@@ -51,6 +51,14 @@ const page = () => {
   const [cuisineCount, setCuisineCount] = useState(12)
   const [isAnimating, setIsAnimating] = useState(false);
 
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const toggleExpand = () => {
+    setIsExpanded(!isExpanded);
+  };
+
+
+
   const accessToken = useSelector((state) => state.user.accessToken);
   const { slug } = useParams()
   const dispatch = useDispatch()
@@ -119,6 +127,12 @@ const page = () => {
 
   // console.log(data, "data");
 
+
+  // Adjust the length as needed
+  const shortContentLength = 500;
+  const content = data?.about_description || '';
+  const shortContent = content.slice(0, shortContentLength);
+
   return (
     <>
       <section className='nav-bg-tiffin'>
@@ -182,12 +196,21 @@ const page = () => {
 
 
               {data?.cuisines?.length > 0 && <div>
-                <h2 className="vc-cater-tiffin">Cuisines We Cater</h2>
-                <h2 className="vc-locations">
-                  {data?.cuisines?.slice(0, cuisineCount).map((item) => item?.cuisine_name).join(" | ")}...
-                  {showAllCuisines ? <span className="text-orange view-all ms-2 cursor-pointer" onClick={() => onHandleCuisineShow()}> Show All </span> :
-                    <span className="text-orange view-all ms-2 cursor-pointer" onClick={() => onHandleCuisineClose()}> Show Less </span>}
-                </h2>
+                <h2 className="vc-cater-tiffin" style={{ marginBottom: '10px' }}>Cuisines We Cater</h2>
+                <Stack direction="row" flexWrap="wrap" alignItems="start" spacing={3}>
+                  {
+                    data?.cuisines?.slice(0, cuisineCount).map((item, index) => (
+                      <span className='cuisine-detail-list' key={index} style={{ marginLeft: '0px', marginRight: '0px', marginBottom: '10px' }}>
+                        {item?.cuisine_name} <span style={{ marginLeft: '10px', marginRight: '10px', marginBottom: '10px' }}>|</span>
+                      </span>
+                    ))
+                  }
+                  {showAllCuisines ? (
+                    <span className="text-orange view-all cursor-pointer" onClick={onHandleCuisineShow}> Show All </span>
+                  ) : (
+                    <span className="text-orange view-all cursor-pointer" onClick={onHandleCuisineClose}> Show Less </span>
+                  )}
+                </Stack>
               </div>}
 
             </Grid>
@@ -201,7 +224,7 @@ const page = () => {
                     <CurrencyRupeeIcon className="vc-price-one-tiffin" /> <span className="vc-price-one-tiffin"> {data?.start_price} </span>
                   </Stack>
                 </Stack>}
-                <p className="vc-reviews-tiffin">See Reviews (352)</p>
+                <Link href="#reviews" className="vc-reviews-tiffin">See Reviews {data?.review_count && data?.review_count}</Link>
                 {data?.business_phone_number && <Stack direction="row" spacing={2} style={{ marginTop: '10px' }}>
                   <ContactBtn number={data?.business_phone_number} />
                 </Stack>}
@@ -273,10 +296,23 @@ const page = () => {
 
       <Container maxWidth="xl" style={{ marginTop: '30px', marginBottom: '30px' }}>
 
-        {data?.about_description && <div>
-          <h3 className="vc-about-us-tiffin">About Us</h3>
-          <p className="vc-para vc-markdown my-3"> <ReactMarkdown>{data?.about_description}</ReactMarkdown></p>
-        </div>}
+        <div>
+          {data?.about_description && <h3 className="vc-about-us">About Us</h3>}
+          <p className="vc-about-content vc-markdown my-3">
+            <ReactMarkdown>
+              {isExpanded ? content : `${shortContent}${content.length > shortContentLength ? '...' : ''}`}
+            </ReactMarkdown>
+          </p>
+          {content.length > shortContentLength && (
+            <span
+              style={{ marginLeft: '0px' }}
+              className="text-orange view-all cursor-pointer"
+              onClick={toggleExpand}
+            >
+              {isExpanded ? 'Show Less' : 'Show All'}
+            </span>
+          )}
+        </div>
 
         {data?.branches > 0 && <>
           <h3 className="vc-about-us-tiffin" style={{ marginTop: '20px' }}>Our Branches</h3>

@@ -71,7 +71,7 @@ const ReviewCardTiffin = ({ tiffin }) => {
 
     return (
         <>
-            <Container maxWidth="xl" style={{ marginTop: '30px', marginBottom: '30px' }}>
+            <Container maxWidth="xl" style={{ marginTop: '30px', marginBottom: '30px' }} id="reviews">
 
                 {
                     reviewsList?.length > 0 && (
@@ -113,7 +113,7 @@ const ReviewCardTiffin = ({ tiffin }) => {
                             >
                                 {reviewsList.length > 0 && reviewsList?.map((item) => (
                                     <SwiperSlide style={{ marginRight: '0px' }}>
-                                        <div className="vc-review-card" key={item?.id}>
+                                        <div className="vc-review-card-modal" key={item?.id}>
                                             <Stack direction="row" spacing={1}>
                                                 <div className="">
                                                     <Avatar sx={{ bgcolor: '#D9822B' }}>{item?.username?.slice(0, 1).toUpperCase()}</Avatar>

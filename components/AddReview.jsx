@@ -82,7 +82,7 @@ const AddReview = () => {
                                                         sx={{
                                                             '& .MuiOutlinedInput-root': {
                                                                 '& fieldset': {
-                                                                    borderColor: touched.rating && errors.rating ? '#C33332'  : 'default',
+                                                                    borderColor: touched.rating && errors.rating ? '#C33332' : 'default',
                                                                 },
                                                                 '&:hover fieldset': {
                                                                     borderColor: '#C33332',
@@ -91,16 +91,24 @@ const AddReview = () => {
                                                                     borderColor: '#C33332',
                                                                 },
                                                             },
+                                                            '& .MuiInputLabel-root': {
+                                                                color: '#57636c',
+                                                                fontFamily: 'Readex Pro, sans-serif', // Add your font family here
+                                                                fontSize: '14px',
+                                                            },
                                                             '& .MuiInputLabel-root.Mui-focused': {
                                                                 color: '#C33332',
+                                                                fontFamily: 'Readex Pro, sans-serif', // Add your font family here
+                                                                fontSize: '14px',
                                                             },
                                                             '& .MuiSelect-icon': {
                                                                 color: '#C33332',
                                                             },
                                                         }}
                                                     >
-                                                        <InputLabel id="demo-simple-select-label" style={{color: '#57636c'}}>
-                                                        Select Rating </InputLabel>
+                                                        <InputLabel id="demo-simple-select-label"
+                                                         style={{ color: '#57636c', fontFamily: 'Readex Pro, sans-serif' }}>
+                                                            Select Rating </InputLabel>
                                                         <Select
                                                             labelId="demo-simple-select-label"
                                                             id="demo-simple-select"

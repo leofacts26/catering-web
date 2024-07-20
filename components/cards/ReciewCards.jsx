@@ -70,7 +70,7 @@ const ReciewCards = () => {
 
     return (
         <>
-            <Container maxWidth="xl" style={{ marginTop: '30px', marginBottom: '30px' }}>
+            <Container maxWidth="xl" style={{ marginTop: '30px', marginBottom: '30px' }} id="reviews">
 
                 {
                     reviewsList?.length > 0 && (
@@ -167,7 +167,7 @@ const ReciewCards = () => {
                     <DialogContent dividers>
                         {reviewsList.length > 0 && reviewsList?.map((item) => (
                             <div style={{ marginRight: '0px' }}>
-                                <div className="vc-review-card" key={item?.id}>
+                                <div className="vc-review-card-modal" key={item?.id}>
                                     <Stack direction="row" justifyContent="space-between" spacing={1}>
                                         <Stack direction="row" spacing={1}>
                                             <div className="">

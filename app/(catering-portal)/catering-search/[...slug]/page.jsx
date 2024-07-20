@@ -1,4 +1,5 @@
 "use client"
+import React from 'react'
 import { api, BASE_URL } from "@/api/apiConfig";
 import Breadcrumb from '@/components/Breadcrumb';
 import Navbar from '@/components/Navbar'
@@ -39,6 +40,7 @@ import ShowOnMapCatering from "@/components/ShowOnMapCatering";
 import ReactMarkdown from 'react-markdown';
 import FoodType from "@/components/FoodType";
 import toast from "react-hot-toast";
+import { Link } from '@mui/material';
 
 
 
@@ -50,6 +52,15 @@ const page = () => {
 
     const [showAllCuisines, setShowAllCuisines] = useState(true)
     const [cuisineCount, setCuisineCount] = useState(12)
+
+    const [isExpanded, setIsExpanded] = useState(false);
+
+    const toggleExpand = () => {
+        setIsExpanded(!isExpanded);
+    };
+
+
+
 
 
     const dispatch = useDispatch()
@@ -129,6 +140,12 @@ const page = () => {
 
     // console.log(data?.foodTypes, "data?.foodTypes data?.foodTypes");
 
+
+    // Adjust the length as needed
+    const shortContentLength = 500;
+    const content = data?.about_description || '';
+    const shortContent = content.slice(0, shortContentLength);
+
     return (
         <>
             <section className='nav-bg'>
@@ -156,9 +173,9 @@ const page = () => {
                         <Stack direction='row' justifyContent="space-between" alignItems="end">
                             <Stack direction="row" alignItems="center" spacing={1} className="vc-icons" onClick={() => onHandleShare(data?.id, { vendorId: data?.vendor_id, Id: data?.id })}>
                                 <ShareIcon className={` ${isAnimating === data?.id ? 'spin-animation text-red' : ''}`} style={{ fontSize: '18px' }}
-                            />
+                                />
                                 <span>Share</span>
-                                </Stack>
+                            </Stack>
                             <CateringDetailSave branchId={branchId} is_wishlisted={data?.is_wishlisted} />
                             <ShowOnMapCatering locLatitude={data?.latitude} locLongtitude={data?.longitude} />
                         </Stack>
@@ -180,11 +197,20 @@ const page = () => {
 
                             {data?.cuisines?.length > 0 && <div>
                                 <h2 className="vc-cater">Cuisines We Cater</h2>
-                                <h2 className="vc-locations">
-                                    {data?.cuisines?.slice(0, cuisineCount).map((item) => item?.cuisine_name).join(" | ")}...
-                                    {showAllCuisines ? <span className="text-red view-all ms-2 cursor-pointer" onClick={() => onHandleCuisineShow()}> Show All </span> :
-                                        <span className="text-red view-all ms-2 cursor-pointer" onClick={() => onHandleCuisineClose()}> Show Less </span>}
-                                </h2>
+                                <Stack direction="row" flexWrap="wrap" alignItems="start" spacing={3}>
+                                    {
+                                        data?.cuisines?.slice(0, cuisineCount).map((item, index) => (
+                                            <span className='cuisine-detail-list' key={index} style={{ marginLeft: '0px', marginRight: '0px', marginBottom: '10px' }}>
+                                                {item?.cuisine_name} <span style={{ marginLeft: '10px', marginRight: '10px', marginBottom: '10px' }}>|</span>
+                                            </span>
+                                        ))
+                                    }
+                                    {showAllCuisines ? (
+                                        <span className="text-red view-all cursor-pointer" onClick={onHandleCuisineShow}> Show All </span>
+                                    ) : (
+                                        <span className="text-red view-all cursor-pointer" onClick={onHandleCuisineClose}> Show Less </span>
+                                    )}
+                                </Stack>
                             </div>}
 
                         </Grid>
@@ -193,11 +219,11 @@ const page = () => {
                                 {data?.start_price && <Stack direction="row" alignItems="center" className="mb-2">
                                     <span className="vc-price">Starting Price / Plate -</span>
                                     <Stack direction="row" alignItems="center" spacing={0}>
-                                        <CurrencyRupeeIcon className="vc-price-one" /> <span className="vc-price-one"> {data?.start_price} </span>
+                                        <CurrencyRupeeIcon className="vc-price-one" /> <span className="vc-price-one"> {data?.start_price && data?.start_price} </span>
                                     </Stack>
                                 </Stack>}
 
-                                <p className="vc-reviews">See Reviews (352)</p>
+                                <Link href="#reviews" className="vc-reviews">See Reviews {data?.review_count && data?.review_count}</Link>
 
                                 {data?.business_phone_number && <Stack direction="row" spacing={2} style={{ marginTop: '10px' }}>
                                     {/* <Button variant="contained" className="vt-whatsapp-btn"> <WhatsAppIcon style={{ marginRight: '3px' }} /> Whatsapp</Button> */}
@@ -283,11 +309,23 @@ const page = () => {
             </Container>
 
             <Container maxWidth="xl" style={{ marginTop: '30px', marginBottom: '30px' }}>
-
-                {data?.about_description && <div>
-                    <h3 className="vc-about-us">About Us</h3>
-                    <p className="vc-para vc-markdown my-3"> <ReactMarkdown>{data?.about_description}</ReactMarkdown></p>
-                </div>}
+                <div>
+                    {data?.about_description && <h3 className="vc-about-us">About Us</h3>}
+                    <p className="vc-about-content vc-markdown my-3">
+                        <ReactMarkdown>
+                            {isExpanded ? content : `${shortContent}${content.length > shortContentLength ? '...' : ''}`}
+                        </ReactMarkdown>
+                    </p>
+                    {content.length > shortContentLength && (
+                        <span
+                            style={{ marginLeft: '0px' }}
+                            className="text-red view-all cursor-pointer"
+                            onClick={toggleExpand}
+                        >
+                            {isExpanded ? 'Show Less' : 'Show All'}
+                        </span>
+                    )}
+                </div>
 
 
                 {data?.branches.length > 0 && (
