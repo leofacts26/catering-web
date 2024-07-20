@@ -47,6 +47,11 @@ const Page = () => {
             '&.Mui-focused fieldset': {
                 border: '2px solid #a81e1e',
             },
+            '& input::placeholder': {
+                fontWeight: '400',
+                fontSize: '15px',
+                color: '#000000'
+            }
         },
         '& input': {
             border: 'none',
@@ -103,15 +108,13 @@ const Page = () => {
                         <CssTextField
                             id="outlined-number"
                             variant="outlined"
-                            label="Issue"
                             className='mb-1'
                             value={values.issue}
                             onChange={handleChange}
                             name="issue"
                             style={{ width: '100%' }}
-                            InputLabelProps={{
-                                style: { color: '#777777', fontSize: '10px' },
-                            }}
+                            placeholder='Issue'
+
                             InputProps={{
                                 style: {
                                     borderRadius: '8px',
