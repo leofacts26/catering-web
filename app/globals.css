@@ -3584,7 +3584,7 @@ textarea:-webkit-autofill:active {
 
 .about-us p {
   color: var(--secondarytext);
-  font-size: 16px;
+  font-size: 14px;
   font-family: var(--fontPrimary);
   line-height: 1.8em;
 }
@@ -3608,7 +3608,7 @@ textarea:-webkit-autofill:active {
 
 .disclaimer p {
   color: var(--secondarytext);
-  font-size: 16px;
+  font-size: 14px;
   font-family: var(--fontPrimary);
   line-height: 1.8em;
 }
