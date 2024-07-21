@@ -45,7 +45,7 @@ const BrandedCaters = () => {
   // console.log(brandedList, "brandedList 666"); 
 
   return (
-    <Container maxWidth="lg" className="branded-slider-caterer" style={{ marginTop: '25px' }}>
+    <Container maxWidth="lg" className="branded-slider-caterer" style={{ marginTop: '25px' }} id="caterers">
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
           <Swiper

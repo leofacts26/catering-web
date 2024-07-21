@@ -223,7 +223,7 @@ const page = () => {
                                     </Stack>
                                 </Stack>}
 
-                                <Link href="#reviews" className="vc-reviews">See Reviews {data?.review_count && data?.review_count}</Link>
+                                {accessToken && <Link href="#reviews" className="vc-reviews">See Reviews {data?.review_count && data?.review_count}</Link>}
 
                                 {data?.business_phone_number && <Stack direction="row" spacing={2} style={{ marginTop: '10px' }}>
                                     {/* <Button variant="contained" className="vt-whatsapp-btn"> <WhatsAppIcon style={{ marginRight: '3px' }} /> Whatsapp</Button> */}

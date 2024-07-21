@@ -32,7 +32,7 @@ const ExploreCaterersByOccasion = () => {
 
     return (
         <>
-            <Container maxWidth="lg">
+            <Container maxWidth="lg" id="occasion">
                 <Box sx={{ flexGrow: 1 }} style={{ marginTop: '20px' }}>
                     <Grid container spacing={2}>
 

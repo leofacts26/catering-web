@@ -15,7 +15,7 @@ const Footer = () => {
 
     const accessToken = useSelector((state) => state.user.accessToken);
 
-    const onHandleError = () =>{
+    const onHandleError = () => {
         toast.error("Please Login to access this resource!!")
     }
 
@@ -29,8 +29,9 @@ const Footer = () => {
                 <Box sx={{ flexGrow: 1 }}>
                     <Grid container spacing={2}>
                         <Grid item xs={12} sm={12} md={12} lg={4} xl={5}>
-                            <Stack direction="row" justifyContent="start" alignItems="center" sx={{ height: '100%' }}>
-                                <h2 className='footer-logo'><span className="footer-red">CATERINGS</span> <span className="footer-and">&</span> <span className="footer-orange">TIFFINS</span></h2>
+                            <Stack direction="row" justifyContent="center" alignItems="center" sx={{ height: '100%' }}>
+                                <img src="/img/footer/footer-logo.png" alt="" className="img-fluid" style={{ width: '300px', objectFit: 'contain' }} />
+
                             </Stack>
                         </Grid>
                         <Grid item xs={12} sm={12} md={12} lg={8} xl={7}>
@@ -40,8 +41,8 @@ const Footer = () => {
                                     <Box>
                                         <ul className="footer-ul">
                                             <li><Link href="/about">About Us</Link></li>
-                                            <li><Link href="/catering">Our Mission</Link></li>
-                                            <li><Link href="/catering">Our Vision</Link></li>
+                                            <li><Link href="javascript:void(0)">Our Mission</Link></li>
+                                            <li><Link href="javascript:void(0)">Our Vision</Link></li>
                                             <li><Link href="/faq">FAQ's</Link></li>
                                         </ul>
                                     </Box>
@@ -50,10 +51,10 @@ const Footer = () => {
                                     <h3 className="footer-sub-heading">Search</h3>
                                     <Box>
                                         <ul className="footer-ul">
-                                            <li><Link href="/catering">Cuisine</Link></li>
-                                            <li><Link href="/catering">Occasion</Link></li>
-                                            <li><Link href="/catering">Location</Link></li>
-                                            <li><Link href="/catering">Caterers</Link></li>
+                                            <li><Link href="#cuisine">Cuisine</Link></li>
+                                            <li><Link href="#occasion">Occasion</Link></li>
+                                            <li><Link href="#location">Location</Link></li>
+                                            <li><Link href="#caterers">Caterers</Link></li>
                                             <li><Link href="/tiffin">Tiffins</Link></li>
                                         </ul>
                                     </Box>
@@ -75,7 +76,7 @@ const Footer = () => {
                                     <h3 className="footer-sub-heading">Helpdesk</h3>
                                     <Box>
                                         <ul className="footer-ul">
-                                        <li>
+                                            <li>
                                                 {accessToken ? (
                                                     <Link href='/user-profile/helpdesk-support'>Raise Ticket</Link>
                                                 ) : (
@@ -103,7 +104,7 @@ const Footer = () => {
                                                     <Link onClick={onHandleError} href='javascript:void(0)'>My Account</Link>
                                                 )}
                                             </li>
-                                            <li><Link href="/catering">Newsletter</Link></li>
+                                            <li><Link href="#newsletter">Newsletter</Link></li>
                                         </ul>
                                     </Box>
                                 </Grid>
@@ -111,10 +112,9 @@ const Footer = () => {
                                     <h3 className="footer-sub-heading">Contact</h3>
                                     <Box>
                                         <ul className="footer-ul">
-                                            <li><Link href="/catering">Support Email</Link></li>
-                                            <li><Link href="/catering">Phone No</Link></li>
+                                            <li><Link href="emailto:test@gmail.com">Support Email</Link></li>
+                                            <li><Link href="tel:9999999999">Phone No</Link></li>
                                             <li><Link href="/catering">Address</Link></li>
-                                            <li><Link href="/catering">Social Media Icons</Link></li>
                                         </ul>
                                         <Stack direction="row" spacing={1} sx={{ marginTop: '10px' }}>
                                             <FacebookIcon />

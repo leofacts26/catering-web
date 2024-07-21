@@ -76,7 +76,7 @@ const Subscribe = () => {
     }
 
     return (
-        <section className='subscribe-bg'>
+        <section className='subscribe-bg' id="newsletter">
             <Formik initialValues={initialState} validationSchema={schema} onSubmit={(values, { resetForm }) => handleSubmit(values, resetForm)}>
                 {({ values, errors, handleChange, handleSubmit }) => (
                     <form onSubmit={handleSubmit} className="px-4" autocomplete="off">
