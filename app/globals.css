@@ -1910,6 +1910,8 @@ h6 {
 .view-all {
   font-size: 14px;
   font-weight: 400;
+  font-family: var(--fontSecondary) !important;
+  font-weight: 500;
 }
 
 
