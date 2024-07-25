@@ -126,10 +126,10 @@ const ReciewCards = () => {
                                                 {[...Array(parseInt(item.rating.slice(0, 1)))].map((star, index) => (
                                                     <StarIcon key={index} style={{ color: '#C33332', fontSize: 20 }} />
                                                 ))}
-                                                <p className='vc-review-card-para text-ellipse-three text-start'>{item?.review_text}</p>
-                                                <div className="text-start">
-                                                    <Link href="javascript:void(0)" className='vc-review-card-link' style={{ color: '#C33332'  }} onClick={handleClickOpen}>Read more</Link>
-                                                </div>
+                                                <p className='vc-review-card-para overflow-revire-cards text-start'>{item?.review_text}</p>
+                                                {item?.review_text.length > 500 && <div className="text-start">
+                                                    <Link href="javascript:void(0)" className='vc-review-card-link' style={{ color: '#C33332' }} onClick={handleClickOpen}>Read more</Link>
+                                                </div>}
                                             </div>
                                         </div>
                                     </SwiperSlide>

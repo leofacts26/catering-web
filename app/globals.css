@@ -104,6 +104,16 @@ body {
   text-overflow: ellipsis !important;
 }
 
+
+.overflow-revire-cards {
+  display: -webkit-box;
+  width: 99%;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+
 /* globals  */
 
 body p,
@@ -1807,7 +1817,7 @@ h6 {
   margin-right: 10px;
 }
 
-.cuisine-detail-list{
+.cuisine-detail-list {
   font-weight: 500;
   font-size: 14px !important;
   margin-bottom: 10px;
@@ -2080,6 +2090,7 @@ h6 {
   border-radius: 8px;
   height: 180px;
 }
+
 .vc-review-card-modal {
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   padding: 10px;
@@ -2108,10 +2119,10 @@ h6 {
 }
 
 .vc-review-card-para {
-  font-size: 12px;
+  font-size: 10px;
   margin-top: 10px;
   color: #57636C;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   font-family: "Readex Pro", sans-serif;
 }
 
@@ -3521,14 +3532,14 @@ textarea:-webkit-autofill:active {
   font-size: 14px !important;
   font-family: var(--fontPrimary) !important;
   font-weight: 400 !important;
-  color: #57636c !important; 
+  color: #57636c !important;
 }
 
 .custom-textarea::placeholder {
   font-size: 14px !important;
   font-family: var(--fontPrimary) !important;
   color: #57636c !important;
-  font-weight: 400 !important; 
+  font-weight: 400 !important;
 }
 
 .ratingBtn {
@@ -3769,4 +3780,8 @@ textarea:-webkit-autofill:active {
 /* Add a class for the animation */
 .spin-animation {
   animation: spin 1s ease-in-out;
+}
+
+.footer-ul li a:hover {
+  text-decoration: underline !important;
 }
