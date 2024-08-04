@@ -74,7 +74,7 @@ const page = () => {
       </section>
       <div className="search-container">
         <div className="container-search">
-          <Container maxWidth="md">
+          <Container maxWidth="lg">
             <CateringSearchBar />
           </Container>
         </div>
