@@ -3530,18 +3530,30 @@ textarea:-webkit-autofill:active {
   font-family: var(--fontPrimary);
 }
 
-.custom-textarea::placeholder {
-  font-size: 14px !important;
-  font-family: var(--fontPrimary) !important;
-  font-weight: 400 !important;
-  color: #57636c !important;
-}
 
 .custom-textarea::placeholder {
   font-size: 14px !important;
-  font-family: var(--fontPrimary) !important;
+  color: var(--secondarytext) !important;
   color: #57636c !important;
   font-weight: 400 !important;
+  font-family: var(--fontSecondary) !important;
+}
+
+.custom-textarea {
+  width: auto !important;
+  height: 150px;
+  border: 1px solid #D2D2D2 !important;
+  /* background: none repeat scroll 0 0 rgba(0, 0, 0, 0.07) !important; */
+  border-image: none !important;
+  border-radius: 8px !important;
+  box-shadow: 0px 0px 11px 2px #4B44D40F inset !important;
+  color: var(--secondarytext) !important;
+  font-family: var(--fontSecondary) !important;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  line-height: 1.4em !important;
+  padding: 5px 8px !important;
+  transition: background-color 0.2s ease 0s !important;
 }
 
 .ratingBtn {
