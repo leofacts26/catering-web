@@ -109,8 +109,11 @@ const CateringSearchBar = () => {
   //   const [localPeople, setLocalPeople] = useState("");
   //   const [vendorSearch, setVendorSearch] = useState("");
   const [vendorBoolen, setVendorBoolean] = useState(false);
-
   //   console.log(vendorSearch, "vendorSearch vendorSearch");
+
+  const containerRef = useRef(null);
+
+ 
 
   useEffect(() => {
     const handler = setTimeout(() => {
@@ -135,6 +138,9 @@ const CateringSearchBar = () => {
     setVendorBoolean(false);
   };
 
+  // console.log(vendorBoolen, "vendorBoolen vendorBoolen vendorBoolen vendorBoolen"); 
+  
+
   const router = useRouter();
   const { getCurrentLocation } = useAllowLocation();
 
@@ -147,6 +153,19 @@ const CateringSearchBar = () => {
   const handleClearVendorList = () => {
     dispatch(setVendorSearch(""));
   };
+
+  const handleClickOutside = (event) => {
+    if (containerRef.current && !containerRef.current.contains(event.target)) {
+      setVendorBoolean(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const onHandleSubmit = (event) => {
     event.preventDefault();
@@ -167,7 +186,7 @@ const CateringSearchBar = () => {
           justifyContent="space-between"
           spacing={0}
         >
-          <div className="w-100 input-nav-box" style={{ flex: "0 0 35%" }}>
+          <div className="w-100 input-nav-box" style={{ flex: "0 0 35%" }} >
             <CssTextFieldRadius
               required={!vendorSearch}
               id="outlined-number"
@@ -214,7 +233,7 @@ const CateringSearchBar = () => {
           <div className="w-100" style={{ flex: "0 0 25%" }}>
             <DatePickerSearch />
           </div>
-          <div className="three w-100" style={{ flex: "0 0 25%" }}>
+          <div className="three w-100" style={{ flex: "0 0 25%" }} ref={containerRef}>
             <CssTextField
               value={vendorSearch}
               onChange={handleVendorSearchChange}
