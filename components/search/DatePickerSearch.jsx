@@ -84,7 +84,7 @@ const DatePickerSearch = () => {
                     fontWeight: 'bold',
                     color: '#C33332',
                     width: '100%',
-                    height: '47.3px',
+                    height: '55.3px',
                     // padding: '11.7px 10px',
                     marginTop: '-0.5px',
                     border: '2px solid #C33332',
