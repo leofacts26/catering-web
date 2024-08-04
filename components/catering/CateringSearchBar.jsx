@@ -169,7 +169,7 @@ const CateringSearchBar = () => {
         >
           <div className="w-100 input-nav-box" style={{ flex: "0 0 35%" }}>
             <CssTextFieldRadius
-              required
+              required={!vendorSearch}
               id="outlined-number"
               placeholder="Enter your location..."
               variant="outlined"
