@@ -260,12 +260,12 @@ const TiffinSearchBar = () => {
               </Card>
             )}
           </div>
-          <div className="w-100" style={{ flex: "0 0 25%" }}>
+          <div className="w-100" style={{ flex: "0 0 27.5%" }}>
             <DatePickerSearchTiffin />
           </div>
           <div
             className="three w-100"
-            style={{ flex: "0 0 25%", position: "relative" }}
+            style={{ flex: "0 0 27.5%", position: "relative" }}
             ref={containerRef}
           >
             <CssTextField
@@ -323,7 +323,7 @@ const TiffinSearchBar = () => {
                 </div>
               ))}
           </div>
-          <div style={{ flex: "0 0 15%" }}>
+          <div style={{ flex: "0 0 10%" }}>
             <Button
               // disabled={isLoading}
               type="submit"
