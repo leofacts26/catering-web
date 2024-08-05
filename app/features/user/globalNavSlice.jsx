@@ -14,8 +14,9 @@ const initialState = {
   locationValuesGlobal: {},
   vendorSearch: "",
   vendorList: [],
+  tiffinVendorList: [],
   vendorlistitem: "",
-  locBoolean: false
+  locBoolean: false,
 };
 
 export const fetchAllVendorList = createAsyncThunk(
@@ -23,11 +24,32 @@ export const fetchAllVendorList = createAsyncThunk(
   async (globalnavbar, thunkAPI) => {
     const state = thunkAPI.getState();
     const vendorSearch = state.globalnavbar.vendorSearch;
-    console.log(vendorSearch, "vendorSearch kit");
-
+    // console.log(vendorSearch, "vendorSearch kit");
     try {
       const response = await api.get(
         `${BASE_URL}/search-vendors-list?search_term=${vendorSearch}&order_by_filter=[{"id":2,"value":"a_z"}]&limit=100&current_page=1&vendor_type=Caterer&app_type=web&shuffled=0`,
+        {
+          headers: {
+            authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
+          },
+        }
+      );
+      return response?.data?.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data.msg);
+    }
+  }
+);
+
+export const fetchAllTiffinVendorList = createAsyncThunk(
+  "globalnavbar/fetchAllTiffinVendorList",
+  async (globalnavbar, thunkAPI) => {
+    const state = thunkAPI.getState();
+    const vendorSearch = state.globalnavbar.vendorSearch;
+    // console.log(vendorSearch, "vendorSearch kit");
+    try {
+      const response = await api.get(
+        `${BASE_URL}/search-vendors-list?search_term=${vendorSearch}&order_by_filter=[{"id":2,"value":"a_z"}]&limit=100&current_page=1&vendor_type=Tiffin&app_type=web&shuffled=0`,
         {
           headers: {
             authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
@@ -90,6 +112,14 @@ export const globalNavSlice = createSlice({
       })
       .addCase(fetchAllVendorList.rejected, (state, { payload }) => {
         toast.error(datavalidationerror(payload));
+      })
+      // fetchAllTiffinVendorList
+      .addCase(fetchAllTiffinVendorList.pending, (state) => {})
+      .addCase(fetchAllTiffinVendorList.fulfilled, (state, { payload }) => {
+        state.tiffinVendorList = payload;
+      })
+      .addCase(fetchAllTiffinVendorList.rejected, (state, { payload }) => {
+        toast.error(datavalidationerror(payload));
       });
   },
 });
@@ -111,7 +141,7 @@ export const {
   setVendorSearch,
   setVendorListItem,
   setLocBoolean,
-  locBoolean
+  locBoolean,
 } = globalNavSlice.actions;
 
 export default globalNavSlice.reducer;

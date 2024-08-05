@@ -3833,3 +3833,8 @@ textarea:-webkit-autofill:active {
   height: 1px; /* Adjust thickness */
   background-color:var(--accent2); /* Set the color */
 }
+.custom-hr-tiffin {
+  border: none; /* Remove default border */
+  height: 1px; /* Adjust thickness */
+  background-color:var(--accent1); /* Set the color */
+}

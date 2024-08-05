@@ -103,8 +103,8 @@ const CateringSearchBar = () => {
   } = useSelector((state) => state.globalnavbar);
 
   //   console.log(vendorlistitem, "vendorlistitem vendorlistitem");
-  console.log(locBoolean, "locBoolean");
-  console.log(selectedLocation, "selectedLocation");
+  // console.log(locBoolean, "locBoolean");
+  // console.log(selectedLocation, "selectedLocation");
 
   const [isAdornmentClicked, setIsAdornmentClicked] = useState(false);
 
@@ -135,7 +135,7 @@ const CateringSearchBar = () => {
     setVendorBoolean(true);
   };
 
-  const vendorListItem = (item) => {
+  const vendorListItemCater = (item) => {
     dispatch(setVendorListItem(item?.id));
     dispatch(setVendorSearch(item?.catering_service_name));
     setVendorBoolean(false);
@@ -287,7 +287,7 @@ const CateringSearchBar = () => {
               className="mt-0 font-primary"
               style={{ width: "100%" }}
               InputLabelProps={{
-                style: { color: "#777777" },
+                style: { color: "#777777", fontSize: "14px" },
               }}
               InputProps={{
                 style: {
@@ -313,7 +313,7 @@ const CateringSearchBar = () => {
                     <p
                       className="vendor-list-items"
                       key={item.id}
-                      onClick={() => vendorListItem(item)}
+                      onClick={() => vendorListItemCater(item)}
                     >
                       <span style={{ display: "block" }}>
                         {item.catering_service_name}
