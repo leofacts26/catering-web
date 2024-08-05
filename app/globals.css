@@ -3796,10 +3796,26 @@ textarea:-webkit-autofill:active {
 }
 .vendor-list {
   height: auto;
+  width: 100%;
   margin-top: 14px;
   margin-left: 5px;
+  position: absolute;
+  top: 85%;
+  background-color: #fff;
+  padding: 15px 10px 5px 10px;
+  box-shadow: 0 2px 8px 0 rgba(26, 26, 26, 0.16) !important;
+  border-radius: 8px;
   /* overflow-y: scroll; */
   /* scrollbar-width: thin; */
+}
+.location-result{
+  position: absolute;
+  top: 100%;
+  background-color: #fff;
+  padding: 15px 10px 5px 10px;
+  box-shadow: 0 2px 8px 0 rgba(26, 26, 26, 0.16) !important;
+  border-radius: 8px;
+  width: 100%;
 }
 .vendor-list-items {
   font-size: 14px;

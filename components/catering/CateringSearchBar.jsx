@@ -168,18 +168,16 @@ const CateringSearchBar = () => {
     ) {
       setVendorBoolean(false);
       // Hide location search suggestions
-      dispatch(setLocBoolean(false))
+      dispatch(setLocBoolean(false));
     }
   };
-  
+
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-
-
 
   const onHandleSubmit = (event) => {
     event.preventDefault();
@@ -193,7 +191,11 @@ const CateringSearchBar = () => {
 
   return (
     <>
-      <form onSubmit={onHandleSubmit}>
+      <form
+        autoComplete="off"
+        onSubmit={onHandleSubmit}
+        style={{ width: "100%", margin: "0px", padding: "0px" }}
+      >
         <Stack
           className="search-bg"
           direction={{ xs: "column", sm: "column", md: "column", lg: "row" }}
@@ -202,7 +204,7 @@ const CateringSearchBar = () => {
         >
           <div
             className="w-100 input-nav-box"
-            style={{ flex: "0 0 35%" }}
+            style={{ flex: "0 0 35%", position: "relative" }}
             ref={locSearchRef}
           >
             <CssTextFieldRadius
@@ -247,13 +249,33 @@ const CateringSearchBar = () => {
                 className: "input-ellipse",
               }}
             />
+            {placePredictions.length > 0 && locBoolean && (
+              <Card className="px-3 py-2 location-result" ref={containerRef}>
+                {isPlacePredictionsLoading ? (
+                  <LoaderSpinner />
+                ) : (
+                  <>
+                    <p className="ct-box-search-loc mb-1">Search Results</p>
+                    {placePredictions?.map((item, index) => (
+                      <h2
+                        className="ct-box-search-results cursor-pointer"
+                        key={index}
+                        onClick={() => selectLocation(item)}
+                      >
+                        {item?.description}
+                      </h2>
+                    ))}
+                  </>
+                )}
+              </Card>
+            )}
           </div>
-          <div className="w-100" style={{ flex: "0 0 25%" }}>
+          <div className="w-100" style={{ flex: "0 0 27.5%" }}>
             <DatePickerSearch />
           </div>
           <div
             className="three w-100"
-            style={{ flex: "0 0 25%" }}
+            style={{ flex: "0 0 27.5%", position: "relative" }}
             ref={containerRef}
           >
             <CssTextField
@@ -293,8 +315,12 @@ const CateringSearchBar = () => {
                       key={item.id}
                       onClick={() => vendorListItem(item)}
                     >
-                      <span style={{display: 'block'}}>{item.catering_service_name}</span>
-                      <span className="list-card-desc mt-2">{item.area ? `${item.area},` : ''} {item.city}</span>
+                      <span style={{ display: "block" }}>
+                        {item.catering_service_name}
+                      </span>
+                      <span className="list-card-desc mt-2">
+                        {item.area ? `${item.area},` : ""} {item.city}
+                      </span>
                       <hr className="custom-hr mt-2" />
                     </p>
                   ))}
@@ -305,7 +331,7 @@ const CateringSearchBar = () => {
                 </div>
               ))}
           </div>
-          <div style={{ flex: "0 0 15%" }}>
+          <div style={{ flex: "0 0 10%" }}>
             <Button
               //   disabled={isLoading}
               type="submit"
@@ -316,7 +342,7 @@ const CateringSearchBar = () => {
                 width: "100%",
                 fontWeight: "600",
                 marginTop: "-0.5px",
-                padding: "15.4px 20px",
+                padding: "15.5px",
                 fontSize: "14px",
                 backgroundColor: "#C33332",
                 textTransform: "capitalize",
@@ -331,27 +357,6 @@ const CateringSearchBar = () => {
           </div>
         </Stack>
       </form>
-
-      {placePredictions.length > 0 && locBoolean && (
-        <Card className="px-3 py-2" ref={containerRef}>
-          {isPlacePredictionsLoading ? (
-            <LoaderSpinner />
-          ) : (
-            <>
-              <p className="ct-box-search-loc mb-1">Search Results</p>
-              {placePredictions?.map((item, index) => (
-                <h2
-                  className="ct-box-search-results cursor-pointer"
-                  key={index}
-                  onClick={() => selectLocation(item)}
-                >
-                  {item?.description}
-                </h2>
-              ))}
-            </>
-          )}
-        </Card>
-      )}
     </>
   );
 };
