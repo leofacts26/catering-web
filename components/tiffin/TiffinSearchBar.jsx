@@ -14,6 +14,7 @@ import LoaderSpinner from "../LoaderSpinner";
 import Card from "@mui/material/Card";
 import useGetLocationResults from "@/hooks/catering/useGetLocationResults";
 import { useDispatch, useSelector } from "react-redux";
+import AddLocationIcon from "@mui/icons-material/AddLocation";
 // import { setManualLocation, setPeople, setSelectedLocation } from '@/app/features/user/cateringFilterSlice';
 import { useRouter } from "next/navigation";
 import DatePickerSearchTiffin from "../search/DatePickerSearchTiffin";
@@ -252,7 +253,20 @@ const TiffinSearchBar = () => {
                         key={index}
                         onClick={() => selectLocation(item)}
                       >
-                        {item?.description}
+                        <Stack
+                          direction="row"
+                          alignItems="center"
+                          className="tiffinHover"
+                        >
+                          <AddLocationIcon
+                            style={{
+                              fontSize: "15px",
+                              color: "57636c",
+                              marginRight: "4px",
+                            }}
+                          />{" "}
+                          {item?.description}
+                        </Stack>
                       </h2>
                     ))}
                   </>

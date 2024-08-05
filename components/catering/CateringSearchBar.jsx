@@ -13,6 +13,7 @@ import GroupAddIcon from "@mui/icons-material/GroupAdd";
 import LoaderSpinner from "../LoaderSpinner";
 import Card from "@mui/material/Card";
 import useGetLocationResults from "@/hooks/catering/useGetLocationResults";
+import AddLocationIcon from "@mui/icons-material/AddLocation";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchCateringSearchCards,
@@ -262,7 +263,9 @@ const CateringSearchBar = () => {
                         key={index}
                         onClick={() => selectLocation(item)}
                       >
-                        {item?.description}
+                        <Stack direction="row" alignItems="center" className="cateringHover">
+                          <AddLocationIcon style={{fontSize:'15px', color: '57636c', marginRight: '4px'}} /> {item?.description}
+                        </Stack>
                       </h2>
                     ))}
                   </>
