@@ -15,6 +15,7 @@ const initialState = {
   vendorSearch: "",
   vendorList: [],
   vendorlistitem: "",
+  locBoolean: false
 };
 
 export const fetchAllVendorList = createAsyncThunk(
@@ -58,9 +59,13 @@ export const globalNavSlice = createSlice({
     },
     setManualLocation(state, action) {
       state.manualLocation = action.payload;
+      state.locBoolean = true;
     },
     setSelectedLocation(state, action) {
       state.selectedLocation = action.payload;
+    },
+    setLocBoolean(state, action) {
+      state.locBoolean = action.payload;
     },
     setlLocationValuesGlobal: (state, action) => {
       state.locationValuesGlobal = action.payload;
@@ -104,7 +109,9 @@ export const {
   setEndDate,
   setDateRange,
   setVendorSearch,
-  setVendorListItem
+  setVendorListItem,
+  setLocBoolean,
+  locBoolean
 } = globalNavSlice.actions;
 
 export default globalNavSlice.reducer;

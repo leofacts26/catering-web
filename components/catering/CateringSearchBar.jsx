@@ -22,6 +22,7 @@ import { useRouter } from "next/navigation";
 // import useDebounce from '@/hooks/useDebounce';
 import {
   fetchAllVendorList,
+  setLocBoolean,
   setManualLocation,
   setPeople,
   setSelectedLocation,
@@ -91,6 +92,7 @@ const CateringSearchBar = () => {
 
   const inputRef = useRef(null);
   const {
+    locBoolean,
     manualLocation,
     selectedLocation,
     isLoading,
@@ -101,6 +103,8 @@ const CateringSearchBar = () => {
   } = useSelector((state) => state.globalnavbar);
 
   //   console.log(vendorlistitem, "vendorlistitem vendorlistitem");
+  console.log(locBoolean, "locBoolean");
+  console.log(selectedLocation, "selectedLocation");
 
   const [isAdornmentClicked, setIsAdornmentClicked] = useState(false);
 
@@ -112,8 +116,7 @@ const CateringSearchBar = () => {
   //   console.log(vendorSearch, "vendorSearch vendorSearch");
 
   const containerRef = useRef(null);
-
- 
+  const locSearchRef = useRef(null);
 
   useEffect(() => {
     const handler = setTimeout(() => {
@@ -138,8 +141,7 @@ const CateringSearchBar = () => {
     setVendorBoolean(false);
   };
 
-  // console.log(vendorBoolen, "vendorBoolen vendorBoolen vendorBoolen vendorBoolen"); 
-  
+  // console.log(vendorBoolen, "vendorBoolen vendorBoolen vendorBoolen vendorBoolen");
 
   const router = useRouter();
   const { getCurrentLocation } = useAllowLocation();
@@ -148,6 +150,7 @@ const CateringSearchBar = () => {
     dispatch(setSelectedLocation(null));
     dispatch(setManualLocation(""));
     inputRef.current.focus();
+    dispatch(setLocBoolean(false));
   };
 
   const handleClearVendorList = () => {
@@ -155,17 +158,28 @@ const CateringSearchBar = () => {
   };
 
   const handleClickOutside = (event) => {
-    if (containerRef.current && !containerRef.current.contains(event.target)) {
+    console.log("Location Search Ref:", locSearchRef.current);
+    // Check if the click is outside of the location search container and the vendor list container
+    if (
+      locSearchRef.current &&
+      !locSearchRef.current.contains(event.target) &&
+      containerRef.current &&
+      !containerRef.current.contains(event.target)
+    ) {
       setVendorBoolean(false);
+      // Hide location search suggestions
+      dispatch(setLocBoolean(false))
     }
   };
-
+  
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+
 
   const onHandleSubmit = (event) => {
     event.preventDefault();
@@ -186,7 +200,11 @@ const CateringSearchBar = () => {
           justifyContent="space-between"
           spacing={0}
         >
-          <div className="w-100 input-nav-box" style={{ flex: "0 0 35%" }} >
+          <div
+            className="w-100 input-nav-box"
+            style={{ flex: "0 0 35%" }}
+            ref={locSearchRef}
+          >
             <CssTextFieldRadius
               required={!vendorSearch}
               id="outlined-number"
@@ -233,7 +251,11 @@ const CateringSearchBar = () => {
           <div className="w-100" style={{ flex: "0 0 25%" }}>
             <DatePickerSearch />
           </div>
-          <div className="three w-100" style={{ flex: "0 0 25%" }} ref={containerRef}>
+          <div
+            className="three w-100"
+            style={{ flex: "0 0 25%" }}
+            ref={containerRef}
+          >
             <CssTextField
               value={vendorSearch}
               onChange={handleVendorSearchChange}
@@ -271,7 +293,9 @@ const CateringSearchBar = () => {
                       key={item.id}
                       onClick={() => vendorListItem(item)}
                     >
-                      {item.catering_service_name}
+                      <span style={{display: 'block'}}>{item.catering_service_name}</span>
+                      <span className="list-card-desc mt-2">{item.area ? `${item.area},` : ''} {item.city}</span>
+                      <hr className="custom-hr mt-2" />
                     </p>
                   ))}
                 </div>
@@ -308,8 +332,8 @@ const CateringSearchBar = () => {
         </Stack>
       </form>
 
-      {placePredictions.length > 0 && !selectedLocation && (
-        <Card className="px-3 py-2">
+      {placePredictions.length > 0 && locBoolean && (
+        <Card className="px-3 py-2" ref={containerRef}>
           {isPlacePredictionsLoading ? (
             <LoaderSpinner />
           ) : (

@@ -3811,3 +3811,9 @@ textarea:-webkit-autofill:active {
 .vendor-list::-webkit-scrollbar {
   width: 1px !important;
 }
+
+.custom-hr {
+  border: none; /* Remove default border */
+  height: 1px; /* Adjust thickness */
+  background-color:var(--accent2); /* Set the color */
+}
