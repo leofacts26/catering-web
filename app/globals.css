@@ -3805,6 +3805,7 @@ textarea:-webkit-autofill:active {
   padding: 15px 10px 5px 10px;
   box-shadow: 0 2px 8px 0 rgba(26, 26, 26, 0.16) !important;
   border-radius: 8px;
+  z-index: 9999;
   /* overflow-y: scroll; */
   /* scrollbar-width: thin; */
 }
@@ -3816,6 +3817,7 @@ textarea:-webkit-autofill:active {
   box-shadow: 0 2px 8px 0 rgba(26, 26, 26, 0.16) !important;
   border-radius: 8px;
   width: 100%;
+  z-index: 9999;
 }
 .vendor-list-items {
   font-size: 14px;
