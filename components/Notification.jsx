@@ -26,9 +26,6 @@ const Notification = () => {
     };
 
 
-
-    
-
     return (
         <>
             <React.Fragment>
@@ -53,10 +50,36 @@ const Notification = () => {
                         onClose={handleClose}
                         TransitionComponent={Fade}
                         PaperProps={{
+                            elevation: 0,
                             style: {
                                 zIndex: 9999,
-                            }
+                            },
+                            sx: {
+                                overflow: 'visible',
+                                filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                                mt: 1.5,
+                                '& .MuiAvatar-root': {
+                                    width: 32,
+                                    height: 32,
+                                    ml: -0.5,
+                                    mr: 1,
+                                },
+                                '&::before': {
+                                    content: '""',
+                                    display: 'block',
+                                    position: 'absolute',
+                                    top: 0,
+                                    right: 14,
+                                    width: 10,
+                                    height: 10,
+                                    bgcolor: 'background.paper',
+                                    transform: 'translateY(-50%) rotate(45deg)',
+                                    zIndex: 0,
+                                },
+                            },
                         }}
+                        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                     >
                         <Stack direction="row" alignItems="center" justifyContent="space-between"
                             sx={{ marginBottom: '10px', padding: '30px 20px 10px 20px' }}>
@@ -67,7 +90,7 @@ const Notification = () => {
                             <p className='notification-mark'>Mark all as read</p>
                         </Stack>
                         <Divider sx={{ marginBottom: '30px' }} />
-                        {[1, 2, 3, 4, 5].map((item, index) => (
+                        {[1, 2, 3, 4].map((item, index) => (
                             <div style={{ padding: '10px', width: '400px' }} key={index}>
 
                                 <Stack direction="row" justifyContent="space-between">

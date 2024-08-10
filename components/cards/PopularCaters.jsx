@@ -53,29 +53,6 @@ const PopularCaters = ({ title }) => {
     return (
         <>
             {popularCaterer?.length > 0 && <Heading title={title} center subHeading />}
-            {/* <Container maxWidth="lg">
-                <Box sx={{ flexGrow: 1 }} style={{ marginTop: '20px' }}>
-                    <Grid container spacing={2}>
-                        {isLoading ? (
-                            <PopularCaterersShimmer count={popularCaterer?.length} />
-                        ) : (
-                            <>
-                                {popularCaterer?.length > 0 && popularCaterer?.map((cater, index) => (
-                                    <Grid item xs={12} sm={6} md={4} lg={2.4} xl={2.4} key={cater?.vendor_id}>
-                                        <Box onClick={() => handleImageClick()}>
-                                            <img src={cater.gallery_images["vendor-brand-logo"][0].image_name[0]?.original} alt={cater?.catering_service_name} className="img-fluid popular-caterers-img image-shadow cursor-pointer" />
-                                            <h4 className='popular-caterers-heading'>{cater?.catering_service_name}</h4>
-                                            <p className='popular-caterers-des'> {cater?.street_name} {cater?.area} </p>
-                                        </Box>
-                                    </Grid>
-                                ))}
-                            </>
-                        )
-                        }
-                    </Grid>
-                </Box>
-            </Container > */}
-
 
             <Container maxWidth="lg" className="popular-cater-slider" style={{ marginTop: '25px' }}>
                 <Box sx={{ flexGrow: 1 }}>

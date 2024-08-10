@@ -61,32 +61,60 @@ const UserIcon = () => {
 
     return (
         <>
-            <Stack direction="row" alignItems="center" sx={{ paddingLeft: '10px', cursor: 'pointer' }}>
+            <Stack direction="row" alignItems="center"
+            sx={{ paddingLeft: '10px', cursor: 'pointer' }}
+            >
                 <Stack direction="row" alignItems="center"
                     id="fade-button"
-                    aria-controls={open ? 'fade-menu' : undefined}
+                    onClick={handleClick}
+                    aria-controls={open ? 'account-menu' : undefined}
                     aria-haspopup="true"
                     aria-expanded={open ? 'true' : undefined}
-                    onClick={handleClick}>
+                >
                     <Avatar sx={{ bgcolor: '#ffffff', color: '#57636c' }}>{userDetails?.username?.slice(0, 1).toUpperCase()}</Avatar>
-
                     <p className='avatar-text'>{userDetails?.username}</p>
                 </Stack>
             </Stack>
             <Menu
-                id="fade-menu"
+                id="account-menu"
+                anchorEl={anchorEl}
                 MenuListProps={{
                     'aria-labelledby': 'fade-button',
                 }}
-                anchorEl={anchorEl}
                 open={open}
                 onClose={handleClose}
                 TransitionComponent={Fade}
                 PaperProps={{
+                    elevation: 0,
+                    sx: {
+                        overflow: 'visible',
+                        filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                        mt: 1.5,
+                        '& .MuiAvatar-root': {
+                            width: 32,
+                            height: 32,
+                            ml: -0.5,
+                            mr: 1,
+                        },
+                        '&::before': {
+                            content: '""',
+                            display: 'block',
+                            position: 'absolute',
+                            top: 0,
+                            right: 14,
+                            width: 10,
+                            height: 10,
+                            bgcolor: 'background.paper',
+                            transform: 'translateY(-50%) rotate(45deg)',
+                            zIndex: 0,
+                        },
+                    },
                     style: {
                         zIndex: 9999
                     }
                 }}
+                transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
                 <div className="user-link-box" style={{ padding: '20px' }}>
                     <Stack direction="row" alignItems="center" spacing={2} onClick={handleClose}>

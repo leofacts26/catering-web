@@ -29,7 +29,7 @@ const TiffinRatingCount = () => {
         dispatch(fetchTiffinMapviewSearchCards())
     }, [dispatch])
 
-    console.log(getTiffinRatings, "getTiffinRatings getTiffinRatings");
+    // console.log(getTiffinRatings, "getTiffinRatings getTiffinRatings");
 
     return (
         <>

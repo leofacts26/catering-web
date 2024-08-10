@@ -33,45 +33,18 @@ const PopularTiffins = () => {
         dispatch(fetchPopularTiffins(data))
     }, [])
 
-    const onHandlePopularTiffenFilter = () => {
-        const id = "5";
-        dispatch(setTiffinSubscriptionFilter(id))
+    const onHandlePopularTiffenFilter = async (id) => {
+       await dispatch(setTiffinSubscriptionFilter(id))
         dispatch(fetchtiffinSearchCards())
         const url = `/tiffin-search`;
         router.push(url);
     };
 
-    // console.log(userDetails, "userDetails");
-    // popularTiffinssShimmer 
     return (
         <>
-            {/* <Container maxWidth="lg">
-                <Box sx={{ flexGrow: 1 }} style={{ marginTop: '20px' }}>
-                    <Grid container spacing={2}>
-
-                        {isLoading ? (
-                            <popularTiffinssShimmer count={popularTiffins?.length} />
-                        ) : (
-                            <>
-                                {popularTiffins?.length > 0 && popularTiffins?.map((cater, index) => (
-                                    <Grid item xs={12} sm={6} md={4} lg={2.4} xl={2.4} key={cater?.vendor_id}>
-                                        <Box>
-                                            <img onClick={() => onHandlePopularTiffenFilter()} src={cater.gallery_images["vendor-brand-logo"][0].image_name[0]?.original} alt={cater?.catering_service_name} className="img-fluid popular-caterers-img image-shadow cursor-pointer" />
-                                            <h4 className='popular-caterers-heading'>{cater?.catering_service_name}</h4>
-                                            <p className='popular-caterers-des'> {cater?.street_name} {cater?.area} </p>
-                                        </Box>
-                                    </Grid>
-                                ))}
-                            </>
-                        )
-                        }
-                    </Grid>
-                </Box>
-            </Container > */}
-
             <Container maxWidth="lg" className="popular-cater-slider" style={{ marginTop: '25px' }}>
                 <Box sx={{ flexGrow: 1 }}>
-                    <Grid container spacing={2}>
+                    <Grid container spacing={2} onClick={() => onHandlePopularTiffenFilter("5")}>
                         <Swiper
                             slidesPerView={6}
                             spaceBetween={30}
@@ -101,8 +74,8 @@ const PopularTiffins = () => {
                         >
                             <>
                                 {popularTiffins?.length > 0 && popularTiffins?.map((cater, index) => (
-                                    <SwiperSlide key={popularTiffins?.id}>
-                                        <Box onClick={() => onHandlePopularTiffenFilter()} style={{ padding: '10px 0px 10px 15px' }}>
+                                    <SwiperSlide key={popularTiffins?.id} >
+                                        <Box  style={{ padding: '10px 0px 10px 15px' }}>
                                             <img src={cater.gallery_images["vendor-brand-logo"][0].image_name[0]?.original} alt={cater?.catering_service_name} className="img-fluid popular-caterers-img image-shadow cursor-pointer" />
                                             <h4 className='popular-caterers-heading overflow-ellipsis'>{cater?.catering_service_name}</h4>
                                             <p className='popular-caterers-des overflow-ellipsis'> {cater?.street_name} {cater?.area} </p>

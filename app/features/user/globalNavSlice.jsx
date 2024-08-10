@@ -27,7 +27,7 @@ export const fetchAllVendorList = createAsyncThunk(
     // console.log(vendorSearch, "vendorSearch kit");
     try {
       const response = await api.get(
-        `${BASE_URL}/search-vendors-list?search_term=${vendorSearch}&order_by_filter=[{"id":2,"value":"a_z"}]&limit=100&current_page=1&vendor_type=Caterer&app_type=web&shuffled=0`,
+        `${BASE_URL}/search-vendors-list?search_term=${vendorSearch}&order_by_filter=[{"id":2,"value":"a_z"}]&limit=100&current_page=1&vendor_type=Tiffin&app_type=web&shuffled=0`,
         {
           headers: {
             authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
