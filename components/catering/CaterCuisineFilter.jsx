@@ -101,39 +101,42 @@ const CaterCuisineFilter = () => {
                 {filteredCuisines?.length > 0 ? (
                     filteredCuisines?.map((getCuisine) => {
                         return (
-                            <Accordion className='m-0 p-0 shadow-none' key={getCuisine?.id}>
-                                <AccordionSummary
-                                    expandIcon={<ExpandMoreIcon />}
-                                    aria-controls="panel1-content"
-                                    id="panel1-header"
-                                    className='m-0 p-0'
-                                >
-                                    <Stack className='text-muted mb-0 pb-0' direction="row" alignItems="center" sx={{ marginLeft: '-10px' }}>
-                                        <Checkbox {...label} size="small" className='m-0 checkbox-color'
-                                            style={{
-                                                color: getCuisine.selectedweb === 1 && '#c33332',
-                                            }}
-                                            checked={getCuisine.selectedweb === 1}
-                                            onChange={() => onHandleCuisineFilter(getCuisine.id, true)} />
-                                        <span className='checkbox-text'>{getCuisine?.name}</span>
-                                    </Stack>
-                                </AccordionSummary>
-                                <AccordionDetails sx={{ marginLeft: '-20px', padding: '0px 16px' }}>
-                                    {getCuisine?.children?.map((child) => {
-                                        return (
-                                            <Stack className='text-muted' direction="row" alignItems="center" key={child?.id}>
-                                                <Checkbox {...label} size="small" className='checkbox-color'
-                                                    checked={child?.selectedweb === 1}
-                                                    style={{
-                                                        color: child.selectedweb === 1 && '#c33332',
-                                                    }}
-                                                    onChange={() => onHandleCuisineFilter(child.id, false)} />
-                                                <span className='checkbox-text'>{child?.name}</span>
-                                            </Stack>
-                                        )
-                                    })}
-                                </AccordionDetails>
-                            </Accordion>
+                            <>
+                                <Accordion className='m-0 p-0 shadow-none' key={getCuisine?.id} style={{ margin: '0px' }}>
+                                    <AccordionSummary
+                                        expandIcon={<ExpandMoreIcon />}
+                                        aria-controls="panel1-content"
+                                        id="panel1-header"
+                                        className='m-0 p-0' style={{ margin: '0px' }}
+                                    >
+                                        <Stack className='text-muted mb-0 pb-0' direction="row" alignItems="center" sx={{ marginLeft: '-10px' }}>
+                                            <Checkbox {...label} size="small" className='m-0 checkbox-color'
+                                                style={{
+                                                    color: getCuisine.selectedweb === 1 && '#c33332',
+                                                }}
+                                                checked={getCuisine.selectedweb === 1}
+                                                onChange={() => onHandleCuisineFilter(getCuisine.id, true)} />
+                                            <span className='checkbox-text'>{getCuisine?.name}</span>
+                                        </Stack>
+                                    </AccordionSummary>
+                                    <AccordionDetails sx={{ marginLeft: '-20px', padding: '0px 16px' }}>
+                                        {getCuisine?.children?.map((child) => {
+                                            return (
+                                                <Stack className='text-muted' direction="row" alignItems="center" key={child?.id}>
+                                                    <Checkbox {...label} size="small" className='checkbox-color'
+                                                        checked={child?.selectedweb === 1}
+                                                        style={{
+                                                            color: child.selectedweb === 1 && '#c33332',
+                                                        }}
+                                                        onChange={() => onHandleCuisineFilter(child.id, false)} />
+                                                    <span className='checkbox-text'>{child?.name}</span>
+                                                </Stack>
+                                            )
+                                        })}
+                                    </AccordionDetails>
+                                </Accordion>
+                                <hr />
+                            </>
                         )
                     })
                 ) : (

@@ -3796,13 +3796,6 @@ textarea:-webkit-autofill:active {
   text-decoration: underline !important;
 }
 
-.catering-filter .css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root:hover {
-  background-color: #c3323210 !important;
-}
-
-.tiffin-filter .css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root:hover {
-  background-color: #d9822b18 !important;
-}
 
 #demo-simple-select-label {
   font-weight: 400 !important;
@@ -3872,4 +3865,21 @@ textarea:-webkit-autofill:active {
 
 .tiffinHover:hover {
   color: var(--accent1) !important;
+}
+
+.Mui-expanded{
+  margin: 0px !important;
+  margin-top: 15px !important;
+}
+
+.MuiAccordionSummary-root{
+  min-height: 35px !important;
+}
+
+.catering-filter .css-zun73v:hover {
+  background-color: #c3323210 !important;
+}
+
+.tiffin-filter .css-zun73v:hover {
+  background-color: #d9822b18 !important;
 }
