@@ -23,7 +23,7 @@ const Filters = () => {
 
     return (
         <>
-            <Box sx={{ marginBottom: '10px' }} className="filter-shadow">
+            <Box sx={{ marginBottom: '10px' }} className="filter-shadow catering-filter">
                 <Card>
                     <CardContent>
                         <h3 onClick={() => clearLocalFilter()} className='filter-text'>Filter by:</h3>

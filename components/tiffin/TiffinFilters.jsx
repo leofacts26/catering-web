@@ -47,7 +47,7 @@ const TiffinFilters = () => {
 
     return (
         <>
-            <Box sx={{ marginBottom: '10px' }} className="filter-shadow">
+            <Box sx={{ marginBottom: '10px' }} className="filter-shadow tiffin-filter">
                 <Card>
                     <CardContent>
                         <h3 className='filter-text'>Tiffin Filter:</h3>

@@ -3787,3 +3787,10 @@ textarea:-webkit-autofill:active {
 .footer-ul li a:hover {
   text-decoration: underline !important;
 }
+
+.catering-filter .css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root:hover{
+  background-color: #c3323210 !important;
+}
+.tiffin-filter .css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root:hover{
+  background-color: #d9822b18 !important;
+}

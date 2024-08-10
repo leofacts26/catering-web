@@ -227,6 +227,9 @@ export const fetchCateringSearchCards = createAsyncThunk(
         const limit = thunkAPI.getState().cateringFilter?.limit;
         const total_count = thunkAPI.getState().cateringFilter?.total_count;
 
+        console.log(subscriptionTypes, "subscriptionTypes");
+        
+
         // cateringSortBy_filter
         const cateringSortBy_filter = JSON.stringify(cateringSortBy)
 
@@ -281,6 +284,9 @@ export const fetchCateringSearchCards = createAsyncThunk(
             subscription_type_id: Number(subscriptionType.id),
             selected: subscriptionType.selectedweb
         }))
+
+        console.log(subscriptionTypes_formatted, "subscriptionTypes_formatted");
+        
 
         // pricetype_filter_formatted 
         const selectedPriceRanges = getCateringPriceRanges?.filter(price => price?.selectedweb === 1);
