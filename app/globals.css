@@ -40,14 +40,12 @@ html {
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --primary-glow: conic-gradient(
-      from 180deg at 50% 50%,
-      #16abff33 0deg,
-      #0885ff33 55deg,
-      #54d6ff33 120deg,
-      #0071ff33 160deg,
-      transparent 360deg
-    );
+    --primary-glow: conic-gradient(from 180deg at 50% 50%,
+        #16abff33 0deg,
+        #0885ff33 55deg,
+        #54d6ff33 120deg,
+        #0071ff33 160deg,
+        transparent 360deg);
   }
 }
 
@@ -657,6 +655,8 @@ h6 {
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
   position: relative;
+  padding-top: 40px;
+  padding-bottom: 70px;
 }
 
 .nav-heading {
@@ -1606,11 +1606,9 @@ h6 {
   width: 100%;
   height: 17%;
   /* background-color: #0000000a; */
-  background: linear-gradient(
-    180deg,
-    rgba(0, 27, 65, 0.85) 0,
-    rgba(0, 27, 65, 0)
-  );
+  background: linear-gradient(180deg,
+      rgba(0, 27, 65, 0.85) 0,
+      rgba(0, 27, 65, 0));
 }
 
 .view-all-dark-overlay-detail-page {
@@ -2972,11 +2970,9 @@ h6 {
   width: 100%;
   height: 24%;
   text-shadow: 1px 1px 1px var(--bui_color_black);
-  background: linear-gradient(
-    180deg,
-    rgba(0, 27, 65, 0.65) 0,
-    rgba(0, 27, 65, 0)
-  );
+  background: linear-gradient(180deg,
+      rgba(0, 27, 65, 0.65) 0,
+      rgba(0, 27, 65, 0));
   border-radius: var(--radiusOne);
 }
 
@@ -3026,12 +3022,22 @@ h6 {
 /* user profile end  */
 
 /* tiffin styles start  */
+/* .nav-bg-tiffin {
+  background-color: var(--primary);
+  padding: 0px 0px 45px 0px;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  position: relative;
+} */
+
 .nav-bg-tiffin {
   background-color: var(--primary);
   padding: 0px 0px 45px 0px;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
   position: relative;
+  padding-top: 40px;
+  padding-bottom: 70px;
 }
 
 .search-btn-tiffin:hover {
@@ -3790,10 +3796,11 @@ textarea:-webkit-autofill:active {
   text-decoration: underline !important;
 }
 
-.catering-filter .css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root:hover{
+.catering-filter .css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root:hover {
   background-color: #c3323210 !important;
 }
-.tiffin-filter .css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root:hover{
+
+.tiffin-filter .css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root:hover {
   background-color: #d9822b18 !important;
 }
 
@@ -3801,6 +3808,7 @@ textarea:-webkit-autofill:active {
   font-weight: 400 !important;
   font-size: 14px !important;
 }
+
 .vendor-list {
   height: auto;
   width: 100%;
@@ -3816,7 +3824,8 @@ textarea:-webkit-autofill:active {
   /* overflow-y: scroll; */
   /* scrollbar-width: thin; */
 }
-.location-result{
+
+.location-result {
   position: absolute;
   top: 100%;
   background-color: #fff;
@@ -3826,6 +3835,7 @@ textarea:-webkit-autofill:active {
   width: 100%;
   z-index: 9999;
 }
+
 .vendor-list-items {
   font-size: 14px;
   font-family: var(--fontPrimary);
@@ -3833,24 +3843,33 @@ textarea:-webkit-autofill:active {
   margin-bottom: 12px;
   cursor: pointer;
 }
+
 .vendor-list::-webkit-scrollbar {
   width: 1px !important;
 }
 
 .custom-hr {
-  border: none; /* Remove default border */
-  height: 1px; /* Adjust thickness */
-  background-color:var(--accent2); /* Set the color */
-}
-.custom-hr-tiffin {
-  border: none; /* Remove default border */
-  height: 1px; /* Adjust thickness */
-  background-color:var(--accent1); /* Set the color */
+  border: none;
+  /* Remove default border */
+  height: 1px;
+  /* Adjust thickness */
+  background-color: var(--accent2);
+  /* Set the color */
 }
 
-.cateringHover:hover{
- color: var(--accent2) !important;
+.custom-hr-tiffin {
+  border: none;
+  /* Remove default border */
+  height: 1px;
+  /* Adjust thickness */
+  background-color: var(--accent1);
+  /* Set the color */
 }
-.tiffinHover:hover{
- color: var(--accent1) !important;
+
+.cateringHover:hover {
+  color: var(--accent2) !important;
+}
+
+.tiffinHover:hover {
+  color: var(--accent1) !important;
 }
