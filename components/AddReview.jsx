@@ -107,7 +107,7 @@ const AddReview = () => {
                                                         }}
                                                     >
                                                         <InputLabel id="demo-simple-select-label"
-                                                         style={{ color: '#57636c', fontFamily: 'Readex Pro, sans-serif' }}>
+                                                         style={{ color: '#57636c', fontSize: '14px', fontFamily: 'Readex Pro, sans-serif', fontWeight: '400' }}>
                                                             Select Rating </InputLabel>
                                                         <Select
                                                             labelId="demo-simple-select-label"
@@ -116,6 +116,7 @@ const AddReview = () => {
                                                             value={values.rating}
                                                             name="rating"
                                                             onChange={handleChange}
+                                                            style={{borderRadius: '8px'}}
                                                         >
                                                             <MenuItem value={1}>1</MenuItem>
                                                             <MenuItem value={2}>2</MenuItem>

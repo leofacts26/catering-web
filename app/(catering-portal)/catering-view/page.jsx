@@ -31,7 +31,7 @@ const index = () => {
       </section>
       <div className="search-container">
         <div className="container-search">
-          <Container maxWidth="md">
+          <Container maxWidth="lg">
             <CateringSearchBar searchLink="/catering-search" />
           </Container>
         </div>
