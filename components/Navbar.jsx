@@ -39,7 +39,8 @@ const Navbar = ({ cateringHome }) => {
                 <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={1} className='desktop-nav'>
                     <Stack direction="row" alignItems="center" spacing={1}>
                         {/* <Link href="/" className='text-decoration-none'></Link> */}
-                        <HomeIcon className='large-icon' />   <h2 className='nav-heading'>
+                        <Link href="/" className='text-decoration-none'>  <HomeIcon className='large-icon' /> </Link>
+                        <h2 className='nav-heading'>
                             <Link href="/catering" className='text-decoration-none nav-heading'>Caterings</Link>  &
                             <Link href="/tiffin" className='text-decoration-none nav-heading ms-1'>Tiffins</Link> </h2>
                         {/* {cateringHome ? <img src="/img/catering-service-logo.png" alt="" className="img-fluid catering-logo" /> : <img src="/img/tiffin-logo.png" alt="" className="img-fluid catering-logo" /> }  */}
