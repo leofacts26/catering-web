@@ -3843,20 +3843,12 @@ textarea:-webkit-autofill:active {
 
 .custom-hr {
   border: none;
-  /* Remove default border */
-  height: 1px;
-  /* Adjust thickness */
-  background-color: var(--accent2);
-  /* Set the color */
+  border-top: 1px solid #a81e1e4d;
 }
 
 .custom-hr-tiffin {
   border: none;
-  /* Remove default border */
-  height: 1px;
-  /* Adjust thickness */
-  background-color: var(--accent1);
-  /* Set the color */
+  border-top: 1px solid #bb681f5e;
 }
 
 .cateringHover:hover {
