@@ -48,7 +48,7 @@ const UserProfileComponent = () => {
 
                     <Stack direction="row" alignItems="center" style={{ cursor: 'pointer' }} onClick={() => onLogout()}>
                         <LogoutIcon style={{ color: '#ffffff', fontWeight: '500', fontSize: '25px' }} />
-                        <h6 className='up-signout'>Logout fff</h6>
+                        <h6 className='up-signout'>Logout</h6>
                     </Stack>
 
                 </Stack>
