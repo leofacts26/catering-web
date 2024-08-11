@@ -26,7 +26,7 @@ const UserProfileComponent = () => {
 
         toast.success("Logout Successfull")
         router.push('/')
-        window.location.reload();
+        // window.location.reload(); 
     }
 
 

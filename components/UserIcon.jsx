@@ -54,7 +54,7 @@ const UserIcon = () => {
         // dispatch(clearTiffinSlice());
         toast.success("Logout Successfull")
         router.push('/')
-        window.location.reload();
+        // window.location.reload(); 
     }
 
     // console.log(userDetails, "userDetails");
