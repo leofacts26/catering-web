@@ -21,7 +21,7 @@ const MapTiffinInfoCard = ({ infoWindowData, tiffin }) => {
                     onNavigateDetailPage(getSearchCard?.vendor_id, getSearchCard?.id)
                     e.stopPropagation()
                 }}>
-                <div className="vc-similar-card">
+                <div className="vc-similar-card-map">
                     <div className="grid-img-box">
                         <img src={imageSrc} alt="" className="img-fluid vc-similar-card-img" />
                     </div>
