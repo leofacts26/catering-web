@@ -10,13 +10,13 @@ import { logoutUser } from '@/app/features/user/userSlice';
 // import { resetFilters } from '@/app/features/user/cateringFilterSlice';
 // import { clearTiffinSlice } from '@/app/features/tiffin/tiffinFilterSlice';
 import toast from 'react-hot-toast';
-// import { useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 
 
 const UserProfileComponent = () => {
     const { userDetails } = useSelector((state) => state.user)
     const dispatch = useDispatch()
-    // const router = useRouter()
+    const router = useRouter()
 
     const onLogout = () => {
         localStorage.clear();
@@ -26,7 +26,7 @@ const UserProfileComponent = () => {
 
         toast.success("Logout Successfull")
         router.push('/')
-        window.location.reload(); 
+        window.location.reload();
     }
 
 
@@ -38,7 +38,7 @@ const UserProfileComponent = () => {
                 </Link>
                 <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" spacing={2}>
                     <Stack direction="row" alignItems="center" spacing={2}>
-                  
+
                         <Avatar className='avatar-gradient' style={{ width: 100, height: 100, fontSize: '3em' }}>{userDetails?.username?.slice(0, 1).toUpperCase()}</Avatar>
                         <div>
                             <h2 className='up-name-profile'>{userDetails?.username}</h2>
@@ -48,7 +48,7 @@ const UserProfileComponent = () => {
 
                     <Stack direction="row" alignItems="center" style={{ cursor: 'pointer' }} onClick={() => onLogout()}>
                         <LogoutIcon style={{ color: '#ffffff', fontWeight: '500', fontSize: '25px' }} />
-                        <h6 className='up-signout'>Logout</h6>
+                        <h6 className='up-signout'>Logout fff</h6>
                     </Stack>
 
                 </Stack>
