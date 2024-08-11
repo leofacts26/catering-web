@@ -25,7 +25,7 @@ const UserProfileComponent = () => {
         // dispatch(clearTiffinSlice());
 
         toast.success("Logout Successfull")
-        // router.push('/catering')
+        router.push('/')
         window.location.reload();
     }
 
