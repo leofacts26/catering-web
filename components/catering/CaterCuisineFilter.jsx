@@ -135,7 +135,7 @@ const CaterCuisineFilter = () => {
                                         })}
                                     </AccordionDetails>
                                 </Accordion>
-                                <hr />
+                                <hr className='custom-hr-cuisine' />
                             </>
                         )
                     })

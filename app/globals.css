@@ -3881,3 +3881,9 @@ textarea:-webkit-autofill:active {
 .tiffin-filter .css-zun73v:hover {
   background-color: #d9822b18 !important;
 }
+
+
+.custom-hr-cuisine {
+  border: none;
+  border-top: 1px solid #57636c1a;
+}
