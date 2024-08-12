@@ -46,7 +46,7 @@ export const fetchPriceRanges = createAsyncThunk(
     'user/fetchPriceRanges',
     async (user, thunkAPI) => {
         try {
-            const response = await api.get(`${BASE_URL}/get-all-price-ranges?current_page=1&limit=10`, {
+            const response = await api.get(`${BASE_URL}/get-all-price-ranges?current_page=1&limit=10&vendor_type=Cateter`, {
                 headers: {
                     authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
                 },

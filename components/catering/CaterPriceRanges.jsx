@@ -30,7 +30,7 @@ const CaterPriceRanges = () => {
 
     return (
         <>
-            {getCateringPriceRanges?.length > 0 ? (
+            {!isLoading ? (
                 getCateringPriceRanges?.map((price) => (
                     <Stack className='text-muted' key={price?.id} direction="row" alignItems="center" sx={{ marginLeft: '-10px', marginTop: '5px' }}>
                         <Checkbox {...label} size="small" className='checkbox-color'
