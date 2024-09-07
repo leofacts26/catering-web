@@ -65,7 +65,7 @@ const SelectBox = () => {
                     </Stack>
                 </Stack>
 
-                <div >
+                <div className='clear-filter-top-box'>
                     <Button className="cursor-pointer cater-clear-filter" onClick={() => onHandleFIlterClear()}>
                         <Stack direction="row" alignItems="center">
                             <FilterListOffIcon className="cater-removefilter-icon" /> Clear Filter

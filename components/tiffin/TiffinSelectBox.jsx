@@ -62,7 +62,7 @@ const TiffinSelectBox = () => {
                 </Stack>
 
 
-                <div >
+                <div className='clear-filter-top-box'>
                     <Button className="cursor-pointer clear-filter" onClick={() => onHandleFIlterClear()}> 
                        <Stack direction="row" alignItems="center">
                        <FilterListOffIcon className="tiffin-removefilter-icon" /> Clear Filter

@@ -147,7 +147,27 @@ const ListView = () => {
                                 <Stack direction={{ xs: 'column', sm: 'row', md: 'row', lg: "row" }} alignItems="start" spacing={2}>
                                     <div className="list-card-img position-relative">
                                         <Link href={`/catering-search/${getSearchCard?.vendor_id}/${getSearchCard?.id}`}>
-                                            <img src={imageSrc} alt="" className="img-fluid listview-img" style={{ borderRadius: '8px', height: '100%' }} />
+                                            {getSearchCard ? (
+                                                <img
+                                                    src={
+                                                        getSearchCard?.brand_logo?.original
+                                                            ? getSearchCard.brand_logo.original
+                                                            : getSearchCard?.banner_images?.[0]?.original
+                                                                ? getSearchCard.banner_images[0].original
+                                                                : 'img/no-image.jpg'
+                                                    }
+                                                    alt="Image"
+                                                    className="img-fluid listview-img"
+                                                    style={{ borderRadius: '8px', height: '100%' }}
+                                                />
+                                            ) : (
+                                                <img
+                                                    src="/img/no-image.jpg"
+                                                    alt="Image"
+                                                    className="img-fluid listview-img"
+                                                    style={{ borderRadius: '8px', height: '100%' }}
+                                                />
+                                            )}
                                         </Link>
                                         <div className="position-absolute list-card-tag" style={{ backgroundColor: tagColor }}>
                                             {getSearchCard?.subscription_type_name}
