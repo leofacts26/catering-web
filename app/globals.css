@@ -38,6 +38,10 @@ html {
   font-family: var(--fontPrimary) !important;
 }
 
+body {
+  padding-right: 0px !important;
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --primary-glow: conic-gradient(from 180deg at 50% 50%,
