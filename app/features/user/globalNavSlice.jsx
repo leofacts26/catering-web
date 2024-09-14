@@ -21,13 +21,13 @@ const initialState = {
 
 export const fetchAllVendorList = createAsyncThunk(
   "globalnavbar/fetchAllVendorList",
-  async (globalnavbar, thunkAPI) => {
+  async (type, thunkAPI) => {
     const state = thunkAPI.getState();
     const vendorSearch = state.globalnavbar.vendorSearch;
     // console.log(vendorSearch, "vendorSearch kit");
     try {
       const response = await api.get(
-        `${BASE_URL}/search-vendors-list?search_term=${vendorSearch}&order_by_filter=[{"id":2,"value":"a_z"}]&limit=100&current_page=1&vendor_type=Tiffin&app_type=web&shuffled=0`,
+        `${BASE_URL}/search-vendors-list?search_term=${vendorSearch}&order_by_filter=[{"id":2,"value":"a_z"}]&limit=100&current_page=1&vendor_type=Caterer&app_type=web&shuffled=0`,
         {
           headers: {
             authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
@@ -43,7 +43,7 @@ export const fetchAllVendorList = createAsyncThunk(
 
 export const fetchAllTiffinVendorList = createAsyncThunk(
   "globalnavbar/fetchAllTiffinVendorList",
-  async (globalnavbar, thunkAPI) => {
+  async (type, thunkAPI) => {
     const state = thunkAPI.getState();
     const vendorSearch = state.globalnavbar.vendorSearch;
     // console.log(vendorSearch, "vendorSearch kit");
@@ -106,7 +106,7 @@ export const globalNavSlice = createSlice({
   extraReducers: (builder) => {
     builder
       // fetchFaq
-      .addCase(fetchAllVendorList.pending, (state) => {})
+      .addCase(fetchAllVendorList.pending, (state) => { })
       .addCase(fetchAllVendorList.fulfilled, (state, { payload }) => {
         state.vendorList = payload;
       })
@@ -114,7 +114,7 @@ export const globalNavSlice = createSlice({
         toast.error(datavalidationerror(payload));
       })
       // fetchAllTiffinVendorList
-      .addCase(fetchAllTiffinVendorList.pending, (state) => {})
+      .addCase(fetchAllTiffinVendorList.pending, (state) => { })
       .addCase(fetchAllTiffinVendorList.fulfilled, (state, { payload }) => {
         state.tiffinVendorList = payload;
       })

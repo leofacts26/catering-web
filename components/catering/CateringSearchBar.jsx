@@ -264,7 +264,7 @@ const CateringSearchBar = () => {
                         onClick={() => selectLocation(item)}
                       >
                         <Stack direction="row" alignItems="center" className="cateringHover">
-                          <AddLocationIcon style={{fontSize:'15px', color: '57636c', marginRight: '4px'}} /> {item?.description}
+                          <AddLocationIcon style={{ fontSize: '15px', color: '57636c', marginRight: '4px' }} /> {item?.description}
                         </Stack>
                       </h2>
                     ))}
