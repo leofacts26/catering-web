@@ -37,6 +37,24 @@ const MapAsyncSelectCatering = ({ onSelect }) => {
         }, 1000); // Simulating asynchronous behavior with setTimeout
     };
 
+     // Custom styles
+     const customStyles = {
+        control: (provided, state) => ({
+            ...provided,
+            borderColor: state.isFocused ? '#FADBD8' : provided.borderColor, // Border color on focus
+            boxShadow: state.isFocused ? '0 0 0 1px #FADBD8' : provided.boxShadow, // Remove blue focus shadow
+            '&:hover': {
+                borderColor: '#FADBD8' // Border color on hover
+            }
+        }),
+        option: (provided, state) => ({
+            ...provided,
+            backgroundColor: state.isFocused ? '#FADBD8' : provided.backgroundColor, // Option hover color
+            color: state.isFocused ? 'black' : provided.color // Text color on hover
+        })
+    };
+
+
     return (
         <AsyncSelect
             cacheOptions
@@ -45,6 +63,7 @@ const MapAsyncSelectCatering = ({ onSelect }) => {
             onChange={onSelect}
             placeholder="Search by Catering Service Name"
             className='map-search-input'
+            styles={customStyles} 
         />
     );
 };

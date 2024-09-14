@@ -34,7 +34,25 @@ const MapAsyncSelect = ({ onSelect }) => {
         setTimeout(() => {
             const filteredOptions = filterOptions(inputValue);
             callback(filteredOptions);
-        }, 1000); // Simulating asynchronous behavior with setTimeout
+        }, 1000); // Simulating asynchronous behavior with setTimeout #d9822b63
+    };
+    
+
+       // Custom styles
+       const customStyles = {
+        control: (provided, state) => ({
+            ...provided,
+            borderColor: state.isFocused ? '#d9822b63' : provided.borderColor, // Border color on focus
+            boxShadow: state.isFocused ? '0 0 0 1px #d9822b63' : provided.boxShadow, // Remove blue focus shadow
+            '&:hover': {
+                borderColor: '#d9822b63' // Border color on hover
+            }
+        }),
+        option: (provided, state) => ({
+            ...provided,
+            backgroundColor: state.isFocused ? '#d9822b63' : provided.backgroundColor, // Option hover color
+            color: state.isFocused ? 'black' : provided.color // Text color on hover
+        })
     };
 
     return (
@@ -45,6 +63,7 @@ const MapAsyncSelect = ({ onSelect }) => {
             onChange={onSelect}
             placeholder="Search by Tiffin Service Name"
             className='map-search-input'
+            styles={customStyles} 
         />
     );
 };
