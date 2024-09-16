@@ -52,7 +52,7 @@ export const fetchAllCities = createAsyncThunk(
     'homepage/fetchAllCities',
     async (user, thunkAPI) => {
         try {
-            const response = await api.get(`${BASE_URL}/list-explore-cities?current_page=1&limit=6`, {
+            const response = await api.get(`${BASE_URL}/list-explore-cities?current_page=1&limit=10000`, {
                 headers: {
                     authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
                 },
