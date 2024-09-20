@@ -36,7 +36,7 @@ export const fetchHomepageOccasions = createAsyncThunk(
     'homepage/fetchHomepageOccasions',
     async (user, thunkAPI) => {
         try {
-            const response = await api.get(`${BASE_URL}/get-all-occasions?current_page=1&limit=12`, {
+            const response = await api.get(`${BASE_URL}/get-all-occasions?current_page=1&limit=1002`, {
                 headers: {
                     authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
                 },
