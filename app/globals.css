@@ -3896,3 +3896,7 @@ textarea:-webkit-autofill:active {
 .clear-filter-top-box {
   width: 155px !important;
 }
+
+.css-1t1j96h-MuiPaper-root-MuiDialog-paper{
+  background: none !important;
+}
