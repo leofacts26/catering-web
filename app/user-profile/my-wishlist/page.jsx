@@ -77,7 +77,7 @@ const page = () => {
 
       <CateringWishlist />
 
-      <hr />
+      {/* <hr /> */}
 
      <TiffinWishList />
       <br />

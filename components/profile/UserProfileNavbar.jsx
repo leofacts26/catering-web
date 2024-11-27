@@ -14,6 +14,7 @@ import InfoIcon from '@mui/icons-material/Info';
 import ViewListIcon from '@mui/icons-material/ViewList';
 import LiveHelpIcon from '@mui/icons-material/LiveHelp';
 import ShareIcon from '@mui/icons-material/Share';
+import toast from 'react-hot-toast';
 
 const dataLinks = [
     {
@@ -62,7 +63,7 @@ const getInTouch = [
     {
         id: 1,
         name: 'List your Service',
-        url: '/user-profile/list-your-service',
+        url: 'https://cateringvendor.cateringsandtiffins.com/',
         icon: <ViewListIcon className='user-profile-icon' />
     },
     {
@@ -75,6 +76,17 @@ const getInTouch = [
 
 const UserProfileNavbar = () => {
     const checkActivePath = useActivePathProfile()
+
+    const handleCopyToClipboard = () => {
+        const textToCopy = "https://cateringvendor.cateringsandtiffins.com/";
+        navigator.clipboard.writeText(textToCopy)
+            .then(() => {
+                toast.success("Link Copied")
+            })
+            .catch((err) => {
+                console.error('Failed to copy: ', err);
+            });
+    };
 
     return (
         <>
@@ -99,7 +111,7 @@ const UserProfileNavbar = () => {
                 }
 
 
-                <Divider style={{ marginTop: '30px' }} />
+                {/* <Divider style={{ marginTop: '30px' }} /> */}
                 <h2 className='manage-account' style={{ marginTop: '30px' }}>Links</h2>
                 {
                     ctLinks.map((ctLink) => {
@@ -120,7 +132,7 @@ const UserProfileNavbar = () => {
 
 
 
-                <Divider style={{ marginTop: '30px' }} />
+                {/* <Divider style={{ marginTop: '30px' }} /> */}
                 <h2 className='manage-account' style={{ marginTop: '30px' }}>Get In Touch</h2>
                 {
                     getInTouch.map((gtintouch) => {
@@ -144,24 +156,14 @@ const UserProfileNavbar = () => {
                 }
 
 
-                <Link href="/user-profile/share-cateringd-tifins" className='text-decoration-none'>
-                    <Stack direction="row" alignItems="center" justifyContent="space-between"
-                        className="user-profile-box">
-                        <Stack direction="row" alignItems="center" spacing={2}>
-                            <p className='user-profile-links'> Share Caterings & Tiffin's </p>
-                        </Stack>
-                        <p><ShareIcon className='user-profile-icon' /></p>
-                        {/* <KeyboardArrowRightIcon className='user-profile-icon' /> */}
+                <Stack direction="row" alignItems="center" sx={{ cursor: 'pointer' }}
+                    onClick={handleCopyToClipboard}
+                    className="user-profile-box">
+                    <p className='me-3'><ShareIcon className='user-profile-icon' /></p>
+                    <Stack direction="row" alignItems="center" spacing={2}>
+                        <p className='user-profile-links'> Share Caterings & Tiffin's </p>
                     </Stack>
-                </Link>
-
-
-
-
-
-
-
-
+                </Stack>
 
             </div>
             <br />

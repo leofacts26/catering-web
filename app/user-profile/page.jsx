@@ -160,7 +160,7 @@ const page = () => {
     }
 
 
-    useEffect(() =>{
+    useEffect(() => {
         setValues({
             ...values,
             username: userDetails?.username || '',
@@ -176,10 +176,12 @@ const page = () => {
                 showOtp ? (
                     <Formik enableReinitialize={true} initialValues={values} validationSchema={schema} onSubmit={(values, { resetForm }) => handleSubmit(values, resetForm)}>
                         {({ values, errors, handleChange, handleSubmit }) => (
-                            <form onSubmit={handleSubmit} className="px-4" autocomplete="off">
-                                <h2 className="user-profile-title" style={{ marginTop: '30px' }}>Edit Profile</h2>
+                            <form onSubmit={handleSubmit} className="px-3" autocomplete="off">
+                                <h2 className="user-profile-title" style={{ fontSize: '1.8em', color: '#57636c' }}>
+                                    Edit Profile
+                                </h2>
                                 <Grid container spacing={2}>
-                                    <Stack direction="row" justifyContent="center" alignItems="center" className='w-100 mt-5'>
+                                    <Stack direction="row" justifyContent="center" alignItems="center" className='w-100 mt-3'>
                                         <Card className='p-5'>
                                             <Grid item xs={12}>
                                                 <Grid container spacing={2}>
@@ -239,7 +241,7 @@ const page = () => {
                                                                 backgroundColor: '#C33332',
                                                             },
                                                         }}>
-                                                           Submit
+                                                            Submit
                                                         </Button>
                                                     </Stack>
 
@@ -254,7 +256,7 @@ const page = () => {
                 ) : (
                     <>
                         <Card className='p-5'>
-                            <p className='text-center text-dark mt-5 mb-2'>Please enter Your OTP below</p>
+                            <p className='text-center text-dark mt-5 mb-2'>Please enter Your OTP below </p>
                             <div className="otp-input-fields mb-3 my-4">
                                 <OtpInput length={6} />
                             </div>

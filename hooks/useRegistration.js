@@ -11,7 +11,10 @@ const useRegistration = () => {
     // console.log(regData, "regData"); 
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
-    const [open, setOpen] = useState(false);
+    const [loginOpen, setLoginOpen] = useState(false);
+    const [registerOpen, setRegisterOpen] = useState(false);
+
+
     // const loginUserData = useSelector((state) => state.user.loginUserData)
     // console.log(loginUserData, "00000");
 
@@ -19,12 +22,28 @@ const useRegistration = () => {
 
 
     const handleClickOpen = () => {
-        setOpen(true);
+        setLoginOpen(true);
     };
 
     const handleClose = () => {
-        setOpen(false);
+        setLoginOpen(false);
     };
+
+
+    const handleRegisterClickOpen = () => {
+        setRegisterOpen(true);
+    };
+
+    const handleRegisterClose = () => {
+        setRegisterOpen(false);
+    };
+
+
+    const loginCloseRegModalOpen = () =>{
+        setLoginOpen(false);
+        setRegisterOpen(true);
+    }
+
 
 
     // registerVendor 
@@ -166,7 +185,7 @@ const useRegistration = () => {
     }
 
 
-    return { loading, registerVendor, verifyOtp, resendOtp, open, setOpen, handleClickOpen, handleClose, loginVendor, verifyLoginOtp, resendLoginOtp };
+    return { loading, registerVendor, verifyOtp, resendOtp, loginOpen, setLoginOpen, registerOpen, setRegisterOpen, handleClickOpen, handleClose, loginVendor, verifyLoginOtp, resendLoginOtp, handleRegisterClickOpen, handleRegisterClose, loginCloseRegModalOpen };
 };
 
 export default useRegistration;

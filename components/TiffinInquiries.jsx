@@ -15,8 +15,9 @@ const TiffinInquiries = () => {
         <>
 
             <Box sx={{ flexGrow: 1 }}>
+            <h2 className="user-profile-title" style={{ fontSize: '1.8em', color: '#57636c' }}>Tiffin Inquiries</h2>
                 <Grid container spacing={2}>
-                    <Grid item xs={6}>
+                    <Grid item xs={12} lg={6}>
                         <Card>
                             <CardContent>
                                 <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={2}>
@@ -45,7 +46,7 @@ const TiffinInquiries = () => {
                             </Stack>
                         </Card>
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={12} lg={6}>
                         <Card>
                             <CardContent>
                                 <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={2}>

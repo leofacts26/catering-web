@@ -23,7 +23,7 @@ const page = () => {
     return (
         <>
             <Box sx={{ width: '100%', typography: 'body1' }}>
-                <TabContext value={value}>
+                {/* <TabContext value={value}>
                     <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                         <TabList onChange={handleChange} aria-label="lab API tabs example" TabIndicatorProps={{
                             style: {
@@ -56,7 +56,14 @@ const page = () => {
                     <TabPanel value="2">
                         <TiffinInquiries />
                     </TabPanel>
-                </TabContext>
+                </TabContext> */}
+
+                <div className="mt-2">
+                <CaterInquiries />
+                </div>
+                <div className="my-5">
+                <TiffinInquiries />
+                </div>
             </Box>
         </>
     )

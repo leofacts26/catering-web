@@ -23,7 +23,7 @@ const Faq = ({ tiffin }) => {
 
     return (
         <>
-            <Container maxWidth="sm">
+            <Container maxWidth="lg">
                 {
                     faqs.map((faq) => (
                         <Accordion className={tiffin ? 'faq-bg-tiffin' : 'faq-bg'} key={faq?.question_id}>

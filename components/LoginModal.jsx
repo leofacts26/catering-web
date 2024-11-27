@@ -113,7 +113,7 @@ const OtpInput = ({ length = 6, user, setShowOtp, handleClose, loginUserData }) 
 }
 
 const LoginModal = ({ detailModal }) => {
-    const { loading, loginVendor, open, setOpen, handleClickOpen, handleClose, resendLoginOtp } = useRegistration();
+    const { loading, loginVendor, loginOpen, setLoginOpen, handleClickOpen, handleClose, resendLoginOtp, loginCloseRegModalOpen } = useRegistration();
     const [showOtp, setShowOtp] = useState(true);
     const [minutes, setMinutes] = useState(0);
     const [seconds, setSeconds] = useState(30);
@@ -192,11 +192,10 @@ const LoginModal = ({ detailModal }) => {
 
     return (
         <React.Fragment>
-            {/* <Button variant="contained" className='register-btn' onClick={handleClickOpen}>Register</Button> */}
             <Link href="javascript:void(0)" onClick={handleClickOpen} className="nav-link"
             >Login</Link>
             <Dialog
-                open={open}
+                open={loginOpen}
                 TransitionComponent={Transition}
                 keepMounted
                 onClose={handleClose}
@@ -254,7 +253,10 @@ const LoginModal = ({ detailModal }) => {
                                             {loading ? 'Loading...' : 'Login'}
                                         </Button>
                                     </Stack>
-                                    <p className="text-center text-white cursor-pointer reg-later" onClick={handleClose}>Maybe Later</p>
+                                    <Stack direction="row" justifyContent='center' spacing={2}>
+                                    <p className="text-center text-white cursor-pointer reg-later" onClick={handleClose}>Maybe Later</p> 
+                                    </Stack>
+
 
                                 </form>
                             )}
@@ -262,7 +264,7 @@ const LoginModal = ({ detailModal }) => {
                     ) : (
                         <>
                             <div>
-                                <p className='text-center mt-5 mb-2 enter-otp'>Please enter Your OTP below</p>
+                                <p className='text-center mt-5 mb-2 enter-otp' style={{color: seconds > 0 || minutes > 0 ? "#e0e3e7" : "#fff"}}>Please enter Your OTP below</p>
                                 <div className="otp-input-fields mb-3 my-4">
                                     <OtpInput length={6} user={user} setShowOtp={setShowOtp} handleClose={handleClose} loginUserData={loginUserData} />
                                 </div>
@@ -273,19 +275,19 @@ const LoginModal = ({ detailModal }) => {
 
                                 <div className="countdown-text">
                                     {seconds > 0 || minutes > 0 ? (
-                                        <p className='ct-box-both-code text-center mx-auto mb-3 text-white'>
+                                        <p className='ct-box-both-code text-center mx-auto mb-3 text-white' style={{color: seconds > 0 || minutes > 0 ? "#e0e3e7" : "#fff"}}>
                                             Time Remaining: {minutes < 10 ? `0${minutes}` : minutes}:
                                             {seconds < 10 ? `0${seconds}` : seconds}
                                         </p>
                                     ) : (
-                                        <p className='ct-box-both-code text-center mx-auto text-white mb-2'>Didn't Receive code?</p>
+                                        <p className='ct-box-both-code text-center mx-auto text-white mb-2' style={{color: seconds > 0 || minutes > 0 ? "#e0e3e7" : "#fff"}}>Didn't Receive code?</p>
                                     )}
 
                                     <Box style={{ width: '100%', textAlign: 'center' }}>
                                         <button
                                             disabled={seconds > 0 || minutes > 0}
                                             style={{
-                                                color: seconds > 0 || minutes > 0 ? "#e0e3e7" : "#e0e3e7",
+                                                color: seconds > 0 || minutes > 0 ? "#e0e3e7" : "#fff",
                                                 margin: '0px auto', textAlign: 'center', border: 'none',
                                                 background: 'transparent', cursor: 'pointer'
                                             }}

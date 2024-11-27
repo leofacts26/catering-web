@@ -117,18 +117,22 @@ const CateringWishlist = () => {
         <>
             {
                 caterWishlist.length > 0 || tiffinWishlist.length > 0 ? <Stack direction={{ xs: 'column', sm: 'column', md: 'row' }} justifyContent="end" alignItems="end">
-                    <Button className="cursor-pointer cater-clear-filter" onClick={() => onHandleClearWishlist()}>
-                        <Stack direction="row" alignItems="center">
-                            {isLoading ? 'Loading' : <><DeleteForeverIcon className="cater-removefilter-icon" /> Remove All</>}
-                        </Stack>
-                    </Button>
+                    <Stack direction="row" justifyContent="space-between" alignItems="center" style={{width: '100%'}}>
+                       <div>
+                       <h2 className="user-profile-title" style={{ fontSize: '1.8em', color: '#57636c' }}>Your Favourite Saved Caterers</h2>
+                       </div>
+                        <Button className="cursor-pointer cater-clear-filter" onClick={() => onHandleClearWishlist()}>
+                            <Stack direction="row" alignItems="center">
+                                {isLoading ? 'Loading' : <><DeleteForeverIcon className="cater-removefilter-icon" /> Remove All</>}
+                            </Stack>
+                        </Button>
+                    </Stack>
                 </Stack> : ''
             }
 
 
             {caterWishlist?.length > 0 ? (
                 <>
-                    <h2 className="user-profile-title" style={{ marginTop: '30px', fontSize: '1.8em', color: '#57636c' }}>Your Favourite Saved Caterers</h2>
                     <Box sx={{ flexGrow: 1 }}>
                         <Grid container spacing={2}>
                             {isLoading ? (

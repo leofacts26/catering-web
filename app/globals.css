@@ -2633,7 +2633,7 @@ h6 {
 }
 
 .enter-otp {
-  color: var(--alternate) !important;
+  /* color: var(--alternate) !important; */
   font-family: var(--fontPrimary);
 }
 
