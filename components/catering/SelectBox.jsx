@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchCateringSearchCards, fetchGetAllSubscriptionTypes, setCateringSort, setSubscriptionFilter } from "@/app/features/user/cateringFilterSlice";
 import { memo, useEffect } from 'react';
 import FilterListOffIcon from '@mui/icons-material/FilterListOff';
-import { clearFiltersGlobal } from '@/app/features/tiffin/tiffinFilterSlice';
+import { clearFiltersGlobal } from '@/app/features/user/homeSlice';
 
 
 const SelectBox = () => {
@@ -39,7 +39,7 @@ const SelectBox = () => {
     // console.log(subscriptionTypes, "subscriptionTypes subscriptionTypes");
 
     // onHandleFIlterClear 
-    const onHandleFIlterClear = async () =>{
+    const onHandleFIlterClear = async () => {
         await dispatch(clearFiltersGlobal());
         window.location.reload()
     }

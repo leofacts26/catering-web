@@ -29,6 +29,10 @@ const page = () => {
   const dispatch = useDispatch()
   const { getCateringSearchCards, getCateringPriceRanges, getCateringFoodTypes, getCateringCuisines, getCateringServiceTypes, getCateringRatings, getCateringHeadCount, getCateringServingTypes, total_count } = useSelector((state) => state.cateringFilter)
 
+  useEffect(() => {
+    dispatch(fetchCateringSearchCards());
+  }, [])
+
   // useEffect(() => {
   //   if (getCateringPriceRanges.length === 0) {
   //     dispatch(fetchPriceRanges());
