@@ -32,21 +32,6 @@ const initialState = {
 }
 
 
-export const clearFiltersGlobal = createAsyncThunk(
-    'user/clearFilters',
-    async (user, thunkAPI) => {
-        try {
-            const response = await api.post(`${BASE_URL}/clear-all-filters-web`, { is_notification_allowed: 1 }, {
-                headers: {
-                    authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
-                },
-            });
-            toast.success(successToast(response))
-        } catch (error) {
-            return thunkAPI.rejectWithValue(error.response.data.msg);
-        }
-    }
-)
 
 
 export const fetchTiffinPriceRanges = createAsyncThunk(
