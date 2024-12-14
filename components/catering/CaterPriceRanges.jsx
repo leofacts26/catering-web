@@ -8,7 +8,7 @@ import { makeSelectCateringPriceRanges } from '@/hooks/selectCateringFilter';
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
-const CaterPriceRanges = () => {    
+const CaterPriceRanges = () => {
     const { getCateringPriceRanges, isLoading } = useSelector((state) => state.cateringFilter)
     const dispatch = useDispatch()
 
@@ -30,13 +30,14 @@ const CaterPriceRanges = () => {
 
     return (
         <>
-            {!isLoading ? (
+
+            {getCateringPriceRanges?.length > 0 ? (
                 getCateringPriceRanges?.map((price) => (
                     <Stack className='text-muted' key={price?.id} direction="row" alignItems="center" sx={{ marginLeft: '-10px', marginTop: '5px' }}>
                         <Checkbox {...label} size="small" className='checkbox-color'
                             checked={price.selectedweb === 1}
                             onChange={() => onHandlePriceRanges(price)}
-                            style={{color: price.selectedweb === 1 && '#c33332'}}
+                            style={{ color: price.selectedweb === 1 && '#c33332' }}
                         />
                         <span className='checkbox-text'>{`Rs. ${price?.start_price} - Rs. ${price?.end_price}`}</span>
                     </Stack>
@@ -44,6 +45,7 @@ const CaterPriceRanges = () => {
             ) : (
                 <FilterSkeleton />
             )}
+
         </>
     )
 }
