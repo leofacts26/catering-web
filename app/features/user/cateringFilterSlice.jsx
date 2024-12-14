@@ -94,7 +94,7 @@ export const fetchCateringFoodTypes = createAsyncThunk(
 export const fetchOccasionCateringTypes = createAsyncThunk(
     'user/fetchOccasionCateringTypes',
     async (occasionCount, thunkAPI) => {
-        console.log(occasionCount, "occasionCount gbhty");
+        // console.log(occasionCount, "occasionCount gbhty");
         try {
             const response = await api.get(`${BASE_URL}/get-all-occasions?current_page=1&limit=100`, {
                 headers: {
@@ -228,7 +228,7 @@ export const fetchCateringSearchCards = createAsyncThunk(
         const limit = thunkAPI.getState().cateringFilter?.limit;
         const total_count = thunkAPI.getState().cateringFilter?.total_count;
 
-        console.log(subscriptionTypes, "subscriptionTypes");
+        // console.log(subscriptionTypes, "subscriptionTypes");
         
 
         // cateringSortBy_filter
@@ -286,7 +286,7 @@ export const fetchCateringSearchCards = createAsyncThunk(
             selected: subscriptionType.selectedweb
         }))
 
-        console.log(subscriptionTypes_formatted, "subscriptionTypes_formatted");
+        // console.log(subscriptionTypes_formatted, "subscriptionTypes_formatted");
         
 
         // pricetype_filter_formatted 
@@ -596,13 +596,13 @@ export const cateringFilterSlice = createSlice({
             console.log(action, "actionactionaction");
 
             const updatedSubscriptionFilter = state.subscriptionTypes.map(subscription => {
-                if (subscription.id === action.payload) {
+                if (Number(subscription.id) === Number(action.payload)) {
                     // Toggle the selectedweb value for the clicked subscription type
                     return {
                         ...subscription,
                         selectedweb: subscription.selectedweb === 1 ? 0 : 1
                     };
-                } else if (["2", "3"].includes(action.payload)) {
+                } else if ([2, 3].includes(action.payload)) {
                     // If selecting 5 or 6, ensure all others are deselected
                     return {
                         ...subscription,

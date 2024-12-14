@@ -118,7 +118,7 @@ const ListView = () => {
             ))}
         </>
     }
-    console.log(getCateringSearchCards, "getCateringSearchCards");
+    // console.log(getCateringSearchCards, "getCateringSearchCards");
 
 
     return (

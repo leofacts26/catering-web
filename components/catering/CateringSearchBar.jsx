@@ -159,7 +159,7 @@ const CateringSearchBar = () => {
   };
 
   const handleClickOutside = (event) => {
-    console.log("Location Search Ref:", locSearchRef.current);
+    // console.log("Location Search Ref:", locSearchRef.current);
     // Check if the click is outside of the location search container and the vendor list container
     if (
       locSearchRef.current &&
