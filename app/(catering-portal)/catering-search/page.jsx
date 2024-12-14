@@ -18,52 +18,47 @@ import ListView from '@/components/catering/ListView';
 import GridViewList from '@/components/catering/GridView';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
-import { fetchCateringCuisines, fetchCateringFoodTypes, fetchCateringSearchCards, fetchCateringServingTypes, fetchCaterRatings, fetchHeadCounts, fetchOccasionCateringTypes, fetchPriceRanges, fetchServiceTypes } from '@/app/features/user/cateringFilterSlice';
+import { fetchCateringCuisines, fetchCateringFoodTypes, fetchCateringSearchCards, fetchCateringServingTypes, fetchCaterRatings, fetchHeadCounts, fetchPriceRanges, fetchServiceTypes } from '@/app/features/user/cateringFilterSlice';
 import useGetLocationResults from '@/hooks/catering/useGetLocationResults';
 
 const page = () => {
   const [checked, setChecked] = useState(true);
   const { selectedLocation } = useGetLocationResults()
-  // console.log(manualLocation, "locationValuesGlobal, locationPlaceId, manualLocation, selectedLocation");
-  // console.log(selectedLocation, "selectedLocationselectedLocationselectedLocation");
 
   const router = useRouter()
   const dispatch = useDispatch()
   const { getCateringSearchCards, getCateringPriceRanges, getCateringFoodTypes, getCateringCuisines, getCateringServiceTypes, getCateringRatings, getCateringHeadCount, getCateringServingTypes, total_count } = useSelector((state) => state.cateringFilter)
-  // console.log(getCateringSearchCards, "getCateringSearchCards");
 
-  useEffect(() => {
-    // Fetch all necessary data
-    if (getCateringPriceRanges.length === 0) {
-      dispatch(fetchPriceRanges());
-    }
-    if (getCateringHeadCount.length === 0) {
-      dispatch(fetchHeadCounts());
-    }
-    if (getCateringFoodTypes.length === 0) {
-      dispatch(fetchCateringFoodTypes());
-    }
-    if (getCateringCuisines.length === 0) {
-      dispatch(fetchCateringCuisines());
-    }
-    if (getCateringServiceTypes.length === 0) {
-      dispatch(fetchServiceTypes());
-    }
-    if (getCateringRatings.length === 0) {
-      dispatch(fetchCaterRatings());
-    }
-    if (getCateringServingTypes.length === 0) {
-      dispatch(fetchCateringServingTypes());
-    }
+  // useEffect(() => {
+  //   if (getCateringPriceRanges.length === 0) {
+  //     dispatch(fetchPriceRanges());
+  //   }
+  //   if (getCateringHeadCount.length === 0) {
+  //     dispatch(fetchHeadCounts());
+  //   }
+  //   if (getCateringFoodTypes.length === 0) {
+  //     dispatch(fetchCateringFoodTypes());
+  //   }
+  //   if (getCateringCuisines.length === 0) {
+  //     dispatch(fetchCateringCuisines());
+  //   }
+  //   if (getCateringServiceTypes.length === 0) {
+  //     dispatch(fetchServiceTypes());
+  //   }
+  //   if (getCateringRatings.length === 0) {
+  //     dispatch(fetchCaterRatings());
+  //   }
+  //   if (getCateringServingTypes.length === 0) {
+  //     dispatch(fetchCateringServingTypes());
+  //   }
 
-  }, [dispatch, getCateringPriceRanges.length, getCateringHeadCount.length, getCateringFoodTypes.length, getCateringCuisines.length, getCateringRatings.length, getCateringServiceTypes.length, getCateringServingTypes.length]);
+  // }, [dispatch, getCateringPriceRanges.length, getCateringHeadCount.length, getCateringFoodTypes.length, getCateringCuisines.length, getCateringRatings.length, getCateringServiceTypes.length, getCateringServingTypes.length]);
 
-  useEffect(() => {
-    // Dispatch search cards only if all necessary data is available
-    if (getCateringPriceRanges.length > 0 && getCateringHeadCount.length > 0 && getCateringFoodTypes.length && getCateringCuisines.length && getCateringRatings.length && getCateringServiceTypes.length && getCateringServingTypes.length) {
-      dispatch(fetchCateringSearchCards());
-    }
-  }, [dispatch, getCateringPriceRanges.length, getCateringHeadCount.length, getCateringFoodTypes.length, getCateringCuisines.length, getCateringRatings.length, getCateringServiceTypes.length, getCateringServingTypes.length]);
+  // useEffect(() => {
+  //   if (getCateringPriceRanges.length > 0 && getCateringHeadCount.length > 0 && getCateringFoodTypes.length && getCateringCuisines.length && getCateringRatings.length && getCateringServiceTypes.length && getCateringServingTypes.length) {
+  //     dispatch(fetchCateringSearchCards());
+  //   }
+  // }, [dispatch, getCateringPriceRanges.length, getCateringHeadCount.length, getCateringFoodTypes.length, getCateringCuisines.length, getCateringRatings.length, getCateringServiceTypes.length, getCateringServingTypes.length]);
 
 
 
