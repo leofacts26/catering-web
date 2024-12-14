@@ -25,7 +25,7 @@ export const clearFiltersGlobal = createAsyncThunk(
             authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
           },
         });
-        toast.success(successToast(response))
+        // toast.success(successToast(response))
       } catch (error) {
         return thunkAPI.rejectWithValue(error.response.data.msg);
       }
