@@ -27,7 +27,7 @@ const ExploreCaters = () => {
 
     const onHandleCityFilter = (explorecater) => {
         const { latitude, longitude, name: city } = explorecater;
-        dispatch(setlLocationValuesGlobal({ latitude, longitude, city: { long_name: city } }));
+        dispatch(setlLocationValuesGlobal({ is_city_search: 1, latitude, longitude, city: { long_name: city } }));
         dispatch(fetchCateringSearchCards());
         const url = `/catering-search`;
         router.push(url);
