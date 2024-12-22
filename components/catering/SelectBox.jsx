@@ -33,7 +33,7 @@ const SelectBox = () => {
     // onHandlesubscriptionTypes 
     const onHandlesubscriptionTypes = (id) => {
         dispatch(setSubscriptionFilter(id))
-        // dispatch(fetchCateringSearchCards());
+        dispatch(fetchCateringSearchCards());
     }
 
     console.log(subscriptionTypes, "subscriptionTypes subscriptionTypes");
