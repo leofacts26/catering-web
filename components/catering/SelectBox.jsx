@@ -36,8 +36,6 @@ const SelectBox = () => {
         dispatch(fetchCateringSearchCards());
     }
 
-    console.log(subscriptionTypes, "subscriptionTypes subscriptionTypes");
-
     // onHandleFIlterClear 
     const onHandleFIlterClear = async () => {
         await dispatch(clearFiltersGlobal());

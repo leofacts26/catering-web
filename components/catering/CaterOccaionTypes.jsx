@@ -29,15 +29,6 @@ const CaterOccaionTypes = () => {
         dispatch(fetchCateringMapviewSearchCards());
     }
 
-    // const onShowAllOccasions = useCallback(() => {
-    //     setoccCount(true)
-    //     dispatch(setShowAllOccasions(occasionTotalCount));
-    //     dispatch(fetchOccasionCateringTypes(occasionCount));
-    // }, [dispatch])
-
-    // console.log(occasionCount, "occasionCount");
-
-
     const onHandleShow = () => {
         // console.log("true");
         setShowAll(false)
