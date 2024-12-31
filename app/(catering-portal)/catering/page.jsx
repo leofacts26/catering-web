@@ -15,6 +15,7 @@ import CateringSearchBar from '@/components/catering/CateringSearchBar';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { clearFiltersGlobal } from '@/app/features/user/homeSlice';
+import { fetchCateringSearchCards, fetchOccasionCateringTypes, resetFilters } from '@/app/features/user/cateringFilterSlice';
 
 
 const page = () => {
@@ -23,7 +24,8 @@ const page = () => {
 
     useEffect(() => {
         dispatch(clearFiltersGlobal());
-    }, [])
+        dispatch(resetFilters());
+    }, [dispatch])
 
     return (
         <>

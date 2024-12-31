@@ -48,11 +48,12 @@ const CaterCuisineFilter = () => {
 
 
     // onHandleCuisineFilter 
-    const onHandleCuisineFilter = useCallback((cuisineId, isParent) => {
+    const onHandleCuisineFilter = (cuisineId, isParent) => {
         dispatch(setCuisineTypeFilter({ cuisineId, getCateringCuisines }));
+        // console.log(getCateringCuisines, "getCateringCuisinesD"); 
         dispatch(fetchCateringSearchCards());
         dispatch(fetchCateringMapviewSearchCards());
-    }, [dispatch])
+    }
 
     const [searchQuery, setSearchQuery] = useState('');
 
@@ -66,7 +67,6 @@ const CaterCuisineFilter = () => {
     );
 
 
-    // console.log(getCateringCuisines, "getCateringCuisines"); 
 
     return (
         <>

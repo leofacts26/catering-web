@@ -21,10 +21,10 @@ const ExploreCaterersByOccasion = () => {
 
 
     useEffect(() => {
-        if (!getOccasionCateringTypes.length) {
+        if (!getOccasionCateringTypes?.length) {
             dispatch(fetchOccasionCateringTypes(occasionCount || 5));
         }
-    }, [dispatch, getOccasionCateringTypes.length, occasionCount]);
+    }, [dispatch, getOccasionCateringTypes?.length, occasionCount]);
 
 
 

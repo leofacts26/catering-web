@@ -19,15 +19,15 @@ const CaterOccaionTypes = () => {
 
 
     useEffect(() => {
-        if (!getOccasionCateringTypes.length) {
+        if (!getOccasionCateringTypes?.length) {
             dispatch(fetchOccasionCateringTypes(occasionCount || 5));
         }
-    }, [dispatch, getOccasionCateringTypes.length, occasionCount]);
+    }, [dispatch, getOccasionCateringTypes?.length, occasionCount]);
 
 
     // onHandleSelectOccasion 
-    const onHandleSelectOccasion = (getOccasionType) => {
-        dispatch(setOccasionTypes(getOccasionType?.occasion_id, getOccasionCateringTypes))
+    const onHandleSelectOccasion = (occasionId) => {
+        dispatch(setOccasionTypes({ occasionId, getOccasionCateringTypes }));
         dispatch(fetchCateringSearchCards());
         dispatch(fetchCateringMapviewSearchCards());
     }
@@ -55,7 +55,7 @@ const CaterOccaionTypes = () => {
                                 size="small"
                                 className='checkbox-color'
                                 checked={getOccasionType?.selectedweb === 1}
-                                onChange={() => onHandleSelectOccasion(getOccasionType)}
+                                onChange={() => onHandleSelectOccasion(getOccasionType?.occasion_id)}
                                 style={{
                                     color: getOccasionType.selectedweb === 1 && '#c33332',
                                 }}

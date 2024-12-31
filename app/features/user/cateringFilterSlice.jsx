@@ -480,6 +480,7 @@ export const cateringFilterSlice = createSlice({
         //     state.endDate = action.payload.endDate;
         // },
         setCuisineTypeFilter: (state, action) => {
+            // console.log(action, "action");
             const { cuisineId, getCateringCuisines } = action.payload;
             const updatedCuisines = getCateringCuisines.map((cuisine) => {
                 if (cuisine.id === cuisineId) {
@@ -618,8 +619,6 @@ export const cateringFilterSlice = createSlice({
 
             state.subscriptionTypes = updatedSubscriptionFilter;
         },
-
-
         setCateringSort: (state, action) => {
             state.cateringSortBy = action.payload;
         }
