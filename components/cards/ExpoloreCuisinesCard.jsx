@@ -16,13 +16,13 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { Navigation, Autoplay } from 'swiper/modules';
-import { fetchCateringSearchCards, setCuisineTypeFilter } from '@/app/features/user/cateringFilterSlice';
+import { fetchCateringCuisines, fetchCateringSearchCards, setCuisineTypeFilter } from '@/app/features/user/cateringFilterSlice';
 import { useRouter } from 'next/navigation';
 
 const ExpoloreCuisinesCard = () => {
 
     const router = useRouter()
-
+    const { getCateringCuisines } = useSelector((state) => state.cateringFilter)
     const { getAllcuisines, isLoading } = useSelector((state) => state.homepage)
     const dispatch = useDispatch()
 
@@ -30,11 +30,18 @@ const ExpoloreCuisinesCard = () => {
         dispatch(fetchCuisines())
     }, [])
 
+    useEffect(() => {
+        if (!getCateringCuisines.length) {
+            dispatch(fetchCateringCuisines());
+        }
+    }, [dispatch, getCateringCuisines.length]);
+
+
     // console.log(getAllcuisines, "getAllcuisines");
     const onHandleCuisineFilter = (explorecuisine) => {
         // console.log(explorecuisine, "explorecuisine");
         const cuisineId = explorecuisine.id;
-        dispatch(setCuisineTypeFilter({ cuisineId }));
+        dispatch(setCuisineTypeFilter({ cuisineId, getCateringCuisines }));
         dispatch(fetchCateringSearchCards());
         const url = `/catering-search`;
         router.push(url);
@@ -88,9 +95,9 @@ const ExpoloreCuisinesCard = () => {
                                                 {/* <img src={explorecuisine?.file_name?.original ? explorecuisine?.file_name?.original : '/img/no-image.jpg'} alt="" className="img-fluid explore-cuisine-img image-shadow" /> */}
 
                                                 <div className="explore-cator-box" key={explorecuisine?.occasion_id}>
-                                                    <img 
-                                                    // onClick={() => handleImageClick(explorecuisine?.occasion_id)}  
-                                                    src={explorecuisine?.file_name?.original ? explorecuisine?.file_name?.original : '/img/no-image.jpg'} className="img-fluid cuisines-img cursor-pointer" />
+                                                    <img
+                                                        // onClick={() => handleImageClick(explorecuisine?.occasion_id)}  
+                                                        src={explorecuisine?.file_name?.original ? explorecuisine?.file_name?.original : '/img/no-image.jpg'} className="img-fluid cuisines-img cursor-pointer" />
                                                     <h4 className='text-center cuisines-title'>{explorecuisine?.name}</h4>
                                                 </div>
 

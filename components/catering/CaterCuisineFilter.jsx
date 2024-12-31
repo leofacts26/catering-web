@@ -49,7 +49,7 @@ const CaterCuisineFilter = () => {
 
     // onHandleCuisineFilter 
     const onHandleCuisineFilter = useCallback((cuisineId, isParent) => {
-        dispatch(setCuisineTypeFilter({ cuisineId, isParent }));
+        dispatch(setCuisineTypeFilter({ cuisineId, getCateringCuisines }));
         dispatch(fetchCateringSearchCards());
         dispatch(fetchCateringMapviewSearchCards());
     }, [dispatch])

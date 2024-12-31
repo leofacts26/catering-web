@@ -10,24 +10,35 @@ import { fetchAllCities, fetchHomepageOccasions } from '@/app/features/user/home
 import ExploreCaterersShimmer from '../shimmer/ExploreCaterersShimmer';
 import ExploreoccasionsShimmer from '../shimmer/ExploreOccasionsShimmer';
 import { useRouter } from 'next/navigation';
-import { setOccasionTypes } from '@/app/features/user/cateringFilterSlice';
+import { fetchCateringSearchCards, fetchOccasionCateringTypes, setOccasionTypes } from '@/app/features/user/cateringFilterSlice';
 
 const ExploreCaterersByOccasion = () => {
+    const { getOccasionCateringTypes, occasionCount } = useSelector((state) => state.cateringFilter)
+
     const { homeOccasions, isLoading } = useSelector((state) => state.homepage)
     const dispatch = useDispatch()
     const router = useRouter()
+
+
+    useEffect(() => {
+        if (!getOccasionCateringTypes.length) {
+            dispatch(fetchOccasionCateringTypes(occasionCount || 5));
+        }
+    }, [dispatch, getOccasionCateringTypes.length, occasionCount]);
+
+
 
     useEffect(() => {
         dispatch(fetchHomepageOccasions())
     }, [])
 
-    // console.log(homeOccasions, "homeOccasions");
 
     const handleImageClick = (occasionId) => {
-        dispatch(setOccasionTypes(occasionId));
+        dispatch(setOccasionTypes({ occasionId, getOccasionCateringTypes }));
+        dispatch(fetchCateringSearchCards());
         const url = `/catering-search`;
         router.push(url);
-    }; 
+    };
 
 
     return (

@@ -19,12 +19,15 @@ const CaterOccaionTypes = () => {
 
 
     useEffect(() => {
-        dispatch(fetchOccasionCateringTypes(occasionCount));
-    }, [occasionCount]);
+        if (!getOccasionCateringTypes.length) {
+            dispatch(fetchOccasionCateringTypes(occasionCount || 5));
+        }
+    }, [dispatch, getOccasionCateringTypes.length, occasionCount]);
+
 
     // onHandleSelectOccasion 
     const onHandleSelectOccasion = (getOccasionType) => {
-        dispatch(setOccasionTypes(getOccasionType?.occasion_id))
+        dispatch(setOccasionTypes(getOccasionType?.occasion_id, getOccasionCateringTypes))
         dispatch(fetchCateringSearchCards());
         dispatch(fetchCateringMapviewSearchCards());
     }
