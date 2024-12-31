@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchPopularCaterers } from '@/app/features/user/homeSlice';
 import PopularCaterersShimmer from '../shimmer/PopularCaterersShimmer';
 import Heading from '../Heading';
-import { setSubscriptionFilter } from '@/app/features/user/cateringFilterSlice';
+import { fetchGetAllSubscriptionTypes, setSubscriptionFilter } from '@/app/features/user/cateringFilterSlice';
 import { useRouter } from 'next/navigation';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -22,7 +22,7 @@ import { Autoplay, FreeMode, Navigation } from 'swiper/modules';
 
 const PopularCaters = ({ title }) => {
     const router = useRouter()
-
+    const { subscriptionTypes } = useSelector((state) => state.cateringFilter);
     const { popularCaterer, isLoading } = useSelector((state) => state.homepage)
     const dispatch = useDispatch()
     const { userDetails } = useSelector((state) => state.user)
@@ -34,20 +34,22 @@ const PopularCaters = ({ title }) => {
     }
 
     useEffect(() => {
+        if (!subscriptionTypes.length) {
+            dispatch(fetchGetAllSubscriptionTypes());
+        }
+    }, [dispatch, subscriptionTypes.length]);
+
+    useEffect(() => {
         dispatch(fetchPopularCaterers(data))
     }, [])
-
-    // console.log(popularCaterer, "popularCaterer"); 
-    // PopularCaterersShimmer 
 
 
     const handleImageClick = () => {
         const id = "2";
-        dispatch(setSubscriptionFilter(id))
+        dispatch(setSubscriptionFilter({ id, subscriptionTypes }))
         const url = `/catering-search`;
         router.push(url);
     };
-
 
 
     return (

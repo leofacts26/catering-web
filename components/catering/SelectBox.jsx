@@ -24,15 +24,15 @@ const SelectBox = () => {
         }
     };
 
-
-
     useEffect(() => {
-        dispatch(fetchGetAllSubscriptionTypes())
-    }, [])
+        if (!subscriptionTypes.length) {
+            dispatch(fetchGetAllSubscriptionTypes());
+        }
+    }, [dispatch, subscriptionTypes.length]);
 
     // onHandlesubscriptionTypes 
     const onHandlesubscriptionTypes = (id) => {
-        dispatch(setSubscriptionFilter(id))
+        dispatch(setSubscriptionFilter({ id, subscriptionTypes }))
         dispatch(fetchCateringSearchCards());
     }
 

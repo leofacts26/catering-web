@@ -591,22 +591,21 @@ export const cateringFilterSlice = createSlice({
             state.getCateringHeadCount = updatedHeadcountRanges;
         },
         setSubscriptionFilter: (state, action) => {
-            console.log(action, "actionactionaction");
-
-            const updatedSubscriptionFilter = state.subscriptionTypes.map(subscription => {
-                if (Number(subscription.id) === Number(action.payload)) {
+            const { id, subscriptionTypes } = action.payload;
+            const updatedSubscriptionFilter = subscriptionTypes.map(subscription => {
+                if (Number(subscription.id) === Number(id)) {
                     // Toggle the selectedweb value for the clicked subscription type
                     return {
                         ...subscription,
                         selectedweb: subscription.selectedweb === 1 ? 0 : 1
                     };
-                } else if ([2, 3].includes(action.payload)) {
+                } else if ([2, 3].includes(id)) {
                     // If selecting 5 or 6, ensure all others are deselected
                     return {
                         ...subscription,
                         selectedweb: 0
                     };
-                } else if (action.payload === "9999") {
+                } else if (id === "9999") {
                     // Always keep 9999 selected and deselect others
                     return {
                         ...subscription,

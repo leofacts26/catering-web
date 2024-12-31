@@ -16,13 +16,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchBrandedCaterers } from '@/app/features/user/homeSlice';
 import BrandedCaterersShimmer from '../shimmer/BrandedCaterersShimmer';
-import { setSubscriptionFilter } from '@/app/features/user/cateringFilterSlice';
+import { fetchGetAllSubscriptionTypes, setSubscriptionFilter } from '@/app/features/user/cateringFilterSlice';
 import { useRouter } from 'next/navigation';
 
 const BrandedCaters = () => {
   const router = useRouter()
   const { brandedList, isLoading } = useSelector((state) => state.homepage)
   const { userDetails } = useSelector((state) => state.user)
+  const { subscriptionTypes } = useSelector((state) => state.cateringFilter);
 
   const dispatch = useDispatch()
 
@@ -32,12 +33,19 @@ const BrandedCaters = () => {
   }
 
   useEffect(() => {
-    dispatch(fetchBrandedCaterers(data))
-  }, [])
+    if (!subscriptionTypes.length) {
+      dispatch(fetchGetAllSubscriptionTypes());
+    }
+  }, [dispatch, subscriptionTypes.length]);
+
+  useEffect(() => {
+    dispatch(fetchBrandedCaterers(data));
+  }, [dispatch]);
+
 
   const handleImageClick = () => {
     const id = "3";
-    dispatch(setSubscriptionFilter(id))
+    dispatch(setSubscriptionFilter({ id, subscriptionTypes }))
     const url = `/catering-search`;
     router.push(url);
   };
