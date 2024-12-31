@@ -29,38 +29,38 @@ const page = () => {
   const dispatch = useDispatch();
   const { selectedLocation } = useGetLocationResults()
 
-
   useEffect(() => {
-    // Fetch all necessary data
-    if (getTiffinKitchenTypes.length === 0) {
-      dispatch(fetchTiffinKitchenTypes());
-    }
-    if (getTiffinServiceTypes.length === 0) {
-      dispatch(fetchTiffinServiceTypes());
-    }
-    if (getTiffinMealTypes.length === 0) {
-      dispatch(fetchTiffinMealTypes());
-    }
-    if (getTiffinPriceRanges.length === 0) {
-      dispatch(fetchTiffinPriceRanges());
-    }
-    if (getTiffinFoodTypes.length === 0) {
-      dispatch(fetchTiffinFoodTypes());
-    }
-    if (getTiffinRatings.length === 0) {
-      dispatch(fetchTiffinRatings());
-    }
-  }, [dispatch, getTiffinKitchenTypes.length, getTiffinRatings.length, getTiffinServiceTypes.length, getTiffinMealTypes.length, getTiffinPriceRanges.length, getTiffinFoodTypes.length]);
+    dispatch(fetchtiffinSearchCards());
+  }, [])
 
-  useEffect(() => {
-    // Dispatch search cards only if all necessary data is available
-    if (getTiffinKitchenTypes.length > 0 && getTiffinRatings.length > 0 && getTiffinServiceTypes.length > 0 && getTiffinMealTypes.length > 0 && getTiffinPriceRanges.length > 0 && getTiffinFoodTypes.length > 0) {
-      dispatch(fetchtiffinSearchCards());
-    }
-  }, [dispatch, getTiffinKitchenTypes.length, getTiffinRatings.length, getTiffinServiceTypes.length, getTiffinMealTypes.length, getTiffinPriceRanges.length, getTiffinFoodTypes.length]);
+  // useEffect(() => {
+  //   if (getTiffinKitchenTypes.length === 0) {
+  //     dispatch(fetchTiffinKitchenTypes());
+  //   }
+  //   if (getTiffinServiceTypes.length === 0) {
+  //     dispatch(fetchTiffinServiceTypes());
+  //   }
+  //   if (getTiffinMealTypes.length === 0) {
+  //     dispatch(fetchTiffinMealTypes());
+  //   }
+  //   if (getTiffinPriceRanges.length === 0) {
+  //     dispatch(fetchTiffinPriceRanges());
+  //   }
+  //   if (getTiffinFoodTypes.length === 0) {
+  //     dispatch(fetchTiffinFoodTypes());
+  //   }
+  //   if (getTiffinRatings.length === 0) {
+  //     dispatch(fetchTiffinRatings());
+  //   }
+  // }, [dispatch, getTiffinKitchenTypes.length, getTiffinRatings.length, getTiffinServiceTypes.length, getTiffinMealTypes.length, getTiffinPriceRanges.length, getTiffinFoodTypes.length]);
 
+  // useEffect(() => {
+  //   if (getTiffinKitchenTypes.length > 0 && getTiffinRatings.length > 0 && getTiffinServiceTypes.length > 0 && getTiffinMealTypes.length > 0 && getTiffinPriceRanges.length > 0 && getTiffinFoodTypes.length > 0) {
+  //     dispatch(fetchtiffinSearchCards());
+  //   }
+  // }, [dispatch, getTiffinKitchenTypes.length, getTiffinRatings.length, getTiffinServiceTypes.length, getTiffinMealTypes.length, getTiffinPriceRanges.length, getTiffinFoodTypes.length]);
 
-
+  
   return (
     <>
       <section className='nav-bg-tiffin'>
