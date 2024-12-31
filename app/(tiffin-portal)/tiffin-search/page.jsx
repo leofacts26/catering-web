@@ -17,14 +17,13 @@ import GridViewTiffin from '@/components/tiffin/GridViewTiffin';
 import TiffinFilters from '@/components/tiffin/TiffinFilters';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
-import { fetchTiffinFoodTypes, fetchTiffinKitchenTypes, fetchTiffinMealTypes, fetchTiffinPriceRanges, fetchTiffinRatings, fetchtiffinSearchCards, fetchTiffinServiceTypes } from '@/app/features/tiffin/tiffinFilterSlice';
+import { fetchtiffinSearchCards } from '@/app/features/tiffin/tiffinFilterSlice';
 import useGetLocationResults from '@/hooks/catering/useGetLocationResults';
-
 
 
 const page = () => {
   const router = useRouter()
-  const { getTiffinSearchCards, getTiffinRatings, getTiffinFoodTypes, getTiffinPriceRanges, getTiffinServiceTypes, getTiffinMealTypes, getTiffinKitchenTypes, total_count } = useSelector((state) => state.tiffinFilter)
+  const { getTiffinSearchCards, total_count } = useSelector((state) => state.tiffinFilter)
   const [checked, setChecked] = useState(true);
   const dispatch = useDispatch();
   const { selectedLocation } = useGetLocationResults()
@@ -60,7 +59,7 @@ const page = () => {
   //   }
   // }, [dispatch, getTiffinKitchenTypes.length, getTiffinRatings.length, getTiffinServiceTypes.length, getTiffinMealTypes.length, getTiffinPriceRanges.length, getTiffinFoodTypes.length]);
 
-  
+
   return (
     <>
       <section className='nav-bg-tiffin'>

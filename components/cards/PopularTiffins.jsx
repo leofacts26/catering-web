@@ -9,7 +9,7 @@ import { fetchPopularCaterers, fetchPopularTiffins } from '@/app/features/user/h
 import PopularCaterersShimmer from '../shimmer/PopularCaterersShimmer';
 import Heading from '../Heading';
 import { useRouter } from 'next/navigation';
-import { fetchtiffinSearchCards, setTiffinSubscriptionFilter } from '@/app/features/tiffin/tiffinFilterSlice';
+import { fetchGetAllTiffinSubscriptionTypes, fetchtiffinSearchCards, setTiffinSubscriptionFilter } from '@/app/features/tiffin/tiffinFilterSlice';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -23,18 +23,26 @@ const PopularTiffins = () => {
     const { userDetails } = useSelector((state) => state.user)
     const { popularTiffins, isLoading } = useSelector((state) => state.homepage)
     const dispatch = useDispatch()
+    const { tiffinSubscriptionTypes } = useSelector((state) => state.tiffinFilter);
+
 
     const data = {
         latitude: userDetails?.latitude,
         longitude: userDetails?.longitude
     }
 
+     useEffect(() => {
+        if (!tiffinSubscriptionTypes?.length) {
+          dispatch(fetchGetAllTiffinSubscriptionTypes());
+        }
+      }, [dispatch, tiffinSubscriptionTypes?.length]);
+
     useEffect(() => {
         dispatch(fetchPopularTiffins(data))
     }, [])
 
     const onHandlePopularTiffenFilter = async (id) => {
-       await dispatch(setTiffinSubscriptionFilter(id))
+       await dispatch(setTiffinSubscriptionFilter({ id, tiffinSubscriptionTypes }))
         dispatch(fetchtiffinSearchCards())
         const url = `/tiffin-search`;
         router.push(url);

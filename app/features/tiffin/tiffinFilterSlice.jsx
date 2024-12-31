@@ -403,21 +403,22 @@ export const tiffinFilterSlice = createSlice({
             state.getTiffinKitchenTypes = updatedKitchenTypes;
         },
         setTiffinSubscriptionFilter: (state, action) => {
-            console.log(action, "action111");
-            const updatedSubscriptionFilter = state.tiffinSubscriptionTypes.map(subscription => {
-                if (subscription.id === action.payload) {
+            // console.log(action, "action");            
+            const { id, tiffinSubscriptionTypes } = action.payload;
+            const updatedSubscriptionFilter = tiffinSubscriptionTypes?.map(subscription => {
+                if (subscription.id === id) {
                     // Toggle the selectedweb value for the clicked subscription type
                     return {
                         ...subscription,
                         selectedweb: subscription.selectedweb === 1 ? 0 : 1
                     };
-                } else if (["5", "6"].includes(action.payload)) {
+                } else if (["5", "6"].includes(id)) {
                     // If selecting 5 or 6, ensure all others are deselected
                     return {
                         ...subscription,
                         selectedweb: 0
                     };
-                } else if (action.payload === "9999") {
+                } else if (id === "9999") {
                     // Always keep 9999 selected and deselect others
                     return {
                         ...subscription,

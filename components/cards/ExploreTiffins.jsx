@@ -9,16 +9,17 @@ import { fetchAllCities, fetchHomepageOccasions } from '@/app/features/user/home
 import ExploreCaterersShimmer from '../shimmer/ExploreCaterersShimmer';
 import useGetLocationResults from '@/hooks/catering/useGetLocationResults';
 import { setlLocationValuesGlobal } from '@/app/features/user/globalNavSlice';
-import { fetchtiffinSearchCards } from '@/app/features/tiffin/tiffinFilterSlice';
+import { fetchGetAllTiffinSubscriptionTypes, fetchtiffinSearchCards } from '@/app/features/tiffin/tiffinFilterSlice';
 import { useRouter } from 'next/navigation';
 
 
 const ExploreTiffins = () => {
     // const { isPlacePredictionsLoading, placePredictions, getPlacePredictions, selectLocation } = useGetLocationResults()
     const router = useRouter()
-
     const { getAllCities, isLoading } = useSelector((state) => state.homepage)
     const dispatch = useDispatch()
+
+
 
     useEffect(() => {
         dispatch(fetchAllCities())
@@ -26,7 +27,7 @@ const ExploreTiffins = () => {
 
     const onHandleCityFilter = (explorecater) => {
         const { latitude, longitude, name: city } = explorecater;
-    dispatch(setlLocationValuesGlobal({ latitude, longitude, city: { long_name: city } }));
+        dispatch(setlLocationValuesGlobal({ latitude, longitude, city: { long_name: city } }));
         dispatch(fetchtiffinSearchCards());
         const url = `/tiffin-search`;
         router.push(url);

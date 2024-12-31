@@ -17,13 +17,14 @@ import { useEffect } from 'react';
 import { fetchBrandedTiffins } from '@/app/features/user/homeSlice';
 import BrandedCaterersShimmer from '../shimmer/BrandedCaterersShimmer';
 import Heading from '../Heading';
-import { fetchtiffinSearchCards, setTiffinSubscriptionFilter } from '@/app/features/tiffin/tiffinFilterSlice';
+import { fetchGetAllTiffinSubscriptionTypes, fetchtiffinSearchCards, setTiffinSubscriptionFilter } from '@/app/features/tiffin/tiffinFilterSlice';
 import { useRouter } from 'next/navigation';
 
 const BrandedTiffenCaters = () => {
   const router = useRouter()
   const { userDetails } = useSelector((state) => state.user)
   const { tiffinList, isLoading } = useSelector((state) => state.homepage)
+  const { tiffinSubscriptionTypes } = useSelector((state) => state.tiffinFilter);
 
   const dispatch = useDispatch()
 
@@ -33,6 +34,12 @@ const BrandedTiffenCaters = () => {
   }
 
   useEffect(() => {
+    if (!tiffinSubscriptionTypes?.length) {
+      dispatch(fetchGetAllTiffinSubscriptionTypes());
+    }
+  }, [dispatch, tiffinSubscriptionTypes?.length]);
+
+  useEffect(() => {
     dispatch(fetchBrandedTiffins(data))
   }, [])
 
@@ -40,7 +47,7 @@ const BrandedTiffenCaters = () => {
 
   const onHandleBrandedFilter = () => {
     const id = "6";
-    dispatch(setTiffinSubscriptionFilter(id))
+    dispatch(setTiffinSubscriptionFilter({ id, tiffinSubscriptionTypes }))
     dispatch(fetchtiffinSearchCards())
     const url = `/tiffin-search`;
     router.push(url);

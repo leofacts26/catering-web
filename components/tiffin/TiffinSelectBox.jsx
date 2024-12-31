@@ -25,18 +25,21 @@ const TiffinSelectBox = () => {
     };
 
     useEffect(() => {
-        dispatch(fetchGetAllTiffinSubscriptionTypes())
-    }, [])
+        if (!tiffinSubscriptionTypes?.length) {
+            dispatch(fetchGetAllTiffinSubscriptionTypes());
+        }
+    }, [dispatch, tiffinSubscriptionTypes?.length]);
+
 
     // onHandlesubscriptionTypes 
     const onHandlesubscriptionTypes = (id) => {
-        dispatch(setTiffinSubscriptionFilter(id))
+        dispatch(setTiffinSubscriptionFilter({ id, tiffinSubscriptionTypes }))
         dispatch(fetchtiffinSearchCards())
     }
 
 
     // onHandleFIlterClear 
-    const onHandleFIlterClear = async () =>{
+    const onHandleFIlterClear = async () => {
         await dispatch(clearFiltersGlobal());
         window.location.reload()
     }
@@ -63,10 +66,10 @@ const TiffinSelectBox = () => {
 
 
                 <div className='clear-filter-top-box'>
-                    <Button className="cursor-pointer clear-filter" onClick={() => onHandleFIlterClear()}> 
-                       <Stack direction="row" alignItems="center">
-                       <FilterListOffIcon className="tiffin-removefilter-icon" /> Clear Filter
-                       </Stack>
+                    <Button className="cursor-pointer clear-filter" onClick={() => onHandleFIlterClear()}>
+                        <Stack direction="row" alignItems="center">
+                            <FilterListOffIcon className="tiffin-removefilter-icon" /> Clear Filter
+                        </Stack>
                     </Button>
                 </div>
             </Stack>
