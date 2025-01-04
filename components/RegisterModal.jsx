@@ -217,7 +217,7 @@ const OtpInput = ({ length = 6, user, setShowOtp, handleClose }) => {
 }
 
 const RegisterModal = () => {
-    const { loading, registerVendor, verifyOtp, resendOtp, registerOpen, setRegisterOpen, handleRegisterClickOpen, handleRegisterClose } = useRegistration();
+    const { loading, registerVendor, verifyOtp, resendOtp, registerOpen, setRegisterOpen, handleRegisterClickOpen, handleRegisterClose, onHandleRegisterLoseModal } = useRegistration();
     const regState = useSelector((state) => state.homepage.regState);
     const dispatch = useDispatch();
     const [showOtp, setShowOtp] = useState(true);
@@ -378,15 +378,18 @@ const RegisterModal = () => {
                                             {loading ? 'Loading...' : 'Register'}
                                         </Button>
                                     </Stack>
-                                    <p className="text-center text-white cursor-pointer reg-later" onClick={handleRegisterClose}>Maybe Later</p>
-
+                                    <Stack direction="row" justifyContent='center' spacing={2}>
+                                        <span className="text-center text-white cursor-pointer reg-later" onClick={handleRegisterClose}>Maybe Later</span>
+                                        <span className="text-center text-white cursor-pointer reg-later">/</span>
+                                        <span className="text-center text-white cursor-pointer reg-later" onClick={onHandleRegisterLoseModal}> Login here</span>
+                                    </Stack>
                                 </form>
                             )}
                         </Formik>
                     ) : (
                         <>
                             <div>
-                                <p className='text-center mt-5 mb-2 enter-otp'  style={{color: seconds > 0 || minutes > 0 ? "#e0e3e7" : "#fff"}}>Please enter Your OTP below</p>
+                                <p className='text-center mt-5 mb-2 enter-otp' style={{ color: seconds > 0 || minutes > 0 ? "#e0e3e7" : "#fff" }}>Please enter Your OTP below</p>
                                 <div className="otp-input-fields mb-3 my-4">
                                     <OtpInput length={6} user={user} setShowOtp={setShowOtp} handleClose={handleRegisterClose} />
                                 </div>
@@ -397,12 +400,12 @@ const RegisterModal = () => {
 
                                 <div className="countdown-text">
                                     {seconds > 0 || minutes > 0 ? (
-                                        <p className='ct-box-both-code text-center mx-auto mb-3 text-white'  style={{color: seconds > 0 || minutes > 0 ? "#e0e3e7" : "#fff"}}>
+                                        <p className='ct-box-both-code text-center mx-auto mb-3 text-white' style={{ color: seconds > 0 || minutes > 0 ? "#e0e3e7" : "#fff" }}>
                                             Time Remaining: {minutes < 10 ? `0${minutes}` : minutes}:
                                             {seconds < 10 ? `0${seconds}` : seconds}
                                         </p>
                                     ) : (
-                                        <p className='ct-box-both-code text-center mx-auto text-white mb-2'  style={{color: seconds > 0 || minutes > 0 ? "#e0e3e7" : "#fff"}}>Didn't Receive code?</p>
+                                        <p className='ct-box-both-code text-center mx-auto text-white mb-2' style={{ color: seconds > 0 || minutes > 0 ? "#e0e3e7" : "#fff" }}>Didn't Receive code?</p>
                                     )}
 
                                     <Box style={{ width: '100%', textAlign: 'center' }}>

@@ -113,7 +113,7 @@ const OtpInput = ({ length = 6, user, setShowOtp, handleClose, loginUserData }) 
 }
 
 const LoginModal = ({ detailModal, title }) => {
-    const { loading, loginVendor, loginOpen, setLoginOpen, handleClickOpen, handleClose, resendLoginOtp, loginCloseRegModalOpen } = useRegistration();
+    const { loading, loginVendor, loginOpen, setLoginOpen, handleClickOpen, handleClose, resendLoginOtp, loginCloseRegModalOpen, onHandleLoginLoseModal } = useRegistration();
     const [showOtp, setShowOtp] = useState(true);
     const [minutes, setMinutes] = useState(0);
     const [seconds, setSeconds] = useState(30);
@@ -255,7 +255,9 @@ const LoginModal = ({ detailModal, title }) => {
                                         </Button>
                                     </Stack>
                                     <Stack direction="row" justifyContent='center' spacing={2}>
-                                        <p className="text-center text-white cursor-pointer reg-later" onClick={handleClose}>Maybe Later</p>
+                                        <span className="text-center text-white cursor-pointer reg-later" onClick={handleClose}>Maybe Later</span> 
+                                        <span className="text-center text-white cursor-pointer reg-later">/</span>
+                                        <span className="text-center text-white cursor-pointer reg-later" onClick={onHandleLoginLoseModal}> Register here</span>
                                     </Stack>
 
 

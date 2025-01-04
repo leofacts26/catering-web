@@ -51,6 +51,16 @@ const useRegistration = () => {
         dispatch(setRegState(true))
     }
 
+    const onHandleLoginLoseModal = () =>{
+        dispatch(setLoginState(false))
+        dispatch(setRegState(true))
+    }
+
+    const onHandleRegisterLoseModal = () =>{
+        dispatch(setRegState(false))
+        dispatch(setLoginState(true))
+    }
+
 
 
     // registerVendor 
@@ -177,7 +187,7 @@ const useRegistration = () => {
 
     // Resend otp 
     const resendLoginOtp = async (loginUserData) => {
-        try {
+    try {
             const data = {
                 // company_id: loginUserData?.company_id,
                 // password: loginUserData?.password
@@ -192,7 +202,7 @@ const useRegistration = () => {
     }
 
 
-    return { loading, registerVendor, verifyOtp, resendOtp, loginOpen, setLoginOpen, registerOpen, setRegisterOpen, handleClickOpen, handleClose, loginVendor, verifyLoginOtp, resendLoginOtp, handleRegisterClickOpen, handleRegisterClose, loginCloseRegModalOpen };
+    return { loading, onHandleLoginLoseModal, onHandleRegisterLoseModal, registerVendor, verifyOtp, resendOtp, loginOpen, setLoginOpen, registerOpen, setRegisterOpen, handleClickOpen, handleClose, loginVendor, verifyLoginOtp, resendLoginOtp, handleRegisterClickOpen, handleRegisterClose, loginCloseRegModalOpen };
 };
 
 export default useRegistration;
