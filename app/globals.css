@@ -2711,7 +2711,7 @@ h6 {
 }
 
 .otp__digit {
-  color: var(--alternate) !important;
+  color: #fff !important;
 }
 
 /* otp end */
@@ -3593,8 +3593,8 @@ textarea:-webkit-autofill:active {
 .cater-clear-filter {
   background-color: #e0e3e7 !important;
   color: var(--accent2) !important;
-  padding: 5px !important;
-  border-radius: 5px !important;
+  padding: 5px 6px !important;
+  border-radius: 99px !important;
   font-size: 12px !important;
 }
 
@@ -3900,7 +3900,7 @@ textarea:-webkit-autofill:active {
 }
 
 .clear-filter-top-box {
-  width: 155px !important;
+  /* width: 155px !important; */
 }
 
 .css-1t1j96h-MuiPaper-root-MuiDialog-paper{

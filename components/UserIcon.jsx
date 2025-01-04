@@ -57,12 +57,23 @@ const UserIcon = () => {
         window.location.reload();
     }
 
+    const handleCopyToClipboard = () => {
+        const textToCopy = "https://cateringvendor.cateringsandtiffins.com/";
+        navigator.clipboard.writeText(textToCopy)
+            .then(() => {
+                toast.success("Link Copied")
+            })
+            .catch((err) => {
+                console.error('Failed to copy: ', err);
+            });
+    };
+
     // console.log(userDetails, "userDetails");
 
     return (
         <>
             <Stack direction="row" alignItems="center"
-            sx={{ paddingLeft: '10px', cursor: 'pointer' }}
+                sx={{ paddingLeft: '10px', cursor: 'pointer' }}
             >
                 <Stack direction="row" alignItems="center"
                     id="fade-button"
@@ -180,7 +191,7 @@ const UserIcon = () => {
 
 
                     <p style={{ marginTop: '10px', fontSize: '12px' }}>Get in Touch</p>
-                    <Link href="/user-profile/list-your-service">
+                    <Link href="https://cateringvendor.cateringsandtiffins.com/">
                         <Stack direction="row" justifyContent="space-between" className='up-card'>
                             <Stack direction="row" spacing={1} alignItems="center">
                                 <ViewListIcon className="up-profile-icon" />
@@ -202,9 +213,11 @@ const UserIcon = () => {
                     </Link>
 
 
-                    <Stack direction="row" justifyContent="space-between" className='up-card share-icon-modal'>
-                        <p>Share Caterings & Tiffins</p>
-                        <ShareIcon className="up-profile-icon" />
+                    <Stack direction="row" justifyContent="space-between" className='up-card share-icon-modal' onClick={handleCopyToClipboard}>
+                        <p><ShareIcon className='up-profile-icon' /></p>
+                        <Stack direction="row" alignItems="center">
+                            <p> Share Caterings & Tiffin's </p>
+                        </Stack>
                     </Stack>
 
                     <Stack direction="row" justifyContent="end" sx={{ marginTop: '20px' }}>
