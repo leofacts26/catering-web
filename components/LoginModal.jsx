@@ -112,7 +112,7 @@ const OtpInput = ({ length = 6, user, setShowOtp, handleClose, loginUserData }) 
     )
 }
 
-const LoginModal = ({ detailModal }) => {
+const LoginModal = ({ detailModal, title }) => {
     const { loading, loginVendor, loginOpen, setLoginOpen, handleClickOpen, handleClose, resendLoginOtp, loginCloseRegModalOpen } = useRegistration();
     const [showOtp, setShowOtp] = useState(true);
     const [minutes, setMinutes] = useState(0);
@@ -192,8 +192,8 @@ const LoginModal = ({ detailModal }) => {
 
     return (
         <React.Fragment>
-            <Link href="javascript:void(0)" onClick={handleClickOpen} className="nav-link"
-            >Login</Link>
+            {title === "Contact Now" ? <Button variant="contained" className="vc-contact-btn-tiffin" onClick={handleClickOpen}>Contact Now</Button> : <Link href="javascript:void(0)" onClick={handleClickOpen} className="nav-link"
+            >Login</Link>}
             <Dialog
                 open={loginOpen}
                 TransitionComponent={Transition}
@@ -254,7 +254,7 @@ const LoginModal = ({ detailModal }) => {
                                         </Button>
                                     </Stack>
                                     <Stack direction="row" justifyContent='center' spacing={2}>
-                                    <p className="text-center text-white cursor-pointer reg-later" onClick={handleClose}>Maybe Later</p> 
+                                        <p className="text-center text-white cursor-pointer reg-later" onClick={handleClose}>Maybe Later</p>
                                     </Stack>
 
 
@@ -264,7 +264,7 @@ const LoginModal = ({ detailModal }) => {
                     ) : (
                         <>
                             <div>
-                                <p className='text-center mt-5 mb-2 enter-otp' style={{color: seconds > 0 || minutes > 0 ? "#e0e3e7" : "#fff"}}>Please enter Your OTP below</p>
+                                <p className='text-center mt-5 mb-2 enter-otp' style={{ color: seconds > 0 || minutes > 0 ? "#e0e3e7" : "#fff" }}>Please enter Your OTP below</p>
                                 <div className="otp-input-fields mb-3 my-4">
                                     <OtpInput length={6} user={user} setShowOtp={setShowOtp} handleClose={handleClose} loginUserData={loginUserData} />
                                 </div>
@@ -275,12 +275,12 @@ const LoginModal = ({ detailModal }) => {
 
                                 <div className="countdown-text">
                                     {seconds > 0 || minutes > 0 ? (
-                                        <p className='ct-box-both-code text-center mx-auto mb-3 text-white' style={{color: seconds > 0 || minutes > 0 ? "#e0e3e7" : "#fff"}}>
+                                        <p className='ct-box-both-code text-center mx-auto mb-3 text-white' style={{ color: seconds > 0 || minutes > 0 ? "#e0e3e7" : "#fff" }}>
                                             Time Remaining: {minutes < 10 ? `0${minutes}` : minutes}:
                                             {seconds < 10 ? `0${seconds}` : seconds}
                                         </p>
                                     ) : (
-                                        <p className='ct-box-both-code text-center mx-auto text-white mb-2' style={{color: seconds > 0 || minutes > 0 ? "#e0e3e7" : "#fff"}}>Didn't Receive code?</p>
+                                        <p className='ct-box-both-code text-center mx-auto text-white mb-2' style={{ color: seconds > 0 || minutes > 0 ? "#e0e3e7" : "#fff" }}>Didn't Receive code?</p>
                                     )}
 
                                     <Box style={{ width: '100%', textAlign: 'center' }}>

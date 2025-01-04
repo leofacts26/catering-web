@@ -18,17 +18,27 @@ const ShowAllImages = ({ galleryImages, bennerMenuMixGalleryImages }) => {
     const [open, setOpen] = useState(false);
 
     // const combinedImages = [...(galleryImages || []), ...(bennerMenuMixGalleryImages || [])];
-    const combinedImages = [ ...(bennerMenuMixGalleryImages || [])];
+    const combinedImages = [...(bennerMenuMixGalleryImages || [])];
 
-    const slides = combinedImages.map(image => {
-        const originalImage = image.image_names[0].original || '/img/no-image.jpg';
-        return {
-            src: originalImage,
-            alt: `image ${image.id}`,
-            width: '100%',
-        }
-    })
-
+    // Ensure at least one dummy image if no images are provided
+    const slides =
+        combinedImages.length > 0
+            ? combinedImages.map((image) => {
+                const originalImage =
+                    image?.image_names?.[0]?.original || "/img/no-image.jpg";
+                return {
+                    src: originalImage,
+                    alt: `image ${image.id || "placeholder"}`,
+                    width: "100%",
+                };
+            })
+            : [
+                {
+                    src: "/img/no-image.jpg",
+                    alt: "No image available",
+                    width: "100%",
+                },
+            ];
     // console.log(slides, "slides");
 
     return (
