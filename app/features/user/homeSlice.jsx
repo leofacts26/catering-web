@@ -14,24 +14,26 @@ const initialState = {
     tiffinList: [],
     popularTiffins: [],
     getAllcuisines: [],
+    loginState: false,
+    regState: false,
 }
 
 export const clearFiltersGlobal = createAsyncThunk(
     'homepage/clearFilters',
     async (user, thunkAPI) => {
-      try {
-        const response = await api.post(`${BASE_URL}/clear-all-filters-web`, { is_notification_allowed: 1 }, {
-          headers: {
-            authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
-          },
-        });
-        // toast.success(successToast(response))
-      } catch (error) {
-        return thunkAPI.rejectWithValue(error.response.data.msg);
-      }
+        try {
+            const response = await api.post(`${BASE_URL}/clear-all-filters-web`, { is_notification_allowed: 1 }, {
+                headers: {
+                    authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
+                },
+            });
+            // toast.success(successToast(response))
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error.response.data.msg);
+        }
     }
-  )
-  
+)
+
 
 export const fetchFaq = createAsyncThunk(
     'homepage/fetchFaq',
@@ -210,10 +212,12 @@ export const homeSlice = createSlice({
     name: 'homepage',
     initialState,
     reducers: {
-        // setData: (state, action) => {
-        //     state.userData = action.payload;
-        // },
-
+        setLoginState: (state, action) => {
+            state.loginState = action.payload;
+        },
+        setRegState: (state, action) => {
+            state.regState = action.payload;
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -344,6 +348,6 @@ export const homeSlice = createSlice({
 
 
 // Action creators are generated for each case reducer function
-export const { } = homeSlice.actions
+export const { setLoginState, setRegState } = homeSlice.actions
 
 export default homeSlice.reducer

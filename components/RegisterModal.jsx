@@ -218,7 +218,7 @@ const OtpInput = ({ length = 6, user, setShowOtp, handleClose }) => {
 
 const RegisterModal = () => {
     const { loading, registerVendor, verifyOtp, resendOtp, registerOpen, setRegisterOpen, handleRegisterClickOpen, handleRegisterClose } = useRegistration();
-
+    const regState = useSelector((state) => state.homepage.regState);
     const dispatch = useDispatch();
     const [showOtp, setShowOtp] = useState(true);
     const [minutes, setMinutes] = useState(0);
@@ -283,10 +283,10 @@ const RegisterModal = () => {
 
     return (
         <React.Fragment>
-            <Link href="javascript:void(0)" onClick={handleRegisterClickOpen} className="nav-link"
-            >Signup</Link>
+            {/* <Link href="javascript:void(0)" onClick={handleRegisterClickOpen} className="nav-link"
+            >Signup</Link> */}
             <Dialog
-                open={registerOpen}
+                open={regState}
                 TransitionComponent={Transition}
                 keepMounted
                 onClose={handleRegisterClose}

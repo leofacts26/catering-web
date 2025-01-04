@@ -2,17 +2,18 @@
 import React, { useState } from 'react'
 import Button from '@mui/material/Button';
 import { useSelector } from 'react-redux';
-import LoginModal from './LoginModal';
+import useRegistration from '@/hooks/useRegistration';
 
 const ContactBtn = ({ number }) => {
     const accessToken = useSelector((state) => state.user.accessToken);
     const [userNumber, setUserNumber] = useState(false)
+    const { handleClickOpen, handleRegisterClickOpen } = useRegistration();
 
     return (
         <>
             {accessToken ? <Button variant="contained" className="vc-contact-btn-tiffin" onClick={() => setUserNumber(true)}>
                 {userNumber ? <a style={{ color: '#ffffff', textDecoration: 'none' }} href={`tel:${number}`}>{number}</a> : 'Contact Now'} </Button> :
-                <LoginModal title="Contact Now"  />
+                <Button variant="contained" className="vc-contact-btn-tiffin" onClick={handleClickOpen}>Contact Now</Button>
             }
         </>
     )

@@ -122,6 +122,7 @@ const LoginModal = ({ detailModal, title }) => {
     const dispatch = useDispatch();
     const user = useSelector((state) => state.user.userData)
     const loginUserData = useSelector((state) => state.user.loginUserData)
+    const loginState = useSelector((state) => state.homepage.loginState);
     // console.log(loginUserData, "00000");
     // console.log(user, "user");
 
@@ -192,10 +193,10 @@ const LoginModal = ({ detailModal, title }) => {
 
     return (
         <React.Fragment>
-            {title === "Contact Now" ? <Button variant="contained" className="vc-contact-btn-tiffin" onClick={handleClickOpen}>Contact Now</Button> : <Link href="javascript:void(0)" onClick={handleClickOpen} className="nav-link"
-            >Login</Link>}
+            {/* {title === "Contact Now" ? <Button variant="contained" className="vc-contact-btn-tiffin" onClick={handleClickOpen}>Contact Now</Button> : <Link href="javascript:void(0)" onClick={handleClickOpen} className="nav-link"
+            >Login</Link>} */}
             <Dialog
-                open={loginOpen}
+                open={loginState}
                 TransitionComponent={Transition}
                 keepMounted
                 onClose={handleClose}

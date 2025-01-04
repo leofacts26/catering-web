@@ -5,6 +5,7 @@ import { datavalidationerror, successToast } from '@/utils';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAccessToken, setData, setVendorId } from '@/app/features/user/userSlice';
 import { vendor_type } from '@/constant';
+import { setLoginState, setRegState } from '@/app/features/user/homeSlice';
 
 const useRegistration = () => {
     const { regData } = useSelector((state) => state.user)
@@ -22,26 +23,32 @@ const useRegistration = () => {
 
 
     const handleClickOpen = () => {
-        setLoginOpen(true);
+        // setLoginOpen(true);
+        dispatch(setLoginState(true))
     };
 
     const handleClose = () => {
-        setLoginOpen(false);
+        // setLoginOpen(false);
+        dispatch(setLoginState(false))
     };
 
 
     const handleRegisterClickOpen = () => {
-        setRegisterOpen(true);
+        // setRegisterOpen(true);
+        dispatch(setRegState(true))
     };
 
     const handleRegisterClose = () => {
-        setRegisterOpen(false);
+        // setRegisterOpen(false);
+        dispatch(setRegState(false))
     };
 
 
-    const loginCloseRegModalOpen = () =>{
-        setLoginOpen(false);
-        setRegisterOpen(true);
+    const loginCloseRegModalOpen = () => {
+        // setLoginOpen(false);
+        dispatch(setLoginState(false))
+        // setRegisterOpen(true);
+        dispatch(setRegState(true))
     }
 
 

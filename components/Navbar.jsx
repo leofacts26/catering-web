@@ -17,6 +17,7 @@ import Container from '@mui/material/Container';
 import { useSelector } from 'react-redux';
 import LoginModal from './LoginModal';
 import useResetCateringFilter from '@/hooks/useResetCateringFilter';
+import useRegistration from '@/hooks/useRegistration';
 
 
 
@@ -32,6 +33,9 @@ const Navbar = ({ cateringHome }) => {
     const clearCateringFilter = useResetCateringFilter()
 
     const accessToken = useSelector((state) => state.user.accessToken)
+    const { handleClickOpen, handleRegisterClickOpen } = useRegistration();
+
+
 
     return (
         <>
@@ -55,8 +59,12 @@ const Navbar = ({ cateringHome }) => {
 
                         {!accessToken && (
                             <>
-                                <RegisterModal />
-                                <LoginModal />
+                                {/* <RegisterModal /> */}
+                                {/* <LoginModal /> */}
+                                <Link href="javascript:void(0)" onClick={handleRegisterClickOpen} className="nav-link"
+                                >Signup</Link>
+                                <Link href="javascript:void(0)" onClick={handleClickOpen} className="nav-link"
+                                >Login</Link>
                             </>
                         )}
 
