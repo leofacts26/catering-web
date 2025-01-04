@@ -18,12 +18,14 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { addchWishlist } from '@/app/features/user/settingSlice';
+import useRegistration from '@/hooks/useRegistration';
 
 
 const SimilarCaterersTiffin = ({ tiffin }) => {
     const accessToken = useSelector((state) => state.user.accessToken);
     const router = useRouter()
     const [isAnimating, setIsAnimating] = useState(false);
+    const { handleClickOpen } = useRegistration();
 
     const { getTiffinSimilarTypes } = useSelector((state) => state.tiffinFilter)
     const dispatch = useDispatch()
@@ -155,7 +157,7 @@ const SimilarCaterersTiffin = ({ tiffin }) => {
                                                                     onHandleAddFavourite(getSearchCard?.id)
                                                                     e.stopPropagation()
                                                                 }} />}
-                                                        </> : <FavoriteBorderIcon className='grid-lse-icons-tiffin cursor-pointer' onClick={() => toast.error("Login before Adding to Wishlist")} />}
+                                                        </> : <FavoriteBorderIcon className='grid-lse-icons-tiffin cursor-pointer' onClick={handleClickOpen} />}
                                                     </span>
                                                 </div>
                                             </Stack>

@@ -5,12 +5,13 @@ import Stack from '@mui/material/Stack';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { addchWishlist } from '@/app/features/user/settingSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import toast from 'react-hot-toast';
+import useRegistration from '@/hooks/useRegistration';
 
 const CateringDetailSave = ({ branchId, is_wishlisted }) => {
     const [wishlist, setWishlist] = useState(is_wishlisted);
     const dispatch = useDispatch();
     const accessToken = useSelector((state) => state.user.accessToken);
+    const { handleClickOpen } = useRegistration();
 
     useEffect(() => {
         setWishlist(is_wishlisted);
@@ -51,7 +52,7 @@ const CateringDetailSave = ({ branchId, is_wishlisted }) => {
                             <Stack direction="row" alignItems="center" className="vc-icons" spacing={1}><FavoriteBorderIcon style={{ fontSize: '18px' }} /> <span>Save</span></Stack>
                     }
                 </Stack>
-            </> : <Stack direction="row" alignItems="center" spacing={1} className="vc-icons" onClick={() => toast.error("Login before Adding to Wishlist")}>
+            </> : <Stack direction="row" alignItems="center" spacing={1} className="vc-icons" onClick={handleClickOpen}>
                 {
                     wishlist ? <Stack direction="row" alignItems="center" className="vc-icons" spacing={1}>
                         <FavoriteIcon style={{ fontSize: '18px' }} /> <span>Save</span></Stack> :

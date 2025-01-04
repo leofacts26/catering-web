@@ -17,6 +17,7 @@ import CateringWishlist from '@/components/CateringWishlist';
 import GridViewSkeleton from './GridViewSkeleton';
 import { unwrapResult } from '@reduxjs/toolkit';
 import toast from 'react-hot-toast';
+import useRegistration from '@/hooks/useRegistration';
 
 
 const TiffinWishList = () => {
@@ -24,6 +25,7 @@ const TiffinWishList = () => {
     const router = useRouter()
     const accessToken = useSelector((state) => state.user.accessToken);
     const [isAnimating, setIsAnimating] = useState(false);
+    const { handleClickOpen } = useRegistration();
 
     const { tiffinWishlist, isLoading } = useSelector((state) => state.settings)
     const dispatch = useDispatch()
@@ -154,7 +156,7 @@ const TiffinWishList = () => {
                                                                                         onHandleAddFavourite(getSearchCard?.id)
                                                                                         e.stopPropagation()
                                                                                     }} />}
-                                                                            </> : <FavoriteBorderIcon className='grid-lse-icons-tiffin cursor-pointer' onClick={() => toast.error("Login before Adding to Wishlist")} />}
+                                                                            </> : <FavoriteBorderIcon className='grid-lse-icons-tiffin cursor-pointer' onClick={handleClickOpen} />}
                                                                         </span>
                                                                     </div>
                                                                 </Stack>

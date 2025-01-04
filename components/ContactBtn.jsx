@@ -7,7 +7,7 @@ import useRegistration from '@/hooks/useRegistration';
 const ContactBtn = ({ number }) => {
     const accessToken = useSelector((state) => state.user.accessToken);
     const [userNumber, setUserNumber] = useState(false)
-    const { handleClickOpen, handleRegisterClickOpen } = useRegistration();
+    const { handleClickOpen } = useRegistration();
 
     return (
         <>

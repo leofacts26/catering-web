@@ -6,11 +6,13 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import { addchWishlist } from '@/app/features/user/settingSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import toast from 'react-hot-toast';
+import useRegistration from '@/hooks/useRegistration';
 
 const TiffinDetailSave = ({ branchId, is_wishlisted }) => {
     const [wishlist, setWishlist] = useState(is_wishlisted);
     const dispatch = useDispatch();
     const accessToken = useSelector((state) => state.user.accessToken);
+    const { handleClickOpen } = useRegistration();
 
 
     useEffect(() => {
@@ -43,7 +45,7 @@ const TiffinDetailSave = ({ branchId, is_wishlisted }) => {
                             <Stack direction="row" alignItems="center" className="vc-icons-tiffin" spacing={1}><FavoriteBorderIcon style={{ fontSize: '18px' }} /> <span>Save</span></Stack>
                     }
                 </Stack>
-            </> : <Stack direction="row" alignItems="center" spacing={1} className="vc-icons-tiffin" onClick={() => toast.error("Login before Adding to Wishlist")}>
+            </> : <Stack direction="row" alignItems="center" spacing={1} className="vc-icons-tiffin" onClick={handleClickOpen}>
                     {
                         wishlist ? <Stack direction="row" alignItems="center" className="vc-icons-tiffin" spacing={1}>
                             <FavoriteIcon style={{ fontSize: '18px' }} /> <span>Save</span></Stack> :

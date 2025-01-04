@@ -16,6 +16,7 @@ import StarIcon from '@mui/icons-material/Star';
 import ShowOnMapCatering from '../ShowOnMapCatering';
 import useGetLocationResults from '@/hooks/catering/useGetLocationResults';
 import { getRandomCuisines } from '@/helper';
+import useRegistration from '@/hooks/useRegistration';
 
 
 const ListView = () => {
@@ -24,6 +25,7 @@ const ListView = () => {
     const accessToken = useSelector((state) => state.user.accessToken);
     const { selectedLocation } = useGetLocationResults()
     const [isAnimating, setIsAnimating] = useState(false);
+    const { handleClickOpen } = useRegistration();
 
     // console.log(accessToken, "accessToken accessToken");
 
@@ -282,7 +284,7 @@ const ListView = () => {
                                             />
                                             {accessToken ? <>
                                                 {wishlist[getSearchCard?.id] ? <FavoriteIcon className='lse-icons cursor-pointer fill-heart-catering' onClick={() => onHandleAddFavourite(getSearchCard?.id)} /> : <FavoriteBorderIcon className='lse-icons cursor-pointer' onClick={() => onHandleAddFavourite(getSearchCard?.id)} />}
-                                            </> : <FavoriteBorderIcon className='lse-icons cursor-pointer' onClick={() => toast.error("Login before Adding to Wishlist")} />}
+                                            </> : <FavoriteBorderIcon className='lse-icons cursor-pointer' onClick={handleClickOpen} />}
                                         </Stack>
                                         <Stack direction="row" alignItems="center" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} style={{ marginTop: '8px' }}>
                                             <span className='cat-red' style={{ fontSize: '14px' }}>

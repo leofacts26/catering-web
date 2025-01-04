@@ -13,6 +13,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import { addchWishlist } from '@/app/features/user/settingSlice';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
+import useRegistration from '@/hooks/useRegistration';
 
 
 const GridViewList = ({ xs, sm, md, lg }) => {
@@ -21,6 +22,7 @@ const GridViewList = ({ xs, sm, md, lg }) => {
     const accessToken = useSelector((state) => state.user.accessToken);
     const router = useRouter()
     const [isAnimating, setIsAnimating] = useState(false);
+    const { handleClickOpen } = useRegistration();
 
     const [wishlist, setWishlist] = useState({});
 
@@ -149,7 +151,7 @@ const GridViewList = ({ xs, sm, md, lg }) => {
                                                                         onHandleAddFavourite(getSearchCard?.id)
                                                                         e.stopPropagation()
                                                                     }} />}
-                                                            </> : <FavoriteBorderIcon className='grid-lse-icons cursor-pointer' onClick={() => toast.error("Login before Adding to Wishlist")} />}
+                                                            </> : <FavoriteBorderIcon className='grid-lse-icons cursor-pointer' onClick={handleClickOpen} />}
                                                         </span>
                                                     </div>
                                                 </Stack>

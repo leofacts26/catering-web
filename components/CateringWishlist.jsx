@@ -18,12 +18,14 @@ import { unwrapResult } from '@reduxjs/toolkit';
 import FilterListOffIcon from '@mui/icons-material/FilterListOff';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import toast from 'react-hot-toast';
+import useRegistration from '@/hooks/useRegistration';
 
 const CateringWishlist = () => {
 
     const router = useRouter()
     const accessToken = useSelector((state) => state.user.accessToken);
     const [isAnimating, setIsAnimating] = useState(false);
+    const { handleClickOpen } = useRegistration();
 
     const { caterWishlist, isLoading, tiffinWishlist } = useSelector((state) => state.settings)
     const dispatch = useDispatch()
@@ -110,8 +112,8 @@ const CateringWishlist = () => {
         );
     }
 
-    console.log(caterWishlist, "caterWishlist");
-    console.log(tiffinWishlist, "tiffinWishlist");
+    // console.log(caterWishlist, "caterWishlist");
+    // console.log(tiffinWishlist, "tiffinWishlist");
 
     return (
         <>
@@ -176,7 +178,7 @@ const CateringWishlist = () => {
                                                                                         onHandleAddFavourite(getSearchCard?.id)
                                                                                         e.stopPropagation()
                                                                                     }} />}
-                                                                            </> : <FavoriteBorderIcon className='grid-lse-icons cursor-pointer' onClick={() => toast.error("Login before Adding to Wishlist")} />}
+                                                                            </> : <FavoriteBorderIcon className='grid-lse-icons cursor-pointer' onClick={handleClickOpen} />}
                                                                         </span>
                                                                     </div>
                                                                 </Stack>

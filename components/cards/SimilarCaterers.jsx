@@ -18,6 +18,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { addchWishlist } from '@/app/features/user/settingSlice';
+import useRegistration from '@/hooks/useRegistration';
 
 const SimilarCaterers = ({ tiffin }) => {
     const accessToken = useSelector((state) => state.user.accessToken);
@@ -25,6 +26,7 @@ const SimilarCaterers = ({ tiffin }) => {
     const dispatch = useDispatch()
     const router = useRouter()
     const [isAnimating, setIsAnimating] = useState(false);
+    const { handleClickOpen } = useRegistration();
 
     useEffect(() => {
         dispatch(fetchCatererSimilarCaterer())
@@ -152,7 +154,8 @@ const SimilarCaterers = ({ tiffin }) => {
                                                                     onHandleAddFavourite(getSearchCard?.id)
                                                                     e.stopPropagation()
                                                                 }} />}
-                                                        </> : <FavoriteBorderIcon className='grid-lse-icons cursor-pointer' onClick={() => toast.error("Login before Adding to Wishlist")} />}
+                                                        </> : <FavoriteBorderIcon className='grid-lse-icons cursor-pointer' 
+                                                        onClick={handleClickOpen} />}
                                                     </span>
                                                 </div>
                                             </Stack>

@@ -16,6 +16,7 @@ import { fetchtiffinSearchCards, incrementTiffinPage } from '@/app/features/tiff
 import ShowOnMap from '../ShowOnMap';
 import StarIcon from '@mui/icons-material/Star';
 import toast from 'react-hot-toast';
+import useRegistration from '@/hooks/useRegistration';
 
 
 
@@ -25,6 +26,7 @@ const ListViewTiffin = () => {
     const { getTiffinSearchCards, isLoading, current_page, limit, total_count } = useSelector((state) => state.tiffinFilter)
     const dispatch = useDispatch()
     const [isAnimating, setIsAnimating] = useState(false);
+    const { handleClickOpen } = useRegistration();
 
     const [page, setPage] = useState(1);
     const handleChange = (event, value) => {
@@ -113,7 +115,7 @@ const ListViewTiffin = () => {
         </>
     }
 
-    console.log(getTiffinSearchCards, "getTiffinSearchCards getTiffinSearchCards");
+    // console.log(getTiffinSearchCards, "getTiffinSearchCards getTiffinSearchCards");
 
     return (
         <>
@@ -253,7 +255,7 @@ const ListViewTiffin = () => {
 
                                                     {accessToken ? <>
                                                         {wishlist[item?.id] ? <FavoriteIcon className='lse-icons cursor-pointer fill-heart-tiffin' onClick={() => onHandleAddFavourite(item?.id)} /> : <FavoriteBorderIcon className='lse-icons cursor-pointer' onClick={() => onHandleAddFavourite(item?.id)} />}
-                                                    </> : <FavoriteBorderIcon className='lse-icons cursor-pointer' onClick={() => toast.error("Login before Adding to Wishlist")} />}
+                                                    </> : <FavoriteBorderIcon className='lse-icons cursor-pointer' onClick={handleClickOpen} />}
                                                 </Stack>
                                                 <Stack direction="row" alignItems="center" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} style={{ marginBottom: '8px'}}>
                                                     <span className='cat-yellow' style={{ fontSize: '14px' }}>
