@@ -190,9 +190,12 @@ const page = () => {
                     <Grid container spacing={2}>
                         <Grid item sm={12} lg={7}>
 
-                            {data?.foodTypes.length > 0 && <Stack direction="row" spacing={1} sx={{ marginBottom: '15px' }}>
+                            {data?.foodTypes.length > 0 ? <Stack direction="row" spacing={1} sx={{ marginBottom: '15px' }}>
                                 <h2 className="food-type">Food Type : </h2>
                                 <FoodType data={data?.foodTypes} />
+                            </Stack> : <Stack direction="row" spacing={1} sx={{ marginBottom: '15px' }}>
+                                <h2 className="food-type">Food Type : </h2>
+                                <p className={`list-card-veg-font mt-1`}> N/A </p>
                             </Stack>}
 
                             {data?.cuisines?.length > 0 && <div>
@@ -216,10 +219,15 @@ const page = () => {
                         </Grid>
                         <Grid item sm={12} lg={5} className="w-100">
                             <Stack direction="column" alignContent="end" alignItems="end" justifyContent="end" className="w-100">
-                                {data?.start_price && <Stack direction="row" alignItems="center" className="mb-2">
+                                {data?.start_price ? <Stack direction="row" alignItems="center" className="mb-2">
                                     <span className="vc-price">Starting Price / Plate -</span>
                                     <Stack direction="row" alignItems="center" spacing={0}>
                                         <CurrencyRupeeIcon className="vc-price-one" /> <span className="vc-price-one"> {data?.start_price && data?.start_price} </span>
+                                    </Stack>
+                                </Stack> : <Stack direction="row" alignItems="center" className="mb-2">
+                                    <span className="vc-price">Starting Price / Plate -</span>
+                                    <Stack direction="row" alignItems="center" spacing={0}>
+                                         <span className="vc-price-one ms-1"> N/A </span>
                                     </Stack>
                                 </Stack>}
 
