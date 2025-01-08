@@ -190,13 +190,16 @@ const page = () => {
           <Grid container spacing={2}>
             <Grid item sm={12} lg={7}>
 
-              {data?.foodTypes.length > 0 && <Stack direction="row" spacing={1} sx={{ marginBottom: '15px' }}>
+              {data?.foodTypes.length > 0 ? <Stack direction="row" spacing={1} sx={{ marginBottom: '15px' }}>
                 <h2 className="food-type-tiffin">Food Type : </h2>
                 <FoodType data={data?.foodTypes} />
+              </Stack> : <Stack direction="row" spacing={1} sx={{ marginBottom: '15px' }}>
+                <h2 className="food-type-tiffin">Food Type : </h2>
+                <p className={`list-card-veg-font mt-1`}> N/A </p>
               </Stack>}
 
 
-              {data?.cuisines?.length > 0 && <div>
+              {data?.cuisines?.length > 0 ? <div>
                 <h2 className="vc-cater-tiffin" style={{ marginBottom: '10px' }}>Cuisines We Cater</h2>
                 <Stack direction="row" flexWrap="wrap" alignItems="start" spacing={3}>
                   {
@@ -212,6 +215,9 @@ const page = () => {
                     <span className="text-orange view-all cursor-pointer" onClick={onHandleCuisineClose}> Show Less </span>
                   )}
                 </Stack>
+              </div> : <div>
+                <h2 className="vc-cater-tiffin" style={{ marginBottom: '10px' }}>Cuisines We Cater</h2>
+                <p className="vc-about-content vc-markdown mt-1"> N/A </p>
               </div>}
 
             </Grid>
@@ -219,13 +225,17 @@ const page = () => {
 
             <Grid item sm={12} lg={5}>
               <Stack direction="column" alignContent="end" alignItems="end" justifyContent="end">
-                {data?.start_price !== null && <Stack direction="row" alignItems="center" className="mb-2">
+                {data?.start_price ? <Stack direction="row" alignItems="center" className="mb-2">
                   <span className="vc-price">Montly Plan Price -</span>
                   <Stack direction="row" alignItems="center" spacing={0}>
                     <CurrencyRupeeIcon className="vc-price-one-tiffin" /> <span className="vc-price-one-tiffin"> {data?.start_price} </span>
                   </Stack>
+                </Stack> : <Stack direction="row" alignItems="center" className="mb-2">
+                  <span className="vc-price">Montly Plan Price -</span>
+                  <span className="vc-price-one ms-1"> N/A </span>
                 </Stack>}
-                {accessToken && <Link href="#reviews" className="vc-reviews-tiffin">See Reviews {data?.review_count && data?.review_count}</Link>}
+
+                {accessToken && <Link href="#reviews" className="vc-reviews-tiffin">See Reviews: {data?.review_count && data?.review_count}</Link>}
                 {data?.business_phone_number && <Stack direction="row" spacing={2} style={{ marginTop: '10px' }}>
                   <ContactBtn number={data?.business_phone_number} />
                 </Stack>}
@@ -237,11 +247,10 @@ const page = () => {
 
       <Container maxWidth="xl" style={{ marginTop: '30px', marginBottom: '30px' }}>
         <Grid container spacing={2}>
-          {data?.serviceTypes?.length > 0 && <Grid item xs={12} sm={6} md={3} lg={2.5}>
+          {data?.serviceTypes?.length > 0 ? <Grid item xs={12} sm={6} md={3} lg={2.5}>
             <div className="vc-shadow-tiffin">
               <CardContent>
                 <div className="text-center">
-                  {/* <img src="/img/icons/service-type-filled.svg" className='vc-icon-svg' alt="" /> */}
                   <OutdoorGrillIcon className="vc-icon-label-tiffin" />
                   <p className="vc-service-type">Service Type</p>
                   <h3 className="vc-service-heading">
@@ -250,9 +259,19 @@ const page = () => {
                 </div>
               </CardContent>
             </div>
+          </Grid> : <Grid item xs={12} sm={6} md={3} lg={2.5}>
+            <div className="vc-shadow-tiffin">
+              <CardContent>
+                <div className="text-center">
+                  <OutdoorGrillIcon className="vc-icon-label-tiffin" />
+                  <p className="vc-service-type">Service Type</p>
+                  <h3 className="vc-service-heading">N/A</h3>
+                </div>
+              </CardContent>
+            </div>
           </Grid>}
 
-          {data?.mealTimes?.length > 0 && <Grid item xs={12} sm={6} md={3} lg={2.5}>
+          {data?.mealTimes?.length > 0 ? <Grid item xs={12} sm={6} md={3} lg={2.5}>
             <div className="vc-shadow-tiffin">
               <CardContent>
                 <div className="text-center">
@@ -264,9 +283,19 @@ const page = () => {
                 </div>
               </CardContent>
             </div>
+          </Grid> : <Grid item xs={12} sm={6} md={3} lg={2.5}>
+            <div className="vc-shadow-tiffin">
+              <CardContent>
+                <div className="text-center">
+                  <WbSunnyIcon className="vc-icon-label-tiffin" />
+                  <p className="vc-service-type">Meal Times</p>
+                  <h3 className="vc-service-heading">N/A</h3>
+                </div>
+              </CardContent>
+            </div>
           </Grid>}
 
-          {data?.start_day && data?.end_day && data?.start_time && data?.end_time && <Grid item xs={12} sm={6} md={3} lg={3}>
+          {data?.start_day && data?.end_day && data?.start_time && data?.end_time ? <Grid item xs={12} sm={6} md={3} lg={3}>
             <div className="vc-shadow-tiffin">
               <CardContent>
                 <div className="text-center">
@@ -277,16 +306,36 @@ const page = () => {
                 </div>
               </CardContent>
             </div>
+          </Grid> : <Grid item xs={12} sm={6} md={3} lg={3}>
+            <div className="vc-shadow-tiffin">
+              <CardContent>
+                <div className="text-center">
+                  <AccessTimeIcon className="vc-icon-label-tiffin" />
+                  <p className="vc-service-type">Working Hours</p>
+                  <h3 className="vc-service-heading">N/A</h3>
+                </div>
+              </CardContent>
+            </div>
           </Grid>}
 
 
-          {data?.working_since && <Grid item xs={12} sm={6} md={3} lg={2}>
+          {data?.working_since ? <Grid item xs={12} sm={6} md={3} lg={2}>
             <div className="vc-shadow-tiffin">
               <CardContent>
                 <div className="text-center">
                   <TimelineIcon className="vc-icon-label-tiffin" />
                   <p className="vc-service-type">Working Since</p>
                   <h3 className="vc-service-heading">{data?.working_since}</h3>
+                </div>
+              </CardContent>
+            </div>
+          </Grid> : <Grid item xs={12} sm={6} md={3} lg={2}>
+            <div className="vc-shadow-tiffin">
+              <CardContent>
+                <div className="text-center">
+                  <TimelineIcon className="vc-icon-label-tiffin" />
+                  <p className="vc-service-type">Working Since</p>
+                  <h3 className="vc-service-heading">N/A</h3>
                 </div>
               </CardContent>
             </div>
@@ -297,28 +346,42 @@ const page = () => {
 
       <Container maxWidth="xl" style={{ marginTop: '30px', marginBottom: '30px' }}>
 
-        <div>
-          {data?.about_description && <h3 className="vc-about-us">About Us</h3>}
-          <p className="vc-about-content vc-markdown my-3">
-            <ReactMarkdown>
-              {isExpanded ? content : `${shortContent}${content.length > shortContentLength ? '...' : ''}`}
-            </ReactMarkdown>
-          </p>
-          {content.length > shortContentLength && (
-            <span
-              style={{ marginLeft: '0px' }}
-              className="text-orange view-all cursor-pointer"
-              onClick={toggleExpand}
-            >
-              {isExpanded ? 'Show Less' : 'Show All'}
-            </span>
-          )}
-        </div>
+        {
+          content ? <div>
+            {<h3 className="vc-about-us">About Us</h3>}
+            <p className="vc-about-content vc-markdown my-3">
+              <ReactMarkdown>
+                {isExpanded ? content : `${shortContent}${content.length > shortContentLength ? '...' : ''}`}
+              </ReactMarkdown>
+            </p>
+            {content.length > shortContentLength && (
+              <span
+                style={{ marginLeft: '0px' }}
+                className="text-orange view-all cursor-pointer"
+                onClick={toggleExpand}
+              >
+                {isExpanded ? 'Show Less' : 'Show All'}
+              </span>
+            )}
+          </div> :
+            <div>
+              {<h3 className="vc-about-us">About Us</h3>}
+              <p className="vc-para"> N/A </p>
+            </div>
+        }
 
-        {data?.branches > 0 && <>
-          <h3 className="vc-about-us-tiffin" style={{ marginTop: '20px' }}>Our Branches</h3>
-          <p className="vc-para"> {data?.branches?.map((item) => item?.city).join(", ")} <span className="text-orange view-all">View all</span> </p>
-        </>}
+
+
+
+        {
+          data?.branches > 0 ? <div>
+            <h3 className="vc-about-us-tiffin" style={{ marginTop: '20px' }}>Our Branches</h3>
+            <p className="vc-para"> {data?.branches?.map((item) => item?.city).join(", ")} <span className="text-orange view-all">View all</span> </p>
+          </div> : <div>
+            <h3 className="vc-about-us-tiffin" style={{ marginTop: '20px' }}>Our Branches</h3>
+            <p className="vc-para"> N/A </p>
+          </div>
+        }
 
 
       </Container>

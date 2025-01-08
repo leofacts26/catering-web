@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import Button from '@mui/material/Button';
 import { useSelector } from 'react-redux';
 import useRegistration from '@/hooks/useRegistration';
+import PhoneIcon from '@mui/icons-material/Phone';
 
 const ContactBtn = ({ number }) => {
     const accessToken = useSelector((state) => state.user.accessToken);
@@ -11,7 +12,7 @@ const ContactBtn = ({ number }) => {
 
     return (
         <>
-            {accessToken ? <Button variant="contained" className="vc-contact-btn-tiffin" onClick={() => setUserNumber(true)}>
+            {accessToken ? <Button startIcon={<PhoneIcon />} variant="contained" className="vc-contact-btn-tiffin" onClick={() => setUserNumber(true)}>
                 {userNumber ? <a style={{ color: '#ffffff', textDecoration: 'none' }} href={`tel:${number}`}>{number}</a> : 'Contact Now'} </Button> :
                 <Button variant="contained" className="vc-contact-btn-tiffin" onClick={handleClickOpen}>Contact Now</Button>
             }

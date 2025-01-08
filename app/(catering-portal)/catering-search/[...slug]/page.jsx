@@ -198,7 +198,7 @@ const page = () => {
                                 <p className={`list-card-veg-font mt-1`}> N/A </p>
                             </Stack>}
 
-                            {data?.cuisines?.length > 0 && <div>
+                            {data?.cuisines?.length > 0 ? <div>
                                 <h2 className="vc-cater">Cuisines We Cater</h2>
                                 <Stack direction="row" flexWrap="wrap" alignItems="start" spacing={3}>
                                     {
@@ -214,6 +214,11 @@ const page = () => {
                                         <span className="text-red view-all cursor-pointer" onClick={onHandleCuisineClose}> Show Less </span>
                                     )}
                                 </Stack>
+                            </div> : <div>
+                                <h2 className="food-type">Cuisines We Cater: </h2>
+                                <p className="vc-about-content vc-markdown mt-1">
+                                    N/A
+                                </p>
                             </div>}
 
                         </Grid>
@@ -227,7 +232,7 @@ const page = () => {
                                 </Stack> : <Stack direction="row" alignItems="center" className="mb-2">
                                     <span className="vc-price">Starting Price / Plate -</span>
                                     <Stack direction="row" alignItems="center" spacing={0}>
-                                         <span className="vc-price-one ms-1"> N/A </span>
+                                        <span className="vc-price-one ms-1"> N/A </span>
                                     </Stack>
                                 </Stack>}
 
@@ -246,7 +251,7 @@ const page = () => {
 
             <Container maxWidth="xl" style={{ marginTop: '30px', marginBottom: '30px' }}>
                 <Grid container spacing={2}>
-                    {data?.serviceTypes?.length > 0 && <Grid item xs={12} sm={12} md={4} lg={2.5}>
+                    {data?.serviceTypes?.length > 0 ? <Grid item xs={12} sm={12} md={4} lg={2.5}>
                         <div className="vc-shadow">
                             <CardContent>
                                 <div className="text-center">
@@ -260,15 +265,37 @@ const page = () => {
                                 </div>
                             </CardContent>
                         </div>
+                    </Grid> : <Grid item xs={12} sm={12} md={4} lg={2.5}>
+                        <div className="vc-shadow">
+                            <CardContent>
+                                <div className="text-center">
+                                    <OutdoorGrillIcon className="vc-icon-label" />
+                                    <p className="vc-service-type">Service Type</p>
+                                    <h3 className="vc-service-heading">
+                                        N/A
+                                    </h3>
+                                </div>
+                            </CardContent>
+                        </div>
                     </Grid>}
 
-                    {data?.minimum_capacity && data?.maximum_capacity && <Grid item xs={12} sm={12} md={4} lg={2.5}>
+                    {data?.minimum_capacity && data?.maximum_capacity ? <Grid item xs={12} sm={12} md={4} lg={2.5}>
                         <div className="vc-shadow">
                             <CardContent>
                                 <div className="text-center">
                                     <EditNoteIcon className="vc-icon-label" />
                                     <p className="vc-service-type">Min & Max Order Quantity</p>
                                     <h3 className="vc-service-heading"> {data?.minimum_capacity} - {data?.maximum_capacity} Plates</h3>
+                                </div>
+                            </CardContent>
+                        </div>
+                    </Grid> : <Grid item xs={12} sm={12} md={4} lg={2.5}>
+                        <div className="vc-shadow">
+                            <CardContent>
+                                <div className="text-center">
+                                    <EditNoteIcon className="vc-icon-label" />
+                                    <p className="vc-service-type">Min & Max Order Quantity</p>
+                                    <h3 className="vc-service-heading"> N/A </h3>
                                 </div>
                             </CardContent>
                         </div>
@@ -288,7 +315,7 @@ const page = () => {
                     </Grid>}
 
 
-                    {data?.total_staffs_approx && <Grid item xs={12} sm={12} md={4} lg={2}>
+                    {data?.total_staffs_approx ? <Grid item xs={12} sm={12} md={4} lg={2}>
                         <div className="vc-shadow">
                             <CardContent>
                                 <div className="text-center">
@@ -298,15 +325,35 @@ const page = () => {
                                 </div>
                             </CardContent>
                         </div>
+                    </Grid> : <Grid item xs={12} sm={12} md={4} lg={2}>
+                        <div className="vc-shadow">
+                            <CardContent>
+                                <div className="text-center">
+                                    <GroupIcon className="vc-icon-label" />
+                                    <p className="vc-service-type">Total No. of Staffs</p>
+                                    <h3 className="vc-service-heading">{data?.total_staffs_approx ? data?.total_staffs_approx : 'N/A'}</h3>
+                                </div>
+                            </CardContent>
+                        </div>
                     </Grid>}
 
-                    {data?.working_since && <Grid item xs={12} sm={12} md={4} lg={2}>
+                    {data?.working_since ? <Grid item xs={12} sm={12} md={4} lg={2}>
                         <div className="vc-shadow">
                             <CardContent>
                                 <div className="text-center">
                                     <TimelineIcon className="vc-icon-label" />
                                     <p className="vc-service-type">Working Since</p>
                                     <h3 className="vc-service-heading">{data?.working_since}</h3>
+                                </div>
+                            </CardContent>
+                        </div>
+                    </Grid> : <Grid item xs={12} sm={12} md={4} lg={2}>
+                        <div className="vc-shadow">
+                            <CardContent>
+                                <div className="text-center">
+                                    <TimelineIcon className="vc-icon-label" />
+                                    <p className="vc-service-type">Working Since</p>
+                                    <h3 className="vc-service-heading">{data?.working_since ? data?.working_since : 'N/A'}</h3>
                                 </div>
                             </CardContent>
                         </div>
@@ -317,8 +364,8 @@ const page = () => {
             </Container>
 
             <Container maxWidth="xl" style={{ marginTop: '30px', marginBottom: '30px' }}>
-                <div>
-                    {data?.about_description && <h3 className="vc-about-us">About Us</h3>}
+                {content ? <div>
+                    {<h3 className="vc-about-us">About Us</h3>}
                     <p className="vc-about-content vc-markdown my-3">
                         <ReactMarkdown>
                             {isExpanded ? content : `${shortContent}${content.length > shortContentLength ? '...' : ''}`}
@@ -333,28 +380,38 @@ const page = () => {
                             {isExpanded ? 'Show Less' : 'Show All'}
                         </span>
                     )}
-                </div>
+                </div> : <div>
+                    {<h3 className="vc-about-us">About Us</h3>}
+                    <p className="vc-about-content vc-markdown my-3">
+                        N/A
+                    </p>
+                </div>}
 
 
-                {data?.branches.length > 0 && (
-                    <div>
-                        <h3 className="vc-about-us" style={{ marginTop: '20px' }}>Our Branches</h3>
-                        <p className="vc-para">
-                            {data?.branches?.slice(0, count).map((item) => item?.city).join(", ")}
-                            {data?.branches.length > 6 && (
-                                showAll ? (
-                                    <span className="text-red view-all ms-2 cursor-pointer" onClick={onHandleShow}>
-                                        Show All
-                                    </span>
-                                ) : (
-                                    <span className="text-red view-all ms-2 cursor-pointer" onClick={onHandleClose}>
-                                        Show Less
-                                    </span>
-                                )
-                            )}
-                        </p>
-                    </div>
-                )}
+
+                {data?.branches.length > 0 ? (<div>
+                    <h3 className="vc-about-us" style={{ marginTop: '20px' }}>Our Branches</h3>
+                    <p className="vc-para">
+                        {data?.branches?.slice(0, count).map((item) => item?.city).join(", ")}
+                        {data?.branches.length > 6 && (
+                            showAll ? (
+                                <span className="text-red view-all ms-2 cursor-pointer" onClick={onHandleShow}>
+                                    Show All
+                                </span>
+                            ) : (
+                                <span className="text-red view-all ms-2 cursor-pointer" onClick={onHandleClose}>
+                                    Show Less
+                                </span>
+                            )
+                        )}
+                    </p>
+                </div>) : (<div>
+                    <h3 className="vc-about-us" style={{ marginTop: '20px' }}>Our Branches</h3>
+                    <p className="vc-para">
+                        N/A
+                    </p>
+                </div>)
+                }
 
 
             </Container>
