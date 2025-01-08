@@ -60,7 +60,7 @@ const OurGallery = ({ galleryImages }) => {
             />
             <Container maxWidth="xl" style={{ marginTop: '30px', marginBottom: '30px' }}>
 
-                {galleryImages?.length > 0 && <h2 className="text-center mx-auto vc-gallery">Our Gallery</h2>}
+                {/* {galleryImages?.length > 0 && <h2 className="text-center mx-auto vc-gallery">Our Gallery</h2>}
                 <ResponsiveMasonry columnsCountBreakPoints={{ 600: 1, 900: 4 }}>
                     <Masonry columnsCount={columnsCount} gutter="10px">
                         {galleryImages?.slice(0, 16)?.map((image, index) => (
@@ -74,7 +74,24 @@ const OurGallery = ({ galleryImages }) => {
                             </div>
                         ))}
                     </Masonry>
-                </ResponsiveMasonry>
+                </ResponsiveMasonry> */}
+
+
+                <div className='cursor-pointer'>
+                    {galleryImages?.length > 0 && <h2 className="text-center mx-auto vc-gallery">Our Gallery</h2>}
+                    <Grid container spacing={2} onClick={() => setOpen(true)}>
+                        {galleryImages?.map((image, index) => (
+                            <Grid item xs={6} sm={4} md={3} key={index}>
+                                <img
+                                    src={image.image_names[0].original || '/img/no-image.jpg'}
+                                    alt={`image ${image.id}`}
+                                    style={{ width: '100%', height: '200px', objectFit: 'cover' }}
+                                    className={index === 0 ? 'occasion-top-left-radius' : index === galleryImages?.length - 1 ? 'occasion-bottom-right-radius' : ''}
+                                />
+                            </Grid>
+                        ))}
+                    </Grid>
+                </div>
 
             </Container>
         </>
