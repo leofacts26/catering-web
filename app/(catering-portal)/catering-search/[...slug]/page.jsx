@@ -364,7 +364,7 @@ const page = () => {
             </Container>
 
             <Container maxWidth="xl" style={{ marginTop: '30px', marginBottom: '30px' }}>
-                {content ? <div>
+                {content && <div>
                     {<h3 className="vc-about-us">About Us</h3>}
                     <p className="vc-about-content vc-markdown my-3">
                         <ReactMarkdown>
@@ -380,16 +380,11 @@ const page = () => {
                             {isExpanded ? 'Show Less' : 'Show All'}
                         </span>
                     )}
-                </div> : <div>
-                    {<h3 className="vc-about-us">About Us</h3>}
-                    <p className="vc-about-content vc-markdown my-3">
-                        N/A
-                    </p>
                 </div>}
 
 
 
-                {data?.branches.length > 0 ? (<div>
+                {data?.branches.length > 0 && (<div>
                     <h3 className="vc-about-us" style={{ marginTop: '20px' }}>Our Branches</h3>
                     <p className="vc-para">
                         {data?.branches?.slice(0, count).map((item) => item?.city).join(", ")}
@@ -404,11 +399,6 @@ const page = () => {
                                 </span>
                             )
                         )}
-                    </p>
-                </div>) : (<div>
-                    <h3 className="vc-about-us" style={{ marginTop: '20px' }}>Our Branches</h3>
-                    <p className="vc-para">
-                        N/A
                     </p>
                 </div>)
                 }

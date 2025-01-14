@@ -202,7 +202,7 @@ const UserIcon = () => {
                     </Link>
 
 
-                    <Link href="/user-profile/helpdesk-support">
+                    {/* <Link href="/user-profile/helpdesk-support">
                         <Stack direction="row" justifyContent="space-between" className='up-card'>
                             <Stack direction="row" spacing={1} alignItems="center">
                                 <LiveHelpIcon className="up-profile-icon" />
@@ -210,11 +210,11 @@ const UserIcon = () => {
                             </Stack>
                             <ChevronRightIcon />
                         </Stack>
-                    </Link>
+                    </Link> */}
 
 
                     <Stack direction="row" justifyContent="space-between" className='up-card share-icon-modal' onClick={handleCopyToClipboard}>
-                        <p><ShareIcon className='up-profile-icon' /></p>
+                        <p><ShareIcon className='up-profile-icon me-2' /></p>
                         <Stack direction="row" alignItems="center">
                             <p> Share Caterings & Tiffin's </p>
                         </Stack>
