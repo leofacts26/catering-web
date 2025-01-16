@@ -199,16 +199,30 @@ const page = () => {
               </Stack>}
 
 
-              {data?.cuisines?.length > 0 ? <div>
+              {data?.cuisines?.filter((item) => item.selected === "1").length > 0 ? <div>
                 <h2 className="vc-cater-tiffin" style={{ marginBottom: '10px' }}>Cuisines We Cater</h2>
                 <Stack direction="row" flexWrap="wrap" alignItems="start" spacing={3}>
+
                   {
-                    data?.cuisines?.slice(0, cuisineCount).map((item, index) => (
-                      <span className='cuisine-detail-list' key={index} style={{ marginLeft: '0px', marginRight: '0px', marginBottom: '10px' }}>
-                        {item?.cuisine_name} <span style={{ marginLeft: '10px', marginRight: '10px', marginBottom: '10px' }}>|</span>
-                      </span>
-                    ))
+                    data?.cuisines
+                      ?.filter((item) => item.selected === "1")
+                      ?.slice(0, cuisineCount)
+                      ?.map((item, index) => (
+                        <span
+                          className="cuisine-detail-list"
+                          key={index}
+                          style={{ marginLeft: "0px", marginRight: "0px", marginBottom: "10px" }}
+                        >
+                          {item?.cuisine_name}
+                          <span style={{ marginLeft: "10px", marginRight: "10px", marginBottom: "10px" }}>
+                            |
+                          </span>
+                        </span>
+                      ))
                   }
+
+
+
                   {showAllCuisines ? (
                     <span className="text-orange view-all cursor-pointer" onClick={onHandleCuisineShow}> Show All </span>
                   ) : (
