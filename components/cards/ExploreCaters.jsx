@@ -47,7 +47,7 @@ const ExploreCaters = () => {
                         ) : (
                             getAllCities?.map((explorecater) => (
                                 <Grid item xs={12} sm={6} md={4} lg={4} xl={4} key={explorecater?.city_id} >
-                                    <Box sx={{ position: 'relative' }} className="image-shadow explore-caters-box cursor-pointer" onClick={() => onHandleCityFilter(explorecater)} >
+                                    <Box sx={{ position: 'relative' }} className="image-shadow explore-caters-box cursor-pointer" onClick={() => onHandleCityFilter(explorecater)}>
                                         <div className="explore-shadow"></div>
                                         <img src={explorecater?.file_name?.large ? explorecater?.file_name?.large : '/img/no-image.jpg'} alt={explorecater?.city_name} className="img-fluid w-100 explore-caters-img cursor-pointer" />
                                         <Box sx={{ position: 'absolute', top: '4%', right: '4%' }}>
