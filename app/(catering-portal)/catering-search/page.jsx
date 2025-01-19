@@ -20,10 +20,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import { fetchCateringCuisines, fetchCateringFoodTypes, fetchCateringSearchCards, fetchCateringServingTypes, fetchCaterRatings, fetchHeadCounts, fetchPriceRanges, fetchServiceTypes } from '@/app/features/user/cateringFilterSlice';
 import useGetLocationResults from '@/hooks/catering/useGetLocationResults';
+import { useMediaQuerym, Drawer, useMediaQuery } from '@mui/material';
+import { useTheme } from '@emotion/react';
 
 const page = () => {
   const [checked, setChecked] = useState(true);
   const { selectedLocation } = useGetLocationResults()
+  const [isFilterOpen, setIsFilterOpen] = useState(false); 
 
   const router = useRouter()
   const dispatch = useDispatch()
@@ -33,37 +36,12 @@ const page = () => {
     dispatch(fetchCateringSearchCards());
   }, [])
 
-  // useEffect(() => {
-  //   if (getCateringPriceRanges.length === 0) {
-  //     dispatch(fetchPriceRanges());
-  //   }
-  //   if (getCateringHeadCount.length === 0) {
-  //     dispatch(fetchHeadCounts());
-  //   }
-  //   if (getCateringFoodTypes.length === 0) {
-  //     dispatch(fetchCateringFoodTypes());
-  //   }
-  //   if (getCateringCuisines.length === 0) {
-  //     dispatch(fetchCateringCuisines());
-  //   }
-  //   if (getCateringServiceTypes.length === 0) {
-  //     dispatch(fetchServiceTypes());
-  //   }
-  //   if (getCateringRatings.length === 0) {
-  //     dispatch(fetchCaterRatings());
-  //   }
-  //   if (getCateringServingTypes.length === 0) {
-  //     dispatch(fetchCateringServingTypes());
-  //   }
+  const theme = useTheme();
+  const isMobileOrTab = useMediaQuery(theme.breakpoints.down('lg'));
 
-  // }, [dispatch, getCateringPriceRanges.length, getCateringHeadCount.length, getCateringFoodTypes.length, getCateringCuisines.length, getCateringRatings.length, getCateringServiceTypes.length, getCateringServingTypes.length]);
-
-  // useEffect(() => {
-  //   if (getCateringPriceRanges.length > 0 && getCateringHeadCount.length > 0 && getCateringFoodTypes.length && getCateringCuisines.length && getCateringRatings.length && getCateringServiceTypes.length && getCateringServingTypes.length) {
-  //     dispatch(fetchCateringSearchCards());
-  //   }
-  // }, [dispatch, getCateringPriceRanges.length, getCateringHeadCount.length, getCateringFoodTypes.length, getCateringCuisines.length, getCateringRatings.length, getCateringServiceTypes.length, getCateringServingTypes.length]);
-
+  const toggleFilterDrawer = (open) => () => {
+    setIsFilterOpen(open);
+  };
 
 
   return (
@@ -85,17 +63,66 @@ const page = () => {
           <Grid container spacing={2}>
             <Grid item xs={12} md={12} lg={3} xl={2.9}>
               <div className="position-relative">
-                <img src="/img/Search-Result-View-Page-Images/01-map.png" alt="" className="img-fluid" style={{ borderRadius: '5px', marginBottom: '4px' }} />
+                <img
+                  src="/img/Search-Result-View-Page-Images/01-map.png"
+                  alt=""
+                  className="img-fluid"
+                  style={{ borderRadius: '5px', marginBottom: '4px' }}
+                />
                 <div className="position-absolute map-box">
-                  <Button onClick={() => router.push('/catering-search/catering-map')} variant="contained" className='show-on-map' sx={{ backgroundColor: '#C33332', fontSize: '10px', '&:hover': { backgroundColor: '#C33332' } }}>Show on map</Button>
+                  <Button
+                    onClick={() => router.push('/catering-search/catering-map')}
+                    variant="contained"
+                    className="show-on-map"
+                    sx={{
+                      backgroundColor: '#C33332',
+                      fontSize: '10px',
+                      '&:hover': { backgroundColor: '#C33332' },
+                    }}
+                  >
+                    Show on map
+                  </Button>
                 </div>
               </div>
 
-              <Filters />
+              {!isMobileOrTab && <Filters />}
 
+              {/* Mobile and Tablet Buttons */}
+              {isMobileOrTab && (
+                <Box
+                  display="flex"
+                  justifyContent="end"
+                  alignItems="end"
+                  mt={2}
+                >
+                  {/* <Button
+                    variant="contained"
+                    onClick={() => router.push('/catering-search/catering-map')}
+                    sx={{
+                      backgroundColor: '#C33332',
+                      fontSize: '12px',
+                      '&:hover': { backgroundColor: '#C33332' },
+                    }}
+                  >
+                    Map
+                  </Button> */}
+                  <Button
+                    variant="contained"
+                    onClick={toggleFilterDrawer(true)}
+                    sx={{
+                      backgroundColor: '#C33332',
+                      fontSize: '12px',
+                      '&:hover': { backgroundColor: '#C33332' },
+                    }}
+                  >
+                    Filter
+                  </Button>
+                </Box>
+              )}
             </Grid>
+
             <Grid item xs={12} md={12} lg={9} xl={9.1}>
-              {getCateringSearchCards.length > 0 && <Stack direction={{ xs: 'column', sm: 'column', md: 'row' }} justifyContent="space-between" style={{ margin: '0px 0px 0px 0px' }}>
+              {getCateringSearchCards.length > 0 && <Stack direction={{ xs: 'row', sm: 'row', md: 'row' }} alignItems="center" justifyContent="space-between" style={{ margin: '0px 0px 0px 0px' }}>
                 <h2 className='catering-found'>
                   {selectedLocation?.terms?.length > 0 && selectedLocation?.terms[0]?.value
                     ? `${selectedLocation?.terms[0].value} : ${total_count} Catering service providers found`
@@ -115,6 +142,23 @@ const page = () => {
 
       <Subscribe />
       <Footer />
+
+
+      {/* Filter Drawer */}
+      <Drawer
+        anchor="left"
+        open={isFilterOpen}
+        onClose={toggleFilterDrawer(false)}
+      >
+        <Box
+          sx={{ width: 300, padding: 2 }}
+          role="presentation"
+          onClick={toggleFilterDrawer(false)}
+          onKeyDown={toggleFilterDrawer(false)}
+        >
+          <Filters />
+        </Box>
+      </Drawer>
     </>
   )
 }

@@ -10,9 +10,9 @@ import CaterCuisineFilter from './CaterCuisineFilter';
 import CaterOccaionTypes from './CaterOccaionTypes';
 import CaterServiceTypes from './CaterServiceTypes';
 import CaterServingTypes from './CaterServingTypes';
-import { useDispatch } from 'react-redux';
-import { resetFilters } from '@/app/features/user/cateringFilterSlice';
-import toast from 'react-hot-toast';
+// import { useDispatch } from 'react-redux';
+// import { resetFilters } from '@/app/features/user/cateringFilterSlice';
+// import toast from 'react-hot-toast';
 import CaterHeadCount from './CaterHeadCount';
 import CaterRatingCount from './CaterRatingCount';
 
