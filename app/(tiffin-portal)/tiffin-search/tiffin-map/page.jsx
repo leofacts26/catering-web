@@ -139,10 +139,10 @@ const Page = () => {
         <>
             <Box sx={{ flexGrow: 1 }}>
                 <Grid container spacing={2}>
-                    <Grid item xs={4}>
-                        <Grid container spacing={2}>
+                    <Grid item xs={4} lg={4} className='map-filter-none'>
+                        <Grid container spacing={2} >
                             <Grid item xs={6}>
-                                <div className="map-left-container">
+                                <div className="map-left-container" >
                                     <TiffinFilters />
                                 </div>
                             </Grid>
@@ -153,7 +153,7 @@ const Page = () => {
                             </Grid>
                         </Grid>
                     </Grid>
-                    <Grid item xs={8}>
+                    <Grid item xs={12} lg={8}>
                         <div className="map-box-container">
 
                             <MapAsyncSelect onSelect={handleSelect} />

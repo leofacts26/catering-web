@@ -3909,6 +3909,25 @@ textarea:-webkit-autofill:active {
 }
 
 
+@media only screen and (max-width: 768px) {
+  .map-filter-none {
+    display: none;
+  }
+
+  .map-search-input {
+    top: 10% !important;
+    right: 9% !important;
+  }
+
+  .btn-close {
+    top: 2% !important;
+  }
+
+  .btn-close-tiffin{
+    top: 2% !important;
+  }
+}
+
 @media only screen and (max-width: 425px) {
   .desktop-list-view {
     display: none !important;
