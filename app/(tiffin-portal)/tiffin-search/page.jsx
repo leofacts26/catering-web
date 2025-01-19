@@ -19,6 +19,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import { fetchtiffinSearchCards } from '@/app/features/tiffin/tiffinFilterSlice';
 import useGetLocationResults from '@/hooks/catering/useGetLocationResults';
+import { useTheme } from '@emotion/react';
+import { useMediaQuery, Drawer } from '@mui/material';
 
 
 const page = () => {
@@ -27,37 +29,18 @@ const page = () => {
   const [checked, setChecked] = useState(true);
   const dispatch = useDispatch();
   const { selectedLocation } = useGetLocationResults()
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   useEffect(() => {
     dispatch(fetchtiffinSearchCards());
   }, [])
 
-  // useEffect(() => {
-  //   if (getTiffinKitchenTypes.length === 0) {
-  //     dispatch(fetchTiffinKitchenTypes());
-  //   }
-  //   if (getTiffinServiceTypes.length === 0) {
-  //     dispatch(fetchTiffinServiceTypes());
-  //   }
-  //   if (getTiffinMealTypes.length === 0) {
-  //     dispatch(fetchTiffinMealTypes());
-  //   }
-  //   if (getTiffinPriceRanges.length === 0) {
-  //     dispatch(fetchTiffinPriceRanges());
-  //   }
-  //   if (getTiffinFoodTypes.length === 0) {
-  //     dispatch(fetchTiffinFoodTypes());
-  //   }
-  //   if (getTiffinRatings.length === 0) {
-  //     dispatch(fetchTiffinRatings());
-  //   }
-  // }, [dispatch, getTiffinKitchenTypes.length, getTiffinRatings.length, getTiffinServiceTypes.length, getTiffinMealTypes.length, getTiffinPriceRanges.length, getTiffinFoodTypes.length]);
+  const theme = useTheme();
+  const isMobileOrTab = useMediaQuery(theme.breakpoints.down('lg'));
 
-  // useEffect(() => {
-  //   if (getTiffinKitchenTypes.length > 0 && getTiffinRatings.length > 0 && getTiffinServiceTypes.length > 0 && getTiffinMealTypes.length > 0 && getTiffinPriceRanges.length > 0 && getTiffinFoodTypes.length > 0) {
-  //     dispatch(fetchtiffinSearchCards());
-  //   }
-  // }, [dispatch, getTiffinKitchenTypes.length, getTiffinRatings.length, getTiffinServiceTypes.length, getTiffinMealTypes.length, getTiffinPriceRanges.length, getTiffinFoodTypes.length]);
+  const toggleFilterDrawer = (open) => () => {
+    setIsFilterOpen(open);
+  };
 
 
   return (
@@ -86,7 +69,33 @@ const page = () => {
                   <Button onClick={() => router.push('/tiffin-search/tiffin-map')} variant="contained" className='show-on-map' sx={{ backgroundColor: '#d9822b', fontSize: '10px', '&:hover': { backgroundColor: '#d9822b' } }}>Show on map</Button>
                 </div>
               </div>
-              <TiffinFilters />
+
+              {!isMobileOrTab && <TiffinFilters />}
+
+              {/* Mobile and Tablet Buttons */}
+              {isMobileOrTab && (
+                <Box
+                  display="flex"
+                  justifyContent="end"
+                  alignItems="end"
+                  mt={2}
+                >
+                  <Button
+                    variant="contained"
+                    onClick={toggleFilterDrawer(true)}
+                    sx={{
+                      backgroundColor: '#C33332',
+                      fontSize: '12px',
+                      '&:hover': { backgroundColor: '#C33332' },
+                    }}
+                  >
+                    Filter
+                  </Button>
+                </Box>
+              )}
+
+
+              {/* <TiffinFilters /> */}
             </Grid>
             <Grid item xs={12} md={12} lg={9} xl={9.1}>
 
@@ -111,6 +120,24 @@ const page = () => {
 
       <Subscribe />
       <Footer />
+
+
+      {/* Filter Drawer */}
+      <Drawer
+        anchor="left"
+        open={isFilterOpen}
+        onClose={toggleFilterDrawer(false)}
+      >
+        <Box
+          sx={{ width: 300, padding: 2 }}
+          role="presentation"
+          onClick={toggleFilterDrawer(false)}
+          onKeyDown={toggleFilterDrawer(false)}
+        >
+          <TiffinFilters />
+        </Box>
+      </Drawer>
+
     </>
   )
 }

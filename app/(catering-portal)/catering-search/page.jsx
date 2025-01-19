@@ -95,17 +95,6 @@ const page = () => {
                   alignItems="end"
                   mt={2}
                 >
-                  {/* <Button
-                    variant="contained"
-                    onClick={() => router.push('/catering-search/catering-map')}
-                    sx={{
-                      backgroundColor: '#C33332',
-                      fontSize: '12px',
-                      '&:hover': { backgroundColor: '#C33332' },
-                    }}
-                  >
-                    Map
-                  </Button> */}
                   <Button
                     variant="contained"
                     onClick={toggleFilterDrawer(true)}

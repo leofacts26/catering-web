@@ -2328,7 +2328,7 @@ h6 {
 }
 
 .listview-img-tiffin {
-  width: 170px;
+  width: 162px;
   height: 195px !important;
   object-fit: cover;
 }
@@ -3925,13 +3925,21 @@ textarea:-webkit-autofill:active {
   .list-card-title {
     font-size: 16px !important;
   }
+
+  .listview-img {
+    height: 200px !important;
+  }
 }
 
 .mobile-list-view .list-card-img {
   width: 31% !important;
 }
 
-.mobile-list-view .listview-img {
+.mobile-list-view .list-card-img-tiffin {
+  width: 35% !important;
+}
+
+.mobile-list-view .listview-img-tiffin {
   width: 100% !important;
 }
 
