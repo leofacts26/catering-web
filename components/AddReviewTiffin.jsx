@@ -62,7 +62,7 @@ const AddReviewTiffin = ({ tiffin }) => {
             {accessToken ? (
                 <Formik initialValues={initialState} validationSchema={schema} onSubmit={handleSubmit}>
                     {({ values, errors, touched, handleChange }) => (
-                        <Form className="px-4" autoComplete="off">
+                        <Form className="review-desktop" autoComplete="off">
                             <Box
                                 sx={{
                                     display: 'flex',
