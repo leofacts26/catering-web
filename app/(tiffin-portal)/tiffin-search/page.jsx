@@ -66,7 +66,7 @@ const page = () => {
               <div className="position-relative">
                 <img src="/img/Search-Result-View-Page-Images/01-map.png" alt="" className="img-fluid" style={{ borderRadius: '5px', marginBottom: '4px' }} />
                 <div className="position-absolute map-box">
-                  <Button onClick={() => router.push('/tiffin-search/tiffin-map')} variant="contained" className='show-on-map' sx={{ backgroundColor: '#d9822b', fontSize: '10px', '&:hover': { backgroundColor: '#d9822b' } }}>Show on map</Button>
+                  <Button onClick={() => window.open('/tiffin-search/tiffin-map', '_blank')} variant="contained" className='show-on-map' sx={{ backgroundColor: '#d9822b', fontSize: '10px', '&:hover': { backgroundColor: '#d9822b' } }}>Show on map</Button>
                 </div>
               </div>
 

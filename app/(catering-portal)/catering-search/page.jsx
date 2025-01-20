@@ -71,7 +71,7 @@ const page = () => {
                 />
                 <div className="position-absolute map-box">
                   <Button
-                    onClick={() => router.push('/catering-search/catering-map')}
+                    onClick={() => window.open('/catering-search/catering-map', '_blank')}
                     variant="contained"
                     className="show-on-map"
                     sx={{

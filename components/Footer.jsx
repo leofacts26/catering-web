@@ -71,7 +71,7 @@ const Footer = () => {
                                                 <li><Link href="/security-policy">Security Policy</Link></li>
                                                 <li><Link href="/terms-and-conditions">Terms & Conditions</Link></li>
                                                 <li><Link href="/disclaimer">Disclaimer</Link></li>
-                                                <li><Link href="/subscription-cancelation-refund">Cancellation & Refund Policy </Link></li>
+                                                {/* <li><Link href="/subscription-cancelation-refund">Cancellation & Refund Policy </Link></li> */}
                                                 <li><Link href="/catering"> Partner With Us </Link></li>
                                             </ul>
                                         </Box>
@@ -80,13 +80,13 @@ const Footer = () => {
                                         <h3 className="footer-sub-heading">Helpdesk</h3>
                                         <Box>
                                             <ul className="footer-ul">
-                                                <li>
+                                                {/* <li>
                                                     {accessToken ? (
                                                         <Link href='/user-profile/helpdesk-support'>Raise Ticket</Link>
                                                     ) : (
                                                         <Link onClick={onHandleError} href='javascript:void(0)'>Raise Ticket</Link>
                                                     )}
-                                                </li>
+                                                </li> */}
                                                 <li>
                                                     {accessToken ? (
                                                         <Link href='/user-profile/my-inquiries'>My Inquires</Link>
@@ -103,7 +103,7 @@ const Footer = () => {
                                                 </li>
                                                 <li>
                                                     {accessToken ? (
-                                                        <Link href='/user-profile/user-profile'>My Account</Link>
+                                                        <Link href='/user-profile'>My Account</Link>
                                                     ) : (
                                                         <Link onClick={onHandleError} href='javascript:void(0)'>My Account</Link>
                                                     )}

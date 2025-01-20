@@ -65,13 +65,13 @@ const getInTouch = [
         name: 'List your Service',
         url: 'https://cateringvendor.cateringsandtiffins.com/',
         icon: <ViewListIcon className='user-profile-icon' />
-    },
-    {
-        id: 2,
-        name: 'Helpdesk & Support',
-        url: '/user-profile/helpdesk-support',
-        icon: <LiveHelpIcon className='user-profile-icon' />
     }
+    // {
+    //     id: 2,
+    //     name: 'Helpdesk & Support',
+    //     url: '/user-profile/helpdesk-support',
+    //     icon: <LiveHelpIcon className='user-profile-icon' />
+    // }
 ]
 
 const UserProfileNavbar = () => {

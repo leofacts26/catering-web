@@ -27,7 +27,7 @@ const Breadcrumb = ({ tiffinColor, homeLink, serviceLink, service, city, results
                     {service && serviceLink && <Link
                         className={tiffinColor ? 'breadcrumb-link-tiffin' : 'breadcrumb-link'}
                         underline="hover"
-                        href={serviceLink}
+                        href={homeLink}
                     >
                         {service}
                     </Link>}

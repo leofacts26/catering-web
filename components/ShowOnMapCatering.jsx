@@ -9,8 +9,10 @@ const ShowOnMapCatering = ({ tiffinColor, locLatitude, locLongtitude, zoomLevel 
     // console.log(locData, "locData locData");
 
     const handleClick = () => {
-        router.push(`/catering-search/catering-map?lat=${locLatitude}&lng=${locLongtitude}&zoom=${zoomLevel}`);
+        const url = `/catering-search/catering-map?lat=${locLatitude}&lng=${locLongtitude}&zoom=${zoomLevel}`;
+        window.open(url, '_blank'); // Opens in a new tab
     };
+
 
     return (
         <>
