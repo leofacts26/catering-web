@@ -240,13 +240,13 @@ const page = () => {
             <Grid item sm={12} lg={5}>
               <Stack direction="column" alignContent="end" alignItems="end" justifyContent="end">
                 {data?.start_price ? <Stack direction="row" alignItems="center" className="mb-2">
-                  <span className="vc-price">Montly Plan Price -</span>
+                  <span className="vc-price">Monthly Plan Price -</span>
                   <Stack direction="row" alignItems="center" spacing={0}>
                     <CurrencyRupeeIcon className="vc-price-one-tiffin" /> <span className="vc-price-one-tiffin"> {data?.start_price} </span>
                   </Stack>
                 </Stack> : <Stack direction="row" alignItems="center" className="mb-2">
-                  <span className="vc-price">Montly Plan Price -</span>
-                  <span className="vc-price-one ms-1"> N/A </span>
+                  <span className="vc-price">Monthly Plan Price -</span>
+                  <span className="vc-price-one-tiffin ms-1"> N/A </span>
                 </Stack>}
 
                 {accessToken && <Link href="#reviews" className="vc-reviews-tiffin">See Reviews: {data?.review_count && data?.review_count}</Link>}
@@ -362,7 +362,7 @@ const page = () => {
 
         {
           content && <div>
-            {<h3 className="vc-about-us">About Us</h3>}
+            {<h3 className="vc-about-us text-orange">About Us</h3>}
             <p className="vc-about-content vc-markdown my-3">
               <ReactMarkdown>
                 {isExpanded ? content : `${shortContent}${content.length > shortContentLength ? '...' : ''}`}
