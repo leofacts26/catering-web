@@ -3,7 +3,7 @@ import React, { useEffect, useState, useMemo } from 'react';
 import { GoogleMap, InfoWindow, Marker, useLoadScript } from "@react-google-maps/api";
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
-import { fetchTiffinMapviewSearchCards } from '@/app/features/tiffin/tiffinFilterSlice';
+import { fetchTiffinMapviewSearchCards, fetchtiffinSearchCards } from '@/app/features/tiffin/tiffinFilterSlice';
 import TiffinFilters from '@/components/tiffin/TiffinFilters';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -39,6 +39,9 @@ const Page = () => {
     useEffect(() => {
         dispatch(fetchTiffinMapviewSearchCards());
     }, [dispatch]);
+    useEffect(() => {
+        dispatch(fetchtiffinSearchCards());
+    }, [dispatch]);
 
     const { isLoaded } = useLoadScript({
         googleMapsApiKey: "AIzaSyBf22eHEMxKk_9x0XWag-oCFTXkdClnPw8",
@@ -71,8 +74,8 @@ const Page = () => {
     }, [markers, detailLat, detailLng]);
 
     const customMarker = {
-        url: '/img/map/location.png', // Replace with your image URL or path
-        scaledSize: new window.google.maps.Size(50, 50), // Adjust size as needed
+        url: '/img/icons/tiffin-icon.svg', // Replace with your image URL or path
+        scaledSize: new window.google.maps.Size(100, 100), // Adjust size as needed
         origin: new window.google.maps.Point(0, 0), // Adjust origin as needed
         anchor: new window.google.maps.Point(25, 50) // Adjust anchor as needed
     };

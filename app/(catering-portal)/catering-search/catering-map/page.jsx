@@ -37,6 +37,10 @@ const page = () => {
         dispatch(fetchCateringMapviewSearchCards());
     }, [dispatch]);
 
+    useEffect(() => {
+        dispatch(fetchCateringSearchCards());
+    }, [dispatch]);
+
     const { isLoaded } = useLoadScript({
         googleMapsApiKey: "AIzaSyBf22eHEMxKk_9x0XWag-oCFTXkdClnPw8",
     });
@@ -67,8 +71,8 @@ const page = () => {
     }, [markers, detailLat, detailLng]);
 
     const customMarker = {
-        url: '/img/red-map-icon.png', // Replace with your image URL or path
-        scaledSize: new window.google.maps.Size(40, 40), // Adjust size as needed
+        url: '/img/icons/catering-icon.svg', // Replace with your image URL or path
+        scaledSize: new window.google.maps.Size(100, 100), // Adjust size as needed
         origin: new window.google.maps.Point(0, 0), // Adjust origin as needed
         anchor: new window.google.maps.Point(25, 50) // Adjust anchor as needed
     };
@@ -88,11 +92,11 @@ const page = () => {
                 const lat = parseFloat(marker.lat);
                 const lng = parseFloat(marker.lng);
                 if (!isNaN(lat) && !isNaN(lng)) {
-                  bounds.extend({ lat, lng });
+                    bounds.extend({ lat, lng });
                 } else {
-                  console.error(`Invalid lat or lng value for marker: ${marker}`);
+                    console.error(`Invalid lat or lng value for marker: ${marker}`);
                 }
-              });
+            });
             if (!bounds.isEmpty()) {
                 map.fitBounds(bounds);
             }
@@ -159,7 +163,7 @@ const page = () => {
                     <Grid item xs={12} lg={8}>
                         <div className="map-box-container">
 
-                           <MapAsyncSelectCatering onSelect={handleSelect} />
+                            <MapAsyncSelectCatering onSelect={handleSelect} />
 
                             <button className='btn-close' onClick={() => router.push('/catering-search')}>
                                 Close Map
@@ -193,7 +197,7 @@ const page = () => {
                                                     <InfoWindow
                                                         onCloseClick={() => setIsOpen(false)}
                                                     >
-                                                       <MapTiffinInfoCard infoWindowData={infoWindowData} />
+                                                        <MapTiffinInfoCard infoWindowData={infoWindowData} />
                                                     </InfoWindow>
                                                 )}
                                             </Marker>

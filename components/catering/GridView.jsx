@@ -6,7 +6,7 @@ import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import GridViewSkeleton from '../GridViewSkeleton';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { fetchCateringSearchCards, incrementPage } from '@/app/features/user/cateringFilterSlice';
+import { fetchCateringMapviewSearchCards, fetchCateringSearchCards, incrementPage } from '@/app/features/user/cateringFilterSlice';
 import ShareIcon from '@mui/icons-material/Share';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -46,6 +46,7 @@ const GridViewList = ({ xs, sm, md, lg }) => {
         setWishlist(initialWishlist)
     }, [getCateringSearchCards])
 
+  
 
     // Infinite Scroll 
     const myThrottle = (cb, d) => {
