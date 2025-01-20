@@ -216,13 +216,13 @@ const ListViewTiffin = () => {
                                                                             {item?.service_types?.map((serviceType) => {
                                                                                 let iconSrc = '';
                                                                                 if (serviceType.toLowerCase() === 'delivery') {
-                                                                                    iconSrc = '/img/icons/delivery.png';
+                                                                                    iconSrc = '/img/icons/delivery-icons.svg';
                                                                                 } else if (serviceType.toLowerCase() === 'dine in') {
-                                                                                    iconSrc = '/img/icons/Dine-In.png';
+                                                                                    iconSrc = '/img/icons/dine-in-icons.svg';
                                                                                 } else if (serviceType.toLowerCase() === 'takeaway') {
-                                                                                    iconSrc = '/img/icons/Takeaway.png';
+                                                                                    iconSrc = '/img/icons/takeaway-icons.svg';
                                                                                 } else {
-                                                                                    iconSrc = '/img/icons/delivery.png';
+                                                                                    iconSrc = '/img/icons/delivery-icons.svg';
                                                                                 }
                                                                                 return (
                                                                                     <Stack direction="row" alignItems="center">
