@@ -12,6 +12,7 @@ import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { sendUpdateProfileOTP, sendUpdateUserProfile, setEditProfile } from '../features/user/settingSlice';
 import { useEffect, useRef, useState } from 'react';
+import { fetchUserData } from '../features/user/userSlice';
 
 const CssTextField = styled(TextField)(({ theme }) => ({
     '& .MuiOutlinedInput-root': {
@@ -141,6 +142,15 @@ const page = () => {
     const { userDetails } = useSelector((state) => state.user)
     const [values, setValues] = useState(initialState)
 
+    useEffect(() => {
+        setValues({
+            ...values,
+            username: userDetails?.username || '',
+            phone_number: userDetails?.phone_number || "",
+        })
+    }, [userDetails])
+
+
     // validation schema
     const schema = Yup.object().shape({
         username: Yup.string().required('Name is required.'),
@@ -152,23 +162,17 @@ const page = () => {
     });
 
 
-    const handleSubmit = (data, resetForm) => {
+    const handleSubmit = async (data, resetForm) => {
         // console.log(data, "data"); 
-        dispatch(setEditProfile(data))
-        dispatch(sendUpdateProfileOTP(data))
+        await dispatch(setEditProfile(data))
+        await dispatch(sendUpdateProfileOTP(data))
+        await dispatch(fetchUserData())
         resetForm(values);
     }
 
 
-    useEffect(() => {
-        setValues({
-            ...values,
-            username: userDetails?.username || '',
-            phone_number: userDetails?.phone_number || "",
-        })
-    }, [])
-
-    console.log(userDetails, "userDetails userDetails");
+  
+    // console.log(userDetails, "userDetails userDetails");
 
     return (
         <>
