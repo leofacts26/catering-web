@@ -290,7 +290,7 @@ const ListViewTiffin = () => {
                                                 </Stack> */}
 
                                                         <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} sx={{ marginBottom: '5px' }}>
-                                                            <Link href={`/tiffin-search/${item?.vendor_id}/${item?.id}`} className='text-decoration-none' variant="contained" style={{
+                                                            <Link target='_blank' href={`/tiffin-search/${item?.vendor_id}/${item?.id}`} className='text-decoration-none' variant="contained" style={{
                                                                 color: '#ffffff', padding: '8px 14px', marginTop: '8px', fontWeight: '500',
                                                                 backgroundColor: '#d9822b', borderRadius: '8px', fontSize: '14px',
                                                                 fontFamily: "Readex Pro, sans-serif",
@@ -382,7 +382,7 @@ const ListViewTiffin = () => {
                                                                 </Stack>
 
                                                                 <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} sx={{ marginBottom: '5px' }}>
-                                                                    <Link href={`/tiffin-search/${item?.vendor_id}/${item?.id}`} className='text-decoration-none' variant="contained" style={{
+                                                                    <Link target='_blank' href={`/tiffin-search/${item?.vendor_id}/${item?.id}`} className='text-decoration-none' variant="contained" style={{
                                                                         color: '#ffffff', padding: '8px 14px', marginTop: '8px', fontWeight: '500',
                                                                         backgroundColor: '#d9822b', borderRadius: '8px', fontSize: '14px',
                                                                         fontFamily: "Readex Pro, sans-serif",
