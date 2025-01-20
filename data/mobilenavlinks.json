@@ -1,0 +1,27 @@
+[
+    {
+        "id": 1,
+        "name": "Catering",
+        "url": "/catering"
+    },
+    {
+        "id": 2,
+        "name": "Tiffin",
+        "url": "/tiffin"
+    },
+    {
+        "id": 3,
+        "name": "List Your Service",
+        "url": "https://cateringvendor.cateringsandtiffins.com"
+    },
+    {
+        "id": 2,
+        "name": "Wishlist",
+        "url": "/user-profile/my-wishlist"
+    },
+    {
+        "id": 2,
+        "name": "My Profile",
+        "url": "/user-profile/my-wishlist"
+    }
+]

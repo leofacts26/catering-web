@@ -1001,7 +1001,9 @@ h6 {
   border-top-left-radius: var(--radiusTwo);
   width: 150px;
   height: 100px;
-  object-fit: contain;
+  /* object-fit: contain; */
+  object-fit: cover;
+  object-position: bottom;
 }
 
 .cuisines-title {
@@ -3928,7 +3930,7 @@ textarea:-webkit-autofill:active {
   }
 }
 
-@media only screen and (max-width: 425px) {
+@media only screen and (max-width: 475px) {
   .desktop-list-view {
     display: none !important;
   }
@@ -3982,5 +3984,15 @@ textarea:-webkit-autofill:active {
 
   .vc-chip {
     width: 168px;
+  }
+
+  .register-desktop-modal{
+    width: 300px !important;
+  } 
+  .catering-register-title{
+    font-size: 16px !important;
+  }
+  .register-para{
+    font-size: 12px !important;
   }
 }

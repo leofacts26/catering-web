@@ -8,17 +8,21 @@ import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import Link from 'next/link'
 import navlinks from '../data/navlinks.json'
+import mobilenavlinks from '../data/mobilenavlinks.json'
 import { useActivePath } from '@/helper';
 import RegisterModal from './RegisterModal';
 import UserIcon from './UserIcon';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import Notification from './Notification';
 import Container from '@mui/material/Container';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import LoginModal from './LoginModal';
 import useResetCateringFilter from '@/hooks/useResetCateringFilter';
 import useRegistration from '@/hooks/useRegistration';
-
+import { useRouter } from 'next/navigation'
+import LogoutIcon from '@mui/icons-material/Logout';
+import { logoutUser } from '@/app/features/user/userSlice';
+import toast from 'react-hot-toast';
 
 
 const Navbar = ({ cateringHome }) => {
@@ -35,7 +39,20 @@ const Navbar = ({ cateringHome }) => {
     const accessToken = useSelector((state) => state.user.accessToken)
     const { handleClickOpen, handleRegisterClickOpen } = useRegistration();
 
+    const { userDetails } = useSelector((state) => state.user)
+    const dispatch = useDispatch()
+    const router = useRouter()
 
+    const onLogout = () => {
+        localStorage.clear();
+        dispatch(logoutUser());
+        // dispatch(resetFilters());
+        // dispatch(clearTiffinSlice());
+
+        toast.success("Logout Successfull")
+        router.push('/')
+        window.location.reload();
+    }
 
     return (
         <>
@@ -117,7 +134,7 @@ const Navbar = ({ cateringHome }) => {
                             <CloseIcon onClick={() => setDrawerOpen(false)} className='cursor-pointer' />
                         </Stack>
 
-                        {navlinks?.map((navlink) => {
+                        {mobilenavlinks?.map((navlink) => {
                             return (
                                 <ul style={{ marginTop: '25px' }}>
                                     <li className='nav-link-li-mobile'>
@@ -127,6 +144,24 @@ const Navbar = ({ cateringHome }) => {
                                 </ul>
                             )
                         })}
+
+                        {!accessToken ? <div className='nav-link-li-mobile ' style={{ marginTop: '20px', marginLeft: '12px' }}>
+                            <Link href="javascript:void(0)" onClick={() => {
+                                handleRegisterClickOpen()
+                                setDrawerOpen(false)
+                            }} style={{ color: '#000' }} className="nav-link"
+                            >Signup</Link>
+                            <Link href="javascript:void(0)" onClick={() => {
+                                handleClickOpen()
+                                setDrawerOpen(false)
+                            }} style={{ color: '#000' }} className="nav-link"
+                            >Login</Link>
+                        </div> : <div className='nav-link-li-mobile mt-2 '>
+                            <Stack className='nav-link-mobile' direction="row" alignItems="center" style={{ cursor: 'pointer' }} onClick={() => onLogout()}>
+                                <LogoutIcon style={{ color: '#000000', fontWeight: '500', fontSize: '25px' }} />
+                                <h6 style={{ color: '#000' }} className='up-signout'>Logout</h6>
+                            </Stack>
+                        </div>}
 
                         <Stack sx={{ marginTop: '20px', marginLeft: '12px' }} className='mobile-login-register'>
                             {!accessToken && (
