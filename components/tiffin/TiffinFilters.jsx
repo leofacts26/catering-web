@@ -55,7 +55,7 @@ const TiffinFilters = () => {
                     <Divider />
 
                     <CardContent>
-                        <h3 className='font-20 font-weight-500 filter-text'>Your Budget (Per Plate Cost):</h3>
+                        <h3 className='font-20 font-weight-500 filter-text'>Your Budget (Per Month):</h3>
                         <p style={{ margin: '10px 0px', fontSize: '16px' }} className='select-price-range'>Select Price Range</p>
                         <TiffinPriceRanges />
                     </CardContent>

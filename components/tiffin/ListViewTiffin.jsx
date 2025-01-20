@@ -278,7 +278,7 @@ const ListViewTiffin = () => {
                                                             </div>
                                                         </Stack>
                                                         <Stack className="lv-price mb-2" direction="row" justifyContent={{ xs: 'start', sm: 'start', lg: "end" }}>
-                                                            <span className='lse-starting-price'>Monyhly plan Cost - <span className='lse-rupees-orange'>₹ {item?.start_price}/- </span> </span>
+                                                            <span className='lse-starting-price'>Monthly plan Cost - <span className='lse-rupees-orange'>₹ {item?.start_price}/- </span> </span>
                                                         </Stack>
                                                     </div>
 
