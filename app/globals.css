@@ -3962,6 +3962,13 @@ textarea:-webkit-autofill:active {
   width: 100% !important;
 }
 
+@media only screen and (min-width: 768px) {
+  .review-desktop {
+    padding-right: 1.5rem !important;
+    padding-left: 1.5rem !important;
+  }
+}
+
 @media only screen and (min-width: 425px) {
   .mobile-list-view {
     display: none;
