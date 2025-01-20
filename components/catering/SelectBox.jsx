@@ -54,9 +54,15 @@ const SelectBox = () => {
                         {
                             subscriptionTypes?.map((subscriptionType) => {
                                 return (
+                                    <>
+                                    {/* <Button size="small" className={`btn-pill ${subscriptionType.selectedweb === 1 && 'btn-pill-active-catering'}`} key={subscriptionType?.id}
+                                        onClick={() => onHandlesubscriptionTypes(subscriptionType?.id)}
+                                    >{subscriptionType?.name}</Button> */}
+
                                     <Button size="small" className={`btn-pill m-1 ${subscriptionType.selectedweb === 1 && 'btn-pill-active'}`} key={subscriptionType?.id}
                                         onClick={() => onHandlesubscriptionTypes(subscriptionType?.id)}
                                     >{subscriptionType?.name}</Button>
+                                    </>
                                 )
                             })
                         }

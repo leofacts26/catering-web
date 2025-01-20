@@ -600,21 +600,22 @@ export const cateringFilterSlice = createSlice({
         },
         setSubscriptionFilter: (state, action) => {
             const { id, subscriptionTypes } = action.payload;
-            const updatedSubscriptionFilter = subscriptionTypes.map(subscription => {
-                if (Number(subscription.id) === Number(id)) {
-                    // Toggle the selectedweb value for the clicked subscription type
+
+            const updatedSubscriptionFilter = subscriptionTypes?.map(subscription => {
+                if (subscription.id === id) {
+                    if (subscription.selectedweb === 1) {
+                        return subscription;
+                    }
                     return {
                         ...subscription,
                         selectedweb: subscription.selectedweb === 1 ? 0 : 1
                     };
-                } else if ([2, 3].includes(id)) {
-                    // If selecting 5 or 6, ensure all others are deselected
+                } else if (["5", "6"].includes(id)) {
                     return {
                         ...subscription,
                         selectedweb: 0
                     };
                 } else if (id === "9999") {
-                    // Always keep 9999 selected and deselect others
                     return {
                         ...subscription,
                         selectedweb: subscription.id === "9999" ? 1 : 0
@@ -623,6 +624,27 @@ export const cateringFilterSlice = createSlice({
                     return subscription;
                 }
             });
+
+            // const updatedSubscriptionFilter = subscriptionTypes.map(subscription => {
+            //     if (Number(subscription.id) === Number(id)) {
+            //         return {
+            //             ...subscription,
+            //             selectedweb: subscription.selectedweb === 1 ? 0 : 1
+            //         };
+            //     } else if ([2, 3].includes(id)) {
+            //         return {
+            //             ...subscription,
+            //             selectedweb: 0
+            //         };
+            //     } else if (id === "9999") {
+            //         return {
+            //             ...subscription,
+            //             selectedweb: subscription.id === "9999" ? 1 : 0
+            //         };
+            //     } else {
+            //         return subscription;
+            //     }
+            // });
 
             state.subscriptionTypes = updatedSubscriptionFilter;
         },

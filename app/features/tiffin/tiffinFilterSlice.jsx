@@ -230,8 +230,8 @@ export const fetchTiffinMapviewSearchCards = createAsyncThunk(
             selected: subscriptionType.selectedweb
         }))
 
-         // rating_tiffin_filter_formatted
-         const rating_tiffin_filter_formatted = getTiffinRatings.map(item => ({
+        // rating_tiffin_filter_formatted
+        const rating_tiffin_filter_formatted = getTiffinRatings.map(item => ({
             rating: item.rating,
             selected: item.selectedweb
         }));
@@ -246,7 +246,7 @@ export const fetchTiffinMapviewSearchCards = createAsyncThunk(
             return response?.data?.data;
         } catch (error) {
             return thunkAPI.rejectWithValue(error.response.data.msg);
-        }
+        } a
     }
 )
 
@@ -407,19 +407,19 @@ export const tiffinFilterSlice = createSlice({
             const { id, tiffinSubscriptionTypes } = action.payload;
             const updatedSubscriptionFilter = tiffinSubscriptionTypes?.map(subscription => {
                 if (subscription.id === id) {
-                    // Toggle the selectedweb value for the clicked subscription type
+                    if (subscription.selectedweb === 1) {
+                        return subscription;
+                    }
                     return {
                         ...subscription,
                         selectedweb: subscription.selectedweb === 1 ? 0 : 1
                     };
                 } else if (["5", "6"].includes(id)) {
-                    // If selecting 5 or 6, ensure all others are deselected
                     return {
                         ...subscription,
                         selectedweb: 0
                     };
                 } else if (id === "9999") {
-                    // Always keep 9999 selected and deselect others
                     return {
                         ...subscription,
                         selectedweb: subscription.id === "9999" ? 1 : 0
