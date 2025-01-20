@@ -3923,7 +3923,7 @@ textarea:-webkit-autofill:active {
     top: 2% !important;
   }
 
-  .btn-close-tiffin{
+  .btn-close-tiffin {
     top: 2% !important;
   }
 }
@@ -3965,5 +3965,15 @@ textarea:-webkit-autofill:active {
 @media only screen and (min-width: 425px) {
   .mobile-list-view {
     display: none;
+  }
+}
+
+@media only screen and (max-width: 425px) {
+  .detailname-width {
+    width: 100%;
+  }
+
+  .vc-chip {
+    width: 168px;
   }
 }
