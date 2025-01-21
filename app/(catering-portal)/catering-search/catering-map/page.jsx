@@ -72,7 +72,7 @@ const page = () => {
 
     const customMarker = {
         url: '/img/icons/catering-icon.svg', // Replace with your image URL or path
-        scaledSize: new window.google.maps.Size(100, 100), // Adjust size as needed
+        scaledSize: new window.google.maps.Size(40, 40), // Adjust size as needed
         origin: new window.google.maps.Point(0, 0), // Adjust origin as needed
         anchor: new window.google.maps.Point(25, 50) // Adjust anchor as needed
     };

@@ -191,7 +191,8 @@ const UserIcon = () => {
 
 
                     <p style={{ marginTop: '10px', fontSize: '12px' }}>Get in Touch</p>
-                    <Link href="https://cateringvendor.cateringsandtiffins.com/">
+                    <Link href="https://cateringvendor.cateringsandtiffins.com/" target="_blank"
+                        rel="noopener noreferrer">
                         <Stack direction="row" justifyContent="space-between" className='up-card'>
                             <Stack direction="row" spacing={1} alignItems="center">
                                 <ViewListIcon className="up-profile-icon" />
