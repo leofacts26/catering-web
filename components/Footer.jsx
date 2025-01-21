@@ -45,8 +45,8 @@ const Footer = () => {
                                         <Box>
                                             <ul className="footer-ul">
                                                 <li><Link href="/about">About Us</Link></li>
-                                                <li><Link href="javascript:void(0)">Our Mission</Link></li>
-                                                <li><Link href="javascript:void(0)">Our Vision</Link></li>
+                                                <li><Link href="/our-mission">Our Mission</Link></li>
+                                                <li><Link href="/our-vision">Our Vision</Link></li>
                                                 <li><Link href="/faq">FAQ's</Link></li>
                                             </ul>
                                         </Box>
