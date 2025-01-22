@@ -3915,11 +3915,15 @@ textarea:-webkit-autofill:active {
 }
 
 @media only screen and (max-width: 768px) {
+  .red-btn {
+    border-radius: 0px !important;
+  }
+
   .mealtype-chip-tiffin {
     width: 230px;
   }
 
-  .tiffin-del{
+  .tiffin-del {
     display: none;
   }
 
@@ -3942,6 +3946,7 @@ textarea:-webkit-autofill:active {
 }
 
 @media only screen and (max-width: 600px) {
+
   .desktop-list-view {
     display: none !important;
   }

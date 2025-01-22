@@ -63,6 +63,10 @@ const CssTextFieldRadius = styled(TextField)(({ theme }) => ({
       border: "2px solid #C33332",
       borderTopLeftRadius: "8px",
       borderBottomLeftRadius: "8px",
+      [theme.breakpoints.down("768")]: {
+        borderTopLeftRadius: "0px",
+        borderBottomLeftRadius: "0px",
+      },
     },
     "&:hover fieldset": {
       border: "2px solid #C33332",
