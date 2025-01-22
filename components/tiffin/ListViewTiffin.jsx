@@ -122,16 +122,16 @@ const ListViewTiffin = () => {
             {
                 getTiffinSearchCards?.length > 0 ? (
                     <>
-                        {getTiffinSearchCards?.map((item) => {
-                            const brandLogo = item?.brand_logo?.[0]?.original;
-                            const bannerImage = item?.banner_images?.[0]?.original;
-                            const imageSrc = item?.subscription_type_name === "branded" && brandLogo || item?.brand_logo?.original || bannerImage || 'img/no-image.jpg';
-                            const filterFoodTypes = item?.food_types.filter((item) => item !== 'All')
+                        {getTiffinSearchCards?.map((getSearchCard) => {
+                            const brandLogo = getSearchCard?.brand_logo?.[0]?.original;
+                            const bannerImage = getSearchCard?.banner_images?.[0]?.original;
+                            const imageSrc = getSearchCard?.subscription_type_name === "branded" && brandLogo || getSearchCard?.brand_logo?.original || bannerImage || 'img/no-image.jpg';
+                            const filterFoodTypes = getSearchCard?.food_types.filter((getSearchCard) => getSearchCard !== 'All')
 
                             let tagColor = "";
-                            if (item?.subscription_type_name === "popular") {
+                            if (getSearchCard?.subscription_type_name === "popular") {
                                 tagColor = "#459412"
-                            } else if (item?.subscription_type_name === "branded") {
+                            } else if (getSearchCard?.subscription_type_name === "branded") {
                                 tagColor = "#8E11A5"
                             } else {
                                 tagColor = "#8E11A5"
@@ -140,190 +140,22 @@ const ListViewTiffin = () => {
                             return (
                                 <>
                                     <div className="desktop-list-view">
-                                        <div className="list-view-card-tiffin" key={item?.id}>
-                                            <Stack spacing={{ xs: 1, sm: 2, md: 0 }} direction={{ xs: 'column', sm: 'row', md: 'row', lg: "row" }} justifyContent="space-between" flexWrap="wrap" style={{ height: '100%' }}>
-
-                                                <Stack direction={{ xs: 'column', sm: 'row', md: 'row', lg: "row" }} spacing={0}>
-                                                    <div className="list-card-img-tiffin overflow-tiffincard-ellipsis position-relative">
-                                                        <Link href={`/tiffin-search/${item?.vendor_id}/${item?.id}`}>
-                                                            <img src={imageSrc} alt="" className="img-fluid listview-img-tiffin" style={{ borderRadius: '8px', height: '100%' }} />
-                                                        </Link>
-                                                        <div className="position-absolute list-card-tag-tiffin" style={{ backgroundColor: tagColor }}>
-                                                            {item?.subscription_type_name}
-                                                        </div>
-                                                    </div>
-                                                    <div className="list-card-center h-100 ml-1">
-
-                                                        <Stack className='h-100' justifyContent="space-between">
-                                                            <div>
-                                                                <Link href={`/tiffin-search/${item?.vendor_id}/${item?.id}`} className='list-card-title overflow-tiffincard-ellipsis'>{item?.catering_service_name}</Link>
-                                                                <p className='list-card-desc overflow-tiffincard-ellipsis' style={{ marginBottom: '14px' }}>
-                                                                    {item?.street_name ? `${item.street_name}, ` : ''}
-                                                                    {item?.city ? item.city : ''}
-                                                                </p>
-                                                                <div>
-                                                                    {
-                                                                        filterFoodTypes.length > 0 && <Stack direction="row" spacing={1} style={{ marginBottom: '10px' }}>
-                                                                            {
-                                                                                filterFoodTypes.map((food_type, index) => {
-                                                                                    let iconSrc = '';
-                                                                                    let foodClassName = '';
-                                                                                    if (food_type === 'Veg') {
-                                                                                        iconSrc = '/img/icons/list-card-veg.png';
-                                                                                        foodClassName = 'food-veg-color';
-                                                                                    } else if (food_type === 'Non Veg') {
-                                                                                        iconSrc = '/img/icons/list-card-non-veg.png';
-                                                                                        foodClassName = 'food-nonveg-color';
-                                                                                    } else {
-                                                                                        iconSrc = '/img/icons/list-card-veg.png';
-                                                                                        foodClassName = 'food-veg-color';
-                                                                                    }
-                                                                                    return (
-                                                                                        <Stack direction="row" alignItems="center" spacing={0} key={index}>
-                                                                                            <img src={iconSrc} className='list-card-veg' alt="" />
-                                                                                            <p className={`list-card-veg-font ${foodClassName}`}> {food_type} </p>
-                                                                                        </Stack>
-                                                                                    )
-                                                                                })
-                                                                            }
-                                                                        </Stack>
-                                                                    }
-
-
-                                                                    <Stack direction={{ xs: 'row', sm: 'row', md: 'row', lg: "row" }} flexWrap="wrap" spacing={0} style={{ marginBottom: '10px' }}>
-                                                                        {
-                                                                            item?.meal_times?.map((mealtime, index) => {
-                                                                                const isLast = index === item.meal_times.length - 1;
-                                                                                return (
-                                                                                    <span className='list-card-chip-tiffin'> {mealtime}{!isLast && ' |'} </span>
-                                                                                )
-                                                                            })
-                                                                        }
-                                                                    </Stack>
-
-                                                                    <Stack direction="row" spacing={1}>
-                                                                        {item?.kitchen_types.length > 0 && item?.kitchen_types?.slice(0, 4).map((item) => (
-                                                                            <span className='list-card-chip-kitchentypes' style={{ marginBottom: '12px' }}>
-                                                                                {item}
-                                                                            </span>
-                                                                        ))
-                                                                        }
-                                                                    </Stack>
-
-
-                                                                    <div>
-                                                                        <Stack direction={{ xs: 'row', sm: 'row', md: 'row', lg: "row" }} className='cat-types' spacing={2}>
-                                                                            {item?.service_types?.map((serviceType) => {
-                                                                                let iconSrc = '';
-                                                                                if (serviceType.toLowerCase() === 'delivery') {
-                                                                                    iconSrc = '/img/icons/delivery-icons.svg';
-                                                                                } else if (serviceType.toLowerCase() === 'dine in') {
-                                                                                    iconSrc = '/img/icons/dine-in-icons.svg';
-                                                                                } else if (serviceType.toLowerCase() === 'takeaway') {
-                                                                                    iconSrc = '/img/icons/takeaway-icons.svg';
-                                                                                } else {
-                                                                                    iconSrc = '/img/icons/delivery-icons.svg';
-                                                                                }
-                                                                                return (
-                                                                                    <Stack direction="row" alignItems="center">
-
-                                                                                        <img src={iconSrc} alt={serviceType} className="img-fluid list-view-icons" />
-                                                                                        <span className='list-view-icon-text'> {serviceType} </span>
-                                                                                    </Stack>
-                                                                                )
-                                                                            })}
-                                                                        </Stack>
-                                                                    </div>
-
-
-                                                                </div>
-                                                            </div>
-                                                        </Stack>
-
-
-
-
-
-                                                    </div>
-                                                </Stack>
-
-
-                                                <Stack className="list-card-end" direction="column" justifyContent="space-between">
-                                                    <div>
-                                                        <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} style={{ marginBottom: '8px' }}>
-                                                            <ShareIcon className={`lse-icons ${isAnimating === item?.id ? 'spin-animation text-orange' : ''}`} style={{ marginRight: '10px', cursor: 'pointer' }}
-                                                                onClick={() => onHandleShare(item?.id, { vendorId: item?.vendor_id, Id: item?.id })}
-                                                            />
-
-                                                            {accessToken ? <>
-                                                                {wishlist[item?.id] ? <FavoriteIcon className='lse-icons cursor-pointer fill-heart-tiffin' onClick={() => onHandleAddFavourite(item?.id)} /> : <FavoriteBorderIcon className='lse-icons cursor-pointer' onClick={() => onHandleAddFavourite(item?.id)} />}
-                                                            </> : <FavoriteBorderIcon className='lse-icons cursor-pointer' onClick={handleClickOpen} />}
-                                                        </Stack>
-                                                        <Stack direction="row" alignItems="center" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} style={{ marginBottom: '8px' }}>
-                                                            <span className='cat-yellow' style={{ fontSize: '14px' }}>
-                                                                <Stack direction="row" alignItems="center">
-                                                                    <ShowOnMap tiffinColor locLatitude={item?.latitude} locLongtitude={item?.longitude} />
-                                                                </Stack>
-                                                            </span>
-                                                        </Stack>
-                                                        <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} style={{ marginBottom: '8px' }}>
-                                                            <span className='lse-reviews'> {item?.review_count} Reviews</span>
-                                                        </Stack>
-                                                        <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} style={{ marginBottom: '8px' }}>
-                                                            <div className="mt-2">
-                                                                {[...Array(parseInt(item.rating.slice(0, 1)))].map((star, index) => (
-                                                                    <StarIcon key={index} style={{ color: '#d9822b', fontSize: 20 }} />
-                                                                ))}
-
-                                                            </div>
-                                                        </Stack>
-                                                        <Stack className="lv-price mb-2" direction="row" justifyContent={{ xs: 'start', sm: 'start', lg: "end" }}>
-                                                            <span className='lse-starting-price'>Monthly plan Cost - <span className='lse-rupees-orange'>₹ {item?.start_price}/- </span> </span>
-                                                        </Stack>
-                                                    </div>
-
-
-                                                    <div>
-
-                                                        {/* <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} style={{ marginTop: '6px' }}>
-                                                    <span className='lse-starting-price'>Inclusive All Taxes</span>
-                                                </Stack> */}
-
-                                                        <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} sx={{ marginBottom: '5px' }}>
-                                                            <Link target='_blank' href={`/tiffin-search/${item?.vendor_id}/${item?.id}`} className='text-decoration-none' variant="contained" style={{
-                                                                color: '#ffffff', padding: '8px 14px', marginTop: '8px', fontWeight: '500',
-                                                                backgroundColor: '#d9822b', borderRadius: '8px', fontSize: '14px',
-                                                                fontFamily: "Readex Pro, sans-serif",
-                                                                textTransform: 'capitalize', '&:hover': {
-                                                                    backgroundColor: '#d9822b',
-                                                                }
-                                                            }}>Enquire Now</Link>
-                                                        </Stack>
-                                                    </div>
-
-                                                </Stack>
-                                            </Stack>
-                                        </div>
-                                    </div>
-
-
-                                    <div className="mobile-list-view">
-                                        <div className="list-view-card" key={item?.id}>
-                                            <Stack spacing={{ xs: 1, sm: 1, md: 0 }} direction={{ xs: 'row', sm: 'row', md: 'row', lg: "row" }} justifyContent="space-between" flexWrap="wrap">
-                                                <Stack direction={{ xs: 'row', sm: 'row', md: 'row', lg: "row" }} alignItems="start" spacing={2}>
-                                                    <div className="list-card-img-tiffin position-relative">
-                                                        <Link href={`/catering-search/${item?.vendor_id}/${item?.id}`}>
-                                                            {item ? (
+                                        <div className="list-view-card" key={getSearchCard?.id}>
+                                            <Stack spacing={{ xs: 1, sm: 2, md: 0 }} direction={{ xs: 'column', sm: 'row', md: 'row', lg: "row" }} justifyContent="space-between" flexWrap="wrap">
+                                                <Stack direction={{ xs: 'column', sm: 'row', md: 'row', lg: "row" }} alignItems="start" spacing={2}>
+                                                    <div className="list-card-img position-relative">
+                                                        <Link href={`/catering-search/${getSearchCard?.vendor_id}/${getSearchCard?.id}`}>
+                                                            {getSearchCard ? (
                                                                 <img
                                                                     src={
-                                                                        item?.brand_logo?.original
-                                                                            ? item.brand_logo.original
-                                                                            : item?.banner_images?.[0]?.original
-                                                                                ? item.banner_images[0].original
+                                                                        getSearchCard?.brand_logo?.original
+                                                                            ? getSearchCard.brand_logo.original
+                                                                            : getSearchCard?.banner_images?.[0]?.original
+                                                                                ? getSearchCard.banner_images[0].original
                                                                                 : 'img/no-image.jpg'
                                                                     }
                                                                     alt="Image"
-                                                                    className="img-fluid listview-img-tiffin"
+                                                                    className="img-fluid listview-img"
                                                                     style={{ borderRadius: '8px', height: '100%' }}
                                                                 />
                                                             ) : (
@@ -336,70 +168,279 @@ const ListViewTiffin = () => {
                                                             )}
                                                         </Link>
                                                         <div className="position-absolute list-card-tag" style={{ backgroundColor: tagColor }}>
-                                                            {item?.subscription_type_name}
+                                                            {getSearchCard?.subscription_type_name}
                                                         </div>
                                                     </div>
 
 
                                                     <div className="list-card-center h-100">
-                                                        <Link href={`/catering-search/${item?.vendor_id}/${item?.id}`} className='list-card-title'>{item?.catering_service_name}</Link>
-                                                        <p className='list-card-desc' style={{ marginBottom: '0px' }}>
-                                                            {item?.street_name ? `${item?.street_name}, ` : ''}
-                                                            {item?.city ? item.city : ''}
+                                                        <Link href={`/catering-search/${getSearchCard?.vendor_id}/${getSearchCard?.id}`} className='list-card-title'>{getSearchCard?.catering_service_name}</Link>
+                                                        <p className='list-card-desc' style={{ marginBottom: '15px' }}>
+                                                            {getSearchCard?.street_name ? `${getSearchCard?.street_name}, ` : ''}
+                                                            {getSearchCard?.city ? getSearchCard.city : ''}
                                                         </p>
 
-                                                        <Stack className="list-card-end m-0 p-0" direction="column" justifyContent="space-between">
-                                                            <div>
-                                                                <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} className='mb-2 share-love'>
-                                                                    <ShareIcon className={`lse-icons ${isAnimating === item.id ? 'spin-animation text-red' : ''}`} style={{ marginRight: '10px', cursor: 'pointer' }}
-                                                                        onClick={() => onHandleShare(item.id, { vendorId: item.vendor_id, Id: item.id })}
-                                                                    />
-                                                                    {accessToken ? <>
-                                                                        {wishlist[item?.id] ? <FavoriteIcon className='lse-icons cursor-pointer fill-heart-catering' onClick={() => onHandleAddFavourite(item?.id)} /> : <FavoriteBorderIcon className='lse-icons cursor-pointer' onClick={() => onHandleAddFavourite(item?.id)} />}
-                                                                    </> : <FavoriteBorderIcon className='lse-icons cursor-pointer' onClick={handleClickOpen} />}
-                                                                </Stack>
-                                                                <Stack direction="row" alignItems="center" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} style={{ marginBottom: '8px' }}>
-                                                                    <span className='cat-yellow' style={{ fontSize: '14px' }}>
-                                                                        <Stack direction="row" alignItems="center">
-                                                                            <ShowOnMap tiffinColor locLatitude={item?.latitude} locLongtitude={item?.longitude} />
+                                                        {filterFoodTypes?.length > 0 && <Stack direction="row" spacing={1} style={{ marginBottom: '15px' }}>
+                                                            {
+                                                                filterFoodTypes?.map((food_type, index) => {
+                                                                    let iconSrc = '';
+                                                                    let foodClassName = '';
+                                                                    if (food_type === 'Veg') {
+                                                                        iconSrc = '/img/icons/list-card-veg.png';
+                                                                        foodClassName = 'food-veg-color';
+                                                                    } else if (food_type === 'Non Veg') {
+                                                                        iconSrc = '/img/icons/list-card-non-veg.png';
+                                                                        foodClassName = 'food-nonveg-color';
+                                                                    } else {
+                                                                        iconSrc = '/img/icons/list-card-veg.png';
+                                                                        foodClassName = 'food-veg-color';
+                                                                    }
+                                                                    return (
+                                                                        <Stack direction="row" alignItems="center" spacing={0} key={index}>
+                                                                            <img src={iconSrc} className='list-card-veg' alt="" />
+                                                                            <p className={`list-card-veg-font ${foodClassName}`}> {food_type} </p>
                                                                         </Stack>
-                                                                    </span>
-                                                                </Stack>
-                                                                <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} style={{ marginBottom: '8px' }}>
-                                                                    <span className='lse-reviews'> {item?.review_count} Reviews</span>
-                                                                </Stack>
-                                                               
+                                                                    )
+                                                                })
+                                                            }
+                                                        </Stack>}
 
-                                                            </div>
+                                                        {/* {getSearchCard?.cuisines.length > 0 && <Stack
+                                                            direction="flex"
+                                                            flexWrap="wrap"
+                                                            spacing={1} className='list-card-dish-loc'
+                                                            style={{ width: '375px', marginBottom: '15px' }}
+                                                        >
+                                                            <span className='me-2 text-ellipse-one-listcard'>
+                                                                {getSearchCard?.cuisines.join(" | ")}
+                                                            </span>
+                                                        </Stack>} */}
 
-
-                                                            <div>
-                                                                <Stack className="lv-price mb-2" direction="row" justifyContent={{ xs: 'start', sm: 'start', lg: "end" }}>
-                                                                    <span className='lse-starting-price'>Monyhly plan Cost - <span className='lse-rupees-orange'>₹ {item?.start_price}/- </span> </span>
-                                                                </Stack>
-
-                                                                <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} style={{ marginTop: '6px' }}>
-                                                                </Stack>
-
-                                                                <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} sx={{ marginBottom: '5px' }}>
-                                                                    <Link target='_blank' href={`/tiffin-search/${item?.vendor_id}/${item?.id}`} className='text-decoration-none' variant="contained" style={{
-                                                                        color: '#ffffff', padding: '8px 14px', marginTop: '8px', fontWeight: '500',
-                                                                        backgroundColor: '#d9822b', borderRadius: '8px', fontSize: '14px',
-                                                                        fontFamily: "Readex Pro, sans-serif",
-                                                                        textTransform: 'capitalize', '&:hover': {
-                                                                            backgroundColor: '#d9822b',
-                                                                        }
-                                                                    }}>Enquire Now</Link>
-                                                                </Stack>
-                                                            </div>
+                                                        <Stack direction={{ xs: 'row', sm: 'row', md: 'row', lg: "row" }} flexWrap="wrap" spacing={0} style={{ marginBottom: '10px' }} className='mealtype-chip-tiffin'>
+                                                            {
+                                                                getSearchCard?.meal_times?.map((mealtime, index) => {
+                                                                    const isLast = index === getSearchCard.meal_times.length - 1;
+                                                                    return (
+                                                                        <span className='list-card-chip-tiffin'> {mealtime}{!isLast && ' |'} </span>
+                                                                    )
+                                                                })
+                                                            }
                                                         </Stack>
 
 
+                                                        <Stack direction="row" spacing={1}>
+                                                            {getSearchCard?.kitchen_types.length > 0 && getSearchCard?.kitchen_types?.slice(0, 4).map((getSearchCard) => (
+                                                                <span className='list-card-chip-kitchentypes' style={{ marginBottom: '12px' }}>
+                                                                    {getSearchCard}
+                                                                </span>
+                                                            ))
+                                                            }
+                                                        </Stack>
 
+
+                                                        <div className='tiffin-del'>
+                                                            <Stack direction={{ xs: 'row', sm: 'row', md: 'row', lg: "row" }} className='cat-types' spacing={2}>
+                                                                {getSearchCard?.service_types?.map((serviceType) => {
+                                                                    let iconSrc = '';
+                                                                    if (serviceType.toLowerCase() === 'delivery') {
+                                                                        iconSrc = '/img/icons/delivery-icons.svg';
+                                                                    } else if (serviceType.toLowerCase() === 'dine in') {
+                                                                        iconSrc = '/img/icons/dine-in-icons.svg';
+                                                                    } else if (serviceType.toLowerCase() === 'takeaway') {
+                                                                        iconSrc = '/img/icons/takeaway-icons.svg';
+                                                                    } else {
+                                                                        iconSrc = '/img/icons/delivery-icons.svg';
+                                                                    }
+                                                                    return (
+                                                                        <Stack direction="row" alignItems="center">
+
+                                                                            <img src={iconSrc} alt={serviceType} className="img-fluid list-view-icons" />
+                                                                            <span className='list-view-icon-text'> {serviceType} </span>
+                                                                        </Stack>
+                                                                    )
+                                                                })}
+                                                            </Stack>
+                                                        </div>
                                                     </div>
                                                 </Stack>
 
 
+
+
+
+                                                <Stack className="list-card-end m-0 p-0" direction="column" justifyContent="space-between">
+                                                    <div>
+                                                        <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} className='mb-2 share-love'>
+                                                            <ShareIcon className={`lse-icons ${isAnimating === getSearchCard.id ? 'spin-animation text-red' : ''}`} style={{ marginRight: '10px', cursor: 'pointer' }}
+                                                                onClick={() => onHandleShare(getSearchCard.id, { vendorId: getSearchCard.vendor_id, Id: getSearchCard.id })}
+                                                            />
+                                                            {accessToken ? <>
+                                                                {wishlist[getSearchCard?.id] ? <FavoriteIcon className='lse-icons cursor-pointer fill-heart-catering' onClick={() => onHandleAddFavourite(getSearchCard?.id)} /> : <FavoriteBorderIcon className='lse-icons cursor-pointer' onClick={() => onHandleAddFavourite(getSearchCard?.id)} />}
+                                                            </> : <FavoriteBorderIcon className='lse-icons cursor-pointer' onClick={handleClickOpen} />}
+                                                        </Stack>
+                                                        <Stack direction="row" alignItems="center" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} style={{ marginTop: '8px' }}>
+                                                            <span className='cat-red' style={{ fontSize: '14px' }}>
+                                                                <Stack direction="row" alignItems="center">
+                                                                    {/* <ShowOnMapCatering locLatitude={getSearchCard?.latitude} locLongtitude={getSearchCard?.longitude} /> */}
+                                                                </Stack>
+                                                            </span>
+                                                        </Stack>
+                                                        <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} style={{ marginTop: '8px' }}>
+                                                            <span className='lse-reviews'> {getSearchCard?.review_count} Reviews</span>
+                                                        </Stack>
+                                                        <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} style={{ marginBottom: '8px' }}>
+                                                            <div className="mt-2">
+                                                                {[...Array(parseInt(getSearchCard.rating.slice(0, 1)))].map((star, index) => (
+                                                                    <StarIcon key={index} style={{ color: '#d9822b', fontSize: 20 }} />
+                                                                ))}
+
+                                                            </div>
+                                                        </Stack>
+                                                    </div>
+
+
+                                                    <div>
+                                                        <Stack className="lv-price mb-2" direction="row" justifyContent={{ xs: 'start', sm: 'start', lg: "end" }}>
+                                                            <span className='lse-starting-price'>Monthly plan Cost - <span className='lse-rupees-orange'>₹ {getSearchCard?.start_price}/- </span> </span>
+                                                        </Stack>
+
+                                                        <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} style={{ marginTop: '6px' }}>
+                                                            {/* <span className='lse-starting-price'>Inclusive All Taxes</span> */}
+                                                        </Stack>
+
+
+                                                        <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} sx={{ marginBottom: '5px' }}>
+                                                            <Link target='_blank' href={`/tiffin-search/${getSearchCard?.vendor_id}/${getSearchCard?.id}`} className='text-decoration-none' variant="contained" style={{
+                                                                color: '#ffffff', padding: '8px 14px', marginTop: '8px', fontWeight: '500',
+                                                                backgroundColor: '#d9822b', borderRadius: '8px', fontSize: '14px',
+                                                                fontFamily: "Readex Pro, sans-serif",
+                                                                textTransform: 'capitalize', '&:hover': {
+                                                                    backgroundColor: '#d9822b',
+                                                                }
+                                                            }}>Enquire Now</Link>
+                                                        </Stack>
+
+                                                    </div>
+
+                                                </Stack>
+                                            </Stack>
+                                        </div>
+                                    </div>
+
+
+                                    <div className="mobile-list-view">
+                                        <div className="list-view-card" key={getSearchCard?.id}>
+                                            <Stack spacing={{ xs: 1, sm: 2, md: 0 }} direction={{ xs: 'row', sm: 'row', md: 'row', lg: "row" }} justifyContent="space-between" flexWrap="wrap">
+                                                <Stack direction={{ xs: 'row', sm: 'row', md: 'row', lg: "row" }} alignItems="start" spacing={2}>
+                                                    <div className="list-card-img position-relative">
+                                                        <Link href={`/catering-search/${getSearchCard?.vendor_id}/${getSearchCard?.id}`}>
+                                                            {getSearchCard ? (
+                                                                <img
+                                                                    src={
+                                                                        getSearchCard?.brand_logo?.original
+                                                                            ? getSearchCard.brand_logo.original
+                                                                            : getSearchCard?.banner_images?.[0]?.original
+                                                                                ? getSearchCard.banner_images[0].original
+                                                                                : 'img/no-image.jpg'
+                                                                    }
+                                                                    alt="Image"
+                                                                    className="img-fluid listview-img"
+                                                                    style={{ borderRadius: '8px', height: '100%' }}
+                                                                />
+                                                            ) : (
+                                                                <img
+                                                                    src="/img/no-image.jpg"
+                                                                    alt="Image"
+                                                                    className="img-fluid listview-img"
+                                                                    style={{ borderRadius: '8px', height: '100%' }}
+                                                                />
+                                                            )}
+                                                        </Link>
+                                                        <div className="position-absolute list-card-tag" style={{ backgroundColor: tagColor }}>
+                                                            {getSearchCard?.subscription_type_name}
+                                                        </div>
+                                                    </div>
+
+
+                                                    <Stack direction="column" justifyContent="space-between" className='h-100'>
+
+                                                        <div className="list-card-center h-100">
+                                                            <Link href={`/catering-search/${getSearchCard?.vendor_id}/${getSearchCard?.id}`} className='list-card-title'>{getSearchCard?.catering_service_name}</Link>
+                                                            <p className='list-card-desc' style={{ marginBottom: '15px' }}>
+                                                                {getSearchCard?.street_name ? `${getSearchCard?.street_name}, ` : ''}
+                                                                {getSearchCard?.city ? getSearchCard.city : ''}
+                                                            </p>
+
+                                                            {filterFoodTypes?.length > 0 && <Stack direction="row" spacing={1} style={{ marginBottom: '15px' }}>
+                                                                {
+                                                                    filterFoodTypes?.map((food_type, index) => {
+                                                                        let iconSrc = '';
+                                                                        let foodClassName = '';
+                                                                        if (food_type === 'Veg') {
+                                                                            iconSrc = '/img/icons/list-card-veg.png';
+                                                                            foodClassName = 'food-veg-color';
+                                                                        } else if (food_type === 'Non Veg') {
+                                                                            iconSrc = '/img/icons/list-card-non-veg.png';
+                                                                            foodClassName = 'food-nonveg-color';
+                                                                        } else {
+                                                                            iconSrc = '/img/icons/list-card-veg.png';
+                                                                            foodClassName = 'food-veg-color';
+                                                                        }
+                                                                        return (
+                                                                            <Stack direction="row" alignItems="center" spacing={0} key={index}>
+                                                                                <img src={iconSrc} className='list-card-veg' alt="" />
+                                                                                <p className={`list-card-veg-font ${foodClassName}`}> {food_type} </p>
+                                                                            </Stack>
+                                                                        )
+                                                                    })
+                                                                }
+                                                            </Stack>}
+
+                                                            <Stack direction={{ xs: 'row', sm: 'row', md: 'row', lg: "row" }} flexWrap="wrap" spacing={0} style={{ marginBottom: '10px' }} className='mealtype-chip-tiffin'>
+                                                                {
+                                                                    getSearchCard?.meal_times?.map((mealtime, index) => {
+                                                                        const isLast = index === getSearchCard.meal_times.length - 1;
+                                                                        return (
+                                                                            <span className='list-card-chip-tiffin'> {mealtime}{!isLast && ' |'} </span>
+                                                                        )
+                                                                    })
+                                                                }
+                                                            </Stack>
+
+                                                            {/* <Stack direction="row" spacing={1}>
+                                                                {getSearchCard?.kitchen_types.length > 0 && getSearchCard?.kitchen_types?.slice(0, 4).map((getSearchCard) => (
+                                                                    <span className='list-card-chip-kitchentypes' style={{ marginBottom: '12px' }}>
+                                                                        {getSearchCard}
+                                                                    </span>
+                                                                ))
+                                                                }
+                                                            </Stack> */}
+
+                                                        </div>
+
+
+                                                        <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} sx={{ marginBottom: '5px' }}>
+                                                            <Link target='_blank' href={`/tiffin-search/${getSearchCard?.vendor_id}/${getSearchCard?.id}`} className='text-decoration-none' variant="contained" style={{
+                                                                color: '#ffffff', padding: '8px 14px', marginTop: '8px', fontWeight: '500',
+                                                                backgroundColor: '#d9822b', borderRadius: '8px', fontSize: '14px',
+                                                                fontFamily: "Readex Pro, sans-serif",
+                                                                textTransform: 'capitalize', '&:hover': {
+                                                                    backgroundColor: '#d9822b',
+                                                                }
+                                                            }}>Enquire Now</Link>
+                                                        </Stack>
+
+                                                    </Stack>
+
+                                                </Stack>
+
+
+
+
+
+
+
+                                              
 
                                             </Stack>
                                         </div>

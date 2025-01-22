@@ -3910,8 +3910,19 @@ textarea:-webkit-autofill:active {
   background: none !important;
 }
 
+.mealtype-chip-tiffin {
+  width: 'auto'
+}
 
 @media only screen and (max-width: 768px) {
+  .mealtype-chip-tiffin {
+    width: 230px;
+  }
+
+  .tiffin-del{
+    display: none;
+  }
+
   .map-filter-none {
     display: none;
   }
@@ -4026,7 +4037,7 @@ textarea:-webkit-autofill:active {
     text-decoration: none;
   }
 
-  .text-ellipse-one-listcard{
+  .text-ellipse-one-listcard {
     max-width: 100% !important;
   }
 
