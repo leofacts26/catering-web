@@ -165,7 +165,7 @@ export const settingSlice = createSlice({
             })
             .addCase(fetchWishlist.rejected, (state, { payload }) => {
                 state.isLoading = false;
-                toast.error(datavalidationerror(payload));
+                // toast.error(datavalidationerror(payload));
             })
             // fetchWishlistCaterer 
             .addCase(fetchWishlistTiffin.pending, (state) => {
@@ -177,7 +177,7 @@ export const settingSlice = createSlice({
             })
             .addCase(fetchWishlistTiffin.rejected, (state, { payload }) => {
                 state.isLoading = false;
-                toast.error(datavalidationerror(payload));
+                // toast.error(datavalidationerror(payload));
             })
             // removeAllWishlist 
             .addCase(removeAllWishlist.pending, (state) => {
