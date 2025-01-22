@@ -79,7 +79,7 @@ const BrandedCaters = () => {
                 slidesPerView: 4,
               },
               1280: {
-                slidesPerView: 6,
+                slidesPerView: 5,
               },
             }}
 

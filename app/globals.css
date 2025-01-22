@@ -3740,10 +3740,18 @@ textarea:-webkit-autofill:active {
 
 .branded-caterers-img {
   height: 100px;
-  object-fit: contain;
+  width: 100% !important;
+  object-fit: cover;
   width: fit-content;
   border-radius: var(--radiusOne);
 }
+
+/* .branded-caterers-img {
+  height: 100px;
+  object-fit: contain;
+  width: fit-content;
+  border-radius: var(--radiusOne);
+} */
 
 /* branded-slider-caterer start  */
 .branded-slider-caterer .swiper-button-prev:after,
