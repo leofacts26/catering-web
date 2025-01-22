@@ -3929,6 +3929,15 @@ textarea:-webkit-autofill:active {
 }
 
 @media only screen and (max-width: 768px) {
+  .about-us-mobile {
+    width: 300px;
+  }
+
+  .about-us-mobile-box {
+    display: flex;
+    justify-content: center;
+  }
+
   .avatar-mob {
     width: 50px !important;
     height: 50px !important;

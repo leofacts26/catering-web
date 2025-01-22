@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import TabContext from '@mui/lab/TabContext';
 import TabPanel from '@mui/lab/TabPanel';
 import Container from '@mui/material/Container';
+import { display } from '@mui/system';
 
 
 const Page = () => {
@@ -18,8 +19,9 @@ const Page = () => {
     return (
         <Box sx={{ width: '100%', typography: 'body1' }}>
             <TabContext value={value}>
-                <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                <Box sx={{ borderBottom: 1, borderColor: 'divider' }} className='about-us-mobile-box'>
                     <Tabs
+                        className='about-us-mobile'
                         value={parseInt(value, 10)}
                         onChange={handleChange}
                         variant="scrollable"
@@ -27,7 +29,7 @@ const Page = () => {
                         aria-label="scrollable auto tabs example"
                         TabIndicatorProps={{
                             style: {
-                                backgroundColor: "#c33332"
+                                backgroundColor: "#c33332",
                             }
                         }}
                     >
@@ -88,7 +90,7 @@ const Page = () => {
                         />
                     </Tabs>
                 </Box>
-                <TabPanel value="0">
+                <TabPanel value="0" className='p-1'>
                     <Container className="about-us mt-4">
                         <h1 className="mb-2">About Us: Your One-Stop Shop for Delicious Caterings & Tiffin Solutions </h1>
                         <p>Welcome to Caterings & Tiffins, your ultimate destination for discovering and booking exceptional catering services and delectable daily tiffin options! We're passionate about connecting you with culinary experiences that cater to every occasion and appetite. </p>
