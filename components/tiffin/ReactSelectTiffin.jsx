@@ -20,6 +20,8 @@ const ReactSelectTiffin = ({ text1, onChange }) => {
     // dispatch(fetchtiffinSearchCards()) 
   };
 
+  const isMobile = window.innerWidth <= 768;
+
   return (
     <Select
       className='mt-3'
@@ -35,7 +37,7 @@ const ReactSelectTiffin = ({ text1, onChange }) => {
           padding: '0px 0px',
           border: `2px solid ${isFocused ? '#d9822b' : '#d9822b'}`,
           boxShadow: isFocused ? '0 0 0 1px #d9822b' : 'none',
-          width: '200px',
+          width: isMobile ? '130px' : '200px',
           height: '0px',
           fontSize: '12px',
           color: '#d9822b',

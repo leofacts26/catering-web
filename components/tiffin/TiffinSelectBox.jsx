@@ -44,13 +44,26 @@ const TiffinSelectBox = () => {
         window.location.reload()
     }
 
+
     // console.log(tiffinSubscriptionTypes, "tiffinSubscriptionTypes"); 
 
     return (
         <>
             <Stack direction={{ xs: 'column', sm: 'column', md: 'row' }} justifyContent="space-between" alignItems="center">
                 <Stack direction="row" alignItems="center" flexWrap="wrap" spacing={2} style={{ margin: '10px 0px 15px 0px' }}>
-                    <ReactSelectTiffin text1="Sort by" onChange={handleSortChange} />
+
+                    <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={2} className="cf-width">
+                        <ReactSelectTiffin text1="Sort by" onChange={handleSortChange} />
+                        <div className='clear-filter-top-box-mob'>
+                            <Button className="cursor-pointer clear-filter" onClick={() => onHandleFIlterClear()}>
+                                <Stack direction="row" alignItems="center">
+                                    <FilterListOffIcon className="tiffin-removefilter-icon" /> Clear Filter
+                                </Stack>
+                            </Button>
+                        </div>
+                    </Stack>
+
+
                     <Stack direction="row" alignItems="center" flexWrap="wrap" spacing={2} style={{ marginTop: '15px' }}>
                         {
                             tiffinSubscriptionTypes?.map((subscriptionType) => {

@@ -16,6 +16,7 @@ const ReactSelectRed = ({ text1, onChange }) => {
   const handleChange = (selectedOption) => {
     onChange(selectedOption);
   };
+  const isMobile = window.innerWidth <= 768;
 
   return (
     <Select
@@ -31,7 +32,7 @@ const ReactSelectRed = ({ text1, onChange }) => {
           padding: '0px 0px',
           border: `2px solid ${isFocused ? '#C33332' : '#C33332'}`,
           boxShadow: isFocused ? '0 0 0 1px #C33332' : 'none',
-          width: '200px',
+          width: isMobile ? '130px' : '200px',
           fontSize: '12px',
           color: '#C33332',
           '&:hover': {

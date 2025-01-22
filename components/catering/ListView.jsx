@@ -339,9 +339,9 @@ const ListView = () => {
 
 
                             <div className="mobile-list-view">
-                                <div className="list-view-card" key={getSearchCard?.id}>
-                                    <Stack spacing={{ xs: 1, sm: 2, md: 0 }} direction={{ xs: 'row', sm: 'row', md: 'row', lg: "row" }} justifyContent="space-between" flexWrap="wrap">
-                                        <Stack direction={{ xs: 'row', sm: 'row', md: 'row', lg: "row" }} alignItems="start" spacing={2}>
+                                <div className="list-view-card w-100" key={getSearchCard?.id} >
+                                    <Stack className="w-100" spacing={{ xs: 1, sm: 2, md: 0 }} direction={{ xs: 'row', sm: 'row', md: 'row', lg: "row" }} justifyContent="space-between" flexWrap="wrap">
+                                        <Stack direction={{ xs: 'row', sm: 'row', md: 'row', lg: "row" }} alignItems="start" spacing={2}  className="w-100">
                                             <div className="list-card-img position-relative">
                                                 <Link target='_blank' href={`/catering-search/${getSearchCard?.vendor_id}/${getSearchCard?.id}`}>
                                                     {getSearchCard ? (
@@ -372,7 +372,7 @@ const ListView = () => {
                                             </div>
 
 
-                                            <Stack direction="column" justifyContent="space-between" className='h-100'>
+                                            <Stack direction="column" justifyContent="space-between" className='h-100 w-100'>
 
                                                 <div className="list-card-center h-100">
                                                     <Link target='_blank' href={`/catering-search/${getSearchCard?.vendor_id}/${getSearchCard?.id}`} className='list-card-title'>{getSearchCard?.catering_service_name}</Link>
@@ -435,7 +435,7 @@ const ListView = () => {
                                                 </div>
 
 
-                                                <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} sx={{ marginBottom: '5px' }}>
+                                                <Stack direction="row" justifyContent={{ xs: 'end', sm: 'end', lg: "end" }} sx={{ marginBottom: '5px' }}>
                                                     <Link target='_blank' href={`/catering-search/${getSearchCard?.vendor_id}/${getSearchCard?.id}`}
                                                         className='text-decoration-none' variant="contained" style={{
                                                             color: '#ffffff', padding: '8px 14px', marginTop: '8px', fontWeight: '500',

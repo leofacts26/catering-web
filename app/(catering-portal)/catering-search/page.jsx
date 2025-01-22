@@ -26,7 +26,7 @@ import { useTheme } from '@emotion/react';
 const page = () => {
   const [checked, setChecked] = useState(true);
   const { selectedLocation } = useGetLocationResults()
-  const [isFilterOpen, setIsFilterOpen] = useState(false); 
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   const router = useRouter()
   const dispatch = useDispatch()
@@ -62,7 +62,7 @@ const page = () => {
         <Box sx={{ flexGrow: 1 }} style={{ marginTop: '20px' }}>
           <Grid container spacing={2}>
             <Grid item xs={12} md={12} lg={3} xl={2.9}>
-              <div className="position-relative">
+              <div className="position-relative map-hide-mob">
                 <img
                   src="/img/Search-Result-View-Page-Images/01-map.png"
                   alt=""
@@ -85,16 +85,33 @@ const page = () => {
                 </div>
               </div>
 
-              {!isMobileOrTab && <Filters />}
+           
 
+              {!isMobileOrTab && <Filters />}
               {/* Mobile and Tablet Buttons */}
+
+
               {isMobileOrTab && (
                 <Box
                   display="flex"
-                  justifyContent="end"
+                  justifyContent="space-between"
                   alignItems="end"
                   mt={2}
                 >
+
+                  <Button
+                    onClick={() => window.open('/catering-search/catering-map', '_blank')}
+                    variant="contained"
+                    className="show-on-map"
+                    sx={{
+                      backgroundColor: '#C33332',
+                      fontSize: '10px',
+                      '&:hover': { backgroundColor: '#C33332' },
+                    }}
+                  >
+                    Show on map
+                  </Button>
+
                   <Button
                     variant="contained"
                     onClick={toggleFilterDrawer(true)}
@@ -106,6 +123,8 @@ const page = () => {
                   >
                     Filter
                   </Button>
+
+
                 </Box>
               )}
             </Grid>

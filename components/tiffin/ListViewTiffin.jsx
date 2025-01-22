@@ -362,7 +362,7 @@ const ListViewTiffin = () => {
                                                     </div>
 
 
-                                                    <Stack direction="column" justifyContent="space-between" className='h-100'>
+                                                    <Stack direction="column" justifyContent="space-between" className='h-100 w-100'>
 
                                                         <div className="list-card-center h-100">
                                                             <Link target='_blank' href={`/catering-search/${getSearchCard?.vendor_id}/${getSearchCard?.id}`} className='list-card-title'>{getSearchCard?.catering_service_name}</Link>
@@ -419,8 +419,8 @@ const ListViewTiffin = () => {
                                                         </div>
 
 
-                                                        <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} sx={{ marginBottom: '5px' }}>
-                                                            <Link target='_blank' href={`/tiffin-search/${getSearchCard?.vendor_id}/${getSearchCard?.id}`} className='text-decoration-none' variant="contained" style={{
+                                                        <Stack direction="row" justifyContent={{ xs: 'end', sm: 'end', lg: "end" }} sx={{ marginBottom: '5px' }}>
+                                                            <Link target='_blank' href={`/tiffin-search/${getSearchCard?.vendor_id}/${getSearchCard?.id}`} className='text-decoration-none enq-btn-mob' variant="contained" style={{
                                                                 color: '#ffffff', padding: '8px 14px', marginTop: '8px', fontWeight: '500',
                                                                 backgroundColor: '#d9822b', borderRadius: '8px', fontSize: '14px',
                                                                 fontFamily: "Readex Pro, sans-serif",

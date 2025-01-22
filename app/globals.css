@@ -3923,12 +3923,25 @@ textarea:-webkit-autofill:active {
 }
 
 @media only screen and (max-width: 768px) {
+
+  .cf-width {
+    width: 100% !important;
+  }
+
+  .map-hide-mob {
+    display: none !important;
+  }
+
+  .clear-filter-top-box {
+    display: none !important;
+  }
+
   .red-btn {
     border-radius: 0px !important;
   }
 
   .mealtype-chip-tiffin {
-    width: 230px;
+    width: auto;
   }
 
   .tiffin-del {
@@ -3951,9 +3964,31 @@ textarea:-webkit-autofill:active {
   .btn-close-tiffin {
     top: 2% !important;
   }
+
+  .nav-bg {
+    padding-top: 14px;
+    padding-bottom: 44px;
+  }
+
+  .nav-bg-tiffin {
+    padding-top: 14px;
+    padding-bottom: 44px;
+  }
 }
 
 @media only screen and (max-width: 600px) {
+
+  .enq-btn-mob {
+    margin-right: 5px !important;
+  }
+
+  .sub-mob-pad {
+    margin-left: 0px !important;
+  }
+
+
+
+
 
   .desktop-list-view {
     display: none !important;
@@ -3995,6 +4030,11 @@ textarea:-webkit-autofill:active {
     padding-right: 1.5rem !important;
     padding-left: 1.5rem !important;
   }
+
+  .clear-filter-top-box-mob {
+    display: none !important;
+  }
+
 }
 
 @media only screen and (min-width: 425px) {
@@ -4006,6 +4046,10 @@ textarea:-webkit-autofill:active {
 @media only screen and (max-width: 425px) {
   .detailname-width {
     width: 100%;
+  }
+
+  .listview-three {
+    display: none !important;
   }
 
   .vc-chip {

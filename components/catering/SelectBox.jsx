@@ -49,19 +49,31 @@ const SelectBox = () => {
             <Stack direction={{ xs: 'column', sm: 'column', md: 'row' }} justifyContent="space-between" alignItems="center">
 
                 <Stack direction="row" alignItems="center" flexWrap="wrap" spacing={2} style={{ margin: '0px 0px 15px 0px' }}>
-                    <ReactSelectRed text1="Sort by" onChange={handleSortChange} />
-                    <Stack direction="row" alignItems="center" flexWrap="wrap" spacing={2} style={{ marginTop: '15px' }}>
+
+                    <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={2} className="cf-width">
+                        <ReactSelectRed text1="Sort by" onChange={handleSortChange} />
+                        <div className='clear-filter-top-box-mob'>
+                            <Button className="cursor-pointer cater-clear-filter" onClick={() => onHandleFIlterClear()}>
+                                <Stack direction="row" alignItems="center">
+                                    <FilterListOffIcon className="cater-removefilter-icon" /> Clear Filter
+                                </Stack>
+                            </Button>
+                        </div>
+                    </Stack>
+
+
+                    <Stack className='sub-mob-pad' direction="row" alignItems="center" flexWrap="wrap" spacing={2} style={{ marginTop: '15px' }}>
                         {
                             subscriptionTypes?.map((subscriptionType) => {
                                 return (
                                     <>
-                                    {/* <Button size="small" className={`btn-pill ${subscriptionType.selectedweb === 1 && 'btn-pill-active-catering'}`} key={subscriptionType?.id}
+                                        {/* <Button size="small" className={`btn-pill ${subscriptionType.selectedweb === 1 && 'btn-pill-active-catering'}`} key={subscriptionType?.id}
                                         onClick={() => onHandlesubscriptionTypes(subscriptionType?.id)}
                                     >{subscriptionType?.name}</Button> */}
 
-                                    <Button size="small" className={`btn-pill m-1 ${subscriptionType.selectedweb === 1 && 'btn-pill-active'}`} key={subscriptionType?.id}
-                                        onClick={() => onHandlesubscriptionTypes(subscriptionType?.id)}
-                                    >{subscriptionType?.name}</Button>
+                                        <Button size="small" className={`btn-pill m-1 ${subscriptionType.selectedweb === 1 && 'btn-pill-active'}`} key={subscriptionType?.id}
+                                            onClick={() => onHandlesubscriptionTypes(subscriptionType?.id)}
+                                        >{subscriptionType?.name}</Button>
                                     </>
                                 )
                             })

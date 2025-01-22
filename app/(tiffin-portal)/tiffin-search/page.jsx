@@ -63,7 +63,7 @@ const page = () => {
         <Box sx={{ flexGrow: 1 }} style={{ marginTop: '20px' }}>
           <Grid container spacing={2}>
             <Grid item xs={12} md={12} lg={3} xl={2.9}>
-              <div className="position-relative">
+              <div className="position-relative map-hide-mob">
                 <img src="/img/Search-Result-View-Page-Images/01-map.png" alt="" className="img-fluid" style={{ borderRadius: '5px', marginBottom: '4px' }} />
                 <div className="position-absolute map-box">
                   <Button onClick={() => window.open('/tiffin-search/tiffin-map', '_blank')} variant="contained" className='show-on-map' sx={{ backgroundColor: '#d9822b', fontSize: '10px', '&:hover': { backgroundColor: '#d9822b' } }}>Show on map</Button>
@@ -76,10 +76,22 @@ const page = () => {
               {isMobileOrTab && (
                 <Box
                   display="flex"
-                  justifyContent="end"
+                 justifyContent="space-between"
                   alignItems="end"
                   mt={2}
                 >
+                  <Button
+                    onClick={() => window.open('/tiffin-search/tiffin-map', '_blank')}
+                    variant="contained"
+                    className="show-on-map"
+                    sx={{
+                      backgroundColor: '#C33332',
+                      fontSize: '10px',
+                      '&:hover': { backgroundColor: '#C33332' },
+                    }}
+                  >
+                    Show on map
+                  </Button>
                   <Button
                     variant="contained"
                     onClick={toggleFilterDrawer(true)}
