@@ -360,26 +360,33 @@ const page = () => {
 
       <Container maxWidth="xl" style={{ marginTop: '30px', marginBottom: '30px' }}>
 
-        {
-          content && <div>
-            {<h3 className="vc-about-us text-orange">About Us</h3>}
-            <p className="vc-about-content vc-markdown my-3">
-              <ReactMarkdown>
-                {isExpanded ? content : `${shortContent}${content.length > shortContentLength ? '...' : ''}`}
-              </ReactMarkdown>
-            </p>
-            {content.length > shortContentLength && (
-              <span
-                style={{ marginLeft: '0px' }}
-                className="text-orange view-all cursor-pointer"
-                onClick={toggleExpand}
-              >
-                {isExpanded ? 'Show Less' : 'Show All'}
-              </span>
-            )}
-          </div>
-        }
-
+        <div>
+          <h3 className="vc-about-us text-orange">About Us</h3>
+          {content ? (
+            <div>
+              <p className="vc-about-content vc-markdown my-3">
+                <ReactMarkdown>
+                  {isExpanded ? content : `${shortContent}${content.length > shortContentLength ? '...' : ''}`}
+                </ReactMarkdown>
+              </p>
+              {content.length > shortContentLength && (
+                <span
+                  style={{ marginLeft: '0px' }}
+                  className="text-orange view-all cursor-pointer"
+                  onClick={toggleExpand}
+                >
+                  {isExpanded ? 'Show Less' : 'Show All'}
+                </span>
+              )}
+            </div>
+          ) : (
+            <div>
+              <p className="vc-about-content vc-markdown mt-1">
+                N/A
+              </p>
+            </div>
+          )}
+        </div>
 
 
 
