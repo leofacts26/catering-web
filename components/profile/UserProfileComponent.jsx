@@ -36,10 +36,10 @@ const UserProfileComponent = () => {
                 <Link href="/catering">
                     <KeyboardArrowLeftIcon style={{ color: '#ffffff', fontWeight: '500', fontSize: '30px', marginBottom: '30px' }} />
                 </Link>
-                <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" spacing={2}>
+                <Stack direction={{ xs: 'row', sm: 'row' }} justifyContent="space-between" spacing={2}>
                     <Stack direction="row" alignItems="center" spacing={2}>
 
-                        <Avatar className='avatar-gradient' style={{ width: 100, height: 100, fontSize: '3em' }}>{userDetails?.username?.slice(0, 1).toUpperCase()}</Avatar>
+                        <Avatar className='avatar-gradient avatar-mob' style={{ width: 100, height: 100, fontSize: '3em' }}>{userDetails?.username?.slice(0, 1).toUpperCase()}</Avatar>
                         <div>
                             <h2 className='up-name-profile'>{userDetails?.username}</h2>
                             <p className='up-number mt-1'>{userDetails?.phone_number}</p>
