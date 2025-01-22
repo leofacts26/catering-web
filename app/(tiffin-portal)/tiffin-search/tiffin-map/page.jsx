@@ -74,7 +74,7 @@ const Page = () => {
     }, [markers, detailLat, detailLng]);
 
     const customMarker = {
-        url: '/img/icons/tiffin-icon.svg', // Replace with your image URL or path
+        url: '/img/icons/catering-map-icon-tiffin.svg', // Replace with your image URL or path
         scaledSize: new window.google.maps.Size(100, 100), // Adjust size as needed
         origin: new window.google.maps.Point(0, 0), // Adjust origin as needed
         anchor: new window.google.maps.Point(25, 50) // Adjust anchor as needed
