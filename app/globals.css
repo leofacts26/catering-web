@@ -2300,7 +2300,7 @@ h6 {
     rgba(0, 0, 0, 0.086) 0px 0px 0px 1px;
   margin: 20px 0px 10px 0px;
   border-radius: 8px !important;
-  padding: 5px;
+  padding: 5px 11px 5px 5px;
   height: 215px !important;
 }
 
@@ -2309,7 +2309,7 @@ h6 {
     rgba(0, 0, 0, 0.086) 0px 0px 0px 1px;
   margin: 20px 0px 10px 0px;
   border-radius: 8px !important;
-  padding: 5px;
+  padding: 5px 11px 5px 5px;
   height: 205px;
 }
 
@@ -3184,7 +3184,7 @@ h6 {
 
   .text-ellipse-one-listcard {
     display: -webkit-box;
-    max-width: 70%;
+    max-width: 100%;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     overflow: hidden;
@@ -3930,7 +3930,7 @@ textarea:-webkit-autofill:active {
   }
 }
 
-@media only screen and (max-width: 475px) {
+@media only screen and (max-width: 600px) {
   .desktop-list-view {
     display: none !important;
   }
@@ -3949,11 +3949,13 @@ textarea:-webkit-autofill:active {
 
   .listview-img {
     height: 200px !important;
+    width: 113px !important;
   }
+
 }
 
 .mobile-list-view .list-card-img {
-  width: 31% !important;
+  width: 113px !important;
 }
 
 .mobile-list-view .list-card-img-tiffin {
@@ -3986,13 +3988,50 @@ textarea:-webkit-autofill:active {
     width: 168px;
   }
 
-  .register-desktop-modal{
+  .register-desktop-modal {
     width: 300px !important;
-  } 
-  .catering-register-title{
+  }
+
+  .catering-register-title {
     font-size: 16px !important;
   }
-  .register-para{
+
+  .register-para {
     font-size: 12px !important;
+  }
+}
+
+@media only screen and (max-width: 375px) {
+  .mobile-list-view .list-card-img {
+    width: 91px !important;
+  }
+
+  .list-card-title {
+    /* white-space: nowrap; */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* width: 200px; */
+  }
+
+  .listview-three {
+    display: none !important;
+  }
+
+  .list-card-dish-loc span {
+    width: 100%;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-wrap: wrap;
+    text-decoration: none;
+  }
+
+  .text-ellipse-one-listcard{
+    max-width: 100% !important;
+  }
+
+  .listview-img {
+    height: 200px !important;
+    width: 91px !important;
   }
 }
