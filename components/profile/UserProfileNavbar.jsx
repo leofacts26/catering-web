@@ -74,7 +74,7 @@ const getInTouch = [
     // }
 ]
 
-const UserProfileNavbar = () => {
+const UserProfileNavbar = ({ onMenuItemClick }) => {
     const checkActivePath = useActivePathProfile()
 
     const handleCopyToClipboard = () => {
@@ -96,7 +96,7 @@ const UserProfileNavbar = () => {
                 {
                     dataLinks.map((datalink) => {
                         return (
-                            <Link href={datalink.url} className='text-decoration-none'>
+                            <Link href={datalink.url} className='text-decoration-none' onClick={onMenuItemClick}>
                                 <Stack direction="row" alignItems="center" justifyContent="space-between"
                                     className={checkActivePath(datalink.url) ? 'active-up user-profile-box' : 'user-profile-box'} >
                                     <Stack direction="row" alignItems="center" spacing={2}>
@@ -116,7 +116,7 @@ const UserProfileNavbar = () => {
                 {
                     ctLinks.map((ctLink) => {
                         return (
-                            <Link href={ctLink.url} className='text-decoration-none'>
+                            <Link href={ctLink.url} className='text-decoration-none' onClick={onMenuItemClick}>
                                 <Stack direction="row" alignItems="center" justifyContent="space-between"
                                     className={checkActivePath(ctLink.url) ? 'active-up user-profile-box' : 'user-profile-box'} >
                                     <Stack direction="row" alignItems="center" spacing={2}>
@@ -138,7 +138,7 @@ const UserProfileNavbar = () => {
                     getInTouch.map((gtintouch) => {
                         return (
                             <>
-                                <Link href={gtintouch.url} className='text-decoration-none'>
+                                <Link href={gtintouch.url} className='text-decoration-none' onClick={onMenuItemClick}>
                                     <Stack direction="row" alignItems="center" justifyContent="space-between"
                                         className={checkActivePath(gtintouch.url) ? 'active-up user-profile-box' : 'user-profile-box'} >
                                         <Stack direction="row" alignItems="center" spacing={2}>
