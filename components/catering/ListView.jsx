@@ -149,7 +149,7 @@ const ListView = () => {
                                     <Stack spacing={{ xs: 1, sm: 2, md: 0 }} direction={{ xs: 'column', sm: 'row', md: 'row', lg: "row" }} justifyContent="space-between" flexWrap="wrap">
                                         <Stack direction={{ xs: 'column', sm: 'row', md: 'row', lg: "row" }} alignItems="start" spacing={2}>
                                             <div className="list-card-img position-relative">
-                                                <Link href={`/catering-search/${getSearchCard?.vendor_id}/${getSearchCard?.id}`}>
+                                                <Link target='_blank' href={`/catering-search/${getSearchCard?.vendor_id}/${getSearchCard?.id}`}>
                                                     {getSearchCard ? (
                                                         <img
                                                             src={
@@ -179,7 +179,7 @@ const ListView = () => {
 
 
                                             <div className="list-card-center h-100">
-                                                <Link href={`/catering-search/${getSearchCard?.vendor_id}/${getSearchCard?.id}`} className='list-card-title'>{getSearchCard?.catering_service_name}</Link>
+                                                <Link target='_blank' href={`/catering-search/${getSearchCard?.vendor_id}/${getSearchCard?.id}`} className='list-card-title'>{getSearchCard?.catering_service_name}</Link>
                                                 <p className='list-card-desc' style={{ marginBottom: '15px' }}>
                                                     {getSearchCard?.street_name ? `${getSearchCard?.street_name}, ` : ''}
                                                     {getSearchCard?.city ? getSearchCard.city : ''}
@@ -343,7 +343,7 @@ const ListView = () => {
                                     <Stack spacing={{ xs: 1, sm: 2, md: 0 }} direction={{ xs: 'row', sm: 'row', md: 'row', lg: "row" }} justifyContent="space-between" flexWrap="wrap">
                                         <Stack direction={{ xs: 'row', sm: 'row', md: 'row', lg: "row" }} alignItems="start" spacing={2}>
                                             <div className="list-card-img position-relative">
-                                                <Link href={`/catering-search/${getSearchCard?.vendor_id}/${getSearchCard?.id}`}>
+                                                <Link target='_blank' href={`/catering-search/${getSearchCard?.vendor_id}/${getSearchCard?.id}`}>
                                                     {getSearchCard ? (
                                                         <img
                                                             src={
@@ -375,7 +375,7 @@ const ListView = () => {
                                             <Stack direction="column" justifyContent="space-between" className='h-100'>
 
                                                 <div className="list-card-center h-100">
-                                                    <Link href={`/catering-search/${getSearchCard?.vendor_id}/${getSearchCard?.id}`} className='list-card-title'>{getSearchCard?.catering_service_name}</Link>
+                                                    <Link target='_blank' href={`/catering-search/${getSearchCard?.vendor_id}/${getSearchCard?.id}`} className='list-card-title'>{getSearchCard?.catering_service_name}</Link>
                                                     <p className='list-card-desc' style={{ marginBottom: '15px' }}>
                                                         {getSearchCard?.street_name ? `${getSearchCard?.street_name}, ` : ''}
                                                         {getSearchCard?.city ? getSearchCard.city : ''}
