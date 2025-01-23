@@ -1,19 +1,42 @@
 "use client"
 import React, { useState } from 'react'
 import Button from '@mui/material/Button';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import useRegistration from '@/hooks/useRegistration';
 import PhoneIcon from '@mui/icons-material/Phone';
+import { createUserEnquiry } from '@/app/features/user/cateringFilterSlice';
+import { usePathname } from 'next/navigation'
 
-const ContactBtn = ({ number }) => {
+
+const ContactBtn = ({ number, vendorId, branchId }) => {
     const accessToken = useSelector((state) => state.user.accessToken);
     const [userNumber, setUserNumber] = useState(false)
     const { handleClickOpen } = useRegistration();
+    const dispatch = useDispatch()
+    const pathname = usePathname()
+
+    // console.log(pathname, "router.pathname");
+
+    const onHandleEnquiryFn = async () => {
+        const data = {
+            vendorId,
+            branchId
+        }
+        if (pathname.includes('catering-search')) {
+            console.log("cateringcateringcatering");
+            await dispatch(createUserEnquiry(data))
+        } else if (pathname.includes('tiffin-search')) {
+            console.log("tiffintiffintiffintiffin");
+            // await dispatch(createTiffinUserEnquiry(data));
+        } else {
+            console.error('Unknown search type in URL');
+        }
+    }
 
     return (
         <>
             {accessToken ? <Button startIcon={<PhoneIcon />} variant="contained" className="vc-contact-btn-tiffin" onClick={() => setUserNumber(true)}>
-                {userNumber ? <a style={{ color: '#ffffff', textDecoration: 'none' }} href={`tel:${number}`}>{number}</a> : 'Contact Now'} </Button> :
+                {userNumber ? <a style={{ color: '#ffffff', textDecoration: 'none' }} href={`tel:${number}`}>{number}</a> : <span onClick={() => onHandleEnquiryFn()}>Contact Noww</span>} </Button> :
                 <Button variant="contained" className="vc-contact-btn-tiffin" onClick={handleClickOpen}>Contact Now</Button>
             }
         </>

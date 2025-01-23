@@ -67,6 +67,7 @@ const page = () => {
     const accessToken = useSelector((state) => state.user.accessToken);
     const { slug } = useParams()
     const router = useRouter()
+   
 
     const vendorId = slug[0];
     const branchId = slug[1];
@@ -251,7 +252,7 @@ const page = () => {
 
                                 {data?.business_phone_number && <Stack direction="row" spacing={2} style={{ marginTop: '10px' }}>
                                     {/* <Button variant="contained" className="vt-whatsapp-btn"> <WhatsAppIcon style={{ marginRight: '3px' }} /> Whatsapp</Button> */}
-                                    <ContactBtn number={data?.business_phone_number} />
+                                    <ContactBtn number={data?.business_phone_number} vendorId={vendorId} branchId={branchId} />
                                 </Stack>}
 
                             </Stack>
@@ -404,10 +405,10 @@ const page = () => {
                     )}
                 </div>
 
-                
 
 
-{/* 
+
+                {/* 
                 {data?.branches.length > 0 && (<div>
                     <h3 className="vc-about-us" style={{ marginTop: '20px' }}>Our Branches</h3>
                     <p className="vc-para">

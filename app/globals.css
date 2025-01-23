@@ -3929,6 +3929,15 @@ textarea:-webkit-autofill:active {
 }
 
 @media only screen and (max-width: 768px) {
+
+  .detailname-width {
+    width: 100% !important;
+  }
+
+  .vc-icon-box {
+    width: 100% !important;
+  }
+
   .about-us-mobile {
     width: 300px;
   }
@@ -4064,9 +4073,7 @@ textarea:-webkit-autofill:active {
 }
 
 @media only screen and (max-width: 425px) {
-  .detailname-width {
-    width: 100%;
-  }
+
 
   .listview-three {
     display: none !important;

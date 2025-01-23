@@ -205,6 +205,100 @@ export const fetchGetAllSubscriptionTypes = createAsyncThunk(
     }
 )
 
+export const createUserEnquiry = createAsyncThunk(
+    'user/createUserEnquiry',
+    async (data, thunkAPI) => {
+        const { vendorId, branchId } = data;
+        console.log(thunkAPI.getState(), "State in thunkAPI");
+
+        const getCateringCuisines = thunkAPI.getState().cateringFilter?.getCateringCuisines;
+        const getCateringServiceTypes = thunkAPI.getState().cateringFilter?.getCateringServiceTypes;
+        const getOccasionCateringTypes = thunkAPI.getState().cateringFilter?.getOccasionCateringTypes;
+        const getCateringServingTypes = thunkAPI.getState().cateringFilter?.getCateringServingTypes;
+        const getCateringFoodTypes = thunkAPI.getState().cateringFilter?.getCateringFoodTypes;
+        const getCateringHeadCount = thunkAPI.getState().cateringFilter?.getCateringHeadCount;
+        const getCateringPriceRanges = thunkAPI.getState().cateringFilter?.getCateringPriceRanges;
+        const subscriptionTypes = thunkAPI.getState().cateringFilter?.subscriptionTypes;
+
+        // cuisinetype_filter_formatted 
+        function extractChildrenData(data) {
+            return data.flatMap(item => item.children.map(({ id, selectedweb }) => ({ id: Number(id), selected: selectedweb })));
+        }
+        function extractParentData(data) {
+            return data.map(({ id, selectedweb }) => ({ id: Number(id), selected: selectedweb }))
+        }
+        const cuisinetype_filter_Data = extractChildrenData(getCateringCuisines);
+        const cuisinetype_filter_Parent_Data = extractParentData(getCateringCuisines);
+        const finalCuisineresult = [...cuisinetype_filter_Data, ...cuisinetype_filter_Parent_Data]
+        // service_filter_formatted
+        const service_filter_formatted = getCateringServiceTypes.map(service => ({
+            id: service.id,
+            selected: service.selectedweb
+        }));
+        // occasions_filter_formatted 
+        const occasions_filter_formatted_selected = getOccasionCateringTypes?.filter(occasion => occasion?.selectedweb === 1);
+        const occasions_filter_formatted = occasions_filter_formatted_selected.map(occasion => ({
+            id: Number(occasion.occasion_id),
+            selected: occasion.selectedweb
+        }));
+        // serving_filter_formatted 
+        const serving_filter_formatted = getCateringServingTypes.map(serving => ({
+            id: Number(serving.id),
+            selected: serving.selectedweb
+        }))
+        // foodtype_filter_formatted 
+        const foodtype_filter_formatted = getCateringFoodTypes.filter(item => item.id !== "1").map(foodType => ({
+            id: foodType.id,
+            selected: foodType.selectedweb
+        }))
+        // headcount_filter_formatted 
+        const selectedHeadcountRanges = getCateringHeadCount?.filter(headcount => headcount?.selectedweb === 1);
+        const updatedHeadcount_formatted = selectedHeadcountRanges.map(headcount => {
+            return { id: Number(headcount.id), start: parseFloat(headcount.start), end: parseFloat(headcount.end) };
+        });
+        // pricetype_filter_formatted 
+        const selectedPriceRanges = getCateringPriceRanges?.filter(price => price?.selectedweb === 1);
+        const updatedPriceTypes_formatted = selectedPriceRanges.map(price => {
+            return { id: Number(price.id), start_price: parseFloat(price.start_price), end_price: parseFloat(price.end_price) };
+        });
+        // subscription_Types_formatted 
+        const subscriptionTypes_formatted = subscriptionTypes.map(subscriptionType => ({
+            subscription_type_id: Number(subscriptionType.id),
+            selected: subscriptionType.selectedweb
+        }))
+
+
+        const body = {
+            vendor_id: vendorId,
+            branch_id: branchId,
+            description: "Test",
+            cuisines_filter: `${JSON.stringify(finalCuisineresult)}`,
+            service_types_filter: `${JSON.stringify(service_filter_formatted)}`,
+            occasions_filter: `${JSON.stringify(occasions_filter_formatted)}`,
+            serving_types_filter: `${JSON.stringify(serving_filter_formatted)}`,
+            food_types_filter: `${JSON.stringify(foodtype_filter_formatted)}`,
+            head_count_ranges_filter: `${JSON.stringify(updatedHeadcount_formatted)}`,
+            meal_times_filter: `${JSON.stringify([{ "id": 1, "selected": 1 }])}`,
+            price_ranges_filter: `${JSON.stringify(updatedPriceTypes_formatted)}`,
+            kitchen_types_filter: `${JSON.stringify([{ "id": 1, "selected": 1 }])}`,
+            subscription_types_filter: `${JSON.stringify(subscriptionTypes_formatted)}`,
+        }
+        console.log(body, "body");
+
+        try {
+            const response = await api.post(`${BASE_URL}/user-create-new-enquiry`, body, {
+                headers: {
+                    authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
+                },
+            });
+            console.log(response, "response");
+            return response?.data;
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error.response.data.msg);
+        }
+    }
+)
+
 export const fetchCateringSearchCards = createAsyncThunk(
     'user/fetchCateringSearchCards',
     async (data, thunkAPI) => {
