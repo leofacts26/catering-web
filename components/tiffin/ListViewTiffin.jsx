@@ -176,7 +176,7 @@ const ListViewTiffin = () => {
                                                     <div className="list-card-center h-100">
                                                         <Link target='_blank' href={`/catering-search/${getSearchCard?.vendor_id}/${getSearchCard?.id}`} className='list-card-title'>{getSearchCard?.catering_service_name}</Link>
                                                         <p className='list-card-desc' style={{ marginBottom: '15px' }}>
-                                                            {getSearchCard?.street_name ? `${getSearchCard?.street_name}, ` : ''}
+                                                            {getSearchCard?.area ? `${getSearchCard?.area}, ` : ''}
                                                             {getSearchCard?.city ? getSearchCard.city : ''}
                                                         </p>
 
@@ -367,7 +367,7 @@ const ListViewTiffin = () => {
                                                         <div className="list-card-center h-100">
                                                             <Link target='_blank' href={`/catering-search/${getSearchCard?.vendor_id}/${getSearchCard?.id}`} className='list-card-title'>{getSearchCard?.catering_service_name}</Link>
                                                             <p className='list-card-desc' style={{ marginBottom: '15px' }}>
-                                                                {getSearchCard?.street_name ? `${getSearchCard?.street_name}, ` : ''}
+                                                                {getSearchCard?.area ? `${getSearchCard?.area}, ` : ''}
                                                                 {getSearchCard?.city ? getSearchCard.city : ''}
                                                             </p>
 
