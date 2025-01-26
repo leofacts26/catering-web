@@ -137,7 +137,7 @@ export const fetchGetAllTiffinSubscriptionTypes = createAsyncThunk(
     'user/fetchGetAllTiffinSubscriptionTypes',
     async (user, thunkAPI) => {
         try {
-            const response = await api.get(`${BASE_URL}/user-get-subscription-types?current_page=1&limit=2&vendor_type=Tiffin`, {
+            const response = await api.get(`${BASE_URL}/user-get-subscription-types?current_page=1&limit=5&vendor_type=Tiffin`, {
                 headers: {
                     authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
                 },

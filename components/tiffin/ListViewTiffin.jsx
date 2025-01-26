@@ -168,7 +168,7 @@ const ListViewTiffin = () => {
                                                             )}
                                                         </Link>
                                                         <div className="position-absolute list-card-tag" style={{ backgroundColor: tagColor }}>
-                                                            {getSearchCard?.subscription_type_name}
+                                                            {getSearchCard?.subscription_type_display}
                                                         </div>
                                                     </div>
 
@@ -357,7 +357,7 @@ const ListViewTiffin = () => {
                                                             )}
                                                         </Link>
                                                         <div className="position-absolute list-card-tag" style={{ backgroundColor: tagColor }}>
-                                                            {getSearchCard?.subscription_type_name}
+                                                            {getSearchCard?.subscription_type_display}
                                                         </div>
                                                     </div>
 
