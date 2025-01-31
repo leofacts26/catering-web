@@ -36,7 +36,7 @@ const ContactBtn = ({ number, vendorId, branchId }) => {
     return (
         <>
             {accessToken ? <Button startIcon={<PhoneIcon />} variant="contained" className="vc-contact-btn-tiffin" onClick={() => setUserNumber(true)}>
-                {userNumber ? <a style={{ color: '#ffffff', textDecoration: 'none' }} href={`tel:${number}`}>{number}</a> : <span onClick={() => onHandleEnquiryFn()}>Contact Noww</span>} </Button> :
+                {userNumber ? <a style={{ color: '#ffffff', textDecoration: 'none' }} href={`tel:${number}`}>{number}</a> : <span onClick={() => onHandleEnquiryFn()}>Contact Now</span>} </Button> :
                 <Button variant="contained" className="vc-contact-btn-tiffin" onClick={handleClickOpen}>Contact Now</Button>
             }
         </>

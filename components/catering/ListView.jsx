@@ -172,7 +172,7 @@ const ListView = () => {
                                                         />
                                                     )}
                                                 </Link>
-                                                <div className="position-absolute list-card-tag" style={{ backgroundColor: tagColor }}>
+                                                <div className="position-absolute list-card-tag" style={{ backgroundColor: getSearchCard?.label_display_color }}>
                                                     {getSearchCard?.subscription_type_display}
                                                 </div>
                                             </div>
@@ -295,7 +295,9 @@ const ListView = () => {
                                                     </span>
                                                 </Stack>
                                                 <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} style={{ marginTop: '8px' }}>
-                                                    <span className='lse-reviews'> {getSearchCard?.review_count} Reviews</span>
+                                                    <span className='lse-reviews'>  {getSearchCard?.review_count > 0 && (
+                                                        <span className="lse-reviews">{getSearchCard.review_count} Reviews</span>
+                                                    )}</span>
                                                 </Stack>
                                                 <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} style={{ marginTop: '4px' }}>
                                                     <div className="mt-2">
@@ -341,7 +343,7 @@ const ListView = () => {
                             <div className="mobile-list-view">
                                 <div className="list-view-card w-100" key={getSearchCard?.id} >
                                     <Stack className="w-100" spacing={{ xs: 1, sm: 2, md: 0 }} direction={{ xs: 'row', sm: 'row', md: 'row', lg: "row" }} justifyContent="space-between" flexWrap="wrap">
-                                        <Stack direction={{ xs: 'row', sm: 'row', md: 'row', lg: "row" }} alignItems="start" spacing={2}  className="w-100">
+                                        <Stack direction={{ xs: 'row', sm: 'row', md: 'row', lg: "row" }} alignItems="start" spacing={2} className="w-100">
                                             <div className="list-card-img position-relative">
                                                 <Link target='_blank' href={`/catering-search/${getSearchCard?.vendor_id}/${getSearchCard?.id}`}>
                                                     {getSearchCard ? (
@@ -410,7 +412,7 @@ const ListView = () => {
                                                         direction="flex"
                                                         flexWrap="wrap"
                                                         spacing={1} className='list-card-dish-loc'
-                                                        style={{  marginBottom: '15px' }}
+                                                        style={{ marginBottom: '15px' }}
                                                     >
                                                         <span className='me-2 text-ellipse-one-listcard'>
                                                             {getSearchCard?.cuisines.join(" | ")}

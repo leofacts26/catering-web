@@ -11,6 +11,7 @@ const initialState = {
     tiffinWishlist: [],
     editProfileData: null,
     showOtp: true,
+    enquiryList: []
 }
 
 export const fetchWishlist = createAsyncThunk(
@@ -72,7 +73,7 @@ export const removeAllWishlist = createAsyncThunk(
     'user/removeAllWishlist',
     async (data, thunkAPI) => {
         let body = {
-           status: 0
+            status: 0
         }
         try {
             const response = await api.post(`user-remove-all-wishlist`, body, {
@@ -142,6 +143,22 @@ export const sendUpdateUserProfile = createAsyncThunk(
     }
 )
 
+export const fetchEnquiryList = createAsyncThunk(
+    'user/fetchEnquiryList',
+    async (user, thunkAPI) => {
+        try {
+            const response = await api.get(`${BASE_URL}/user-get-enquiries?limit=5&current_page=1&order_by=newest_first`, {
+                headers: {
+                    authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
+                },
+            });
+            return response?.data?.data;
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error.response.data.msg);
+        }
+    }
+)
+
 export const settingSlice = createSlice({
     name: 'settings',
     initialState,
@@ -189,7 +206,19 @@ export const settingSlice = createSlice({
             .addCase(removeAllWishlist.rejected, (state, { payload }) => {
                 state.isLoading = false;
                 toast.error(datavalidationerror(payload));
-            }) 
+            })
+            // fetchEnquiryList 
+            .addCase(fetchEnquiryList.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(fetchEnquiryList.fulfilled, (state, { payload }) => {
+                state.isLoading = false;
+                state.enquiryList = payload;
+            })
+            .addCase(fetchEnquiryList.rejected, (state, { payload }) => {
+                state.isLoading = false;
+                toast.error(datavalidationerror(payload));
+            })
 
     }
 })

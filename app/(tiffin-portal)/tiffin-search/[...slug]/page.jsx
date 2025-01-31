@@ -162,7 +162,7 @@ const page = () => {
           <div className="detailname-width">
             <Stack direction="row" alignItems="center" spacing={2}>
               {data?.vendor_service_name && <h2 className="vc-heading text-ellipse-vc-heading"> {data?.vendor_service_name} </h2>}
-              <span className='vc-chip-tiffin'> {data?.subscription_type_display} {data?.vendor_type}</span>
+              <span className='vc-chip-tiffin' style={{backgroundColor: `${data?.label_display_color}`}}> {data?.subscription_type_display} {data?.vendor_type}</span>
             </Stack>
             {data?.formatted_address && <h3 className="vc-address text-ellipse-vc-heading">{data?.formatted_address}</h3>}
           </div>

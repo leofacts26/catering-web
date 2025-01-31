@@ -144,7 +144,7 @@ const ListViewTiffin = () => {
                                             <Stack spacing={{ xs: 1, sm: 2, md: 0 }} direction={{ xs: 'column', sm: 'row', md: 'row', lg: "row" }} justifyContent="space-between" flexWrap="wrap">
                                                 <Stack direction={{ xs: 'column', sm: 'row', md: 'row', lg: "row" }} alignItems="start" spacing={2}>
                                                     <div className="list-card-img position-relative">
-                                                        <Link target='_blank' href={`/catering-search/${getSearchCard?.vendor_id}/${getSearchCard?.id}`}>
+                                                        <Link target='_blank' href={`/tiffin-search/${getSearchCard?.vendor_id}/${getSearchCard?.id}`}>
                                                             {getSearchCard ? (
                                                                 <img
                                                                     src={
@@ -167,14 +167,14 @@ const ListViewTiffin = () => {
                                                                 />
                                                             )}
                                                         </Link>
-                                                        <div className="position-absolute list-card-tag" style={{ backgroundColor: tagColor }}>
+                                                        <div className="position-absolute list-card-tag" style={{ backgroundColor: getSearchCard?.label_display_color  }}>
                                                             {getSearchCard?.subscription_type_display}
                                                         </div>
                                                     </div>
 
 
                                                     <div className="list-card-center h-100">
-                                                        <Link target='_blank' href={`/catering-search/${getSearchCard?.vendor_id}/${getSearchCard?.id}`} className='list-card-title'>{getSearchCard?.catering_service_name}</Link>
+                                                        <Link target='_blank' href={`/tiffin-search/${getSearchCard?.vendor_id}/${getSearchCard?.id}`} className='list-card-title'>{getSearchCard?.catering_service_name}</Link>
                                                         <p className='list-card-desc' style={{ marginBottom: '15px' }}>
                                                             {getSearchCard?.area ? `${getSearchCard?.area}, ` : ''}
                                                             {getSearchCard?.city ? getSearchCard.city : ''}
@@ -286,7 +286,9 @@ const ListViewTiffin = () => {
                                                             </span>
                                                         </Stack>
                                                         <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} style={{ marginTop: '8px' }}>
-                                                            <span className='lse-reviews'> {getSearchCard?.review_count} Reviews</span>
+                                                            <span className='lse-reviews'>  {getSearchCard?.review_count > 0 && (
+                                                                <span className="lse-reviews">{getSearchCard.review_count} Reviews</span>
+                                                            )}</span>
                                                         </Stack>
                                                         <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} style={{ marginBottom: '8px' }}>
                                                             <div className="mt-2">
@@ -333,7 +335,7 @@ const ListViewTiffin = () => {
                                             <Stack spacing={{ xs: 1, sm: 2, md: 0 }} direction={{ xs: 'row', sm: 'row', md: 'row', lg: "row" }} justifyContent="space-between" flexWrap="wrap">
                                                 <Stack direction={{ xs: 'row', sm: 'row', md: 'row', lg: "row" }} alignItems="start" spacing={2}>
                                                     <div className="list-card-img position-relative">
-                                                        <Link target='_blank' href={`/catering-search/${getSearchCard?.vendor_id}/${getSearchCard?.id}`}>
+                                                        <Link target='_blank' href={`/tiffin-search/${getSearchCard?.vendor_id}/${getSearchCard?.id}`}>
                                                             {getSearchCard ? (
                                                                 <img
                                                                     src={
@@ -365,7 +367,7 @@ const ListViewTiffin = () => {
                                                     <Stack direction="column" justifyContent="space-between" className='h-100 w-100'>
 
                                                         <div className="list-card-center h-100">
-                                                            <Link target='_blank' href={`/catering-search/${getSearchCard?.vendor_id}/${getSearchCard?.id}`} className='list-card-title'>{getSearchCard?.catering_service_name}</Link>
+                                                            <Link target='_blank' href={`/tiffin-search/${getSearchCard?.vendor_id}/${getSearchCard?.id}`} className='list-card-title'>{getSearchCard?.catering_service_name}</Link>
                                                             <p className='list-card-desc' style={{ marginBottom: '15px' }}>
                                                                 {getSearchCard?.area ? `${getSearchCard?.area}, ` : ''}
                                                                 {getSearchCard?.city ? getSearchCard.city : ''}
@@ -440,7 +442,7 @@ const ListViewTiffin = () => {
 
 
 
-                                              
+
 
                                             </Stack>
                                         </div>
