@@ -162,7 +162,7 @@ const page = () => {
           <div className="detailname-width">
             <Stack direction="row" alignItems="center" spacing={2}>
               {data?.vendor_service_name && <h2 className="vc-heading text-ellipse-vc-heading"> {data?.vendor_service_name} </h2>}
-              <span className='vc-chip-tiffin' style={{backgroundColor: `${data?.label_display_color}`}}> {data?.subscription_type_display} {data?.vendor_type}</span>
+              <span className='vc-chip-tiffin' style={{ backgroundColor: `${data?.label_display_color}` }}> {data?.subscription_type_display} {data?.vendor_type}</span>
             </Stack>
             {data?.formatted_address && <h3 className="vc-address text-ellipse-vc-heading">{data?.formatted_address}</h3>}
           </div>
@@ -261,14 +261,47 @@ const page = () => {
 
       <Container maxWidth="xl" style={{ marginTop: '30px', marginBottom: '30px' }}>
         <Grid container spacing={2}>
-          {data?.serviceTypes?.length > 0 ? <Grid item xs={12} sm={6} md={3} lg={2.5}>
+
+        {data?.kitchenTypes?.length > 0 ? <Grid item xs={12} sm={6} md={3} lg={2}>
+            <div className="vc-shadow-tiffin">
+              <CardContent>
+                <div className="text-center">
+                  <OutdoorGrillIcon className="vc-icon-label-tiffin" />
+                  <p className="vc-service-type">Kitchen Type</p>
+                  <h3 className="vc-service-heading">
+                    {data?.kitchenTypes
+                      ?.filter((item) => item.selected === "1") 
+                      ?.slice(0, 8) 
+                      ?.map((item) => item.kitchen_type_name) 
+                      .join(" , ")}
+                  </h3>
+                </div>
+              </CardContent>
+            </div>
+          </Grid> : <Grid item xs={12} sm={6} md={3} lg={2.5}>
+            <div className="vc-shadow-tiffin">
+              <CardContent>
+                <div className="text-center">
+                  <OutdoorGrillIcon className="vc-icon-label-tiffin" />
+                  <p className="vc-service-type">Kitchen Type</p>
+                  <h3 className="vc-service-heading">N/A</h3>
+                </div>
+              </CardContent>
+            </div>
+          </Grid>}
+
+          {data?.serviceTypes?.length > 0 ? <Grid item xs={12} sm={6} md={3} lg={3}>
             <div className="vc-shadow-tiffin">
               <CardContent>
                 <div className="text-center">
                   <OutdoorGrillIcon className="vc-icon-label-tiffin" />
                   <p className="vc-service-type">Service Type</p>
                   <h3 className="vc-service-heading">
-                    {data?.serviceTypes?.slice(0, 8)?.map((item) => item?.service_type_name).join(" , ")}
+                    {data?.serviceTypes
+                      ?.filter((item) => item.selected === 1) 
+                      ?.slice(0, 8) 
+                      ?.map((item) => item.service_type_name) 
+                      .join(" , ")}
                   </h3>
                 </div>
               </CardContent>
@@ -292,7 +325,11 @@ const page = () => {
                   <WbSunnyIcon className="vc-icon-label-tiffin" />
                   <p className="vc-service-type">Meal Times</p>
                   <h3 className="vc-service-heading">
-                    {data?.mealTimes?.slice(0, 8)?.map((item) => item?.meal_time_name).join(" , ")}
+                    {data?.mealTimes
+                      ?.filter((item) => item.selected === "1")
+                      ?.slice(0, 8)
+                      ?.map((item) => item.meal_time_name)
+                      .join(" , ")}
                   </h3>
                 </div>
               </CardContent>
@@ -309,7 +346,7 @@ const page = () => {
             </div>
           </Grid>}
 
-          {data?.start_day && data?.end_day && data?.start_time && data?.end_time ? <Grid item xs={12} sm={6} md={3} lg={3}>
+          {data?.start_day && data?.end_day && data?.start_time && data?.end_time ? <Grid item xs={12} sm={6} md={3} lg={2.5}>
             <div className="vc-shadow-tiffin">
               <CardContent>
                 <div className="text-center">
@@ -320,7 +357,7 @@ const page = () => {
                 </div>
               </CardContent>
             </div>
-          </Grid> : <Grid item xs={12} sm={6} md={3} lg={3}>
+          </Grid> : <Grid item xs={12} sm={6} md={3} lg={2.5}>
             <div className="vc-shadow-tiffin">
               <CardContent>
                 <div className="text-center">

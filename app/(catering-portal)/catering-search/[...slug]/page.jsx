@@ -67,7 +67,7 @@ const page = () => {
     const accessToken = useSelector((state) => state.user.accessToken);
     const { slug } = useParams()
     const router = useRouter()
-   
+
 
     const vendorId = slug[0];
     const branchId = slug[1];
@@ -166,7 +166,7 @@ const page = () => {
                     <div className="detailname-width">
                         <Stack direction="row" alignItems="center" spacing={2}>
                             {data?.vendor_service_name && <h2 className="vc-heading text-ellipse-vc-heading"> {data?.vendor_service_name} </h2>}
-                            <span className='vc-chip' style={{backgroundColor: `${data?.label_display_color}`}}> {data?.subscription_type_display} {data?.vendor_type}</span>
+                            <span className='vc-chip' style={{ backgroundColor: `${data?.label_display_color}` }}> {data?.subscription_type_display} {data?.vendor_type}</span>
                         </Stack>
                         {data?.formatted_address && <h3 className="vc-address text-ellipse-vc-heading">{data?.formatted_address}</h3>}
                     </div>
@@ -272,7 +272,11 @@ const page = () => {
                                     {/* <EditNoteIcon className="vc-icon-label" /> */}
                                     <p className="vc-service-type">Service Type</p>
                                     <h3 className="vc-service-heading">
-                                        {data?.serviceTypes?.slice(0, 8)?.map((item) => item?.service_type_name).join(" , ")}
+                                        {data?.serviceTypes
+                                            ?.filter((item) => item.selected === 1)
+                                            ?.slice(0, 8)
+                                            ?.map((item) => item.service_type_name)
+                                            .join(" , ")}
                                     </h3>
                                 </div>
                             </CardContent>
