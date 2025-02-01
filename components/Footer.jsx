@@ -72,7 +72,7 @@ const Footer = () => {
                                                 <li><Link href="/terms-and-conditions">Terms & Conditions</Link></li>
                                                 <li><Link href="/disclaimer">Disclaimer</Link></li>
                                                 {/* <li><Link href="/subscription-cancelation-refund">Cancellation & Refund Policy </Link></li> */}
-                                                <li><Link href="/catering"> Partner With Us </Link></li>
+                                                <li><Link href="/partner-with-us"> Partner With Us </Link></li>
                                             </ul>
                                         </Box>
                                     </Grid>

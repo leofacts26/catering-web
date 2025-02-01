@@ -147,7 +147,7 @@ export const fetchEnquiryList = createAsyncThunk(
     'user/fetchEnquiryList',
     async (user, thunkAPI) => {
         try {
-            const response = await api.get(`${BASE_URL}/user-get-enquiries?limit=5&current_page=1&order_by=newest_first`, {
+            const response = await api.get(`${BASE_URL}/user-get-enquiries?limit=5000&current_page=1&order_by=newest_first`, {
                 headers: {
                     authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
                 },
