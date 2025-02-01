@@ -17,6 +17,7 @@ import ShowOnMap from '../ShowOnMap';
 import StarIcon from '@mui/icons-material/Star';
 import toast from 'react-hot-toast';
 import useRegistration from '@/hooks/useRegistration';
+import useGetLocationResults from '@/hooks/catering/useGetLocationResults';
 
 
 
@@ -27,6 +28,7 @@ const ListViewTiffin = () => {
     const dispatch = useDispatch()
     const [isAnimating, setIsAnimating] = useState(false);
     const { handleClickOpen } = useRegistration();
+    const { selectedLocation } = useGetLocationResults()
 
     const [page, setPage] = useState(1);
     const handleChange = (event, value) => {
@@ -167,7 +169,7 @@ const ListViewTiffin = () => {
                                                                 />
                                                             )}
                                                         </Link>
-                                                        <div className="position-absolute list-card-tag" style={{ backgroundColor: getSearchCard?.label_display_color  }}>
+                                                        <div className="position-absolute list-card-tag" style={{ backgroundColor: getSearchCard?.label_display_color }}>
                                                             {getSearchCard?.subscription_type_display}
                                                         </div>
                                                     </div>
@@ -463,11 +465,14 @@ const ListViewTiffin = () => {
 
             {getTiffinSearchCards?.length > 0 && <>
                 <Stack direction="row" justifyContent="space-between" style={{ marginBottom: '20px 0px 0px 0px' }} className='mb-5 mt-5'>
-                    <h2 className='pagination-heading'>Chennai: {total_count} Tiffin service providers found</h2>
+                    <h2 className='pagination-heading'>{selectedLocation?.terms?.length > 0 && selectedLocation?.terms[0]?.value
+                        ? `${selectedLocation?.terms[0]?.value} : ${total_count} Tiffin service providers found`
+                        : 'India : ' + total_count + ' Tiffin service providers found'}</h2>
                     <Link href="#" className='pagination-showing'>Go to Top</Link>
                 </Stack>
             </>}
 
+         
             {/* <div className="pagination-box">
                 <Pagination count={10} page={page} onChange={handleChange} />
             </div> */}

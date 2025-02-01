@@ -196,7 +196,7 @@ const page = () => {
                                 <FoodType data={data?.foodTypes} />
                             </Stack> : <Stack direction="row" spacing={1} sx={{ marginBottom: '15px' }}>
                                 <h2 className="food-type">Food Type : </h2>
-                                <p className={`list-card-veg-font`}> N/A </p>
+                                <p className={`list-card-veg-font-na`}> N/A </p>
                             </Stack>}
 
                             {data?.cuisines?.filter((item) => item.selected === "1").length > 0 ? <div>
