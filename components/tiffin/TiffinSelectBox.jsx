@@ -4,9 +4,10 @@ import { Select, MenuItem, FormControl, Stack, Button, TextField } from '@mui/ma
 import { styled } from '@mui/material/styles';
 import ReactSelectTiffin from "./ReactSelectTiffin";
 import { useDispatch, useSelector } from "react-redux";
-import { clearFiltersGlobal, fetchGetAllTiffinSubscriptionTypes, fetchtiffinSearchCards, setTiffinSort, setTiffinSubscriptionFilter } from "@/app/features/tiffin/tiffinFilterSlice";
+import {  clearTiffinSlice, fetchGetAllTiffinSubscriptionTypes, fetchtiffinSearchCards, setTiffinSort, setTiffinSubscriptionFilter } from "@/app/features/tiffin/tiffinFilterSlice";
 import toast from "react-hot-toast";
 import FilterListOffIcon from '@mui/icons-material/FilterListOff';
+import { clearFiltersGlobal } from "@/app/features/user/homeSlice";
 
 const TiffinSelectBox = () => {
     const dispatch = useDispatch();
@@ -41,6 +42,7 @@ const TiffinSelectBox = () => {
     // onHandleFIlterClear 
     const onHandleFIlterClear = async () => {
         await dispatch(clearFiltersGlobal());
+        await dispatch(clearTiffinSlice());
         window.location.reload()
     }
 

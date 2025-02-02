@@ -335,7 +335,7 @@ export const tiffinFilterSlice = createSlice({
     name: 'tiffinFilter',
     initialState,
     reducers: {
-        // clearTiffinSlice: () => initialState,
+        clearTiffinSlice: () => initialState,
         incrementTiffinPage(state) {
             state.current_page += 1;
         },
@@ -563,6 +563,6 @@ export const tiffinFilterSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { incrementTiffinPage, setTiffinSort, setRatingTiffinTypesFilter, setTiffinSubscriptionFilter, setPriceTypeFilter, setFoodTypeFilter, setMealTypeFilter, setServiceTypeFilter, setKitchenTypeFilter } = tiffinFilterSlice.actions
+export const { clearTiffinSlice, incrementTiffinPage, setTiffinSort, setRatingTiffinTypesFilter, setTiffinSubscriptionFilter, setPriceTypeFilter, setFoodTypeFilter, setMealTypeFilter, setServiceTypeFilter, setKitchenTypeFilter } = tiffinFilterSlice.actions
 
 export default tiffinFilterSlice.reducer
