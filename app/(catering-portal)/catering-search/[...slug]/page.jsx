@@ -91,7 +91,7 @@ const page = () => {
         }
     }
 
-    // console.log(data, "data TTT");
+    console.log(data, "data TTT");
 
     const onBreadcrumbLocationSearch = () => {
         const { latitude, longitude, city, place_id, pincode, formatted_address } = data;
@@ -126,8 +126,8 @@ const page = () => {
 
     const onHandleShare = (cardId, data) => {
         setIsAnimating(cardId);
-        const { vendorId, Id } = data;
-        const linkToCopy = `https://cateringsandtiffins.com/catering-search/${vendorId}/${Id}`;
+        // const { vendorId, Id } = data;
+        const linkToCopy = `https://cateringsandtiffins.com/catering-search/${vendorId}/${branchId}`;
         navigator.clipboard.writeText(linkToCopy)
             .then(() => {
                 toast.success('Link copied to clipboard');
@@ -172,7 +172,8 @@ const page = () => {
                     </div>
                     <div className='vc-icon-box'>
                         <Stack direction='row' justifyContent="space-between" alignItems="end">
-                            <Stack direction="row" alignItems="center" spacing={1} className="vc-icons" onClick={() => onHandleShare(data?.id, { vendorId: data?.vendor_id, Id: data?.id })}>
+                            <Stack direction="row" alignItems="center" spacing={1} className="vc-icons" 
+                            onClick={() => onHandleShare(data?.id, { vendorId: data?.vendor_id, Id: data?.id })}>
                                 <ShareIcon className={` ${isAnimating === data?.id ? 'spin-animation text-red' : ''}`} style={{ fontSize: '18px' }}
                                 />
                                 <span>Share</span>

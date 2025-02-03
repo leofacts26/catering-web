@@ -113,8 +113,8 @@ const page = () => {
 
   const onHandleShare = (cardId, data) => {
     setIsAnimating(cardId);
-    const { vendorId, Id } = data;
-    const linkToCopy = `https://cateringsandtiffins.com/tiffin-search/${vendorId}/${Id}`;
+    // const { vendorId, Id } = data;
+    const linkToCopy = `https://cateringsandtiffins.com/tiffin-search/${vendorId}/${branchId}`;
     navigator.clipboard.writeText(linkToCopy)
       .then(() => {
         toast.success('Link copied to clipboard');
