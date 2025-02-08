@@ -251,7 +251,7 @@ const page = () => {
 
                 {accessToken && <Link href="#reviews" className="vc-reviews-tiffin">See Reviews: {data?.review_count && data?.review_count}</Link>}
                 {data?.business_phone_number && <Stack direction="row" spacing={2} style={{ marginTop: '10px' }}>
-                  <ContactBtn number={data?.business_phone_number} />
+                  <ContactBtn number={data?.business_phone_number} vendorId={vendorId} branchId={branchId} />
                 </Stack>}
               </Stack>
             </Grid>

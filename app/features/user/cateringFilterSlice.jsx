@@ -209,7 +209,7 @@ export const createUserEnquiry = createAsyncThunk(
     'user/createUserEnquiry',
     async (data, thunkAPI) => {
         const { vendorId, branchId } = data;
-        console.log(thunkAPI.getState(), "State in thunkAPI");
+        // console.log(thunkAPI.getState(), "State in thunkAPI");
 
         const getCateringCuisines = thunkAPI.getState().cateringFilter?.getCateringCuisines;
         const getCateringServiceTypes = thunkAPI.getState().cateringFilter?.getCateringServiceTypes;
@@ -271,7 +271,7 @@ export const createUserEnquiry = createAsyncThunk(
         const body = {
             vendor_id: vendorId,
             branch_id: branchId,
-            description: "Test",
+            description: "N/A",
             cuisines_filter: `${JSON.stringify(finalCuisineresult)}`,
             service_types_filter: `${JSON.stringify(service_filter_formatted)}`,
             occasions_filter: `${JSON.stringify(occasions_filter_formatted)}`,
@@ -283,7 +283,7 @@ export const createUserEnquiry = createAsyncThunk(
             kitchen_types_filter: `${JSON.stringify([{ "id": 1, "selected": 1 }])}`,
             subscription_types_filter: `${JSON.stringify(subscriptionTypes_formatted)}`,
         }
-        console.log(body, "body");
+        // console.log(body, "body");
 
         try {
             const response = await api.post(`${BASE_URL}/user-create-new-enquiry`, body, {

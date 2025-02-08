@@ -330,6 +330,89 @@ export const fetchtiffinSearchCards = createAsyncThunk(
 )
 
 
+export const createTiffinUserEnquiry = createAsyncThunk(
+    'user/createTiffinUserEnquiry',
+    async (data, thunkAPI) => {
+        const { vendorId, branchId } = data;
+
+        const getTiffinServiceTypes = thunkAPI.getState().tiffinFilter?.getTiffinServiceTypes;
+        const getTiffinFoodTypes = thunkAPI.getState().tiffinFilter?.getTiffinFoodTypes;
+        const getTiffinMealTypes = thunkAPI.getState().tiffinFilter?.getTiffinMealTypes;
+        const getTiffinPriceRanges = thunkAPI.getState().tiffinFilter?.getTiffinPriceRanges;
+        const getTiffinKitchenTypes = thunkAPI.getState().tiffinFilter?.getTiffinKitchenTypes;
+        const tiffinSubscriptionTypes = thunkAPI.getState().tiffinFilter?.tiffinSubscriptionTypes;
+
+
+        // servicetype_filter_formatted 
+        const servicetype_filter_formatted = getTiffinServiceTypes.map(serviceType => ({
+            id: serviceType.id,
+            selected: serviceType.selectedweb
+        }))
+
+        // foodtype_filter_formatted 
+        const foodtype_filter_formatted = getTiffinFoodTypes?.filter(item => item.id !== "1").map(foodType => ({
+            id: foodType.id,
+            selected: foodType.selectedweb
+        }))
+
+        // mealtype_filter_formatted 
+        const mealtype_filter_formatted = getTiffinMealTypes.map(mealType => ({
+            id: mealType.id,
+            selected: mealType.selectedweb
+        }))
+
+        // pricetype_filter_formatted 
+        const selectedPriceRanges = getTiffinPriceRanges?.filter(price => price?.selectedweb === 1);
+        const updatedPriceTypes_formatted = selectedPriceRanges?.map(price => {
+            return { id: price.id, start_price: parseFloat(price.start_price), end_price: parseFloat(price.end_price) }
+        })
+
+        // kitchentype_filter_formatted 
+        const kitchentype_filter_formatted = getTiffinKitchenTypes.map(kitchenType => ({
+            id: kitchenType.id,
+            selected: kitchenType.selectedweb
+        }))
+
+        // subscription_Types_formatted 
+        const tiffinSubscriptionTypes_formatted = tiffinSubscriptionTypes.map(subscriptionType => ({
+            subscription_type_id: Number(subscriptionType.id),
+            selected: subscriptionType.selectedweb
+        }))
+
+
+
+
+        const body = {
+            vendor_id: vendorId,
+            branch_id: branchId,
+            description: "N/A",
+            cuisines_filter: `${JSON.stringify([{ "id": 1, "selected": 1 }])}`,
+            service_types_filter: `${JSON.stringify(servicetype_filter_formatted)}`,
+            occasions_filter: `${JSON.stringify([{ "id": 1, "selected": 1 }])}`,
+            serving_types_filter: `${JSON.stringify([{ "id": 1, "selected": 1 }])}`,
+            food_types_filter: `${JSON.stringify(foodtype_filter_formatted)}`,
+            head_count_ranges_filter: `${JSON.stringify([{ "id": 1, "start": 100, "end": 200 }])}`,
+            meal_times_filter: `${JSON.stringify(mealtype_filter_formatted)}`,
+            price_ranges_filter: `${JSON.stringify(updatedPriceTypes_formatted)}`,
+            kitchen_types_filter: `${JSON.stringify(kitchentype_filter_formatted)}`,
+            subscription_types_filter: `${JSON.stringify(tiffinSubscriptionTypes_formatted)}`,
+        }
+
+        try {
+            const response = await api.post(`${BASE_URL}/user-create-new-enquiry`, body, {
+                headers: {
+                    authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
+                },
+            });
+            console.log(response, "response");
+            return response?.data;
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error.response.data.msg);
+        }
+
+    }
+)
+
 
 export const tiffinFilterSlice = createSlice({
     name: 'tiffinFilter',

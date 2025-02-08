@@ -6,6 +6,7 @@ import useRegistration from '@/hooks/useRegistration';
 import PhoneIcon from '@mui/icons-material/Phone';
 import { createUserEnquiry } from '@/app/features/user/cateringFilterSlice';
 import { usePathname } from 'next/navigation'
+import { createTiffinUserEnquiry } from '@/app/features/tiffin/tiffinFilterSlice';
 
 
 const ContactBtn = ({ number, vendorId, branchId }) => {
@@ -27,7 +28,7 @@ const ContactBtn = ({ number, vendorId, branchId }) => {
             await dispatch(createUserEnquiry(data))
         } else if (pathname.includes('tiffin-search')) {
             console.log("tiffintiffintiffintiffin");
-            // await dispatch(createTiffinUserEnquiry(data));
+            await dispatch(createTiffinUserEnquiry(data));
         } else {
             console.error('Unknown search type in URL');
         }
