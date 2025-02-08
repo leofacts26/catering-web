@@ -117,7 +117,16 @@ const Navbar = ({ cateringHome }) => {
                     </Stack>
                 </Stack>
 
-
+                {/* {
+    //     "id": 2,
+    //     "name": "Wishlist",
+    //     "url": "/user-profile/my-wishlist"
+    // },
+    // {
+    //     "id": 2,
+    //     "name": "My Profile",
+    //     "url": "/user-profile/my-wishlist"
+    // } */}
 
                 <Drawer
                     anchor="right"
@@ -134,18 +143,33 @@ const Navbar = ({ cateringHome }) => {
                             <CloseIcon onClick={() => setDrawerOpen(false)} className='cursor-pointer' />
                         </Stack>
 
-                        {mobilenavlinks?.map((navlink) => {
-                            return (
-                                <ul style={{ marginTop: '25px' }}>
-                                    <li className='nav-link-li-mobile'>
+
+                        <ul>
+                            {mobilenavlinks?.map((navlink) => {
+                                return (
+
+                                    <li className='nav-link-li-mobile' style={{ marginTop: '25px' }}>
                                         <Link onClick={clearCateringFilter} href={navlink.url} key={navlink.id} className={checkActivePath(navlink.url) ? 'active nav-link-mobile' : 'nav-link-mobile'}
                                         >{navlink.name}</Link>
                                     </li>
-                                </ul>
-                            )
-                        })}
+                                )
+                            })}
+                        </ul>
 
-                        {!accessToken ? <div className='nav-link-li-mobile ' style={{ marginTop: '20px', marginLeft: '12px' }}>
+                        {accessToken && <ul >
+                            <li className='nav-link-li-mobile' style={{ marginTop: '25px' }}>
+                                <Link href="/user-profile/my-wishlist" onClick={clearCateringFilter} className="nav-link-mobile"
+                                >Wishlist</Link>
+                            </li>
+                            <li className='nav-link-li-mobile' style={{ marginTop: '25px' }}>
+                                <Link href="/user-profile" onClick={clearCateringFilter} className="nav-link-mobile"
+                                >My Profile</Link>
+                            </li>
+                        </ul>}
+
+
+
+                        {!accessToken ? <div className='nav-link-li-mobile nav-mobile-link' style={{ marginTop: '20px', marginLeft: '12px' }}>
                             <Link href="javascript:void(0)" onClick={() => {
                                 handleRegisterClickOpen()
                                 setDrawerOpen(false)

@@ -119,7 +119,7 @@ const CateringWishlist = () => {
         <>
             {
                 caterWishlist.length > 0 || tiffinWishlist.length > 0 ? <Stack direction={{ xs: 'column', sm: 'column', md: 'row' }} justifyContent="end" alignItems="end">
-                    <Stack direction="row" justifyContent="space-between" alignItems="center" style={{width: '100%'}}>
+                    <Stack  direction={{ xs: "column", md: "row" }}  justifyContent="space-between" alignItems="center" style={{width: '100%'}}>
                        <div>
                        <h2 className="user-profile-title" style={{ fontSize: '1.8em', color: '#57636c' }}>Your Favourite Saved Caterers</h2>
                        </div>

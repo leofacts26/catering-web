@@ -2847,7 +2847,7 @@ h6 {
 }
 
 .user-profile-box {
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  /* box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px; */
   padding: 15px 10px;
   margin-bottom: 20px;
   border-radius: 8px;
@@ -3933,6 +3933,12 @@ textarea:-webkit-autofill:active {
 
 .mealtype-chip-tiffin {
   width: 'auto'
+}
+
+.nav-mobile-link a{
+  font-size: 18px !important;
+  display: block !important;
+  font-weight: bold !important;
 }
 
 @media only screen and (max-width: 768px) {

@@ -133,7 +133,13 @@ const GridViewTiffin = ({ xs, sm, md, lg }) => {
                                         <div className="vc-similar-card">
                                             <div className="grid-img-box">
                                                 <div className="view-all-dark-overlay"></div>
-                                                <img src={imageSrc} alt="" className="img-fluid vc-similar-card-img" />
+                                                <img src={
+                                                    getSearchCard?.brand_logo?.original
+                                                        ? getSearchCard.brand_logo.original
+                                                        : getSearchCard?.banner_images?.[0]?.original
+                                                            ? getSearchCard.banner_images[0].original
+                                                            : 'img/no-image.jpg'
+                                                } alt="" className="img-fluid vc-similar-card-img" />
                                                 <div className="grid-icons">
                                                     <Stack direction="row" alignItems="center" spacing={1}>
                                                         <span className='round-white'>
@@ -181,17 +187,21 @@ const GridViewTiffin = ({ xs, sm, md, lg }) => {
                                                                 {
                                                                     getSearchCard?.food_types?.map((food_type, index) => {
                                                                         let iconSrc = '';
+                                                                        let foodClassName = '';
                                                                         if (food_type === 'Veg') {
                                                                             iconSrc = '/img/icons/list-card-veg.png';
+                                                                            foodClassName = 'food-veg-color';
                                                                         } else if (food_type === 'Non Veg') {
                                                                             iconSrc = '/img/icons/list-card-non-veg.png';
+                                                                            foodClassName = 'food-nonveg-color';
                                                                         } else {
                                                                             iconSrc = '/img/icons/list-card-veg.png';
+                                                                            foodClassName = 'food-veg-color';
                                                                         }
                                                                         return (
                                                                             <Stack direction="row" alignItems="center" spacing={0} key={index}>
                                                                                 <img src={iconSrc} className='list-card-veg' alt="" />
-                                                                                <p className='list-card-veg-font'> {food_type} </p>
+                                                                                <p className={`list-card-veg-font ${foodClassName}`} > {food_type} </p>
                                                                             </Stack>
                                                                         )
                                                                     })
