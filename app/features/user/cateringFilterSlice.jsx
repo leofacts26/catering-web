@@ -208,7 +208,7 @@ export const fetchGetAllSubscriptionTypes = createAsyncThunk(
 export const createUserEnquiry = createAsyncThunk(
     'user/createUserEnquiry',
     async (data, thunkAPI) => {
-        const { vendorId, branchId } = data;
+        const { area, vendorId, branchId } = data;
         // console.log(thunkAPI.getState(), "State in thunkAPI");
 
         const getCateringCuisines = thunkAPI.getState().cateringFilter?.getCateringCuisines;
@@ -282,6 +282,7 @@ export const createUserEnquiry = createAsyncThunk(
             price_ranges_filter: `${JSON.stringify(updatedPriceTypes_formatted)}`,
             kitchen_types_filter: `${JSON.stringify([{ "id": 1, "selected": 1 }])}`,
             subscription_types_filter: `${JSON.stringify(subscriptionTypes_formatted)}`,
+            area: area
         }
         // console.log(body, "body");
 

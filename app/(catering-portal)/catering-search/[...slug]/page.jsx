@@ -253,7 +253,7 @@ const page = () => {
 
                                 {data?.business_phone_number && <Stack direction="row" spacing={2} style={{ marginTop: '10px' }}>
                                     {/* <Button variant="contained" className="vt-whatsapp-btn"> <WhatsAppIcon style={{ marginRight: '3px' }} /> Whatsapp</Button> */}
-                                    <ContactBtn number={data?.business_phone_number} vendorId={vendorId} branchId={branchId} />
+                                    <ContactBtn area={data.area} number={data?.business_phone_number} vendorId={vendorId} branchId={branchId} />
                                 </Stack>}
 
                             </Stack>

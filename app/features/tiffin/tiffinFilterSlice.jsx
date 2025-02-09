@@ -333,7 +333,7 @@ export const fetchtiffinSearchCards = createAsyncThunk(
 export const createTiffinUserEnquiry = createAsyncThunk(
     'user/createTiffinUserEnquiry',
     async (data, thunkAPI) => {
-        const { vendorId, branchId } = data;
+        const { area, vendorId, branchId } = data;
 
         const getTiffinServiceTypes = thunkAPI.getState().tiffinFilter?.getTiffinServiceTypes;
         const getTiffinFoodTypes = thunkAPI.getState().tiffinFilter?.getTiffinFoodTypes;
@@ -396,6 +396,7 @@ export const createTiffinUserEnquiry = createAsyncThunk(
             price_ranges_filter: `${JSON.stringify(updatedPriceTypes_formatted)}`,
             kitchen_types_filter: `${JSON.stringify(kitchentype_filter_formatted)}`,
             subscription_types_filter: `${JSON.stringify(tiffinSubscriptionTypes_formatted)}`,
+            area: area
         }
 
         try {

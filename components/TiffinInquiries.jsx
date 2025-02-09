@@ -10,12 +10,13 @@ import Stack from '@mui/material/Stack';
 import CallIcon from '@mui/icons-material/Call';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchEnquiryList } from '@/app/features/user/settingSlice';
+import Link from 'next/link';
 
 const CaterInquiries = () => {
     const { enquiryList } = useSelector((state) => state.settings);
     const dispatch = useDispatch();
 
-    
+
 
     React.useEffect(() => {
         dispatch(fetchEnquiryList());
@@ -36,7 +37,10 @@ const CaterInquiries = () => {
                                     <span className='vc-chip-inquiry'>Popular</span>
                                 </Stack>
                                 <div>
-                                    <p className='inquery-heading'>Location: {inquiry.user_location || 'N/A'}</p>
+                                    <p className='inquery-heading'>Location: {inquiry.area || 'N/A'}</p>
+                                </div>
+                                <div>
+                                    <p className='inquery-heading mt-1'>Contact Number: {inquiry?.vendor_phone_number || 'N/A'}</p>
                                 </div>
                                 <Stack className='my-3'>
                                     <p className='inq-contact-tiffins'>
@@ -52,9 +56,11 @@ const CaterInquiries = () => {
                             </CardContent>
                             <Stack direction="row" justifyContent="end" spacing={2}>
                                 <CardActions>
-                                    <Button className='inquiry-tiffin-btn' size="small" sx={{ textTransform: 'capitalize' }}>
-                                        <CallIcon style={{ marginRight: '10px', fontSize: '20px' }} /> Call Now
-                                    </Button>
+                                    <Link href={`tel:${inquiry?.vendor_phone_number}`}>
+                                        <Button className='inquiry-tiffin-btn' size="small" sx={{ textTransform: 'capitalize' }}>
+                                            <CallIcon style={{ marginRight: '10px', fontSize: '20px' }} /> Call Now
+                                        </Button>
+                                    </Link>
                                 </CardActions>
                             </Stack>
                         </Card>

@@ -9,7 +9,7 @@ import { usePathname } from 'next/navigation'
 import { createTiffinUserEnquiry } from '@/app/features/tiffin/tiffinFilterSlice';
 
 
-const ContactBtn = ({ number, vendorId, branchId }) => {
+const ContactBtn = ({ area, number, vendorId, branchId }) => {
     const accessToken = useSelector((state) => state.user.accessToken);
     const [userNumber, setUserNumber] = useState(false)
     const { handleClickOpen } = useRegistration();
@@ -21,7 +21,8 @@ const ContactBtn = ({ number, vendorId, branchId }) => {
     const onHandleEnquiryFn = async () => {
         const data = {
             vendorId,
-            branchId
+            branchId,
+            area
         }
         if (pathname.includes('catering-search')) {
             console.log("cateringcateringcatering");
