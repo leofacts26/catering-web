@@ -27,7 +27,7 @@ const ListView = () => {
     const [isAnimating, setIsAnimating] = useState(false);
     const { handleClickOpen } = useRegistration();
 
-    // console.log(accessToken, "accessToken accessToken");
+    // console.log(selectedLocation, "selectedLocation selectedLocation");
 
     const [wishlist, setWishlist] = useState({});
 

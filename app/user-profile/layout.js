@@ -42,7 +42,7 @@ export default function UserProfileLayout({ children }) {
                 <Grid container spacing={5} style={{ display: 'flex', justifyContent: 'center' }}>
                     {/* Conditional Rendering: Show Hamburger Menu on Mobile */}
                     {isMobile ? (
-                        <Grid item xs={12} style={{ display: 'flex', alignItems: 'center' }}>
+                        <Grid item xs={12} style={{ display: 'flex', alignItems: 'center' }} className="pt-0">
                             <Stack direction="row" justifyContent="end" className="w-100">
                                 <IconButton
                                     className="w-100"
@@ -65,13 +65,13 @@ export default function UserProfileLayout({ children }) {
                         </Grid>
                     ) : (
                         // Show UserProfileNavbar directly for larger screens
-                        <Grid item sm={12} md={12} lg={3.5} xl={3.5}>
+                        <Grid item sm={12} md={12} lg={3.5} xl={3.5} >
                             <UserProfileNavbar />
                         </Grid>
                     )}
 
                     {/* Main Content */}
-                    <Grid item sm={12} md={12} lg={8.5} xl={8.5}>
+                    <Grid item sm={12} md={12} lg={8.5} xl={8.5} className="pt-0">
                         {children}
                     </Grid>
                 </Grid>

@@ -15,7 +15,7 @@ import { fetchCateringSearchCards } from '@/app/features/user/cateringFilterSlic
 
 
 const ExploreCaters = () => {
-    // const { isPlacePredictionsLoading, placePredictions, getPlacePredictions, selectLocation } = useGetLocationResults()
+    const { selectLocation } = useGetLocationResults()
     const router = useRouter()
 
     const { getAllCities, isLoading } = useSelector((state) => state.homepage)
@@ -26,6 +26,10 @@ const ExploreCaters = () => {
     }, [])
 
     const onHandleCityFilter = (explorecater) => {
+        const selectedLocation = {
+            terms: [{ value: explorecater?.name }]
+        };
+        selectLocation(selectedLocation)
         const { latitude, longitude, name: city } = explorecater;
         dispatch(setlLocationValuesGlobal({ is_city_search: 1, latitude, longitude, city: { long_name: city } }));
         dispatch(fetchCateringSearchCards());

@@ -14,7 +14,7 @@ import { useRouter } from 'next/navigation';
 
 
 const ExploreTiffins = () => {
-    // const { isPlacePredictionsLoading, placePredictions, getPlacePredictions, selectLocation } = useGetLocationResults()
+    const { selectLocation } = useGetLocationResults()
     const router = useRouter()
     const { getAllCities, isLoading } = useSelector((state) => state.homepage)
     const dispatch = useDispatch()
@@ -26,6 +26,10 @@ const ExploreTiffins = () => {
     }, [])
 
     const onHandleCityFilter = (explorecater) => {
+        const selectedLocation = {
+            terms: [{ value: explorecater?.name }]
+        };
+        selectLocation(selectedLocation)
         const { latitude, longitude, name: city } = explorecater;
         dispatch(setlLocationValuesGlobal({ latitude, longitude, city: { long_name: city } }));
         dispatch(fetchtiffinSearchCards());
