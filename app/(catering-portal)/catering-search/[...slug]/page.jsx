@@ -172,8 +172,8 @@ const page = () => {
                     </div>
                     <div className='vc-icon-box'>
                         <Stack direction='row' justifyContent="space-between" alignItems="end">
-                            <Stack direction="row" alignItems="center" spacing={1} className="vc-icons" 
-                            onClick={() => onHandleShare(data?.id, { vendorId: data?.vendor_id, Id: data?.id })}>
+                            <Stack direction="row" alignItems="center" spacing={1} className="vc-icons"
+                                onClick={() => onHandleShare(data?.id, { vendorId: data?.vendor_id, Id: data?.id })}>
                                 <ShareIcon className={` ${isAnimating === data?.id ? 'spin-animation text-red' : ''}`} style={{ fontSize: '18px' }}
                                 />
                                 <span>Share</span>
@@ -253,7 +253,7 @@ const page = () => {
 
                                 {data?.business_phone_number && <Stack direction="row" spacing={2} style={{ marginTop: '10px' }}>
                                     {/* <Button variant="contained" className="vt-whatsapp-btn"> <WhatsAppIcon style={{ marginRight: '3px' }} /> Whatsapp</Button> */}
-                                    <ContactBtn area={data.area} number={data?.business_phone_number} vendorId={vendorId} branchId={branchId} />
+                                    <ContactBtn area={data?.area} city={data?.city} number={data?.business_phone_number} vendorId={vendorId} branchId={branchId} />
                                 </Stack>}
 
                             </Stack>
