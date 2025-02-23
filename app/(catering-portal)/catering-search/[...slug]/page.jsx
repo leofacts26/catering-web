@@ -41,6 +41,7 @@ import ReactMarkdown from 'react-markdown';
 import FoodType from "@/components/FoodType";
 import toast from "react-hot-toast";
 import { Link } from '@mui/material';
+import StarIcon from '@mui/icons-material/Star';
 
 
 
@@ -91,7 +92,7 @@ const page = () => {
         }
     }
 
-    console.log(data, "data TTT");
+    // console.log(data, "data TTT");
 
     const onBreadcrumbLocationSearch = () => {
         const { latitude, longitude, city, place_id, pincode, formatted_address } = data;
@@ -146,6 +147,9 @@ const page = () => {
     const shortContentLength = 500;
     const content = data?.about_description || '';
     const shortContent = content.slice(0, shortContentLength);
+
+    console.log(data, "DATA");
+
 
     return (
         <>
@@ -249,7 +253,14 @@ const page = () => {
                                     </Stack>
                                 </Stack>}
 
-                                {accessToken && <Link href="#reviews" className="vc-reviews">See Reviews {data?.review_count && data?.review_count}</Link>}
+                                {accessToken && <Link href="#reviews" className="vc-reviews">
+                                    <div className="mt-2" style={{ display: 'flex', alignItems: 'center' }}>
+                                        {[...Array(Math.round(parseFloat(data?.rating || "0")))].map((_, index) => (
+                                            <StarIcon key={index} style={{ color: '#C33332', fontSize: 20 }} />
+                                        ))}
+                                        <span className='ms-2'>See Reviews {data?.review_count && data?.review_count}</span>
+                                    </div>
+                                </Link>}
 
                                 {data?.business_phone_number && <Stack direction="row" spacing={2} style={{ marginTop: '10px' }}>
                                     {/* <Button variant="contained" className="vt-whatsapp-btn"> <WhatsAppIcon style={{ marginRight: '3px' }} /> Whatsapp</Button> */}

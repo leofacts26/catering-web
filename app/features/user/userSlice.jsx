@@ -63,7 +63,7 @@ export const userSlice = createSlice({
             })
             .addCase(fetchUserData.rejected, (state, { payload }) => {
                 state.isLoading = false;
-                toast.error(datavalidationerror(payload));
+                // toast.error(datavalidationerror(payload));
             })
     }
 })

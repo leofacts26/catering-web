@@ -45,6 +45,7 @@ import ReactMarkdown from 'react-markdown';
 import toast from 'react-hot-toast';
 import FoodType from '@/components/FoodType';
 import Link from 'next/link'
+import StarIcon from '@mui/icons-material/Star';
 
 
 const page = () => {
@@ -249,7 +250,15 @@ const page = () => {
                   <span className="vc-price-one-tiffin ms-1"> N/A </span>
                 </Stack>}
 
-                {accessToken && <Link href="#reviews" className="vc-reviews-tiffin">See Reviews: {data?.review_count && data?.review_count}</Link>}
+                {accessToken && <Link href="#reviews" className="vc-reviews-tiffin">
+                  <div className="mt-2" style={{ display: 'flex', alignItems: 'center' }}>
+                    {[...Array(Math.round(parseFloat(data?.rating || "0")))].map((_, index) => (
+                      <StarIcon key={index} style={{ color: '#d9822b', fontSize: 20 }} />
+                    ))}
+                    <span className='ms-2'>See Reviews {data?.review_count && data?.review_count}</span>
+                  </div>
+
+                </Link>}
                 {data?.business_phone_number && <Stack direction="row" spacing={2} style={{ marginTop: '10px' }}>
                   <ContactBtn number={data?.business_phone_number} vendorId={vendorId} branchId={branchId} />
                 </Stack>}
@@ -262,7 +271,7 @@ const page = () => {
       <Container maxWidth="xl" style={{ marginTop: '30px', marginBottom: '30px' }}>
         <Grid container spacing={2}>
 
-        {data?.kitchenTypes?.length > 0 ? <Grid item xs={12} sm={6} md={3} lg={2}>
+          {data?.kitchenTypes?.length > 0 ? <Grid item xs={12} sm={6} md={3} lg={2}>
             <div className="vc-shadow-tiffin">
               <CardContent>
                 <div className="text-center">
@@ -270,9 +279,9 @@ const page = () => {
                   <p className="vc-service-type">Kitchen Type</p>
                   <h3 className="vc-service-heading">
                     {data?.kitchenTypes
-                      ?.filter((item) => item.selected === "1") 
-                      ?.slice(0, 8) 
-                      ?.map((item) => item.kitchen_type_name) 
+                      ?.filter((item) => item.selected === "1")
+                      ?.slice(0, 8)
+                      ?.map((item) => item.kitchen_type_name)
                       .join(" , ")}
                   </h3>
                 </div>
@@ -298,9 +307,9 @@ const page = () => {
                   <p className="vc-service-type">Service Type</p>
                   <h3 className="vc-service-heading">
                     {data?.serviceTypes
-                      ?.filter((item) => item.selected === 1) 
-                      ?.slice(0, 8) 
-                      ?.map((item) => item.service_type_name) 
+                      ?.filter((item) => item.selected === 1)
+                      ?.slice(0, 8)
+                      ?.map((item) => item.service_type_name)
                       .join(" , ")}
                   </h3>
                 </div>

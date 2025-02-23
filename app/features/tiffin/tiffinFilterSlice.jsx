@@ -530,7 +530,7 @@ export const tiffinFilterSlice = createSlice({
             })
             .addCase(fetchTiffinPriceRanges.rejected, (state, { payload }) => {
                 state.isLoading = false;
-                toast.error(datavalidationerror(payload));
+                // toast.error(datavalidationerror(payload));
             })
             // fetchTiffinFoodTypes
             .addCase(fetchTiffinFoodTypes.pending, (state) => {
@@ -542,7 +542,7 @@ export const tiffinFilterSlice = createSlice({
             })
             .addCase(fetchTiffinFoodTypes.rejected, (state, { payload }) => {
                 state.isLoading = false;
-                toast.error(datavalidationerror(payload));
+                // toast.error(datavalidationerror(payload));
             })
             // fetchCaterRatings 
             .addCase(fetchTiffinRatings.pending, (state) => {
@@ -554,7 +554,7 @@ export const tiffinFilterSlice = createSlice({
             })
             .addCase(fetchTiffinRatings.rejected, (state, { payload }) => {
                 state.isLoading = false;
-                toast.error(datavalidationerror(payload));
+                // toast.error(datavalidationerror(payload));
             })
             // fetchTiffinMealTypes
             .addCase(fetchTiffinMealTypes.pending, (state) => {
@@ -566,7 +566,7 @@ export const tiffinFilterSlice = createSlice({
             })
             .addCase(fetchTiffinMealTypes.rejected, (state, { payload }) => {
                 state.isLoading = false;
-                toast.error(datavalidationerror(payload));
+                // toast.error(datavalidationerror(payload));
             })
             //  fetchTiffinServiceTypes
             .addCase(fetchTiffinServiceTypes.pending, (state) => {
@@ -578,7 +578,7 @@ export const tiffinFilterSlice = createSlice({
             })
             .addCase(fetchTiffinServiceTypes.rejected, (state, { payload }) => {
                 state.isLoading = false;
-                toast.error(datavalidationerror(payload));
+                // toast.error(datavalidationerror(payload));
             })
             // fetchTiffinKitchenTypes
             .addCase(fetchTiffinKitchenTypes.pending, (state) => {
@@ -590,7 +590,7 @@ export const tiffinFilterSlice = createSlice({
             })
             .addCase(fetchTiffinKitchenTypes.rejected, (state, { payload }) => {
                 state.isLoading = false;
-                toast.error(datavalidationerror(payload));
+                // toast.error(datavalidationerror(payload));
             })
             // fetchtiffinSearchCards 
             .addCase(fetchtiffinSearchCards.pending, (state) => {

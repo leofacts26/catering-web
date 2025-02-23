@@ -120,7 +120,7 @@ const ListView = () => {
             ))}
         </>
     }
-    // console.log(getCateringSearchCards, "getCateringSearchCards");
+    console.log(getCateringSearchCards, "getCateringSearchCards");
 
 
     return (
@@ -304,7 +304,6 @@ const ListView = () => {
                                                         {[...Array(parseInt(getSearchCard.rating.slice(0, 1)))].map((star, index) => (
                                                             <StarIcon key={index} style={{ color: '#C33332', fontSize: 20 }} />
                                                         ))}
-
                                                     </div>
                                                 </Stack>
                                             </div>

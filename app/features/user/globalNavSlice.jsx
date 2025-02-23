@@ -111,7 +111,7 @@ export const globalNavSlice = createSlice({
         state.vendorList = payload;
       })
       .addCase(fetchAllVendorList.rejected, (state, { payload }) => {
-        toast.error(datavalidationerror(payload));
+        // toast.error(datavalidationerror(payload));
       })
       // fetchAllTiffinVendorList
       .addCase(fetchAllTiffinVendorList.pending, (state) => { })
@@ -119,7 +119,7 @@ export const globalNavSlice = createSlice({
         state.tiffinVendorList = payload;
       })
       .addCase(fetchAllTiffinVendorList.rejected, (state, { payload }) => {
-        toast.error(datavalidationerror(payload));
+        // toast.error(datavalidationerror(payload));
       });
   },
 });

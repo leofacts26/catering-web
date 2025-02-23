@@ -231,7 +231,7 @@ export const homeSlice = createSlice({
             })
             .addCase(fetchFaq.rejected, (state, { payload }) => {
                 state.isLoading = false;
-                toast.error(datavalidationerror(payload));
+                // toast.error(datavalidationerror(payload));
             })
             // fetchHomepageOccasions
             .addCase(fetchHomepageOccasions.pending, (state) => {
@@ -243,7 +243,7 @@ export const homeSlice = createSlice({
             })
             .addCase(fetchHomepageOccasions.rejected, (state, { payload }) => {
                 state.isLoading = false;
-                toast.error(datavalidationerror(payload));
+                // toast.error(datavalidationerror(payload));
             })
             // fetchAllCities 
             .addCase(fetchAllCities.pending, (state) => {
@@ -255,7 +255,7 @@ export const homeSlice = createSlice({
             })
             .addCase(fetchAllCities.rejected, (state, { payload }) => {
                 state.isLoading = false;
-                toast.error(datavalidationerror(payload));
+                // toast.error(datavalidationerror(payload));
             })
             // fetchPopularCaterers 
             .addCase(fetchPopularCaterers.pending, (state) => {
@@ -267,7 +267,7 @@ export const homeSlice = createSlice({
             })
             .addCase(fetchPopularCaterers.rejected, (state, { payload }) => {
                 state.isLoading = false;
-                toast.error(datavalidationerror(payload));
+                // toast.error(datavalidationerror(payload));
             })
             // fetchRecentSearches 
             .addCase(fetchRecentSearches.pending, (state) => {
@@ -279,7 +279,7 @@ export const homeSlice = createSlice({
             })
             .addCase(fetchRecentSearches.rejected, (state, { payload }) => {
                 state.isLoading = false;
-                toast.error(datavalidationerror(payload));
+                // toast.error(datavalidationerror(payload));
             })
             // fetchBrandedCaterers 
             .addCase(fetchBrandedCaterers.pending, (state) => {
@@ -291,7 +291,7 @@ export const homeSlice = createSlice({
             })
             .addCase(fetchBrandedCaterers.rejected, (state, { payload }) => {
                 state.isLoading = false;
-                toast.error(datavalidationerror(payload));
+                // toast.error(datavalidationerror(payload));
             })
             // fetchBrandedTiffins 
             .addCase(fetchBrandedTiffins.pending, (state) => {
@@ -303,7 +303,7 @@ export const homeSlice = createSlice({
             })
             .addCase(fetchBrandedTiffins.rejected, (state, { payload }) => {
                 state.isLoading = false;
-                toast.error(datavalidationerror(payload));
+                // toast.error(datavalidationerror(payload));
             })
             // fetchPopularTiffins 
             .addCase(fetchPopularTiffins.pending, (state) => {
@@ -315,7 +315,7 @@ export const homeSlice = createSlice({
             })
             .addCase(fetchPopularTiffins.rejected, (state, { payload }) => {
                 state.isLoading = false;
-                toast.error(datavalidationerror(payload));
+                // toast.error(datavalidationerror(payload));
             })
             // fetchCuisines 
             .addCase(fetchCuisines.pending, (state) => {
@@ -327,7 +327,7 @@ export const homeSlice = createSlice({
             })
             .addCase(fetchCuisines.rejected, (state, { payload }) => {
                 state.isLoading = false;
-                toast.error(datavalidationerror(payload));
+                // toast.error(datavalidationerror(payload));
             })
             // userSubscribeEmail 
             .addCase(userSubscribeEmail.pending, (state) => {
