@@ -208,11 +208,15 @@ const GridViewTiffin = ({ xs, sm, md, lg }) => {
                                                                 }
                                                             </Stack>}
 
-                                                            {getSearchCard?.cuisines.length > 0 && <h2 className="vc-similar-blue overflow-ellipsis">
-                                                                <span className='me-2 overflow-ellipsis'>
-                                                                    {getSearchCard?.cuisines?.slice(0, 8)?.map((cuisine) => cuisine).join(" | ")}
-                                                                </span>
-                                                            </h2>}
+
+                                                            {
+                                                                getSearchCard?.meal_times?.map((mealtime, index) => {
+                                                                    const isLast = index === getSearchCard.meal_times.length - 1;
+                                                                    return (
+                                                                        <span className='list-card-chip-tiffin'> {mealtime}{!isLast && ' |'} </span>
+                                                                    )
+                                                                })
+                                                            }
                                                         </div>
                                                     </div>
 
