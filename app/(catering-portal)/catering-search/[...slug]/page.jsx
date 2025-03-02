@@ -52,7 +52,7 @@ const page = () => {
     const [isAnimating, setIsAnimating] = useState(false);
 
     const [showAllCuisines, setShowAllCuisines] = useState(true)
-    const [cuisineCount, setCuisineCount] = useState(12)
+    const [cuisineCount, setCuisineCount] = useState(20)
 
     const [isExpanded, setIsExpanded] = useState(false);
 
@@ -122,7 +122,7 @@ const page = () => {
     const onHandleCuisineClose = () => {
         console.log("false");
         setShowAllCuisines(true)
-        setCuisineCount(12)
+        setCuisineCount(20)
     }
 
     const onHandleShare = (cardId, data) => {
@@ -225,10 +225,10 @@ const page = () => {
                                             ))
                                     }
 
-                                    {showAllCuisines ? (
-                                        <span className="text-red view-all cursor-pointer" onClick={onHandleCuisineShow}> Show All </span>
+                                    {  showAllCuisines ? (
+                                        <span className="text-red view-all cursor-pointer ms-0" onClick={onHandleCuisineShow}> Show All </span>
                                     ) : (
-                                        <span className="text-red view-all cursor-pointer" onClick={onHandleCuisineClose}> Show Less </span>
+                                        <span className="text-red view-all cursor-pointer ms-0" onClick={onHandleCuisineClose}> Show Less </span>
                                     )}
                                 </Stack>
                             </div> : <div>

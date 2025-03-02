@@ -50,7 +50,7 @@ import StarIcon from '@mui/icons-material/Star';
 
 const page = () => {
   const [showAllCuisines, setShowAllCuisines] = useState(true)
-  const [cuisineCount, setCuisineCount] = useState(12)
+  const [cuisineCount, setCuisineCount] = useState(20)
   const [isAnimating, setIsAnimating] = useState(false);
 
   const [isExpanded, setIsExpanded] = useState(false);
@@ -109,7 +109,7 @@ const page = () => {
   const onHandleCuisineClose = () => {
     console.log("false");
     setShowAllCuisines(true)
-    setCuisineCount(12)
+    setCuisineCount(20)
   }
 
   const onHandleShare = (cardId, data) => {
@@ -225,9 +225,9 @@ const page = () => {
 
 
                   {showAllCuisines ? (
-                    <span className="text-orange view-all cursor-pointer" onClick={onHandleCuisineShow}> Show All </span>
+                    <span className="text-orange view-all cursor-pointer ms-0" onClick={onHandleCuisineShow}> Show All </span>
                   ) : (
-                    <span className="text-orange view-all cursor-pointer" onClick={onHandleCuisineClose}> Show Less </span>
+                    <span className="text-orange view-all cursor-pointer ms-0" onClick={onHandleCuisineClose}> Show Less </span>
                   )}
                 </Stack>
               </div> : <div>
