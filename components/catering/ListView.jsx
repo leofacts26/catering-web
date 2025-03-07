@@ -295,9 +295,9 @@ const ListView = () => {
                                                     </span>
                                                 </Stack>
                                                 <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} style={{ marginTop: '8px' }}>
-                                                    <span className='lse-reviews'>  {getSearchCard?.review_count > 0 && (
+                                                    <span className='lse-reviews'>  {getSearchCard?.review_count > 0 ? (
                                                         <span className="lse-reviews">{getSearchCard.review_count} Reviews</span>
-                                                    )}</span>
+                                                    ): <span className="lse-reviews">No Reviews</span>}</span>
                                                 </Stack>
                                                 <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} style={{ marginTop: '4px' }}>
                                                     <div className="mt-2">

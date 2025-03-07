@@ -255,7 +255,7 @@ const page = () => {
                     {[...Array(Math.round(parseFloat(data?.rating || "0")))].map((_, index) => (
                       <StarIcon key={index} style={{ color: '#d9822b', fontSize: 20 }} />
                     ))}
-                    <span className='ms-2'>See Reviews {data?.review_count && data?.review_count}</span>
+                    <span className='ms-2'>{data?.review_count > 0 ? `See Reviews ${data.review_count}` : "No Reviews"}</span>
                   </div>
 
                 </Link>}

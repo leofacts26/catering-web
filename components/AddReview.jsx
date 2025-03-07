@@ -36,9 +36,16 @@ const AddReview = () => {
 
     // validation schema
     const schema = Yup.object().shape({
-        rating: Yup.string().required('Select Rating to Submit'),
-        ratingText: Yup.string().required('Type review to Submit')
+        rating: Yup.string(),
+        ratingText: Yup.string(),
+    }).test("rating-or-text", "Select Rating or enter a review to submit", function (values) {
+        const { rating, ratingText } = values;
+        if (!rating && !ratingText?.trim()) {
+            return this.createError({ path: "rating", message: "Select Rating or enter a review to submit" });
+        }
+        return true;
     });
+
 
     // onHandleRegisterSubmit 
     const handleSubmit = async (ratingData, { resetForm }) => {
@@ -107,7 +114,7 @@ const AddReview = () => {
                                                         }}
                                                     >
                                                         <InputLabel id="demo-simple-select-label"
-                                                         style={{ color: '#57636c', fontSize: '14px', fontFamily: 'Readex Pro, sans-serif', fontWeight: '400' }}>
+                                                            style={{ color: '#57636c', fontSize: '14px', fontFamily: 'Readex Pro, sans-serif', fontWeight: '400' }}>
                                                             Select Rating </InputLabel>
                                                         <Select
                                                             labelId="demo-simple-select-label"
@@ -116,7 +123,7 @@ const AddReview = () => {
                                                             value={values.rating}
                                                             name="rating"
                                                             onChange={handleChange}
-                                                            style={{borderRadius: '8px'}}
+                                                            style={{ borderRadius: '8px' }}
                                                         >
                                                             <MenuItem value={1}>1</MenuItem>
                                                             <MenuItem value={2}>2</MenuItem>

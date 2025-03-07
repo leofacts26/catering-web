@@ -3455,7 +3455,9 @@ textarea:-webkit-autofill:active {
 }
 
 .vc-similar-card-description {
-  height: 132px;
+  /* height: 132px; */
+  height: 150px;
+  padding: 0px 5px;
   align-items: start;
   display: flex;
   flex-direction: column;

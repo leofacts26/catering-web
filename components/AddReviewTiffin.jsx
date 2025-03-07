@@ -36,9 +36,19 @@ const AddReviewTiffin = ({ tiffin }) => {
 
     // validation schema
     const schema = Yup.object().shape({
-        rating: Yup.string().required('Select Rating to Submit'),
-        ratingText: Yup.string().required('Type review to Submit')
+        rating: Yup.string(),
+        ratingText: Yup.string(),
+    }).test("rating-or-text", "Select Rating or enter a review to submit", function (values) {
+        const { rating, ratingText } = values;
+        if (!rating && !ratingText?.trim()) {
+            return this.createError({ path: "rating", message: "Select Rating or enter a review to submit" });
+        }
+        return true;
     });
+    // const schema = Yup.object().shape({
+    //     rating: Yup.string().required('Select Rating to Submit'),
+    //     ratingText: Yup.string().required('Type review to Submit')
+    // });
 
     // onHandleRegisterSubmit 
     const handleSubmit = async (ratingData, { resetForm }) => {
@@ -82,13 +92,13 @@ const AddReviewTiffin = ({ tiffin }) => {
                                                         sx={{
                                                             '& .MuiOutlinedInput-root': {
                                                                 '& fieldset': {
-                                                                    borderColor: touched.rating && errors.rating ? `${tiffin ? '#d9822b' : '#C33332' }`  : 'default',
+                                                                    borderColor: touched.rating && errors.rating ? `${tiffin ? '#d9822b' : '#C33332'}` : 'default',
                                                                 },
                                                                 '&:hover fieldset': {
-                                                                    borderColor: `${tiffin ? '#d9822b' : '#C33332' }`,
+                                                                    borderColor: `${tiffin ? '#d9822b' : '#C33332'}`,
                                                                 },
                                                                 '&.Mui-focused fieldset': {
-                                                                    borderColor: `${tiffin ? '#d9822b' : '#C33332' }`,
+                                                                    borderColor: `${tiffin ? '#d9822b' : '#C33332'}`,
                                                                 },
                                                             },
                                                             '& .MuiInputLabel-root': {
@@ -106,9 +116,9 @@ const AddReviewTiffin = ({ tiffin }) => {
                                                             },
                                                         }}
                                                     >
-                                                        <InputLabel id="demo-simple-select-label" 
-                                                        style={{ color: '#57636c', fontFamily: 'Readex Pro, sans-serif' }}>
-                                                        Select Rating </InputLabel>
+                                                        <InputLabel id="demo-simple-select-label"
+                                                            style={{ color: '#57636c', fontFamily: 'Readex Pro, sans-serif' }}>
+                                                            Select Rating </InputLabel>
                                                         <Select
                                                             labelId="demo-simple-select-label"
                                                             id="demo-simple-select"
@@ -146,14 +156,14 @@ const AddReviewTiffin = ({ tiffin }) => {
                                                 </Box>
                                                 <Button className="ratingBtn mb-3 mt-2" disabled={isLoading} type="submit" variant="contained" sx={{
                                                     height: '40px',
-                                                    backgroundColor: `${tiffin ? '#d9822b' : '#C33332' }`,
+                                                    backgroundColor: `${tiffin ? '#d9822b' : '#C33332'}`,
                                                     padding: '10px 30px',
                                                     fontSize: '14px',
                                                     fontWeight: '500',
                                                     textTransform: 'capitalize',
                                                     borderRadius: '8px',
                                                     '&:hover': {
-                                                        backgroundColor: `${tiffin ? '#d9822b' : '#C33332' }`,
+                                                        backgroundColor: `${tiffin ? '#d9822b' : '#C33332'}`,
                                                     }
                                                 }}>
                                                     {isLoading ? 'Loading...' : 'Submit'}
