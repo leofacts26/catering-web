@@ -137,7 +137,7 @@ const GridViewList = ({ xs, sm, md, lg }) => {
                                                         ? getSearchCard.brand_logo.original
                                                         : getSearchCard?.banner_images?.[0]?.original
                                                             ? getSearchCard.banner_images[0].original
-                                                            : 'img/no-image.jpg'
+                                                            : '../img/no-image.jpg'
                                                 } alt="" className="img-fluid vc-similar-card-img" />
                                                 <div className="grid-icons">
                                                     <Stack direction="row" alignItems="center" spacing={1}>
