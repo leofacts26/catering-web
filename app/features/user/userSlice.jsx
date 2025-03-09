@@ -48,6 +48,12 @@ export const userSlice = createSlice({
         setLoginUserData: (state, action) => {
             state.loginUserData = action.payload;
         },
+        logout: (state) => {
+            state.token = '';
+            localStorage.removeItem('accessToken');
+            localStorage.clear();
+            window.location.href = '/'; // Redirect after logout
+        },
         logoutUser: (state) => {
             state = initialState;
         },
@@ -73,7 +79,7 @@ export const userSlice = createSlice({
 
 
 // Action creators are generated for each case reducer function
-export const { setVendorId, setData, setAccessToken, logoutUser, setLoginUserData, setRegisterData } = userSlice.actions
+export const { logout, setVendorId, setData, setAccessToken, logoutUser, setLoginUserData, setRegisterData } = userSlice.actions
 
 export default userSlice.reducer
 
