@@ -48,7 +48,7 @@ export default function UserProfileLayout({ children }) {
                                     className="w-100"
                                     aria-label="open drawer"
                                     onClick={toggleDrawer(true)}
-                                    style={{ marginRight: 'auto' }}
+                                    style={{ display: 'flex', alignItems: 'center', justifyContent: 'start' }}
                                 >
                                     Menu  <MenuIcon />
                                 </IconButton>

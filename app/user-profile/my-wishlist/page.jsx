@@ -15,6 +15,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import CateringWishlist from '@/components/CateringWishlist';
 import TiffinWishList from '@/components/TiffinWishList';
+import { Container } from '@mui/material';
 
 
 const page = () => {
@@ -74,12 +75,9 @@ const page = () => {
 
   return (
     <>
+        <CateringWishlist />
 
-      <CateringWishlist />
-
-      {/* <hr /> */}
-
-     <TiffinWishList />
+        <TiffinWishList />
       <br />
     </>
   )

@@ -87,6 +87,12 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.overflow-ellipsis-wishlist {
+  /* white-space: nowrap; */
+  width: 96%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
 .overflow-map-ellipsis {
   white-space: nowrap;

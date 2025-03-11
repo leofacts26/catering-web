@@ -171,13 +171,13 @@ const TiffinWishList = () => {
                                                                             <h3 className='grid-view-title overflow-ellipsis'>{getSearchCard?.catering_service_name || ""}</h3>
                                                                             <p className='vc-similar-card-small text-left overflow-ellipsis'>
                                                                                 {getSearchCard?.street_name ? `${getSearchCard.street_name}, ` : ''}
-                                                                                {/* {getSearchCard?.area ? `${getSearchCard.area}, ` : ''} */}
                                                                                 {getSearchCard?.city ? getSearchCard.city : ''}
                                                                             </p>
                                                                         </div>
                                                                     </Stack>
 
                                                                     <div>
+
                                                                         {filterFoodTypes?.length > 0 && <Stack direction="row" spacing={1}>
                                                                             {
                                                                                 filterFoodTypes?.map((food_type, index) => {
@@ -203,8 +203,10 @@ const TiffinWishList = () => {
                                                                             }
                                                                         </Stack>}
 
-                                                                        {getSearchCard?.cuisines.length > 0 && <h2 className="vc-similar-blue overflow-ellipsis">
-                                                                            <span className='me-2 overflow-ellipsis'>
+                                                                        
+
+                                                                        {getSearchCard?.cuisines.length > 0 && <h2 className="vc-similar-blue overflow-ellipsis-wishlist">
+                                                                            <span className='me-2 overflow-ellipsis-wishlist'>
                                                                                 {getSearchCard?.cuisines?.slice(0, 8)?.map((cuisine) => cuisine).join(" | ")}
                                                                             </span>
                                                                         </h2>}

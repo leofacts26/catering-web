@@ -225,8 +225,8 @@ const CateringWishlist = () => {
                                                                             }
                                                                         </Stack>}
 
-                                                                        {getSearchCard?.cuisines.length > 0 && <h2 className="vc-similar-blue overflow-ellipsis">
-                                                                            <span className='me-2 overflow-ellipsis'>
+                                                                        {getSearchCard?.cuisines.length > 0 && <h2 className="vc-similar-blue overflow-ellipsis-wishlist">
+                                                                            <span className='me-2 overflow-ellipsis-wishlist'>
                                                                                 {getSearchCard?.cuisines?.slice(0, 8)?.map((cuisine) => cuisine).join(" | ")}
                                                                             </span>
                                                                         </h2>}
