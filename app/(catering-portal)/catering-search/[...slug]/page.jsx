@@ -54,6 +54,9 @@ const page = () => {
     const [showAllCuisines, setShowAllCuisines] = useState(false)
     const [cuisineCount, setCuisineCount] = useState(20)
 
+    const [showAllOccations, setShowAllOccations] = useState(false)
+    const [OccationsCount, setOccationsCount] = useState(50)
+
     const [isExpanded, setIsExpanded] = useState(false);
 
     const toggleExpand = () => {
@@ -103,29 +106,42 @@ const page = () => {
     }
 
 
-    const onHandleShow = () => {
-        setShowAll(false)
-        setCount(100)
+    // const onHandleShow = () => {
+    //     setShowAll(false)
+    //     setCount(100)
+    // }
+
+    // const onHandleClose = () => {
+    //     setShowAll(true)
+    //     setCount(3)
+    // }
+
+    const onHandleOccationShow = () => {
+        // console.log("true");
+        setShowAllOccations(true)
+        setOccationsCount(100)
     }
 
-    const onHandleClose = () => {
-        setShowAll(true)
-        setCount(3)
+    const onHandleOccationClose = () => {
+        // console.log("false");
+        setShowAllOccations(false)
+        setOccationsCount(50)
     }
 
     const onHandleCuisineShow = () => {
-        console.log("true");
+        // console.log("true");
         setShowAllCuisines(true)
         setCuisineCount(100)
     }
 
     const onHandleCuisineClose = () => {
-        console.log("false");
+        // console.log("false");
         setShowAllCuisines(false)
         setCuisineCount(20)
     }
 
     const selectedCuisines = data?.cuisines?.filter((item) => item.selected === "1") || [];
+    const selectedOccations = data?.occasions?.filter((item) => item.selected === "1") || [];
 
     const onHandleShare = (cardId, data) => {
         setIsAnimating(cardId);
@@ -216,13 +232,16 @@ const page = () => {
                                                 key={index}
                                                 style={{ marginLeft: "0px", marginRight: "0px", marginBottom: "10px" }}
                                             >
-                                                {item?.cuisine_name}{" "}
-                                                <span style={{ marginLeft: "10px", marginRight: "10px", marginBottom: "10px" }}>
-                                                    |
-                                                </span>
+                                                {item?.cuisine_name}
+                                                {index !== Math.min(cuisineCount, selectedCuisines.length) - 1 && (
+                                                    <span style={{ marginLeft: "10px", marginRight: "10px", marginBottom: "10px" }}>
+                                                        |
+                                                    </span>
+                                                )}
                                             </span>
                                         ))}
-
+                                    </Stack>
+                                    <div>
                                         {selectedCuisines.length > 20 && (
                                             <span
                                                 className="text-red view-all cursor-pointer ms-0"
@@ -231,14 +250,15 @@ const page = () => {
                                                 {showAllCuisines ? "Show Less" : "Show All"}
                                             </span>
                                         )}
-                                    </Stack>
+                                    </div>
                                 </div>
                             ) : (
                                 <div>
-                                    <h2 className="food-type">Cuisines We Cater: </h2>
+                                    <h2 className="food-type">Cuisines We Cater </h2>
                                     <p className="vc-about-content vc-markdown mt-1">N/A</p>
                                 </div>
                             )}
+
 
                         </Grid>
                         <Grid item sm={12} lg={5} className="w-100">
@@ -393,6 +413,46 @@ const page = () => {
 
 
                 </Grid>
+            </Container>
+
+
+            <Container maxWidth="xl" style={{ marginTop: '30px', marginBottom: '30px' }}>
+                {selectedOccations.length > 0 ? (
+                    <div>
+                        <h2 className="vc-cater">Occasions We Cater</h2>
+                        <Stack direction="row" flexWrap="wrap" alignItems="start" spacing={3}>
+                            {selectedOccations.slice(0, OccationsCount).map((item, index) => (
+                                <span
+                                    className="cuisine-detail-list"
+                                    key={index}
+                                    style={{ marginLeft: "0px", marginRight: "0px", marginBottom: "10px" }}
+                                >
+                                    {item?.occasion_name}
+                                    {index !== Math.min(OccationsCount, selectedOccations.length) - 1 && (
+                                        <span style={{ marginLeft: "10px", marginRight: "10px", marginBottom: "10px" }}>
+                                            |
+                                        </span>
+                                    )}
+                                </span>
+                            ))}
+
+                            {selectedOccations.length > 50 && (
+                                <span
+                                    className="text-red view-all cursor-pointer ms-0"
+                                    onClick={showAllOccations ? onHandleOccationClose : onHandleOccationShow}
+                                >
+                                    {showAllOccations ? "Show Less" : "Show All"}
+                                </span>
+                            )}
+                        </Stack>
+                    </div>
+                ) : (
+                    <div>
+                        <h2 className="food-type">Occasions We Cater </h2>
+                        <p className="vc-about-content vc-markdown mt-1">N/A</p>
+                    </div>
+                )}
+
             </Container>
 
             <Container maxWidth="xl" style={{ marginTop: '30px', marginBottom: '30px' }}>
