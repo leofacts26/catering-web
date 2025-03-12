@@ -38,7 +38,8 @@ const Page = () => {
 
     useEffect(() => {
         dispatch(fetchTiffinMapviewSearchCards());
-    }, [dispatch]);
+    }, [dispatch, detailLat]);
+    
     useEffect(() => {
         dispatch(fetchtiffinSearchCards());
     }, [dispatch]);
