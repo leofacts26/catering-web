@@ -51,7 +51,7 @@ const page = () => {
     const [count, setCount] = useState(3)
     const [isAnimating, setIsAnimating] = useState(false);
 
-    const [showAllCuisines, setShowAllCuisines] = useState(true)
+    const [showAllCuisines, setShowAllCuisines] = useState(false)
     const [cuisineCount, setCuisineCount] = useState(20)
 
     const [isExpanded, setIsExpanded] = useState(false);
@@ -115,15 +115,17 @@ const page = () => {
 
     const onHandleCuisineShow = () => {
         console.log("true");
-        setShowAllCuisines(false)
+        setShowAllCuisines(true)
         setCuisineCount(100)
     }
 
     const onHandleCuisineClose = () => {
         console.log("false");
-        setShowAllCuisines(true)
+        setShowAllCuisines(false)
         setCuisineCount(20)
     }
+
+    const selectedCuisines = data?.cuisines?.filter((item) => item.selected === "1") || [];
 
     const onHandleShare = (cardId, data) => {
         setIsAnimating(cardId);
@@ -204,39 +206,39 @@ const page = () => {
                                 <p className={`list-card-veg-font-na`}> N/A </p>
                             </Stack>}
 
-                            {data?.cuisines?.filter((item) => item.selected === "1").length > 0 ? <div>
-                                <h2 className="vc-cater">Cuisines We Cater</h2>
-                                <Stack direction="row" flexWrap="wrap" alignItems="start" spacing={3}>
-                                    {
-                                        data?.cuisines
-                                            ?.filter((item) => item.selected === "1")
-                                            ?.slice(0, cuisineCount)
-                                            ?.map((item, index) => (
-                                                <span
-                                                    className="cuisine-detail-list"
-                                                    key={index}
-                                                    style={{ marginLeft: "0px", marginRight: "0px", marginBottom: "10px" }}
-                                                >
-                                                    {item?.cuisine_name}{" "}
-                                                    <span style={{ marginLeft: "10px", marginRight: "10px", marginBottom: "10px" }}>
-                                                        |
-                                                    </span>
+                            {selectedCuisines.length > 0 ? (
+                                <div>
+                                    <h2 className="vc-cater">Cuisines We Cater</h2>
+                                    <Stack direction="row" flexWrap="wrap" alignItems="start" spacing={3}>
+                                        {selectedCuisines.slice(0, cuisineCount).map((item, index) => (
+                                            <span
+                                                className="cuisine-detail-list"
+                                                key={index}
+                                                style={{ marginLeft: "0px", marginRight: "0px", marginBottom: "10px" }}
+                                            >
+                                                {item?.cuisine_name}{" "}
+                                                <span style={{ marginLeft: "10px", marginRight: "10px", marginBottom: "10px" }}>
+                                                    |
                                                 </span>
-                                            ))
-                                    }
+                                            </span>
+                                        ))}
 
-                                    {showAllCuisines ? (
-                                        <span className="text-red view-all cursor-pointer ms-0" onClick={onHandleCuisineShow}> Show All </span>
-                                    ) : (
-                                        <span className="text-red view-all cursor-pointer ms-0" onClick={onHandleCuisineClose}> Show Less </span>
-                                    )}
-                                </Stack>
-                            </div> : <div>
-                                <h2 className="food-type">Cuisines We Cater: </h2>
-                                <p className="vc-about-content vc-markdown mt-1">
-                                    N/A
-                                </p>
-                            </div>}
+                                        {selectedCuisines.length > 20 && (
+                                            <span
+                                                className="text-red view-all cursor-pointer ms-0"
+                                                onClick={showAllCuisines ? onHandleCuisineClose : onHandleCuisineShow}
+                                            >
+                                                {showAllCuisines ? "Show Less" : "Show All"}
+                                            </span>
+                                        )}
+                                    </Stack>
+                                </div>
+                            ) : (
+                                <div>
+                                    <h2 className="food-type">Cuisines We Cater: </h2>
+                                    <p className="vc-about-content vc-markdown mt-1">N/A</p>
+                                </div>
+                            )}
 
                         </Grid>
                         <Grid item sm={12} lg={5} className="w-100">

@@ -49,7 +49,7 @@ import StarIcon from '@mui/icons-material/Star';
 
 
 const page = () => {
-  const [showAllCuisines, setShowAllCuisines] = useState(true)
+  const [showAllCuisines, setShowAllCuisines] = useState(false)
   const [cuisineCount, setCuisineCount] = useState(20)
   const [isAnimating, setIsAnimating] = useState(false);
 
@@ -102,15 +102,18 @@ const page = () => {
 
   const onHandleCuisineShow = () => {
     console.log("true");
-    setShowAllCuisines(false)
+    setShowAllCuisines(true)
     setCuisineCount(100)
   }
 
   const onHandleCuisineClose = () => {
     console.log("false");
-    setShowAllCuisines(true)
+    setShowAllCuisines(false)
     setCuisineCount(20)
   }
+
+  const selectedCuisines = data?.cuisines?.filter((item) => item.selected === "1") || [];
+
 
   const onHandleShare = (cardId, data) => {
     setIsAnimating(cardId);
@@ -200,7 +203,42 @@ const page = () => {
               </Stack>}
 
 
-              {data?.cuisines?.filter((item) => item.selected === "1").length > 0 ? <div>
+              {selectedCuisines.length > 0 ? (
+                <div>
+                  <h2 className="vc-cater-tiffin" style={{ marginBottom: '10px' }}>Cuisines We Cater</h2>
+                  <Stack direction="row" flexWrap="wrap" alignItems="start" spacing={3}>
+                    {selectedCuisines.slice(0, cuisineCount).map((item, index) => (
+                      <span
+                        className="cuisine-detail-list"
+                        key={index}
+                        style={{ marginLeft: "0px", marginRight: "0px", marginBottom: "10px" }}
+                      >
+                        {item?.cuisine_name}{" "}
+                        <span style={{ marginLeft: "10px", marginRight: "10px", marginBottom: "10px" }}>
+                          |
+                        </span>
+                      </span>
+                    ))}
+
+                    {selectedCuisines.length > 20 && (
+                      <span
+                        className="text-orange view-all cursor-pointer ms-0"
+                        onClick={showAllCuisines ? onHandleCuisineClose : onHandleCuisineShow}
+                      >
+                        {showAllCuisines ? "Show Less" : "Show All"}
+                      </span>
+                    )}
+                  </Stack>
+                </div>
+              ) : (
+                <div>
+                  <h2 className="food-type">Cuisines We Cater: </h2>
+                  <p className="vc-about-content vc-markdown mt-1">N/A</p>
+                </div>
+              )}
+
+
+              {/* {data?.cuisines?.filter((item) => item.selected === "1").length > 0 ? <div>
                 <h2 className="vc-cater-tiffin" style={{ marginBottom: '10px' }}>Cuisines We Cater</h2>
                 <Stack direction="row" flexWrap="wrap" alignItems="start" spacing={3}>
 
@@ -233,7 +271,7 @@ const page = () => {
               </div> : <div>
                 <h2 className="vc-cater-tiffin" style={{ marginBottom: '10px' }}>Cuisines We Cater</h2>
                 <p className="vc-about-content vc-markdown mt-1"> N/A </p>
-              </div>}
+              </div>} */}
 
             </Grid>
 
