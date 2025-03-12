@@ -92,7 +92,7 @@ const PopularCaters = ({ title }) => {
                                         <Box onClick={() => handleImageClick()} style={{ padding: '10px 0px 10px 15px' }}>
                                             <img
                                                 src={
-                                                    cater?.gallery_images?.["vendor-brand-logo"]?.[0]?.image_name?.[0]?.original || "/img/no-image.jpg"
+                                                    cater?.gallery_images?.["vendor-brand-logo"]?.[0]?.image_name?.[0]?.medium || "/img/no-image.jpg"
                                                 }
                                                 alt={cater?.catering_service_name || "Default Catering Service"}
                                                 className="img-fluid popular-caterers-img image-shadow cursor-pointer"
@@ -145,7 +145,7 @@ const PopularCaters = ({ title }) => {
                                         <Box onClick={() => handleImageClick()} style={{ padding: '10px 0px 10px 15px' }}>
                                             <img
                                                 src={
-                                                    cater?.gallery_images?.["vendor-brand-logo"]?.[0]?.image_name?.[0]?.original || "/img/no-image.jpg"
+                                                    cater?.gallery_images?.["vendor-brand-logo"]?.[0]?.image_name?.[0]?.medium || "/img/no-image.jpg"
                                                 }
                                                 alt={cater?.catering_service_name || "Default Name"}
                                                 className="img-fluid popular-caterers-img image-shadow cursor-pointer"

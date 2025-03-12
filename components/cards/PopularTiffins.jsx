@@ -84,7 +84,7 @@ const PopularTiffins = () => {
                                 {popularTiffins?.length > 0 && popularTiffins?.map((cater, index) => (
                                     <SwiperSlide key={popularTiffins?.id} >
                                         <Box  style={{ padding: '10px 0px 10px 15px' }}>
-                                            <img src={cater.gallery_images["vendor-brand-logo"][0].image_name[0]?.original} alt={cater?.catering_service_name} className="img-fluid popular-caterers-img image-shadow cursor-pointer" />
+                                            <img src={cater.gallery_images["vendor-brand-logo"][0].image_name[0]?.medium} alt={cater?.catering_service_name} className="img-fluid popular-caterers-img image-shadow cursor-pointer" />
                                             <h4 className='popular-caterers-heading overflow-ellipsis'>{cater?.catering_service_name}</h4>
                                             <p className='popular-caterers-des overflow-ellipsis'> {cater?.street_name} {cater?.area} </p>
                                         </Box>

@@ -97,7 +97,7 @@ const ExpoloreCuisinesCard = () => {
                                                 <div className="explore-cator-box" key={explorecuisine?.occasion_id}>
                                                     <img
                                                         // onClick={() => handleImageClick(explorecuisine?.occasion_id)}  
-                                                        src={explorecuisine?.file_name?.original ? explorecuisine?.file_name?.original : '/img/no-image.jpg'} className="img-fluid cuisines-img cursor-pointer" />
+                                                        src={explorecuisine?.file_name?.medium ? explorecuisine?.file_name?.medium : '/img/no-image.jpg'} className="img-fluid cuisines-img cursor-pointer" />
                                                     <h4 className='text-center cuisines-title'>{explorecuisine?.name}</h4>
                                                 </div>
 
