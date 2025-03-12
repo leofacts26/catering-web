@@ -119,8 +119,8 @@ const GridViewTiffin = ({ xs, sm, md, lg }) => {
             <Box sx={{ flexGrow: 1 }}>
                 <Grid container spacing={2}>
                     {getTiffinSearchCards?.map((getSearchCard) => {
-                        const brandLogo = getSearchCard?.brand_logo?.[0]?.original;
-                        const bannerImage = getSearchCard?.banner_images?.[0]?.original;
+                        const brandLogo = getSearchCard?.brand_logo?.[0]?.medium;
+                        const bannerImage = getSearchCard?.banner_images?.[0]?.medium;
                         const imageSrc = getSearchCard?.subscription_type_name === "branded" && brandLogo || bannerImage || '/img/no-image.jpg';
                         return (
                             <Grid item xs={xs} sm={sm} md={md} lg={lg}>
@@ -134,10 +134,10 @@ const GridViewTiffin = ({ xs, sm, md, lg }) => {
                                             <div className="grid-img-box">
                                                 <div className="view-all-dark-overlay"></div>
                                                 <img src={
-                                                    getSearchCard?.brand_logo?.original
-                                                        ? getSearchCard.brand_logo.original
-                                                        : getSearchCard?.banner_images?.[0]?.original
-                                                            ? getSearchCard.banner_images[0].original
+                                                    getSearchCard?.brand_logo?.medium
+                                                        ? getSearchCard.brand_logo.medium
+                                                        : getSearchCard?.banner_images?.[0]?.medium
+                                                            ? getSearchCard.banner_images[0].medium
                                                             : '../img/no-image.jpg'
                                                 } alt="" className="img-fluid vc-similar-card-img" />
                                                 <div className="grid-icons">

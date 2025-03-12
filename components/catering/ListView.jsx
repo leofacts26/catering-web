@@ -127,8 +127,8 @@ const ListView = () => {
         <>
             {getCateringSearchCards.length > 0 ? (
                 getCateringSearchCards?.map((getSearchCard) => {
-                    const brandLogo = getSearchCard?.brand_logo?.[0]?.original;
-                    const bannerImage = getSearchCard?.banner_images?.[0]?.original;
+                    const brandLogo = getSearchCard?.brand_logo?.[0]?.medium;
+                    const bannerImage = getSearchCard?.banner_images?.[0]?.medium;
                     const imageSrc = getSearchCard?.subscription_type_name === "branded" && brandLogo || bannerImage || 'img/no-image.jpg';
                     // const randomCuisines = getRandomCuisines(getSearchCard?.cuisines || [], 8);
                     const filterFoodTypes = getSearchCard?.food_types.filter((item) => item !== 'All')
@@ -153,10 +153,10 @@ const ListView = () => {
                                                     {getSearchCard ? (
                                                         <img
                                                             src={
-                                                                getSearchCard?.brand_logo?.original
-                                                                    ? getSearchCard.brand_logo.original
-                                                                    : getSearchCard?.banner_images?.[0]?.original
-                                                                        ? getSearchCard.banner_images[0].original
+                                                                getSearchCard?.brand_logo?.medium
+                                                                    ? getSearchCard.brand_logo.medium
+                                                                    : getSearchCard?.banner_images?.[0]?.medium
+                                                                        ? getSearchCard.banner_images[0].medium
                                                                         : 'img/no-image.jpg'
                                                             }
                                                             alt="Image"
@@ -348,10 +348,10 @@ const ListView = () => {
                                                     {getSearchCard ? (
                                                         <img
                                                             src={
-                                                                getSearchCard?.brand_logo?.original
-                                                                    ? getSearchCard.brand_logo.original
-                                                                    : getSearchCard?.banner_images?.[0]?.original
-                                                                        ? getSearchCard.banner_images[0].original
+                                                                getSearchCard?.brand_logo?.medium
+                                                                    ? getSearchCard.brand_logo.medium
+                                                                    : getSearchCard?.banner_images?.[0]?.medium
+                                                                        ? getSearchCard.banner_images[0].medium
                                                                         : 'img/no-image.jpg'
                                                             }
                                                             alt="Image"
