@@ -20,7 +20,7 @@ import Masonry, { ResponsiveMasonry } from "react-responsive-masonry"
 const OurGallery = ({ galleryImages }) => {
     const [open, setOpen] = useState(false);
     const slides = galleryImages?.map(image => {
-        const originalImage = image?.image_names[0].original || '/img/no-image.jpg';
+        const originalImage = image?.image_names[0].medium || '/img/no-image.jpg';
         return {
             src: originalImage,
             alt: `image ${image.id}`,
@@ -83,7 +83,7 @@ const OurGallery = ({ galleryImages }) => {
                         {galleryImages?.map((image, index) => (
                             <Grid item xs={6} sm={4} md={3} key={index}>
                                 <img
-                                    src={image.image_names[0].original || '/img/no-image.jpg'}
+                                    src={image.image_names[0].medium || '/img/no-image.jpg'}
                                     alt={`image ${image.id}`}
                                     style={{ width: '100%', height: '200px', objectFit: 'cover' }}
                                     className={index === 0 ? 'occasion-top-left-radius' : index === galleryImages?.length - 1 ? 'occasion-bottom-right-radius' : ''}

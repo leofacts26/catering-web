@@ -24,7 +24,7 @@ const ShowAllImages = ({ galleryImages, bennerMenuMixGalleryImages }) => {
     combinedImages.length > 0
       ? combinedImages.map((image) => {
           const originalImage =
-            image?.image_names?.[0]?.original || "/img/no-image.jpg";
+            image?.image_names?.[0]?.medium || "/img/no-image.jpg";
           return {
             src: originalImage,
             alt: `image ${image.id || "placeholder"}`,
