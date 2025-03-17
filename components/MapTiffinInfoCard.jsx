@@ -23,7 +23,7 @@ const MapTiffinInfoCard = ({ infoWindowData, tiffin }) => {
                 }}>
                 <div className="vc-similar-card-map">
                     <div className="grid-img-box">
-                        <img src={imageSrc} alt="" className="img-fluid vc-similar-card-img" />
+                        <img src={imageSrc} alt="" className="img-fluid vc-similar-card-img map-card-fix-img" />
                     </div>
                     <div className="vc-similar-card-description">
                         <Stack direction="row" justifyContent="space-between" alignItems="start" style={{ marginTop: '10px', marginBottom: '10px' }}>

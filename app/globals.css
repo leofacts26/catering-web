@@ -3949,6 +3949,12 @@ textarea:-webkit-autofill:active {
   font-weight: bold !important;
 }
 
+.map-card-fix-img{
+  width: 100% !important;
+  height: 100px !important;
+  object-fit: cover !important;
+}
+
 @media only screen and (max-width: 768px) {
 
   .detailname-width {
