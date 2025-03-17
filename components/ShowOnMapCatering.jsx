@@ -10,6 +10,10 @@ const ShowOnMapCatering = ({ tiffinColor, locLatitude, locLongtitude, zoomLevel 
     // console.log(locData, "locData locData");
 
     const handleClick = () => {
+        if (!locLatitude || !locLongtitude) {
+            alert("Latitude and Longitude are required to proceed!");
+            return;
+        }
         const url = `/catering-search/catering-map?lat=${locLatitude}&lng=${locLongtitude}&zoom=${zoomLevel}`;
         window.open(url, '_blank'); // Opens in a new tab
     };

@@ -414,7 +414,6 @@ export const fetchCateringMapviewSearchCards = createAsyncThunk(
     async (data, thunkAPI) => {
         const startDate = thunkAPI.getState().globalnavbar?.startDate;
         const endDate = thunkAPI.getState().globalnavbar?.endDate;
-        // const people = thunkAPI.getState().globalnavbar?.people;
         const vendorSearch = thunkAPI.getState().globalnavbar?.vendorSearch;
         const locationValuesGlobal = thunkAPI.getState().globalnavbar?.locationValuesGlobal;
         const vendorlistitem = thunkAPI.getState().globalnavbar?.vendorlistitem;
@@ -424,13 +423,15 @@ export const fetchCateringMapviewSearchCards = createAsyncThunk(
         const getCateringFoodTypes = thunkAPI.getState().cateringFilter?.getCateringFoodTypes;
         const getCateringServingTypes = thunkAPI.getState().cateringFilter?.getCateringServingTypes;
         const getCateringServiceTypes = thunkAPI.getState().cateringFilter?.getCateringServiceTypes;
+        const getCateringRatings = thunkAPI.getState().cateringFilter?.getCateringRatings;
         const getCateringCuisines = thunkAPI.getState().cateringFilter?.getCateringCuisines;
         const getOccasionCateringTypes = thunkAPI.getState().cateringFilter?.getOccasionCateringTypes;
         const subscriptionTypes = thunkAPI.getState().cateringFilter?.subscriptionTypes;
         const current_page = thunkAPI.getState().cateringFilter?.current_page;
         const limit = thunkAPI.getState().cateringFilter?.limit;
         const total_count = thunkAPI.getState().cateringFilter?.total_count;
-        const getCateringRatings = thunkAPI.getState().cateringFilter?.getCateringRatings;
+
+
 
         // cateringSortBy_filter
         const cateringSortBy_filter = JSON.stringify(cateringSortBy)
@@ -459,6 +460,15 @@ export const fetchCateringMapviewSearchCards = createAsyncThunk(
             selected: service.selectedweb
         }));
 
+        // rating_filter_formatted
+        const rating_filter_formatted = getCateringRatings.map(item => ({
+            rating: item.rating,
+            selected: item.selectedweb
+        }));
+
+        // console.log(rating_filter_formatted, "rating_filter_formatted");
+
+
         // serving_filter_formatted 
         const serving_filter_formatted = getCateringServingTypes.map(serving => ({
             id: Number(serving.id),
@@ -478,6 +488,9 @@ export const fetchCateringMapviewSearchCards = createAsyncThunk(
             selected: subscriptionType.selectedweb
         }))
 
+        // console.log(subscriptionTypes_formatted, "subscriptionTypes_formatted");
+
+
         // pricetype_filter_formatted 
         const selectedPriceRanges = getCateringPriceRanges?.filter(price => price?.selectedweb === 1);
         const updatedPriceTypes_formatted = selectedPriceRanges.map(price => {
@@ -489,15 +502,6 @@ export const fetchCateringMapviewSearchCards = createAsyncThunk(
         const updatedHeadcount_formatted = selectedHeadcountRanges.map(headcount => {
             return { id: Number(headcount.id), start: parseFloat(headcount.start), end: parseFloat(headcount.end) };
         });
-
-        // rating_filter_formatted
-        const rating_filter_formatted = getCateringRatings.map(item => ({
-            rating: item.rating,
-            selected: item.selectedweb
-        }));
-
-
-
 
         try {
             const response = await api.get(`${BASE_URL}/search-vendors?search_term=${vendorSearch}&selected_vendor=${vendorlistitem}&order_by=distance&limit=${(current_page * limit)}&save_filter=1&vendor_type=Caterer&app_type=web&order_by_filter=${cateringSortBy_filter}&occasions_filter=${JSON.stringify(occasions_filter_formatted)}&food_types_filter=${JSON.stringify(foodtype_filter_formatted)}&head_count_ranges=${JSON.stringify(updatedHeadcount_formatted)}&price_ranges=${JSON.stringify(updatedPriceTypes_formatted)}&subscription_types_filter=${JSON.stringify(subscriptionTypes_formatted)}&cuisines_filter=${JSON.stringify(finalCuisineresult)}&serving_types_filter=${JSON.stringify(serving_filter_formatted)}&is_city_search=${"1" || "0"}&ratings_filter=${JSON.stringify(rating_filter_formatted)}&service_types_filter=${JSON.stringify(service_filter_formatted)}&latitude=${locationValuesGlobal?.latitude || ""}&longitude=${locationValuesGlobal?.longitude || ""}&city=${locationValuesGlobal?.city?.long_name || ""}&pincode=${locationValuesGlobal?.pincode || ""}&place_id=${locationValuesGlobal?.place_id || ''}&start_date=${moment(startDate).format('YYYY-MM-DD')}&end_date=${moment(endDate).format('YYYY-MM-DD')}`, {

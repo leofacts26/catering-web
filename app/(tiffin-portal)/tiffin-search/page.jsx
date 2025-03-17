@@ -31,6 +31,7 @@ const page = () => {
   const dispatch = useDispatch();
   const { selectedLocation } = useGetLocationResults()
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const { showOnMapLocLat } = useSelector((state) => state.globalnavbar)
 
   useEffect(() => {
     dispatch(fetchtiffinSearchCards());
@@ -42,6 +43,17 @@ const page = () => {
   const toggleFilterDrawer = (open) => () => {
     setIsFilterOpen(open);
   };
+
+  const onHandleMapView = () => {
+    let zoomLevel = 10;
+    if (!showOnMapLocLat?.latitude || !showOnMapLocLat?.longitude) {
+      alert("Latitude and Longitude are required to proceed! Please Search with your Location");
+      return;
+    }
+    const url = `/tiffin-search/tiffin-map?lat=${showOnMapLocLat?.latitude}&lng=${showOnMapLocLat?.longitude}&zoom=${zoomLevel}`;
+    window.open(url, '_blank'); // Opens in a new tab
+  }
+
 
 
   return (
@@ -67,7 +79,10 @@ const page = () => {
               <div className="position-relative map-hide-mob">
                 <img src="/img/Search-Result-View-Page-Images/01-map.png" alt="" className="img-fluid" style={{ borderRadius: '5px', marginBottom: '4px' }} />
                 <div className="position-absolute map-box">
-                  <Button onClick={() => window.open('/tiffin-search/tiffin-map', '_blank')} variant="contained" className='show-on-map' sx={{ backgroundColor: '#d9822b', fontSize: '10px', '&:hover': { backgroundColor: '#d9822b' } }}>Show on map</Button>
+                  <Button
+                  onClick={() => onHandleMapView()} 
+                  // onClick={() => window.open('/tiffin-search/tiffin-map', '_blank')} 
+                  variant="contained" className='show-on-map' sx={{ backgroundColor: '#d9822b', fontSize: '10px', '&:hover': { backgroundColor: '#d9822b' } }}>Show on map</Button>
                 </div>
               </div>
 

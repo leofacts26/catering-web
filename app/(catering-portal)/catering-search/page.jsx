@@ -27,6 +27,10 @@ const page = () => {
   const [checked, setChecked] = useState(true);
   const { selectedLocation } = useGetLocationResults()
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const { userDetails } = useSelector((state) => state.user)
+  const { selectLocation } = useGetLocationResults()
+  const { showOnMapLocLat } = useSelector((state) => state.globalnavbar)
+  // console.log(showOnMapLocLat, "showOnMapLocLat");
 
   const router = useRouter()
   const dispatch = useDispatch()
@@ -42,6 +46,17 @@ const page = () => {
   const toggleFilterDrawer = (open) => () => {
     setIsFilterOpen(open);
   };
+
+
+  const onHandleMapView = () => {
+    let zoomLevel = 10;
+    if (!showOnMapLocLat?.latitude || !showOnMapLocLat?.longitude) {
+      alert("Latitude and Longitude are required to proceed! Please Search with your Location");
+      return;
+    }
+    const url = `/catering-search/catering-map?lat=${showOnMapLocLat?.latitude}&lng=${showOnMapLocLat?.longitude}&zoom=${zoomLevel}`;
+    window.open(url, '_blank'); // Opens in a new tab
+  }
 
 
   return (
@@ -71,7 +86,7 @@ const page = () => {
                 />
                 <div className="position-absolute map-box">
                   <Button
-                    onClick={() => window.open('/catering-search/catering-map', '_blank')}
+                    onClick={() => onHandleMapView()}
                     variant="contained"
                     className="show-on-map"
                     sx={{
@@ -85,7 +100,7 @@ const page = () => {
                 </div>
               </div>
 
-           
+
 
               {!isMobileOrTab && <Filters />}
               {/* Mobile and Tablet Buttons */}
@@ -98,7 +113,7 @@ const page = () => {
                   alignItems="end"
                   mt={2}
                 >
-
+                  {/* const url = `/catering-search/catering-map?lat=${locLatitude}&lng=${locLongtitude}&zoom=${zoomLevel}`; */}
                   <Button
                     onClick={() => window.open('/catering-search/catering-map', '_blank')}
                     variant="contained"

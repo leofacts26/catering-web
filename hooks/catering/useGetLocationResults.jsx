@@ -5,6 +5,7 @@ import {
   setLocBoolean,
   setManualLocation,
   setSelectedLocation,
+  setShowOnMapLocLat,
 } from "@/app/features/user/globalNavSlice";
 import React, { useEffect, useState } from "react";
 import usePlacesService from "react-google-autocomplete/lib/usePlacesAutocompleteService";
@@ -66,6 +67,8 @@ const useGetLocationResults = () => {
       geometry: { location },
     } = places;
     const { lat, lng } = location;
+
+    dispatch(setShowOnMapLocLat({ latitude: lat(), longitude: lng() }))
 
     const data = {
       ...locationValuesGlobal,

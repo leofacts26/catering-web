@@ -16,6 +16,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import { styled } from '@mui/material/styles';
 import MapAsyncSelect from '@/components/MapAsyncSelect';
 import MapTiffinInfoCard from '@/components/MapTiffinInfoCard';
+import { setlLocationValuesGlobal } from '@/app/features/user/globalNavSlice';
 
 
 
@@ -36,10 +37,27 @@ const Page = () => {
 
     // console.log(detailLat, detailLng, "detailLat, detailLng");
 
+    // useEffect(() => {
+    //     dispatch(fetchTiffinMapviewSearchCards());
+    // }, [dispatch, detailLat]);
+
     useEffect(() => {
-        dispatch(fetchTiffinMapviewSearchCards());
-    }, [dispatch, detailLat]);
-    
+        const fetchData = async () => {
+            if (detailLat && detailLng) {
+                await dispatch(setlLocationValuesGlobal({
+                    is_city_search: 1,
+                    latitude: detailLat,
+                    longitude: detailLng
+                }));
+                await dispatch(fetchTiffinMapviewSearchCards());
+            }
+        };
+
+        fetchData();
+    }, [dispatch, detailLat, detailLng]);
+
+
+
     useEffect(() => {
         dispatch(fetchtiffinSearchCards());
     }, [dispatch]);
@@ -74,12 +92,26 @@ const Page = () => {
         return { lat: 18.52043, lng: 73.856743 }; // Default center if no markers are available
     }, [markers, detailLat, detailLng]);
 
+    const selectedLocation = {
+        lat: parseFloat(detailLat),
+        lng: parseFloat(detailLng)
+    };
+
+
     const customMarker = {
         url: '/img/icons/catering-map-icon-tiffin.svg', // Replace with your image URL or path
-        scaledSize: new window.google.maps.Size(100, 100), // Adjust size as needed
+        scaledSize: new window.google.maps.Size(50, 50), // Adjust size as needed
         origin: new window.google.maps.Point(0, 0), // Adjust origin as needed
         anchor: new window.google.maps.Point(25, 50) // Adjust anchor as needed
     };
+
+    const highlightedMarker = {
+        url: '/img/icons/catering-map-icon-tiffin.svg', // Add a special icon for the selected location
+        scaledSize: new window.google.maps.Size(100, 100),
+        origin: new window.google.maps.Point(0, 0),
+        anchor: new window.google.maps.Point(25, 50)
+    };
+
 
     const onMapLoad = (map) => {
         setMapRef(map);
@@ -162,7 +194,7 @@ const Page = () => {
 
                             <MapAsyncSelect onSelect={handleSelect} />
 
-                            <button className='btn-close-tiffin' onClick={() => router.push('/tiffin-search')}>
+                            <button className='btn-close-tiffin' onClick={() => window.close()}>
                                 Close Map
                             </button>
 
@@ -181,24 +213,27 @@ const Page = () => {
                                         onLoad={onMapLoad}
                                         onClick={() => setIsOpen(false)}
                                     >
-                                        {markers.map(({ catering_service_name, lat, lng, start_price, vendor_id, branch_id, getSearchCard }, index) => (
-                                            <Marker
-                                                key={index}
-                                                position={{ lat, lng }}
-                                                onMouseOver={() => handleMarkerHover(index, lat, lng, catering_service_name, start_price, vendor_id, branch_id, getSearchCard)}
-                                                onMouseOut={handleMarkerHoverOut}
-                                                icon={customMarker}
-                                                onClick={() => router.push(`/tiffin-search/${vendor_id}/${branch_id}`)}
-                                            >
-                                                {isOpen && infoWindowData?.index === index && (
-                                                    <InfoWindow
-                                                        onCloseClick={() => setIsOpen(false)}
-                                                    >
-                                                        <MapTiffinInfoCard infoWindowData={infoWindowData} tiffin/>
-                                                    </InfoWindow>
-                                                )}
-                                            </Marker>
-                                        ))}
+                                        {markers.map(({ catering_service_name, lat, lng, start_price, vendor_id, branch_id, getSearchCard }, index) => {
+                                            const isSelected = lat === selectedLocation.lat && lng === selectedLocation.lng;
+                                            return (
+                                                <Marker
+                                                    key={index}
+                                                    position={{ lat, lng }}
+                                                    onMouseOver={() => handleMarkerHover(index, lat, lng, catering_service_name, start_price, vendor_id, branch_id, getSearchCard)}
+                                                    onMouseOut={handleMarkerHoverOut}
+                                                    icon={isSelected ? highlightedMarker : customMarker}
+                                                    onClick={() => router.push(`/tiffin-search/${vendor_id}/${branch_id}`)}
+                                                >
+                                                    {isOpen && infoWindowData?.index === index && (
+                                                        <InfoWindow
+                                                            onCloseClick={() => setIsOpen(false)}
+                                                        >
+                                                            <MapTiffinInfoCard infoWindowData={infoWindowData} tiffin />
+                                                        </InfoWindow>
+                                                    )}
+                                                </Marker>
+                                            )
+                                        })}
                                     </GoogleMap>
                                 )}
                             </div>

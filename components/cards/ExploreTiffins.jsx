@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllCities, fetchHomepageOccasions } from '@/app/features/user/homeSlice';
 import ExploreCaterersShimmer from '../shimmer/ExploreCaterersShimmer';
 import useGetLocationResults from '@/hooks/catering/useGetLocationResults';
-import { setlLocationValuesGlobal } from '@/app/features/user/globalNavSlice';
+import { setlLocationValuesGlobal, setShowOnMapLocLat } from '@/app/features/user/globalNavSlice';
 import { fetchGetAllTiffinSubscriptionTypes, fetchtiffinSearchCards } from '@/app/features/tiffin/tiffinFilterSlice';
 import { useRouter } from 'next/navigation';
 
@@ -31,6 +31,7 @@ const ExploreTiffins = () => {
         };
         selectLocation(selectedLocation)
         const { latitude, longitude, name: city } = explorecater;
+        dispatch(setShowOnMapLocLat({ latitude, longitude }))
         dispatch(setlLocationValuesGlobal({ latitude, longitude, city: { long_name: city } }));
         dispatch(fetchtiffinSearchCards());
         const url = `/tiffin-search`;

@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllCities, fetchHomepageOccasions } from '@/app/features/user/homeSlice';
 import ExploreCaterersShimmer from '../shimmer/ExploreCaterersShimmer';
 import useGetLocationResults from '@/hooks/catering/useGetLocationResults';
-import { setlLocationValuesGlobal } from '@/app/features/user/globalNavSlice';
+import { setlLocationValuesGlobal, setShowOnMapLocLat } from '@/app/features/user/globalNavSlice';
 import { fetchtiffinSearchCards } from '@/app/features/tiffin/tiffinFilterSlice';
 import { useRouter } from 'next/navigation';
 import { fetchCateringSearchCards } from '@/app/features/user/cateringFilterSlice';
@@ -31,6 +31,7 @@ const ExploreCaters = () => {
         };
         selectLocation(selectedLocation)
         const { latitude, longitude, name: city } = explorecater;
+        dispatch(setShowOnMapLocLat({ latitude, longitude }))
         dispatch(setlLocationValuesGlobal({ is_city_search: 1, latitude, longitude, city: { long_name: city } }));
         dispatch(fetchCateringSearchCards());
         const url = `/catering-search`;

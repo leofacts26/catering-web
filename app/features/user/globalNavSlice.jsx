@@ -12,6 +12,10 @@ const initialState = {
   manualLocation: "",
   selectedLocation: "",
   locationValuesGlobal: {},
+  showOnMapLocLat: {
+    latitude: "",
+    longitude: ""
+  },
   vendorSearch: "",
   vendorList: [],
   tiffinVendorList: [],
@@ -67,6 +71,9 @@ export const globalNavSlice = createSlice({
   name: "globalnavbar",
   initialState,
   reducers: {
+    setShowOnMapLocLat: (state, action) => {
+      state.showOnMapLocLat = action.payload;
+    },
     setPeople: (state, action) => {
       state.people = action.payload;
     },
@@ -126,6 +133,7 @@ export const globalNavSlice = createSlice({
 
 // Action creators are generated for each case reducer function
 export const {
+  setShowOnMapLocLat,
   setPeople,
   people,
   setSelectedLocation,
