@@ -297,15 +297,16 @@ const ListView = () => {
                                                 <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} style={{ marginTop: '8px' }}>
                                                     <span className='lse-reviews'>  {getSearchCard?.review_count > 0 ? (
                                                         <span className="lse-reviews">{getSearchCard.review_count} Reviews</span>
-                                                    ): <span className="lse-reviews">No Reviews</span>}</span>
+                                                    ) : <span className="lse-reviews">No Reviews</span>}</span>
                                                 </Stack>
-                                                <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} style={{ marginTop: '4px' }}>
+                                                {getSearchCard?.rating_count > 1 && <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }}
+                                                    style={{ marginTop: '4px' }}>
                                                     <div className="mt-2">
                                                         {[...Array(parseInt(getSearchCard.rating.slice(0, 1)))].map((star, index) => (
                                                             <StarIcon key={index} style={{ color: '#C33332', fontSize: 20 }} />
                                                         ))}
                                                     </div>
-                                                </Stack>
+                                                </Stack>}
                                             </div>
 
 

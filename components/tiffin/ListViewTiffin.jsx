@@ -292,14 +292,14 @@ const ListViewTiffin = () => {
                                                                 <span className="lse-reviews">{getSearchCard.review_count} Reviews</span>
                                                             ) : <span className="lse-reviews"> No Reviews</span>}</span>
                                                         </Stack>
-                                                        <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} style={{ marginBottom: '8px' }}>
+                                                        {getSearchCard?.rating_count > 1 && <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }}
+                                                            style={{ marginBottom: '8px' }}>
                                                             <div className="mt-2">
                                                                 {[...Array(parseInt(getSearchCard.rating.slice(0, 1)))].map((star, index) => (
                                                                     <StarIcon key={index} style={{ color: '#d9822b', fontSize: 20 }} />
                                                                 ))}
-
                                                             </div>
-                                                        </Stack>
+                                                        </Stack>}
                                                     </div>
 
 

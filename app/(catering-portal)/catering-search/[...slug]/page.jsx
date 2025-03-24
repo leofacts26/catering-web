@@ -277,9 +277,11 @@ const page = () => {
 
                                 {accessToken && <Link href="#reviews" className="vc-reviews">
                                     <div className="mt-2" style={{ display: 'flex', alignItems: 'center' }}>
-                                        {[...Array(Math.round(parseFloat(data?.rating || "0")))].map((_, index) => (
-                                            <StarIcon key={index} style={{ color: '#C33332', fontSize: 20 }} />
-                                        ))}
+                                        {data?.rating_count > 1 && <span>
+                                            {[...Array(Math.round(parseFloat(data?.rating || "0")))].map((_, index) => (
+                                                <StarIcon key={index} style={{ color: '#C33332', fontSize: 20 }} />
+                                            ))}
+                                        </span>}
                                         <span className="ms-2">
                                             {data?.review_count > 0 ? `See Reviews ${data.review_count}` : "No Reviews"}
                                         </span>
