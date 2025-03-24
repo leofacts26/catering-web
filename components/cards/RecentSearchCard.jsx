@@ -83,7 +83,7 @@ const RecentSearchCard = () => {
                                     <CardContent className='w-100' key={recentSearch.id} style={{ padding: '0px', margin: '10px 10px 10px 0px' }}>
                                         <Stack direction="row" alignItems="center" spacing={1} className='recent-search-card w-100'>
                                             <Box>
-                                                <img src="/img/no-image.jpg" alt="" className="img-fluid recent-search-img" />
+                                                <img src={recentSearch?.image_url} alt="" className="img-fluid recent-search-img" />
                                             </Box>
                                             <Box>
                                                 <h3 className='recent-search-title'>{recentSearch?.city_name}</h3>
