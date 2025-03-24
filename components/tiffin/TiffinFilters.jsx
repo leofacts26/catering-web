@@ -68,11 +68,11 @@ const TiffinFilters = () => {
                     </CardContent>
                     <Divider />
 
-                    <CardContent>
+                    {/* <CardContent>
                         <h3 className='font-20 font-weight-500 filter-text'>Choose Tiffin Rating:</h3>
                         <TiffinRatingCount />
                     </CardContent>
-                    <Divider />
+                    <Divider /> */}
 
 
                     <CardContent>
