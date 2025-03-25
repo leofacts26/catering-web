@@ -16,10 +16,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { clearFiltersGlobal } from '@/app/features/user/homeSlice';
 import { fetchCateringSearchCards, fetchOccasionCateringTypes, resetFilters } from '@/app/features/user/cateringFilterSlice';
+import useGetLocationResults from '@/hooks/catering/useGetLocationResults';
 
 
 const page = () => {
     const { userDetails } = useSelector((state) => state.user)
+    const { selectedLocation } = useGetLocationResults()
+
+    console.log(selectedLocation, "selectedLocationselectedLocation");
+
+
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -45,10 +51,20 @@ const page = () => {
             <Heading title="Explore Caterers around INDIA" subHeading />
             <ExploreCaters />
 
-            <Heading title={`Branded Caterers in ${userDetails?.city ? userDetails?.city : 'INDIA'}`} subHeading />
-            <BrandedCaters />
+            <Heading
+                title={`Branded Caterers in ${selectedLocation?.terms?.length > 0 && selectedLocation?.terms[0]?.value
+                    ? selectedLocation.terms[0].value
+                    : userDetails?.city || 'INDIA'
+                    }`}
+                subHeading
+            />            <BrandedCaters />
 
-            <PopularCaters title={`Popular Caterers in ${userDetails?.city ? userDetails?.city : 'INDIA'}`} />
+            <PopularCaters
+                title={`Popular Caterers in ${selectedLocation?.terms?.length > 0 && selectedLocation?.terms[0]?.value
+                        ? selectedLocation.terms[0].value
+                        : userDetails?.city || 'INDIA'
+                    }`}
+            />
             <Heading title="Explore Caterers by Occasions" subHeading />
             <ExploreCaterersByOccasion />
             <Heading title="FAQ's" center subHeading />

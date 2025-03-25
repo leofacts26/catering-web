@@ -78,7 +78,7 @@ const RecentSearchCard = () => {
                         }}
                     >
                         {
-                            recentSearches.length > 0 && recentSearches?.slice(0, 4)?.map((recentSearch) => (
+                            recentSearches.length > 0 && recentSearches.filter((search) => search?.city_name !== null)?.slice(0, 4)?.map((recentSearch) => (
                                 <SwiperSlide>
                                     <CardContent className='w-100' key={recentSearch.id} style={{ padding: '0px', margin: '10px 10px 10px 0px' }}>
                                         <Stack direction="row" alignItems="center" spacing={1} className='recent-search-card w-100'>
