@@ -1,17 +1,33 @@
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Stack from '@mui/material/Stack';
 import Link from 'next/link'
 
+
+export const metadata = {
+  metadataBase: new URL('https://www.cateringsandtiffins.com/'),
+  title: 'Caterings And Tiffins',
+  description: 'Caterings And Tiffins Description',
+  // alternates: {
+  //   canonical: '/temples/andra-pradesh/mantralaya/'
+  // },
+  keywords: ['Caterings And Tiffins'],
+  creator: 'Caterings And Tiffins',
+  publisher: 'Caterings And Tiffins',
+
+  viewport: 'width=device-width, initial-scale=1',
+  robots: 'index, follow',
+};
+
+
+
 export default function Home() {
+
   return (
     <>
       <section className='landing-bg'>
         <div className="landing-container h-100">
-          <Stack direction={{ xs: 'column', sm: 'column', md:"row", lg: 'row' }} alignItems="center" justifyContent="center" className='h-100' spacing={5}>
+          <Stack direction={{ xs: 'column', sm: 'column', md: "row", lg: 'row' }} alignItems="center" justifyContent="center" className='h-100' spacing={5}>
             <Stack direction="row" alignItems="center" flexDirection="column" justifyContent="center" className='landing-left'>
               <div className='landing-mobile'>
                 <h1 className='landing-heading'>Caterings & Tiffins</h1>
