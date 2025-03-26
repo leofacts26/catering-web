@@ -23,7 +23,7 @@ const page = () => {
     const { userDetails } = useSelector((state) => state.user)
     const { selectedLocation } = useGetLocationResults()
 
-    console.log(selectedLocation, "selectedLocationselectedLocation");
+    // console.log(selectedLocation, "selectedLocationselectedLocation");
 
 
     const dispatch = useDispatch()

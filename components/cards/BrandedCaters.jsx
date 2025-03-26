@@ -18,18 +18,22 @@ import { fetchBrandedCaterers } from '@/app/features/user/homeSlice';
 import BrandedCaterersShimmer from '../shimmer/BrandedCaterersShimmer';
 import { fetchGetAllSubscriptionTypes, setSubscriptionFilter } from '@/app/features/user/cateringFilterSlice';
 import { useRouter } from 'next/navigation';
+import useGetLocationResults from '@/hooks/catering/useGetLocationResults';
 
 const BrandedCaters = () => {
   const router = useRouter()
   const { brandedList, isLoading } = useSelector((state) => state.homepage)
   const { userDetails } = useSelector((state) => state.user)
+  const { locationValuesGlobal } = useSelector((state) => state.globalnavbar)
   const { subscriptionTypes } = useSelector((state) => state.cateringFilter);
+
+  // console.log(locationValuesGlobal, "locationValuesGloballocationValuesGlobal");
 
   const dispatch = useDispatch()
 
   const data = {
-    latitude: userDetails?.latitude,
-    longitude: userDetails?.longitude
+    latitude: locationValuesGlobal?.latitude,
+    longitude: locationValuesGlobal?.longitude
   }
 
   useEffect(() => {

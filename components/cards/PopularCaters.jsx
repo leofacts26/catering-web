@@ -26,11 +26,12 @@ const PopularCaters = ({ title }) => {
     const { popularCaterer, isLoading } = useSelector((state) => state.homepage)
     const dispatch = useDispatch()
     const { userDetails } = useSelector((state) => state.user)
+    const { locationValuesGlobal } = useSelector((state) => state.globalnavbar)
 
     // console.log(popularCaterer, "popularCaterer"); 
     const data = {
-        latitude: userDetails?.latitude,
-        longitude: userDetails?.longitude
+        latitude: locationValuesGlobal?.latitude,
+        longitude: locationValuesGlobal?.longitude
     }
 
     useEffect(() => {
