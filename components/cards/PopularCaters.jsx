@@ -46,10 +46,13 @@ const PopularCaters = ({ title }) => {
     }, [])
 
 
-    const handleImageClick = () => {
-        const id = "2";
-        dispatch(setSubscriptionFilter({ id, subscriptionTypes }))
-        const url = `/catering-search`;
+    const handleImageClick = (item) => {
+        // console.log(item, "item");
+        
+        // const id = "2";
+        // dispatch(setSubscriptionFilter({ id, subscriptionTypes }))
+        // const url = `/catering-search`;
+        const url = `/catering-search/${item?.vendor_id}/${item?.id}`
         router.push(url);
     };
 
@@ -91,7 +94,7 @@ const PopularCaters = ({ title }) => {
                             <>
                                 {popularCaterer?.length > 0 && popularCaterer?.slice(0, 6).map((cater, index) => (
                                     <SwiperSlide key={popularCaterer?.id}>
-                                        <Box onClick={() => handleImageClick()} style={{ padding: '10px 0px 10px 15px' }}>
+                                        <Box onClick={() => handleImageClick(cater)} style={{ padding: '10px 0px 10px 15px' }}>
                                             <img
                                                 src={
                                                     cater?.gallery_images?.["vendor-brand-logo"]?.[0]?.image_name?.[0]?.medium || "/img/no-image.jpg"
@@ -101,7 +104,7 @@ const PopularCaters = ({ title }) => {
                                             />
 
                                             <h4 className='popular-caterers-heading overflow-ellipsis'>{cater?.catering_service_name}</h4>
-                                            <p className='popular-caterers-des overflow-ellipsis'> {cater?.street_name} {cater?.area} </p>
+                                            <p className='popular-caterers-des overflow-ellipsis'>{cater?.area} {cater?.street_name}  </p>
                                         </Box>
                                     </SwiperSlide>
                                 ))}

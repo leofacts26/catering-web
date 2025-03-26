@@ -48,10 +48,10 @@ const BrandedCaters = () => {
   }, [dispatch]);
 
 
-  const handleImageClick = () => {
-    const id = "3";
-    dispatch(setSubscriptionFilter({ id, subscriptionTypes }))
-    const url = `/catering-search`;
+  const handleImageClick = (item) => {
+    // const id = "3";
+    // dispatch(setSubscriptionFilter({ id, subscriptionTypes }))
+    const url = `/catering-search/${item?.vendor_id}/${item?.id}`
     router.push(url);
   };
 
@@ -100,7 +100,7 @@ const BrandedCaters = () => {
                 </SwiperSlide> */}
 
                 <SwiperSlide key={brandedcaterer?.id}>
-                  <Box onClick={() => handleImageClick()} style={{ padding: '10px 0px 10px 15px' }}>
+                  <Box onClick={() => handleImageClick(brandedcaterer)} style={{ padding: '10px 0px 10px 15px' }}>
                     <Box className="image-shadow branded-slider-box">
                       <img src={brandedcaterer?.gallery_images['vendor-brand-logo']?.[0]?.image_name[0]?.medium ? brandedcaterer?.gallery_images['vendor-brand-logo']?.[0]?.image_name[0]?.medium : '/img/no-image.jpg'} alt="logo" className="img-fluid branded-caterers-img cursor-pointer" />
                     </Box>
