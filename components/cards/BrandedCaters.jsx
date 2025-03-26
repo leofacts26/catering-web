@@ -33,7 +33,8 @@ const BrandedCaters = () => {
 
   const data = {
     latitude: locationValuesGlobal?.latitude,
-    longitude: locationValuesGlobal?.longitude
+    longitude: locationValuesGlobal?.longitude,
+    is_city_search: locationValuesGlobal.latitude ? 1 : 0
   }
 
   useEffect(() => {
