@@ -16,9 +16,12 @@ import { clearFiltersGlobal } from '@/app/features/tiffin/tiffinFilterSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import PopularTiffins from '@/components/cards/PopularTiffins';
 import ExploreTiffins from '@/components/cards/ExploreTiffins';
+import useGetLocationResults from '@/hooks/catering/useGetLocationResults';
 
 const page = () => {
     const { userDetails } = useSelector((state) => state.user)
+    const { selectedLocation } = useGetLocationResults()
+
     // console.log(userDetails, "userDetails");
     return (
         <>
@@ -41,7 +44,9 @@ const page = () => {
 
             {/* <BrandedTiffenCaters /> */}
 
-            <Heading title={`Popular Tiffins in ${userDetails?.city ? userDetails?.city : 'INDIA'}`} subHeading />
+            <Heading title={`Popular Tiffins in ${selectedLocation?.terms?.length > 0 && selectedLocation?.terms[0]?.value
+                ? selectedLocation.terms[0].value
+                : 'INDIA'}`} subHeading />
             <PopularTiffins />
 
             {/* <Heading title="Explore Tiffins by Occasions" subHeading /> */}
