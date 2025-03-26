@@ -51,18 +51,27 @@ const page = () => {
             <Heading title="Explore Caterers around INDIA" subHeading />
             <ExploreCaters />
 
-            <Heading
+            {/* <Heading
                 title={`Branded Caterers in ${selectedLocation?.terms?.length > 0 && selectedLocation?.terms[0]?.value
                     ? selectedLocation.terms[0].value
                     : userDetails?.city || 'INDIA'
                     }`}
                 subHeading
-            />            <BrandedCaters />
+            /> */}
+
+            <Heading
+                title={`Branded Caterers in ${selectedLocation?.terms?.length > 0 && selectedLocation?.terms[0]?.value
+                    ? selectedLocation.terms[0].value
+                    :  'INDIA'
+                    }`}
+                subHeading
+            />
+            <BrandedCaters />
 
             <PopularCaters
                 title={`Popular Caterers in ${selectedLocation?.terms?.length > 0 && selectedLocation?.terms[0]?.value
-                        ? selectedLocation.terms[0].value
-                        : userDetails?.city || 'INDIA'
+                    ? selectedLocation.terms[0].value
+                    :  'INDIA'
                     }`}
             />
             <Heading title="Explore Caterers by Occasions" subHeading />
