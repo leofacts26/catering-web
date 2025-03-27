@@ -24,11 +24,14 @@ const PopularTiffins = () => {
     const { popularTiffins, isLoading } = useSelector((state) => state.homepage)
     const dispatch = useDispatch()
     const { tiffinSubscriptionTypes } = useSelector((state) => state.tiffinFilter);
+    const { locationValuesGlobal } = useSelector((state) => state.globalnavbar)
+    
 
 
     const data = {
-        latitude: userDetails?.latitude,
-        longitude: userDetails?.longitude
+        latitude: locationValuesGlobal?.latitude,
+        longitude: locationValuesGlobal?.longitude,
+        is_city_search: locationValuesGlobal.latitude ? 1 : 0
     }
 
      useEffect(() => {

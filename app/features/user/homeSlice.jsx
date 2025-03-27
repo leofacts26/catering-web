@@ -154,9 +154,9 @@ export const fetchPopularCaterers = createAsyncThunk(
 export const fetchPopularTiffins = createAsyncThunk(
     'homepage/fetchPopularTiffins',
     async (data, thunkAPI) => {
-        const { latitude, longitude } = data;
+        const { latitude, longitude, is_city_search } = data;
         try {
-            const response = await api.get(`${BASE_URL}/get-vendors-home-page?vendor_type=Tiffin&latitude=${latitude ? latitude : ''}&longitude=${longitude ? longitude : ''}&subscription_type_id=5`, {
+            const response = await api.get(`${BASE_URL}/get-vendors-home-page?vendor_type=Tiffin&latitude=${latitude ? latitude : ''}&is_city_search=${is_city_search}&longitude=${longitude ? longitude : ''}&subscription_type_id=5`, {
                 headers: {
                     authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
                 },
