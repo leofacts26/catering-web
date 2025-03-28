@@ -26,15 +26,18 @@ const ExpoloreKitchenCardTiffin = () => {
     const { getTiffinKitchenTypes, isLoading } = useSelector((state) => state.tiffinFilter)
     const dispatch = useDispatch()
 
-    useEffect(() => {
-        dispatch(fetchCuisines())
-    }, [])
+    console.log(getTiffinKitchenTypes, "getTiffinKitchenTypes");
+    
 
     useEffect(() => {
-        if (!getTiffinKitchenTypes.length > 0) {
-            dispatch(fetchTiffinKitchenTypes());
-        }
-    }, [dispatch, getTiffinKitchenTypes.length]);
+        dispatch(fetchTiffinKitchenTypes())
+    }, [])
+
+    // useEffect(() => {
+    //     if (!getTiffinKitchenTypes.length > 0) {
+    //         dispatch(fetchTiffinKitchenTypes());
+    //     }
+    // }, [dispatch, getTiffinKitchenTypes.length]);
 
     // console.log(getAllcuisines, "getAllcuisines");
     const onHandleKitchenFilter = (kitchen) => {

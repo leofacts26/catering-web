@@ -121,7 +121,7 @@ export const fetchTiffinKitchenTypes = createAsyncThunk(
     'user/fetchTiffinKitchenTypes',
     async (user, thunkAPI) => {
         try {
-            const response = await api.get(`${BASE_URL}/get-all-kitchen-types?limit=10&current_page=1`, {
+            const response = await api.get(`${BASE_URL}/get-all-kitchen-types?limit=20&current_page=1`, {
                 headers: {
                     authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
                 },
