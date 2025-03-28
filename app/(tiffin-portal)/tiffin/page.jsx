@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import PopularTiffins from '@/components/cards/PopularTiffins';
 import ExploreTiffins from '@/components/cards/ExploreTiffins';
 import useGetLocationResults from '@/hooks/catering/useGetLocationResults';
+import ExpoloreCuisinesCardTiffin from '@/components/cards/ExpoloreCuisinesCardTiffin';
 
 const page = () => {
     const { userDetails } = useSelector((state) => state.user)
@@ -37,7 +38,7 @@ const page = () => {
             </div>
             <RecentSearchCard />
 
-            <ExpoloreCuisinesCard />
+            <ExpoloreCuisinesCardTiffin />
             <Heading title="Explore Tiffins around INDIA" subHeading />
             <ExploreTiffins />
 

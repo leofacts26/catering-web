@@ -133,6 +133,7 @@ export const fetchTiffinKitchenTypes = createAsyncThunk(
     }
 )
 
+
 export const fetchGetAllTiffinSubscriptionTypes = createAsyncThunk(
     'user/fetchGetAllTiffinSubscriptionTypes',
     async (user, thunkAPI) => {
@@ -170,6 +171,7 @@ export const fetchTiffinSimilarCaterer = createAsyncThunk(
         }
     }
 )
+
 
 
 export const fetchTiffinMapviewSearchCards = createAsyncThunk(
