@@ -1,11 +1,11 @@
 "use client"
 import CardContent from '@mui/material/CardContent';
 import Stack from '@mui/material/Stack';
-import Box from '@mui/material/Box';
+// import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import explorecuisines from '../../data/explorecuisines.json'
+// import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+// import explorecuisines from '../../data/explorecuisines.json'
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCuisines } from '@/app/features/user/homeSlice';
 import { useEffect } from 'react';
@@ -16,11 +16,11 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { Navigation, Autoplay } from 'swiper/modules';
-import { fetchCateringCuisines, fetchCateringSearchCards, setCuisineTypeFilter } from '@/app/features/user/cateringFilterSlice';
+// import { fetchCateringCuisines, fetchCateringSearchCards, setCuisineTypeFilter } from '@/app/features/user/cateringFilterSlice';
 import { useRouter } from 'next/navigation';
 import { fetchTiffinKitchenTypes, fetchtiffinSearchCards, setKitchenTypeFilter } from '@/app/features/tiffin/tiffinFilterSlice';
 
-const ExpoloreCuisinesCardTiffin = () => {
+const ExpoloreKitchenCardTiffin = () => {
 
     const router = useRouter()
     const { getTiffinKitchenTypes, isLoading } = useSelector((state) => state.tiffinFilter)
@@ -117,4 +117,4 @@ const ExpoloreCuisinesCardTiffin = () => {
     )
 }
 
-export default ExpoloreCuisinesCardTiffin
+export default ExpoloreKitchenCardTiffin

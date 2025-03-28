@@ -4,23 +4,17 @@ import Footer from '@/components/Footer';
 import Heading from '@/components/Heading';
 import Navbar from '@/components/Navbar';
 import Subscribe from '@/components/Subscribe';
-import ExploreCaters from '@/components/cards/ExploreCaters';
-import ExpoloreCuisinesCard from '@/components/cards/ExpoloreCuisinesCard';
-import PopularCaters from '@/components/cards/PopularCaters';
 import RecentSearchCard from '@/components/cards/RecentSearchCard';
 import Container from '@mui/material/Container';
 import TiffinSearchBar from '@/components/tiffin/TiffinSearchBar';
-import BrandedTiffenCaters from '@/components/cards/BrandedTiffenCaters';
-import { useEffect } from 'react';
-import { clearFiltersGlobal } from '@/app/features/tiffin/tiffinFilterSlice';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import PopularTiffins from '@/components/cards/PopularTiffins';
 import ExploreTiffins from '@/components/cards/ExploreTiffins';
 import useGetLocationResults from '@/hooks/catering/useGetLocationResults';
-import ExpoloreCuisinesCardTiffin from '@/components/cards/ExpoloreCuisinesCardTiffin';
+import ExpoloreKitchenCardTiffin from '@/components/cards/ExpoloreCuisinesCardTiffin';
 
 const page = () => {
-    const { userDetails } = useSelector((state) => state.user)
+    // const { userDetails } = useSelector((state) => state.user)
     const { selectedLocation } = useGetLocationResults()
 
     // console.log(userDetails, "userDetails");
@@ -38,7 +32,7 @@ const page = () => {
             </div>
             <RecentSearchCard />
 
-            <ExpoloreCuisinesCardTiffin />
+            <ExpoloreKitchenCardTiffin />
             <Heading title="Explore Tiffins around INDIA" subHeading />
             <ExploreTiffins />
 
