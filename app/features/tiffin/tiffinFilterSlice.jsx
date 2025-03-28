@@ -500,7 +500,7 @@ export const tiffinFilterSlice = createSlice({
                         ...subscription,
                         selectedweb: subscription.selectedweb === 1 ? 0 : 1
                     };
-                } else if (["5", "6"].includes(id)) {
+                } else if (["17", "5"].includes(id)) {
                     return {
                         ...subscription,
                         selectedweb: 0
