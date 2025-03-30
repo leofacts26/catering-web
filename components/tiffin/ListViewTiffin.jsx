@@ -12,7 +12,7 @@ import ShareIcon from '@mui/icons-material/Share';
 import { useDispatch, useSelector } from 'react-redux';
 import ListViewSkeleton from '../ListViewSkeleton ';
 import { addchWishlist } from '@/app/features/user/settingSlice';
-import { fetchtiffinSearchCards, incrementTiffinPage } from '@/app/features/tiffin/tiffinFilterSlice';
+import { fetchtiffinSearchCards, incrementTiffinPage, setTiffinCurrentPage } from '@/app/features/tiffin/tiffinFilterSlice';
 import ShowOnMap from '../ShowOnMap';
 import StarIcon from '@mui/icons-material/Star';
 import toast from 'react-hot-toast';
@@ -73,16 +73,39 @@ const ListViewTiffin = () => {
         }
     }
 
+    useEffect(() => {
+        if (getTiffinSearchCards.length === 0 && current_page > 1) {
+            dispatch(setTiffinCurrentPage(1));
+            dispatch(fetchtiffinSearchCards());
+        }
+    }, [getTiffinSearchCards, current_page, dispatch]);
+
     const handleScroll = useCallback(myThrottle(() => {
         if (
             window.innerHeight + document.documentElement.scrollTop + 1000 > document.documentElement.offsetHeight &&
             !isLoading &&
-            (current_page * limit) < total_count
+            getTiffinSearchCards.length > 0 // Ensure there's data before fetching more
         ) {
-            dispatch(incrementTiffinPage());
-            dispatch(fetchtiffinSearchCards());
+            if ((current_page * limit) < total_count) {
+                dispatch(incrementTiffinPage());
+                dispatch(fetchtiffinSearchCards());
+            }
         }
-    }, 500), [dispatch, isLoading, current_page, limit, total_count]);
+    }, 500), [dispatch, isLoading, current_page, limit, total_count, getTiffinSearchCards]);
+
+
+
+
+    // const handleScroll = useCallback(myThrottle(() => {
+    //     if (
+    //         window.innerHeight + document.documentElement.scrollTop + 1000 > document.documentElement.offsetHeight &&
+    //         !isLoading &&
+    //         (current_page * limit) < total_count
+    //     ) {
+    //         dispatch(incrementTiffinPage());
+    //         dispatch(fetchtiffinSearchCards());
+    //     }
+    // }, 500), [dispatch, isLoading, current_page, limit, total_count]);
 
 
     useEffect(() => {

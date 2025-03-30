@@ -396,7 +396,7 @@ export const fetchCateringSearchCards = createAsyncThunk(
         });
 
         try {
-            const response = await api.get(`${BASE_URL}/search-vendors?search_term=${vendorSearch}&selected_vendor=${vendorlistitem}&order_by=distance&limit=${(current_page * limit)}&save_filter=1&vendor_type=Caterer&app_type=web&order_by_filter=${cateringSortBy_filter}&occasions_filter=${JSON.stringify(occasions_filter_formatted)}&food_types_filter=${JSON.stringify(foodtype_filter_formatted)}&head_count_ranges=${JSON.stringify(updatedHeadcount_formatted)}&price_ranges=${JSON.stringify(updatedPriceTypes_formatted)}&subscription_types_filter=${JSON.stringify(subscriptionTypes_formatted)}&cuisines_filter=${JSON.stringify(finalCuisineresult)}&serving_types_filter=${JSON.stringify(serving_filter_formatted)}&is_city_search=${"1" || "0"}&ratings_filter=${JSON.stringify(rating_filter_formatted)}&service_types_filter=${JSON.stringify(service_filter_formatted)}&latitude=${locationValuesGlobal?.latitude || ""}&longitude=${locationValuesGlobal?.longitude || ""}&city=${locationValuesGlobal?.city?.long_name || ""}&pincode=${locationValuesGlobal?.pincode || ""}&place_id=${locationValuesGlobal?.place_id || ''}&start_date=${moment(startDate).format('YYYY-MM-DD')}&end_date=${moment(endDate).format('YYYY-MM-DD')}`, {
+            const response = await api.get(`${BASE_URL}/search-vendors?search_term=${vendorSearch}&selected_vendor=${vendorlistitem}&order_by=distance&limit=${(current_page * limit)}&current_page=${current_page}&save_filter=1&vendor_type=Caterer&app_type=web&order_by_filter=${cateringSortBy_filter}&occasions_filter=${JSON.stringify(occasions_filter_formatted)}&food_types_filter=${JSON.stringify(foodtype_filter_formatted)}&head_count_ranges=${JSON.stringify(updatedHeadcount_formatted)}&price_ranges=${JSON.stringify(updatedPriceTypes_formatted)}&subscription_types_filter=${JSON.stringify(subscriptionTypes_formatted)}&cuisines_filter=${JSON.stringify(finalCuisineresult)}&serving_types_filter=${JSON.stringify(serving_filter_formatted)}&is_city_search=${"1" || "0"}&ratings_filter=${JSON.stringify(rating_filter_formatted)}&service_types_filter=${JSON.stringify(service_filter_formatted)}&latitude=${locationValuesGlobal?.latitude || ""}&longitude=${locationValuesGlobal?.longitude || ""}&city=${locationValuesGlobal?.city?.long_name || ""}&pincode=${locationValuesGlobal?.pincode || ""}&place_id=${locationValuesGlobal?.place_id || ''}&start_date=${moment(startDate).format('YYYY-MM-DD')}&end_date=${moment(endDate).format('YYYY-MM-DD')}`, {
                 headers: {
                     authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
                 },
@@ -560,6 +560,12 @@ export const cateringFilterSlice = createSlice({
         setShowAllOccasions: (state, action) => {
             state.occasionCount = action.payload;
         },
+
+        setCurrentPage: (state, action) => {
+            state.current_page = action.payload;
+        },
+      
+
         // setPeople: (state, action) => {
         //     state.people = action.payload;
         // },
@@ -922,6 +928,7 @@ export const {
     subscriptionTypes,
     setOccasionTypes,
     incrementPage,
+    setCurrentPage,
 
     // setPeople,
     // people,

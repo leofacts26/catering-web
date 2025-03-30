@@ -9,7 +9,7 @@ import ListViewSkeleton from '../ListViewSkeleton ';
 import { useDispatch, useSelector } from 'react-redux';
 import { addchWishlist, fetchWishlist } from '@/app/features/user/settingSlice';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import { fetchCateringSearchCards, incrementPage } from '@/app/features/user/cateringFilterSlice';
+import { fetchCateringSearchCards, incrementPage, setCurrentPage } from '@/app/features/user/cateringFilterSlice';
 import toast from 'react-hot-toast';
 import ShowOnMap from '../ShowOnMap';
 import StarIcon from '@mui/icons-material/Star';
@@ -64,29 +64,37 @@ const ListView = () => {
         }
     }
 
-    // const handleScroll = myThrottle(() => {
-    //     if (
-    //         window.innerHeight + document.documentElement.scrollTop + 2000 >
-    //         document.documentElement.offsetHeight && !isLoading &&
-    //         ((current_page - 1) * limit) < total_count // Adjust condition here
-    //     ) {
-    //         dispatch(fetchCateringSearchCards()).then(() => {
-    //             dispatch(incrementPage());
-    //         });
-    //     }
-    // }, 500);
-
+    useEffect(() => {
+        if (getCateringSearchCards.length === 0 && current_page > 1) {
+            dispatch(setCurrentPage(1));
+            dispatch(fetchCateringSearchCards());
+        }
+    }, [getCateringSearchCards, current_page, dispatch]);
 
     const handleScroll = useCallback(myThrottle(() => {
         if (
             window.innerHeight + document.documentElement.scrollTop + 1000 > document.documentElement.offsetHeight &&
             !isLoading &&
-            (current_page * limit) < total_count
+            getCateringSearchCards.length > 0 // Ensure there's data before fetching more
         ) {
-            dispatch(incrementPage());
-            dispatch(fetchCateringSearchCards());
+            if ((current_page * limit) < total_count) {
+                dispatch(incrementPage());
+                dispatch(fetchCateringSearchCards());
+            }
         }
-    }, 500), [dispatch, isLoading, current_page, limit, total_count]);
+    }, 500), [dispatch, isLoading, current_page, limit, total_count, getCateringSearchCards]);
+
+
+    // const handleScroll = useCallback(myThrottle(() => {
+    //     if (
+    //         window.innerHeight + document.documentElement.scrollTop + 1000 > document.documentElement.offsetHeight &&
+    //         !isLoading &&
+    //         (current_page * limit) < total_count
+    //     ) {
+    //         dispatch(incrementPage());
+    //         dispatch(fetchCateringSearchCards());
+    //     }
+    // }, 500), [dispatch, isLoading, current_page, limit, total_count]);
 
 
     useEffect(() => {

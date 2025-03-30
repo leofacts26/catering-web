@@ -318,7 +318,7 @@ export const fetchtiffinSearchCards = createAsyncThunk(
         }));
 
         try {
-            const response = await api.get(`${BASE_URL}/search-vendors?search_term=${vendorSearch}&selected_vendor=${vendorlistitem}&limit=${(current_page * limit)}&current_page=1&save_filter=1&vendor_type=Tiffin&app_type=web&latitude=${locationValuesGlobal?.latitude || ""}&longitude=${locationValuesGlobal?.longitude || ""}&city=${locationValuesGlobal?.city?.long_name || ""}&pincode=${locationValuesGlobal?.pincode || ""}&place_id=${locationValuesGlobal?.place_id || ''}&price_ranges=${JSON.stringify(updatedPriceTypes_formatted)}&ratings_filter=${JSON.stringify(rating_tiffin_filter_formatted)}&subscription_types_filter=${JSON.stringify(tiffinSubscriptionTypes_formatted)}&order_by_filter=${tiffinSortBy_filter}&kitchen_types_filter=${JSON.stringify(kitchentype_filter_formatted)}&is_city_search=${"1" || "0"}&meal_times_filter=${JSON.stringify(mealtype_filter_formatted)}&food_types_filter=${JSON.stringify(foodtype_filter_formatted)}&service_types_filter=${JSON.stringify(servicetype_filter_formatted)}&start_date=${moment(startDate).format('YYYY-MM-DD')}&end_date=${moment(endDate).format('YYYY-MM-DD')}`, {
+            const response = await api.get(`${BASE_URL}/search-vendors?search_term=${vendorSearch}&selected_vendor=${vendorlistitem}&limit=${(current_page * limit)}&current_page=${current_page}&save_filter=1&vendor_type=Tiffin&app_type=web&latitude=${locationValuesGlobal?.latitude || ""}&longitude=${locationValuesGlobal?.longitude || ""}&city=${locationValuesGlobal?.city?.long_name || ""}&pincode=${locationValuesGlobal?.pincode || ""}&place_id=${locationValuesGlobal?.place_id || ''}&price_ranges=${JSON.stringify(updatedPriceTypes_formatted)}&ratings_filter=${JSON.stringify(rating_tiffin_filter_formatted)}&subscription_types_filter=${JSON.stringify(tiffinSubscriptionTypes_formatted)}&order_by_filter=${tiffinSortBy_filter}&kitchen_types_filter=${JSON.stringify(kitchentype_filter_formatted)}&is_city_search=${"1" || "0"}&meal_times_filter=${JSON.stringify(mealtype_filter_formatted)}&food_types_filter=${JSON.stringify(foodtype_filter_formatted)}&service_types_filter=${JSON.stringify(servicetype_filter_formatted)}&start_date=${moment(startDate).format('YYYY-MM-DD')}&end_date=${moment(endDate).format('YYYY-MM-DD')}`, {
                 headers: {
                     authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
                 },
@@ -424,6 +424,9 @@ export const tiffinFilterSlice = createSlice({
         clearTiffinSlice: () => initialState,
         incrementTiffinPage(state) {
             state.current_page += 1;
+        },
+        setTiffinCurrentPage: (state, action) => {
+            state.current_page = action.payload;
         },
         setTiffinSort: (state, action) => {
             state.tiffinSortBy = action.payload;
@@ -649,6 +652,6 @@ export const tiffinFilterSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { clearTiffinSlice, incrementTiffinPage, setTiffinSort, setRatingTiffinTypesFilter, setTiffinSubscriptionFilter, setPriceTypeFilter, setFoodTypeFilter, setMealTypeFilter, setServiceTypeFilter, setKitchenTypeFilter } = tiffinFilterSlice.actions
+export const {setTiffinCurrentPage, clearTiffinSlice, incrementTiffinPage, setTiffinSort, setRatingTiffinTypesFilter, setTiffinSubscriptionFilter, setPriceTypeFilter, setFoodTypeFilter, setMealTypeFilter, setServiceTypeFilter, setKitchenTypeFilter } = tiffinFilterSlice.actions
 
 export default tiffinFilterSlice.reducer
