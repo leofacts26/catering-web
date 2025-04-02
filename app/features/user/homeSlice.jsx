@@ -39,7 +39,7 @@ export const fetchFaq = createAsyncThunk(
     'homepage/fetchFaq',
     async (user, thunkAPI) => {
         try {
-            const response = await api.get(`${BASE_URL}/faq?current_page=1&limit=5&type=vendor`, {
+            const response = await api.get(`${BASE_URL}/faq?current_page=1&limit=5&type=user-caterer`, {
                 headers: {
                     authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
                 },
