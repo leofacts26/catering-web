@@ -50,11 +50,11 @@ const Filters = () => {
                     <Divider />
 
 
-                    {/* <CardContent>
+                    <CardContent>
                         <h3 className='font-20 font-weight-500 filter-text'>Choose Catering Rating:</h3>
                         <CaterRatingCount />
                     </CardContent>
-                    <Divider /> */}
+                    <Divider />
 
                     <CardContent>
                         <h3 className='font-20 font-weight-500 filter-text mb-2'>Choose Cuisine</h3>
@@ -62,11 +62,11 @@ const Filters = () => {
                     </CardContent>
                     <Divider />
 
-                    {/* <CardContent>
+                    <CardContent>
                         <h3 className='font-20 font-weight-500 filter-text'>Choose Occasions:</h3>
                         <CaterOccaionTypes />
                     </CardContent>
-                    <Divider /> */}
+                    <Divider />
 
                     <CardContent>
                         <h3 className='font-20 font-weight-500 filter-text'>Choose Service Type:</h3>
