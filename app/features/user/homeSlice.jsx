@@ -6,6 +6,7 @@ import toast from 'react-hot-toast';
 const initialState = {
     isLoading: false,
     faqs: [],
+    faqsTiffin: [],
     homeOccasions: [],
     getAllCities: [],
     popularCaterer: [],
@@ -40,6 +41,22 @@ export const fetchFaq = createAsyncThunk(
     async (user, thunkAPI) => {
         try {
             const response = await api.get(`${BASE_URL}/faq?current_page=1&limit=5&type=user-caterer`, {
+                headers: {
+                    authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
+                },
+            });
+            return response?.data?.data;
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error.response.data.msg);
+        }
+    }
+)
+
+export const fetchFaqTiffin = createAsyncThunk(
+    'homepage/fetchFaqTiffin',
+    async (user, thunkAPI) => {
+        try {
+            const response = await api.get(`${BASE_URL}/faq?current_page=1&limit=5&type=user-tiffin`, {
                 headers: {
                     authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
                 },
@@ -231,7 +248,16 @@ export const homeSlice = createSlice({
             })
             .addCase(fetchFaq.rejected, (state, { payload }) => {
                 state.isLoading = false;
-                // toast.error(datavalidationerror(payload));
+            })
+            .addCase(fetchFaqTiffin.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(fetchFaqTiffin.fulfilled, (state, { payload }) => {
+                state.isLoading = false;
+                state.faqsTiffin = payload;
+            })
+            .addCase(fetchFaqTiffin.rejected, (state, { payload }) => {
+                state.isLoading = false;
             })
             // fetchHomepageOccasions
             .addCase(fetchHomepageOccasions.pending, (state) => {

@@ -12,6 +12,7 @@ import PopularTiffins from '@/components/cards/PopularTiffins';
 import ExploreTiffins from '@/components/cards/ExploreTiffins';
 import useGetLocationResults from '@/hooks/catering/useGetLocationResults';
 import ExpoloreKitchenCardTiffin from '@/components/cards/ExpoloreCuisinesCardTiffin';
+import FaqCaterer from '@/components/FaqCaterer';
 
 const page = () => {
     // const { userDetails } = useSelector((state) => state.user)
@@ -47,7 +48,7 @@ const page = () => {
             {/* <Heading title="Explore Tiffins by Occasions" subHeading /> */}
             {/* <ExploreCaterersByOccasion /> */}
             <Heading title="FAQ's" center subHeading />
-            <Faq tiffin />
+            <FaqCaterer tiffin />
             <Subscribe />
             <Footer />
         </>

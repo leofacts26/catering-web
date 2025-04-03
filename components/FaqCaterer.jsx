@@ -7,22 +7,22 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import Container from "@mui/material/Container";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import {  fetchFaq, fetchFaqTiffin } from "@/app/features/user/homeSlice";
+import {  fetchFaqTiffin } from "@/app/features/user/homeSlice";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 
-const Faq = ({ tiffin }) => {
+const FaqCaterer = ({ tiffin }) => {
   const dispatch = useDispatch();
-  const { faqs } = useSelector((state) => state.homepage);
+  const { faqsTiffin } = useSelector((state) => state.homepage);
 
   useEffect(() => {
-    dispatch(fetchFaq());
+    dispatch(fetchFaqTiffin());
   }, [dispatch]);
 
   return (
     <>
       <Container maxWidth="lg">
-        {faqs.map((faq) => (
+        {faqsTiffin.map((faq) => (
           <Accordion
             key={faq?.question_id}
             className={tiffin ? "faq-bg-tiffin" : "faq-bg"}
@@ -55,4 +55,4 @@ const Faq = ({ tiffin }) => {
   );
 };
 
-export default Faq;
+export default FaqCaterer;
