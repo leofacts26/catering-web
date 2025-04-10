@@ -24,6 +24,8 @@ const initialState = {
     getTiffinSearchCards: [],
     getTiffinMapviewSearchCards: [],
 
+    similarCatererTiffinData: {},
+
     // filter 
     current_page: 1,
     limit: 30,
@@ -159,8 +161,16 @@ export const fetchTiffinSimilarCaterer = createAsyncThunk(
         const people = thunkAPI.getState().globalnavbar?.people;
         const locationValuesGlobal = thunkAPI.getState().globalnavbar?.locationValuesGlobal;
 
+        const global = thunkAPI.getState().tiffinFilter?.similarCatererTiffinData;
+
+        // // foodtype_filter_formatted 
+        const foodtype_filter_formatted = global?.foodTypes.filter(item => item.id !== "1").map(foodType => ({
+            id: foodType.id,
+            selected: foodType.selectedweb
+        }))
+
         try {
-            const response = await api.get(`${BASE_URL}/search-vendors?search_term=${people}&order_by=distance&limit=100&save_filter=1&vendor_type=Tiffin&app_type=web&latitude=${locationValuesGlobal?.latitude || ""}&longitude=${locationValuesGlobal?.longitude || ""}&city=${locationValuesGlobal?.city?.long_name || ""}&pincode=${locationValuesGlobal?.pincode || ""}&place_id=${locationValuesGlobal?.place_id || ''}&start_date=${moment(startDate).format('YYYY-MM-DD')}&end_date=${moment(endDate).format('YYYY-MM-DD')}&shuffled=1`, {
+            const response = await api.get(`${BASE_URL}/search-vendors?search_term=${global?.vendor_service_name}&order_by=distance&limit=100&save_filter=1&vendor_type=Tiffin&app_type=web&latitude=${global?.latitude || ""}&longitude=${global?.longitude || ""}&city=${global?.city || ""}&pincode=${global?.pincode || ""}&place_id=${global?.place_id || ''}&food_types_filter=${JSON.stringify(foodtype_filter_formatted)}&start_date=${moment(startDate).format('YYYY-MM-DD')}&end_date=${moment(endDate).format('YYYY-MM-DD')}&shuffled=1`, {
                 headers: {
                     authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
                 },
@@ -422,6 +432,9 @@ export const tiffinFilterSlice = createSlice({
     initialState,
     reducers: {
         clearTiffinSlice: () => initialState,
+        setSimilarCatererTiffinData: (state, action) => {
+            state.similarCatererTiffinData = action.payload;
+        },
         incrementTiffinPage(state) {
             state.current_page += 1;
         },
@@ -652,6 +665,6 @@ export const tiffinFilterSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const {setTiffinCurrentPage, clearTiffinSlice, incrementTiffinPage, setTiffinSort, setRatingTiffinTypesFilter, setTiffinSubscriptionFilter, setPriceTypeFilter, setFoodTypeFilter, setMealTypeFilter, setServiceTypeFilter, setKitchenTypeFilter } = tiffinFilterSlice.actions
+export const { setSimilarCatererTiffinData, setTiffinCurrentPage, clearTiffinSlice, incrementTiffinPage, setTiffinSort, setRatingTiffinTypesFilter, setTiffinSubscriptionFilter, setPriceTypeFilter, setFoodTypeFilter, setMealTypeFilter, setServiceTypeFilter, setKitchenTypeFilter } = tiffinFilterSlice.actions
 
 export default tiffinFilterSlice.reducer

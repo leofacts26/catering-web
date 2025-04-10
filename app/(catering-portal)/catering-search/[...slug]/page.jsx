@@ -33,7 +33,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useParams } from 'next/navigation'
 import { setlLocationValuesGlobal } from "@/app/features/user/globalNavSlice";
-import { fetchCateringSearchCards } from "@/app/features/user/cateringFilterSlice";
+import { fetchCateringSearchCards, setSimilarCatererData } from "@/app/features/user/cateringFilterSlice";
 import { useRouter } from 'next/navigation';
 import OutdoorGrillIcon from '@mui/icons-material/OutdoorGrill';
 import ShowOnMapCatering from "@/components/ShowOnMapCatering";
@@ -66,7 +66,6 @@ const page = () => {
 
 
 
-
     const dispatch = useDispatch()
     const accessToken = useSelector((state) => state.user.accessToken);
     const { slug } = useParams()
@@ -77,6 +76,13 @@ const page = () => {
     const branchId = slug[1];
 
     const [data, setData] = useState()
+
+
+    useEffect(() => {
+        dispatch(setSimilarCatererData(data))
+    }, [data])
+
+
 
     useEffect(() => {
         getData()

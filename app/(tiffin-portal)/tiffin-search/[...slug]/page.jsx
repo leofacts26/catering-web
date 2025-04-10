@@ -38,7 +38,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setlLocationValuesGlobal, setManualLocation, setPeople } from '@/app/features/user/globalNavSlice';
 import { fetchCateringSearchCards } from '@/app/features/user/cateringFilterSlice';
 import { useRouter } from 'next/navigation';
-import { fetchtiffinSearchCards } from '@/app/features/tiffin/tiffinFilterSlice';
+import { fetchtiffinSearchCards, setSimilarCatererTiffinData } from '@/app/features/tiffin/tiffinFilterSlice';
 import OutdoorGrillIcon from '@mui/icons-material/OutdoorGrill';
 import ReviewCardTiffin from '@/components/cards/ReviewCardTiffin';
 import ReactMarkdown from 'react-markdown';
@@ -72,6 +72,13 @@ const page = () => {
   const [data, setData] = useState()
 
   useEffect(() => {
+    dispatch(setSimilarCatererTiffinData(data))
+  }, [data])
+
+  console.log(data, "data");
+  
+
+  useEffect(() => {
     getData()
   }, [])
 
@@ -101,13 +108,13 @@ const page = () => {
 
 
   const onHandleCuisineShow = () => {
-    console.log("true");
+    // console.log("true");
     setShowAllCuisines(true)
     setCuisineCount(100)
   }
 
   const onHandleCuisineClose = () => {
-    console.log("false");
+    // console.log("false");
     setShowAllCuisines(false)
     setCuisineCount(20)
   }
