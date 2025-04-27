@@ -531,14 +531,16 @@ export const fetchCatererSimilarCaterer = createAsyncThunk(
         // const { locationValuesGlobal } = data;
         const startDate = thunkAPI.getState().globalnavbar?.startDate;
         const endDate = thunkAPI.getState().globalnavbar?.endDate;
-        const people = thunkAPI.getState().globalnavbar?.people;
-        const locationValuesGlobal = thunkAPI.getState().globalnavbar?.locationValuesGlobal;
-        const vendorSearch = thunkAPI.getState().globalnavbar?.vendorSearch;
+        // const people = thunkAPI.getState().globalnavbar?.people;
+        // const locationValuesGlobal = thunkAPI.getState().globalnavbar?.locationValuesGlobal;
+        // const vendorSearch = thunkAPI.getState().globalnavbar?.vendorSearch;
+        // console.log(data, "dataglobalfoodTypes");
 
-        const global = thunkAPI.getState().cateringFilter?.similarCatererData;
 
-        // // foodtype_filter_formatted 
-        const foodtype_filter_formatted = global?.foodTypes
+        // const global = thunkAPI.getState().cateringFilter?.similarCatererData;
+
+        // foodtype_filter_formatted 
+        const foodtype_filter_formatted = data?.foodTypes
             .filter(item => item.id !== "1")
             .map(foodType => ({
                 id: foodType.id,
@@ -546,7 +548,8 @@ export const fetchCatererSimilarCaterer = createAsyncThunk(
             }));
 
         try {
-            const response = await api.get(`${BASE_URL}/search-vendors?search_term=${""}&order_by=distance&limit=100&save_filter=1&vendor_type=Caterer&app_type=web&latitude=${global?.latitude || ""}&longitude=${global?.longitude || ""}&city=${global.city || ""}&pincode=${global.pincode || ""}&place_id=${global.place_id || ''}&food_types_filter=${JSON.stringify(foodtype_filter_formatted)}&start_date=${moment(startDate).format('YYYY-MM-DD')}&end_date=${moment(endDate).format('YYYY-MM-DD')}&shuffled=1`, {
+
+            const response = await api.get(`${BASE_URL}/search-vendors?search_term=${""}&order_by=distance&limit=100&save_filter=1&vendor_type=Caterer&app_type=web&latitude=${data?.latitude || ""}&longitude=${data?.longitude || ""}&city=${data.city || ""}&pincode=${data.pincode || ""}&place_id=${data.place_id || ''}&food_types_filter=${JSON.stringify(foodtype_filter_formatted)}&start_date=${moment(startDate).format('YYYY-MM-DD')}&end_date=${moment(endDate).format('YYYY-MM-DD')}&shuffled=1`, {
                 headers: {
                     authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
                 },
@@ -925,6 +928,8 @@ export const cateringFilterSlice = createSlice({
                 state.isLoading = true;
             })
             .addCase(fetchCatererSimilarCaterer.fulfilled, (state, action) => {
+                console.log(action, "actionactionaction");
+
                 state.isLoading = false;
                 state.getCateringSimilarTypes = action.payload.vendors;
             })

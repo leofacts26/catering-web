@@ -76,7 +76,7 @@ const page = () => {
   }, [data])
 
   console.log(data, "data");
-  
+
 
   useEffect(() => {
     getData()
@@ -495,7 +495,7 @@ const page = () => {
 
       <OurGallery galleryImages={data?.galleryImages} bennerMenuMixGalleryImages={data?.bennerMenuMixGalleryImages} />
 
-      <SimilarCaterersTiffin tiffin />
+      <SimilarCaterersTiffin tiffin data={data} />
       <ReviewCardTiffin tiffin />
       <Subscribe />
       <Footer />

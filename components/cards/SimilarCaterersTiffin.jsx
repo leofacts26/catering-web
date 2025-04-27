@@ -21,7 +21,7 @@ import { addchWishlist } from '@/app/features/user/settingSlice';
 import useRegistration from '@/hooks/useRegistration';
 
 
-const SimilarCaterersTiffin = ({ tiffin }) => {
+const SimilarCaterersTiffin = ({ tiffin, data }) => {
     const accessToken = useSelector((state) => state.user.accessToken);
     const router = useRouter()
     const [isAnimating, setIsAnimating] = useState(false);
@@ -31,8 +31,10 @@ const SimilarCaterersTiffin = ({ tiffin }) => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(fetchTiffinSimilarCaterer())
-    }, [])
+        if (data) {
+            dispatch(fetchTiffinSimilarCaterer(data))
+        }
+    }, [data])
 
 
     const [wishlist, setWishlist] = useState({});

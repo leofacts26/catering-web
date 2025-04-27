@@ -20,17 +20,21 @@ import toast from 'react-hot-toast';
 import { addchWishlist } from '@/app/features/user/settingSlice';
 import useRegistration from '@/hooks/useRegistration';
 
-const SimilarCaterers = ({ tiffin }) => {
+const SimilarCaterers = ({ tiffin, data }) => {
     const accessToken = useSelector((state) => state.user.accessToken);
     const { getCateringSimilarTypes } = useSelector((state) => state.cateringFilter)
     const dispatch = useDispatch()
     const router = useRouter()
     const [isAnimating, setIsAnimating] = useState(false);
     const { handleClickOpen } = useRegistration();
+    // console.log(data, "data han"); 
+
 
     useEffect(() => {
-        dispatch(fetchCatererSimilarCaterer())
-    }, [])
+        if (data) {
+            dispatch(fetchCatererSimilarCaterer(data))
+        }
+    }, [data])
 
     // console.log(getCateringSimilarTypes, "getCateringSimilarTypes 666666");
 
@@ -80,12 +84,11 @@ const SimilarCaterers = ({ tiffin }) => {
 
     return (
         <Container maxWidth="xl" style={{ marginTop: '30px', marginBottom: '30px' }}>
-            {
-                getCateringSimilarTypes.length > 0 && <Stack sx={{ marginBottom: '10px' }} alignItems="center" justifyContent="space-between" direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 1, sm: 2, md: 4 }}>
-                    <h2 className='font-24 similar-caterers'>Similar Caterers / Popular Caterers in your area</h2>
-                    <Link href="/catering-search" className="vc-see-all" style={{ color: tiffin ? '#D9822B' : '#C33332' }}>See all</Link>
-                </Stack>
-            }
+            <Stack sx={{ marginBottom: '10px' }} alignItems="center" justifyContent="space-between" direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 1, sm: 2, md: 4 }}>
+                <h2 className='font-24 similar-caterers'>Similar Caterers / Popular Caterers in your area dd</h2>
+                <Link href="/catering-search" className="vc-see-all" style={{ color: tiffin ? '#D9822B' : '#C33332' }}>See all</Link>
+            </Stack>
+
 
 
             <Swiper
@@ -154,8 +157,8 @@ const SimilarCaterers = ({ tiffin }) => {
                                                                     onHandleAddFavourite(getSearchCard?.id)
                                                                     e.stopPropagation()
                                                                 }} />}
-                                                        </> : <FavoriteBorderIcon className='grid-lse-icons cursor-pointer' 
-                                                        onClick={handleClickOpen} />}
+                                                        </> : <FavoriteBorderIcon className='grid-lse-icons cursor-pointer'
+                                                            onClick={handleClickOpen} />}
                                                     </span>
                                                 </div>
                                             </Stack>

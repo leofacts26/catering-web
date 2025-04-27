@@ -172,7 +172,7 @@ const page = () => {
     const content = data?.about_description || '';
     const shortContent = content.slice(0, shortContentLength);
 
-    console.log(data, "DATA");
+    // console.log(data, "DATA");
 
 
     return (
@@ -521,7 +521,7 @@ const page = () => {
 
             <OurGallery galleryImages={data?.galleryImages} bennerMenuMixGalleryImages={data?.bennerMenuMixGalleryImages} />
 
-            <SimilarCaterers />
+            <SimilarCaterers catering data={data} />
             <ReciewCards />
 
 
