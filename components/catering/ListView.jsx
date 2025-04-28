@@ -140,6 +140,7 @@ const ListView = () => {
                     const imageSrc = getSearchCard?.subscription_type_name === "branded" && brandLogo || bannerImage || 'img/no-image.jpg';
                     // const randomCuisines = getRandomCuisines(getSearchCard?.cuisines || [], 8);
                     const filterFoodTypes = getSearchCard?.food_types.filter((item) => item !== 'All')
+                    console.log(getSearchCard, "getSearchCard");
 
                     let tagColor = "";
                     if (getSearchCard?.subscription_type_name === "popular") {
@@ -307,14 +308,16 @@ const ListView = () => {
                                                         <span className="lse-reviews">{getSearchCard.review_count} Reviews</span>
                                                     ) : <span className="lse-reviews">No Reviews</span>}</span>
                                                 </Stack>
-                                                {getSearchCard?.rating_count > 1 && <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }}
-                                                    style={{ marginTop: '4px' }}>
-                                                    <div className="mt-2">
-                                                        {[...Array(parseInt(getSearchCard.rating.slice(0, 1)))].map((star, index) => (
-                                                            <StarIcon key={index} style={{ color: '#C33332', fontSize: 20 }} />
-                                                        ))}
-                                                    </div>
-                                                </Stack>}
+                                                {getSearchCard?.rating_count > 1 && (
+                                                    <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: 'end' }} style={{ marginTop: '4px' }}>
+                                                        <div className="mt-2">
+                                                            {[...Array(parseInt(getSearchCard?.rating || 0))].map((_, index) => (
+                                                                <StarIcon key={index} style={{ color: '#C33332', fontSize: 20 }} />
+                                                            ))}
+                                                        </div>
+                                                    </Stack>
+                                                )}
+
                                             </div>
 
 
