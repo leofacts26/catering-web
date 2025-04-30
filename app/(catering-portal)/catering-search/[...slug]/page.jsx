@@ -232,14 +232,14 @@ const page = () => {
                                 <div>
                                     <h2 className="vc-cater">Cuisines We Cater</h2>
                                     <Stack direction="row" flexWrap="wrap" alignItems="start" spacing={3}>
-                                        {selectedCuisines.slice(0, cuisineCount).map((item, index) => (
+                                        {selectedCuisines.slice(0, cuisineCount).map((item, index, array) => (
                                             <span
                                                 className="cuisine-detail-list"
                                                 key={index}
                                                 style={{ marginLeft: "0px", marginRight: "0px", marginBottom: "10px" }}
                                             >
                                                 {item?.cuisine_name}
-                                                {index !== Math.min(cuisineCount, selectedCuisines.length) - 1 && (
+                                                {array.length > 1 && index < array.length - 1 && (
                                                     <span style={{ marginLeft: "10px", marginRight: "10px", marginBottom: "10px" }}>
                                                         |
                                                     </span>

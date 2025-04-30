@@ -107,7 +107,7 @@ const Page = () => {
 
     const highlightedMarker = {
         url: '/img/icons/catering-map-icon-tiffin.svg', // Add a special icon for the selected location
-        scaledSize: new window.google.maps.Size(100, 100),
+        scaledSize: new window.google.maps.Size(50, 50),
         origin: new window.google.maps.Point(0, 0),
         anchor: new window.google.maps.Point(25, 50)
     };

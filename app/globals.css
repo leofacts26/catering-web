@@ -1692,7 +1692,7 @@ h6 {
 }
 
 .vc-cater-tiffin {
-  color: #d9822b;
+  color: #d9822b !important;
   margin-bottom: 10px;
   margin-top: 20px;
   font-weight: 500;

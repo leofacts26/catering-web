@@ -300,7 +300,7 @@ const ListViewTiffin = () => {
                                                                 onClick={() => onHandleShare(getSearchCard.id, { vendorId: getSearchCard.vendor_id, Id: getSearchCard.id })}
                                                             />
                                                             {accessToken ? <>
-                                                                {wishlist[getSearchCard?.id] ? <FavoriteIcon className='lse-icons cursor-pointer fill-heart-catering' onClick={() => onHandleAddFavourite(getSearchCard?.id)} /> : <FavoriteBorderIcon className='lse-icons cursor-pointer' onClick={() => onHandleAddFavourite(getSearchCard?.id)} />}
+                                                                {wishlist[getSearchCard?.id] ? <FavoriteIcon className='lse-icons cursor-pointer fill-heart-tiffin' onClick={() => onHandleAddFavourite(getSearchCard?.id)} /> : <FavoriteBorderIcon className='lse-icons cursor-pointer' onClick={() => onHandleAddFavourite(getSearchCard?.id)} />}
                                                             </> : <FavoriteBorderIcon className='lse-icons cursor-pointer' onClick={handleClickOpen} />}
                                                         </Stack>
                                                         <Stack direction="row" alignItems="center" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} style={{ marginTop: '8px' }}>

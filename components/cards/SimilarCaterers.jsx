@@ -85,7 +85,7 @@ const SimilarCaterers = ({ tiffin, data }) => {
     return (
         <Container maxWidth="xl" style={{ marginTop: '30px', marginBottom: '30px' }}>
             <Stack sx={{ marginBottom: '10px' }} alignItems="center" justifyContent="space-between" direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 1, sm: 2, md: 4 }}>
-                <h2 className='font-24 similar-caterers'>Similar Caterers / Popular Caterers in your area dd</h2>
+                <h2 className='font-24 similar-caterers'>Similar Caterers in your area</h2>
                 <Link href="/catering-search" className="vc-see-all" style={{ color: tiffin ? '#D9822B' : '#C33332' }}>See all</Link>
             </Stack>
 

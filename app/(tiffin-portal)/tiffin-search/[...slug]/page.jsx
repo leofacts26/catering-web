@@ -71,6 +71,7 @@ const page = () => {
 
   const [data, setData] = useState()
 
+
   useEffect(() => {
     dispatch(setSimilarCatererTiffinData(data))
   }, [data])
@@ -214,16 +215,18 @@ const page = () => {
                 <div>
                   <h2 className="vc-cater-tiffin" style={{ marginBottom: '10px' }}>Cuisines We Cater</h2>
                   <Stack direction="row" flexWrap="wrap" alignItems="start" spacing={3}>
-                    {selectedCuisines.slice(0, cuisineCount).map((item, index) => (
+                    {selectedCuisines.slice(0, cuisineCount).map((item, index, array) => (
                       <span
                         className="cuisine-detail-list"
                         key={index}
                         style={{ marginLeft: "0px", marginRight: "0px", marginBottom: "10px" }}
                       >
                         {item?.cuisine_name}{" "}
-                        <span style={{ marginLeft: "10px", marginRight: "10px", marginBottom: "10px" }}>
-                          |
-                        </span>
+                        {array.length > 1 && index < array.length - 1 && (
+                          <span style={{ marginLeft: "10px", marginRight: "10px", marginBottom: "10px" }}>
+                            |
+                          </span>
+                        )}
                       </span>
                     ))}
 
@@ -239,7 +242,7 @@ const page = () => {
                 </div>
               ) : (
                 <div>
-                  <h2 className="food-type">Cuisines We Cater: </h2>
+                  <h2 className="food-type vc-cater-tiffin">Cuisines We Cater: </h2>
                   <p className="vc-about-content vc-markdown mt-1">N/A</p>
                 </div>
               )}
@@ -382,7 +385,7 @@ const page = () => {
                   <p className="vc-service-type">Meal Times</p>
                   <h3 className="vc-service-heading">
                     {data?.mealTimes
-                      ?.filter((item) => item.selected === "1")
+                      ?.filter((item) => item.selected === 1)
                       ?.slice(0, 8)
                       ?.map((item) => item.meal_time_name)
                       .join(" , ")}

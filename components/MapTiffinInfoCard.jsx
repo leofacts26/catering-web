@@ -21,9 +21,9 @@ const MapTiffinInfoCard = ({ infoWindowData, tiffin }) => {
                     onNavigateDetailPage(getSearchCard?.vendor_id, getSearchCard?.id)
                     e.stopPropagation()
                 }}>
-                <div className="vc-similar-card-map">
-                    <div className="grid-img-box">
-                        <img src={imageSrc} alt="" className="img-fluid vc-similar-card-img map-card-fix-img" />
+                <div className="vc-similar-card-map" style={{width: '300px'}}>
+                    <div className="grid-img-box" >
+                        <img src={imageSrc} style={{objectFit: 'cover'}}  alt="" className="img-fluid vc-similar-card-img map-card-fix-img" />
                     </div>
                     <div className="vc-similar-card-description">
                         <Stack direction="row" justifyContent="space-between" alignItems="start" style={{ marginTop: '10px', marginBottom: '10px' }}>
@@ -55,7 +55,7 @@ const MapTiffinInfoCard = ({ infoWindowData, tiffin }) => {
                                         }
                                         return (
                                             <Stack direction="row" alignItems="center" spacing={0} key={index}>
-                                                <img src={iconSrc} className='list-card-veg' alt="" />
+                                                <img src={iconSrc} className='list-card-veg' alt=""  />
                                                 <p className={`list-card-veg-font ${foodClassName}`}> {food_type} </p>
                                             </Stack>
                                         )
