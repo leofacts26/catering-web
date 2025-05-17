@@ -153,36 +153,52 @@ export const fetchGetAllTiffinSubscriptionTypes = createAsyncThunk(
 )
 
 export const fetchTiffinSimilarCaterer = createAsyncThunk(
-    'user/fetchTiffinSimilarCaterer',
-    async (data, thunkAPI) => {
-        // const { locationValuesGlobal } = data;
-        const startDate = thunkAPI.getState().globalnavbar?.startDate;
-        const endDate = thunkAPI.getState().globalnavbar?.endDate;
-        const people = thunkAPI.getState().globalnavbar?.people;
-        const locationValuesGlobal = thunkAPI.getState().globalnavbar?.locationValuesGlobal;
+  'user/fetchTiffinSimilarCaterer',
+  async (data, thunkAPI) => {
+    const state = thunkAPI.getState();
+    const startDate = state.globalnavbar?.startDate;
+    const endDate = state.globalnavbar?.endDate;
 
-        // const global = thunkAPI.getState().tiffinFilter?.similarCatererTiffinData;
+    const foodtype_filter_formatted = (data?.foodTypes || [])
+      .filter(item => item.id !== "1")
+      .map(foodType => ({
+        id: foodType.id,
+        selected: foodType.selectedweb ? 1 : 0
+      }));
 
-        // // foodtype_filter_formatted 
-        const foodtype_filter_formatted = data?.foodTypes
-            .filter(item => item.id !== "1")
-            .map(foodType => ({
-                id: foodType.id,
-                selected: foodType.selectedweb ? 1 : 0
-            }));
-
-        try {
-            const response = await api.get(`${BASE_URL}/search-vendors?search_term=${data?.vendor_service_name}&order_by=distance&limit=100&save_filter=1&vendor_type=Tiffin&app_type=web&latitude=${data?.latitude || ""}&longitude=${data?.longitude || ""}&city=${data?.city || ""}&pincode=${data?.pincode || ""}&place_id=${data?.place_id || ''}&food_types_filter=${JSON.stringify(foodtype_filter_formatted)}&start_date=${moment(startDate).format('YYYY-MM-DD')}&end_date=${moment(endDate).format('YYYY-MM-DD')}&shuffled=1`, {
-                headers: {
-                    authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
-                },
-            });
-            return response?.data?.data;
-        } catch (error) {
-            return thunkAPI.rejectWithValue(error.response.data.msg);
+    try {
+      const response = await api.post(
+        `${BASE_URL}/search-vendors`,
+        {
+          search_term: data?.vendor_service_name || "",
+          order_by: "distance",
+          limit: 100,
+          save_filter: 1,
+          vendor_type: "Tiffin",
+          app_type: "web",
+          latitude: data?.latitude || "",
+          longitude: data?.longitude || "",
+          city: data?.city || "",
+          pincode: data?.pincode || "",
+          place_id: data?.place_id || '',
+          food_types_filter: JSON.stringify(foodtype_filter_formatted),
+          start_date: moment(startDate).format('YYYY-MM-DD'),
+          end_date: moment(endDate).format('YYYY-MM-DD'),
+          shuffled: 1
+        },
+        {
+          headers: {
+            authorization: `Bearer ${state?.user?.accessToken}`,
+          },
         }
+      );
+
+      return response?.data?.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error?.response?.data?.msg || "Something went wrong");
     }
-)
+  }
+);
 
 
 
