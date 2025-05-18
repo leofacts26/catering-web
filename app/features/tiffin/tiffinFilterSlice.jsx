@@ -170,7 +170,7 @@ export const fetchTiffinSimilarCaterer = createAsyncThunk(
       const response = await api.post(
         `${BASE_URL}/search-vendors`,
         {
-          search_term: data?.vendor_service_name || "",
+          search_term: "",
           order_by: "distance",
           limit: 100,
           save_filter: 1,
