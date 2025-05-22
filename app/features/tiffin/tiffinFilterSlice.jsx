@@ -203,112 +203,113 @@ export const fetchTiffinSimilarCaterer = createAsyncThunk(
 
 
 export const fetchTiffinMapviewSearchCards = createAsyncThunk(
-    'user/fetchTiffinMapviewSearchCards',
-    async (data, thunkAPI) => {
-      const state = thunkAPI.getState();
-      const {
-        startDate,
-        endDate,
-        people,
-        locationValuesGlobal
-      } = state.globalnavbar || {};
-  
-      const {
-        tiffinSubscriptionTypes,
-        getTiffinPriceRanges,
-        getTiffinFoodTypes,
-        getTiffinMealTypes,
-        getTiffinServiceTypes,
-        getTiffinKitchenTypes,
-        current_page,
-        limit,
-        total_count,
-        tiffinSortBy,
-        getTiffinRatings
-      } = state.tiffinFilter || {};
-  
-      const selectedPriceRanges = getTiffinPriceRanges?.filter(price => price?.selectedweb === 1);
-      const updatedPriceTypes_formatted = selectedPriceRanges?.map(price => ({
-        id: price.id,
-        start_price: parseFloat(price.start_price),
-        end_price: parseFloat(price.end_price)
+  'user/fetchTiffinMapviewSearchCards',
+  async (_, thunkAPI) => {
+    const state = thunkAPI.getState();
+    const {
+      startDate,
+      endDate,
+      people,
+      locationValuesGlobal,
+       vendorlistitem
+    } = state.globalnavbar || {};
+
+    const {
+      tiffinSubscriptionTypes,
+      getTiffinPriceRanges,
+      getTiffinFoodTypes,
+      getTiffinMealTypes,
+      getTiffinServiceTypes,
+      getTiffinKitchenTypes,
+      current_page,
+      limit,
+      tiffinSortBy,
+      getTiffinRatings
+    } = state.tiffinFilter || {};
+
+    const selectedPriceRanges = (getTiffinPriceRanges || []).filter(p => p?.selectedweb === 1);
+    const updatedPriceTypes_formatted = selectedPriceRanges.map(p => ({
+      id: Number(p.id),
+      start_price: parseFloat(p.start_price),
+      end_price: parseFloat(p.end_price)
+    }));
+
+    const foodtype_filter_formatted = (getTiffinFoodTypes || [])
+      .filter(item => item.id !== "1")
+      .map(foodType => ({
+        id: Number(foodType.id),
+        selected: foodType.selectedweb
       }));
-  
-      const foodtype_filter_formatted = getTiffinFoodTypes
-        ?.filter(item => item.id !== "1")
-        .map(foodType => ({
-          id: foodType.id,
-          selected: foodType.selectedweb
-        }));
-  
-      const mealtype_filter_formatted = getTiffinMealTypes?.map(mealType => ({
-        id: mealType.id,
-        selected: mealType.selectedweb
-      }));
-  
-      const servicetype_filter_formatted = getTiffinServiceTypes?.map(serviceType => ({
-        id: serviceType.id,
-        selected: serviceType.selectedweb
-      }));
-  
-      const kitchentype_filter_formatted = getTiffinKitchenTypes?.map(kitchenType => ({
-        id: kitchenType.id,
-        selected: kitchenType.selectedweb
-      }));
-  
-      const tiffinSubscriptionTypes_formatted = tiffinSubscriptionTypes?.map(subscriptionType => ({
-        subscription_type_id: Number(subscriptionType.id),
-        selected: subscriptionType.selectedweb
-      }));
-  
-      const rating_tiffin_filter_formatted = getTiffinRatings?.map(item => ({
-        rating: item.rating,
-        selected: item.selectedweb
-      }));
-  
-      const payload = {
-        search_term: people,
-        vendor_type: "Tiffin",
-        app_type: "web",
-        limit: total_count,
-        current_page: 1,
-        save_filter: 1,
-        order_by_filter: tiffinSortBy,
-        price_ranges: updatedPriceTypes_formatted,
-        ratings_filter: rating_tiffin_filter_formatted,
-        subscription_types_filter: tiffinSubscriptionTypes_formatted,
-        kitchen_types_filter: kitchentype_filter_formatted,
-        meal_times_filter: mealtype_filter_formatted,
-        food_types_filter: foodtype_filter_formatted,
-        service_types_filter: servicetype_filter_formatted,
-        is_city_search: 1,
-        start_date: moment(startDate).format('YYYY-MM-DD'),
-        end_date: moment(endDate).format('YYYY-MM-DD'),
-        latitude: locationValuesGlobal?.latitude || "",
-        longitude: locationValuesGlobal?.longitude || "",
-        city: locationValuesGlobal?.city?.long_name || "",
-        pincode: locationValuesGlobal?.pincode || "",
-        place_id: locationValuesGlobal?.place_id || ""
-      };
-  
-      try {
-        const response = await api.post(
-          `${BASE_URL}/search-vendors`,
-          JSON.stringify(payload),
-          {
-            headers: {
-              "Content-Type": "application/json",
-              authorization: `Bearer ${state?.user?.accessToken}`
-            }
-          }
-        );
-        return response?.data?.data;
-      } catch (error) {
-        return thunkAPI.rejectWithValue(error.response?.data?.msg || "Something went wrong");
-      }
+
+    const mealtype_filter_formatted = (getTiffinMealTypes || []).map(mealType => ({
+      id: Number(mealType.id),
+      selected: mealType.selectedweb
+    }));
+
+    const servicetype_filter_formatted = (getTiffinServiceTypes || []).map(serviceType => ({
+      id: Number(serviceType.id),
+      selected: serviceType.selectedweb
+    }));
+
+    const kitchentype_filter_formatted = (getTiffinKitchenTypes || []).map(kitchenType => ({
+      id: Number(kitchenType.id),
+      selected: kitchenType.selectedweb
+    }));
+
+    const tiffinSubscriptionTypes_formatted = (tiffinSubscriptionTypes || []).map(sub => ({
+      subscription_type_id: Number(sub.id),
+      selected: sub.selectedweb
+    }));
+
+    const rating_filter_formatted = (getTiffinRatings || []).map(item => ({
+      rating: item.rating,
+      selected: item.selectedweb
+    }));
+
+    try {
+      const response = await api.post(
+        `${BASE_URL}/search-vendors`,
+        {
+          search_term: people || '',
+          vendor_type: "Tiffin",
+          selected_vendor: vendorlistitem || "",
+          app_type: "web",
+          limit: current_page * limit,
+          save_filter: 1,
+          order_by: 'distance',
+          order_by_filter: JSON.stringify(tiffinSortBy || []),
+          price_ranges: JSON.stringify(updatedPriceTypes_formatted),
+          ratings_filter: JSON.stringify(rating_filter_formatted),
+          subscription_types_filter: JSON.stringify(tiffinSubscriptionTypes_formatted),
+          kitchen_types_filter: JSON.stringify(kitchentype_filter_formatted),
+          meal_times_filter: JSON.stringify(mealtype_filter_formatted),
+          food_types_filter: JSON.stringify(foodtype_filter_formatted),
+          service_types_filter: JSON.stringify(servicetype_filter_formatted),
+          is_city_search: "1",
+          start_date: moment(startDate).format('YYYY-MM-DD'),
+          end_date: moment(endDate).format('YYYY-MM-DD'),
+          latitude: locationValuesGlobal?.latitude || "",
+          longitude: locationValuesGlobal?.longitude || "",
+          city: locationValuesGlobal?.city?.long_name || "",
+          pincode: locationValuesGlobal?.pincode || "",
+          place_id: locationValuesGlobal?.place_id || ""
+        },
+        {
+          headers: {
+            authorization: `Bearer ${state?.user?.accessToken}`,
+          },
+        }
+      );
+
+      return response?.data?.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error?.response?.data?.msg || "Something went wrong");
     }
-  );
-  
+  }
+);
+
+
+
 
 export const fetchtiffinSearchCards = createAsyncThunk(
     'user/fetchtiffinSearchCards',
