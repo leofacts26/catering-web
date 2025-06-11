@@ -38,6 +38,14 @@ export default function Page() {
             <p className="mb-4">Catering & Tiffin’s is more than just a platform; it's a community that celebrates the joy of food and brings people together through delicious experiences. Whether you're seeking a caterer for a special event or a daily dose of home-cooked comfort, we're here to connect you with the perfect culinary solution. </p>
 
 
+            <div className="mb-4">
+                <h2>Business Information:</h2>
+                <p><strong>Business Name:</strong> Giraffette Corporate Services LLP</p>
+                <p><strong>Billing Name:</strong> Giraffette Products</p>
+                <p><strong>Operational Address:</strong> #93, 1st Floor, Nehru Road, Kammanahalli Circle, Bangalore – 560084, Karnataka, India</p>
+
+            </div>
+
 
         </Container>
 
