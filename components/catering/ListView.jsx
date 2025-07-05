@@ -140,7 +140,7 @@ const ListView = () => {
                     const imageSrc = getSearchCard?.subscription_type_name === "branded" && brandLogo || bannerImage || 'img/no-image.jpg';
                     // const randomCuisines = getRandomCuisines(getSearchCard?.cuisines || [], 8);
                     const filterFoodTypes = getSearchCard?.food_types.filter((item) => item !== 'All')
-                    console.log(getSearchCard, "getSearchCard");
+                    // console.log(getSearchCard, "getSearchCard");
 
                     let tagColor = "";
                     if (getSearchCard?.subscription_type_name === "popular") {
