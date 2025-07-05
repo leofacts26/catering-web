@@ -21,10 +21,13 @@ import { fetchtiffinSearchCards } from '@/app/features/tiffin/tiffinFilterSlice'
 import useGetLocationResults from '@/hooks/catering/useGetLocationResults';
 import { useTheme } from '@emotion/react';
 import { useMediaQuery, Drawer } from '@mui/material';
+import useDocumentTitle from '@/components/useDocumentTitle';
 
 
 
 const page = () => {
+  useDocumentTitle('Caterings & Tiffins');
+
   const router = useRouter()
   const { getTiffinSearchCards, total_count } = useSelector((state) => state.tiffinFilter)
   const [checked, setChecked] = useState(true);
@@ -80,9 +83,9 @@ const page = () => {
                 <img src="/img/Search-Result-View-Page-Images/01-map.png" alt="" className="img-fluid" style={{ borderRadius: '5px', marginBottom: '4px' }} />
                 <div className="position-absolute map-box">
                   <Button
-                  onClick={() => onHandleMapView()} 
-                  // onClick={() => window.open('/tiffin-search/tiffin-map', '_blank')} 
-                  variant="contained" className='show-on-map' sx={{ backgroundColor: '#d9822b', fontSize: '10px', '&:hover': { backgroundColor: '#d9822b' } }}>Show on map</Button>
+                    onClick={() => onHandleMapView()}
+                    // onClick={() => window.open('/tiffin-search/tiffin-map', '_blank')} 
+                    variant="contained" className='show-on-map' sx={{ backgroundColor: '#d9822b', fontSize: '10px', '&:hover': { backgroundColor: '#d9822b' } }}>Show on map</Button>
                 </div>
               </div>
 
@@ -92,7 +95,7 @@ const page = () => {
               {isMobileOrTab && (
                 <Box
                   display="flex"
-                 justifyContent="space-between"
+                  justifyContent="space-between"
                   alignItems="end"
                   mt={2}
                 >

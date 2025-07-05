@@ -2,6 +2,11 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import Container from '@mui/material/Container';
 
+export const metadata = {
+    title: 'Our Mission - Caterings & Tiffins',
+};
+
+
 export default function Page() {
     return <>
         <section className='nav-bg nav-bg-footer'>
@@ -21,7 +26,7 @@ export default function Page() {
             <p className="my-3">5. <b>Building Community:</b> Bridging the gap between local vendors and customers to foster meaningful connections within the food service ecosystem.</p>
             <p className="my-3">We strive to be the go-to platform for both service providers and customers, ensuring mutual growth, trust, and satisfaction. Together, we aim to set new standards in the catering and tiffin services industry.</p>
 
-           
+
 
 
         </Container>

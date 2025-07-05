@@ -17,10 +17,12 @@ import { styled } from '@mui/material/styles';
 import MapAsyncSelect from '@/components/MapAsyncSelect';
 import MapTiffinInfoCard from '@/components/MapTiffinInfoCard';
 import { setlLocationValuesGlobal } from '@/app/features/user/globalNavSlice';
+import useDocumentTitle from '@/components/useDocumentTitle';
 
 
 
 const Page = () => {
+    useDocumentTitle('Caterings & Tiffins');
     const { getTiffinMapviewSearchCards, isLoading } = useSelector((state) => state.tiffinFilter);
     const dispatch = useDispatch();
     const [mapRef, setMapRef] = useState();

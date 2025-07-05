@@ -2,6 +2,12 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import Container from '@mui/material/Container';
 
+
+export const metadata = {
+    title: 'Disclaimer - Caterings & Tiffins',
+};
+
+
 export default function Page() {
     return <>
         <section className='nav-bg nav-bg-footer'>

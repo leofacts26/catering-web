@@ -14,8 +14,10 @@ import MapAsyncSelectCatering from '@/components/MapAsyncSelectCatering';
 import LoaderSpinner from '@/components/LoaderSpinner';
 import MapTiffinInfoCard from '@/components/MapTiffinInfoCard';
 import { setlLocationValuesGlobal } from '@/app/features/user/globalNavSlice';
+import useDocumentTitle from '@/components/useDocumentTitle';
 
 const page = () => {
+    useDocumentTitle('Caterings & Tiffins');
     const { getCateringMapviewSearchCards, isLoading } = useSelector((state) => state.cateringFilter)
     const dispatch = useDispatch();
     const [mapRef, setMapRef] = useState();

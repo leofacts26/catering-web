@@ -118,8 +118,8 @@ const Footer = () => {
                                         <h3 className="footer-sub-heading">Contact</h3>
                                         <Box>
                                             <ul className="footer-ul">
-                                                <li><Link href="emailto:test@gmail.com">Support Email</Link></li>
-                                                <li><Link href="tel:+919876543210">+91-9876543210</Link></li>
+                                                <li><Link href="emailto:support@cateringsandtiffins.com">support@cateringsandtiffins.com</Link></li>
+                                                <li><Link href="tel:+919597424052">+91-9597424052</Link></li>
                                                 <li>#93, 1st Floor, Nehru Road,<br />Kammanahalli Circle,<br />Bangalore – 560084, Karnataka, India</li>
                                                 <li>Billing Name: Giraffette Products</li>
                                             </ul>

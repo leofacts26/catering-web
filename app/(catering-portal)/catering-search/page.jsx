@@ -22,8 +22,10 @@ import { fetchCateringCuisines, fetchCateringFoodTypes, fetchCateringSearchCards
 import useGetLocationResults from '@/hooks/catering/useGetLocationResults';
 import { useMediaQuerym, Drawer, useMediaQuery } from '@mui/material';
 import { useTheme } from '@emotion/react';
+import useDocumentTitle from '@/components/useDocumentTitle';
 
 const page = () => {
+   useDocumentTitle('Caterings & Tiffins');
   const [checked, setChecked] = useState(true);
   const { selectedLocation } = useGetLocationResults()
   const [isFilterOpen, setIsFilterOpen] = useState(false);

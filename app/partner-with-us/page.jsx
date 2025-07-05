@@ -2,6 +2,12 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import Container from '@mui/material/Container';
 
+
+export const metadata = {
+    title: 'Partner With Us - Caterings & Tiffins',
+};
+
+
 export default function Page() {
     return <>
         <section className='nav-bg nav-bg-footer'>
@@ -56,7 +62,7 @@ export default function Page() {
 
             <h2 className="mb-2"> Conclusion </h2>
             <p className="mb-3"> By becoming an investor partner with our online "Caterings and Tiffins" vendor marketplace, you are not just investing in a business; you're joining a mission to celebrate the art of food and foster connections through every plate served. We invite you to reach out and explore this opportunity with us. Together, we can create a thriving space where local talent shines, and everyone gets a taste of home. </p>
-            
+
 
 
 

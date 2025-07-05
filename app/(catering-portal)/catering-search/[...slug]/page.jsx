@@ -42,11 +42,12 @@ import FoodType from "@/components/FoodType";
 import toast from "react-hot-toast";
 import { Link } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
+import useDocumentTitle from '@/components/useDocumentTitle';
 
 
 
 const page = () => {
-
+    useDocumentTitle('Caterings & Tiffins');
     const [showAll, setShowAll] = useState(true)
     const [count, setCount] = useState(3)
     const [isAnimating, setIsAnimating] = useState(false);
