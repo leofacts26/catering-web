@@ -29,14 +29,15 @@ const Footer = () => {
                     <Stack direction="row" justifyContent="end" style={{ marginBottom: '30px' }}>
                         <img src="/img/footer/google-play-badge.png" alt="" className="img-fluid" style={{ width: '160px', objectFit: 'contain' }} />
                         <img src="/img/footer/apple.png" alt="" className="img-fluid" style={{ width: '150px', objectFit: 'contain' }} />
+
                     </Stack>
                     <Box sx={{ flexGrow: 1 }}>
                         <Grid container spacing={2}>
                             <Grid item xs={12} sm={12} md={12} lg={4} xl={5}>
-                                <Stack direction="row" justifyContent="center" alignItems="center" sx={{ height: '100%' }}>
+                                <Stack direction="row" justifyContent="center" alignItems="top" sx={{ height: '100%' }}>
                                     <img src="/img/footer/footer-logo.png" alt="" className="img-fluid" style={{ width: '300px', objectFit: 'contain' }} />
-
                                 </Stack>
+
                             </Grid>
                             <Grid item xs={12} sm={12} md={12} lg={8} xl={7}>
                                 <Grid container spacing={5}>
@@ -71,7 +72,7 @@ const Footer = () => {
                                                 <li><Link href="/security-policy">Security Policy</Link></li>
                                                 <li><Link href="/terms-and-conditions">Terms & Conditions</Link></li>
                                                 <li><Link href="/disclaimer">Disclaimer</Link></li>
-                                                {/* <li><Link href="/subscription-cancelation-refund">Cancellation & Refund Policy </Link></li> */}
+                                                <li><Link href="/subscription-cancelation-refund">Cancellation & Refund Policy </Link></li>
                                                 <li><Link href="/partner-with-us"> Partner With Us </Link></li>
                                             </ul>
                                         </Box>
@@ -109,6 +110,7 @@ const Footer = () => {
                                                     )}
                                                 </li>
                                                 <li><Link href="#newsletter">Newsletter</Link></li>
+                                                <li><Link href="/contact-us">Contact Us</Link></li>
                                             </ul>
                                         </Box>
                                     </Grid>
@@ -117,8 +119,9 @@ const Footer = () => {
                                         <Box>
                                             <ul className="footer-ul">
                                                 <li><Link href="emailto:test@gmail.com">Support Email</Link></li>
-                                                <li><Link href="tel:9999999999">Phone No</Link></li>
-                                                <li><Link href="/catering">Address</Link></li>
+                                                <li><Link href="tel:+919876543210">+91-9876543210</Link></li>
+                                                <li>#93, 1st Floor, Nehru Road,<br />Kammanahalli Circle,<br />Bangalore – 560084, Karnataka, India</li>
+                                                <li>Billing Name: Giraffette Products</li>
                                             </ul>
                                             <Stack direction="row" spacing={1} sx={{ marginTop: '10px' }}>
                                                 <FacebookIcon />
@@ -132,6 +135,8 @@ const Footer = () => {
                             </Grid>
                         </Grid>
                     </Box>
+
+
                     <Stack direction="row" justifyContent="center" sx={{ marginTop: '50px' }}>
                         <p className='footer-copywright'>Copyright © - CateringsandTiffins.com™ All Rights Reserved</p>
                     </Stack>

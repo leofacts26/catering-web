@@ -54,7 +54,10 @@ const useAllowLocation = () => {
         const longitude = position.coords.longitude;
 
         try {
-            const response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=AIzaSyBf22eHEMxKk_9x0XWag-oCFTXkdClnPw8`);
+            // const response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=AIzaSyBf22eHEMxKk_9x0XWag-oCFTXkdClnPw8`);
+            const response = await axios.get(
+                `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}`
+            );
             const results = response.data.results;
             let maxAddressComponentsLength = -1;
             let selectedAddress = null;

@@ -63,7 +63,8 @@ const Page = () => {
     }, [dispatch]);
 
     const { isLoaded } = useLoadScript({
-        googleMapsApiKey: "AIzaSyBf22eHEMxKk_9x0XWag-oCFTXkdClnPw8",
+        // googleMapsApiKey: "AIzaSyBf22eHEMxKk_9x0XWag-oCFTXkdClnPw8",
+        googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
     });
 
     const markers = useMemo(() => {
