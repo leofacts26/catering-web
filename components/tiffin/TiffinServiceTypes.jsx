@@ -14,9 +14,9 @@ const TiffinServiceTypes = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        if (!getTiffinServiceTypes.length > 0) {
+        // if (!getTiffinServiceTypes.length > 0) {
             dispatch(fetchTiffinServiceTypes());
-        }
+        // }
     }, [dispatch, getTiffinServiceTypes.length]);
 
     // handleCheckboxChange 

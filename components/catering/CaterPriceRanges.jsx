@@ -14,9 +14,9 @@ const CaterPriceRanges = () => {
 
 
     useEffect(() => {
-        if (!getCateringPriceRanges.length) {
+        // if (!getCateringPriceRanges.length) {
             dispatch(fetchPriceRanges());
-        }
+        // }
     }, [dispatch, getCateringPriceRanges.length]);
 
 

@@ -52,9 +52,9 @@ const CaterCuisineFilter = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
-    if (!getCateringCuisines.length) {
+    // if (!getCateringCuisines.length) {
       dispatch(fetchCateringCuisines());
-    }
+    // }
   }, [dispatch, getCateringCuisines.length]);
 
   const handleSearchChange = (event) => {

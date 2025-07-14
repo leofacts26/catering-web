@@ -12,9 +12,9 @@ const TiffinPriceRanges = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        if (!getTiffinPriceRanges.length) {
+        // if (!getTiffinPriceRanges.length) {
             dispatch(fetchTiffinPriceRanges());
-        }
+        // }
     }, [dispatch, getTiffinPriceRanges.length]);
 
     // handleCheckboxChange 

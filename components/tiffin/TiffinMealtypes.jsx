@@ -13,9 +13,9 @@ const TiffinMealtypes = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        if (!getTiffinMealTypes.length) {
+        // if (!getTiffinMealTypes.length) {
             dispatch(fetchTiffinMealTypes());
-        }
+        // }
     }, [dispatch, getTiffinMealTypes.length]);
 
     const onHandleMealFilter = useCallback((mealtype) => {

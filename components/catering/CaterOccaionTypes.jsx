@@ -14,14 +14,17 @@ const CaterOccaionTypes = () => {
     const [occCount, setoccCount] = useState(false)
     const dispatch = useDispatch()
 
+//    console.log(getOccasionCateringTypes, "getOccasionCateringTypes");
+   
+
     const [showAll, setShowAll] = useState(true)
     const [count, setCount] = useState(8)
 
 
     useEffect(() => {
-        if (!getOccasionCateringTypes?.length) {
+        // if (!getOccasionCateringTypes?.length) {
             dispatch(fetchOccasionCateringTypes(occasionCount || 5));
-        }
+        // }
     }, [dispatch, getOccasionCateringTypes?.length, occasionCount]);
 
 

@@ -13,9 +13,9 @@ const CaterFoodTypes = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        if (!getCateringFoodTypes.length) {
+        // if (!getCateringFoodTypes.length) {
             dispatch(fetchCateringFoodTypes());
-        }
+        // }
     }, [dispatch, getCateringFoodTypes.length]);
 
 

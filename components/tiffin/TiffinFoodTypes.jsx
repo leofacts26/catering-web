@@ -13,9 +13,9 @@ const TiffinFoodTypes = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        if (!getTiffinFoodTypes.length) {
+        // if (!getTiffinFoodTypes.length) {
             dispatch(fetchTiffinFoodTypes());
-        }
+        // }
     }, [dispatch, getTiffinFoodTypes.length]);
 
     // handleCheckboxChange 
