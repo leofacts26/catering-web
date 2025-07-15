@@ -572,6 +572,7 @@ export const fetchCatererSimilarCaterer = createAsyncThunk(
       const response = await api.post(
         `${BASE_URL}/search-vendors`,
         {
+          is_city_search: 1,
           search_term: "",
           order_by: "distance",
           limit: 100,
