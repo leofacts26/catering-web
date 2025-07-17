@@ -713,7 +713,8 @@ export const cateringFilterSlice = createSlice({
             // Support both: payload = { occasionId, getOccasionCateringTypes, forceSelect }
             const { occasionId, getOccasionCateringTypes, forceSelect } = action.payload;
             const updatedOccasions = getOccasionCateringTypes?.map((occasion) => {
-                if (Number(occasion.occasion_id) === Number(occasionId)) {
+                // Compare as string for robust query param matching
+                if (String(occasion.occasion_id) === String(occasionId)) {
                     if (forceSelect) {
                         return { ...occasion, selectedweb: 1 };
                     } else {

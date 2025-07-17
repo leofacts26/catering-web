@@ -79,16 +79,19 @@ const page = () => {
     });
   }, [getCateringCuisines?.length]);
 
-  // Occasion force-select logic (keep existing)
+  // Occasion force-select logic (only if not already selected)
   useEffect(() => {
     const occasionId = searchParams.get('occasionId');
     if (occasionId && getOccasionCateringTypes?.length) {
-      setTimeout(() => {
+      const alreadySelected = getOccasionCateringTypes.some(
+        (o) => String(o.occasion_id) === String(occasionId) && o.selectedweb === 1
+      );
+      if (!alreadySelected) {
         dispatch({ type: 'cateringFilter/setOccasionTypes', payload: { occasionId, getOccasionCateringTypes, forceSelect: true } });
         dispatch(fetchCateringSearchCards());
-      }, 100);
+      }
     }
-  }, [getOccasionCateringTypes?.length]);
+  }, [getOccasionCateringTypes, searchParams]);
 
   const theme = useTheme();
   const isMobileOrTab = useMediaQuery(theme.breakpoints.down('lg'));
