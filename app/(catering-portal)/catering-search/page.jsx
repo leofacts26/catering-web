@@ -13,6 +13,7 @@ import Filters from '@/components/catering/Filters';
 import Stack from '@mui/material/Stack';
 import SwitchSearchResult from '@/components/catering/SwitchSearchResult';
 import { useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import SelectBox from '@/components/catering/SelectBox';
 import ListView from '@/components/catering/ListView';
 import GridViewList from '@/components/catering/GridView';
@@ -38,9 +39,19 @@ const page = () => {
   const dispatch = useDispatch()
   const { getCateringSearchCards, getCateringPriceRanges, getCateringFoodTypes, getCateringCuisines, getCateringServiceTypes, getCateringRatings, getCateringHeadCount, getCateringServingTypes, total_count } = useSelector((state) => state.cateringFilter)
 
+  const searchParams = useSearchParams();
+  const { getOccasionCateringTypes } = useSelector((state) => state.cateringFilter);
   useEffect(() => {
-    dispatch(fetchCateringSearchCards());
-  }, [])
+    dispatch(fetchCateringSearchCards()).then(() => {
+      const occasionId = searchParams.get('occasionId');
+      if (occasionId && getOccasionCateringTypes?.length) {
+        setTimeout(() => {
+          dispatch({ type: 'cateringFilter/setOccasionTypes', payload: { occasionId, getOccasionCateringTypes, forceSelect: true } });
+          dispatch(fetchCateringSearchCards());
+        }, 100);
+      }
+    });
+  }, [getOccasionCateringTypes?.length]);
 
   const theme = useTheme();
   const isMobileOrTab = useMediaQuery(theme.breakpoints.down('lg'));

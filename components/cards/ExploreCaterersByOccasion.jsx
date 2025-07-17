@@ -34,9 +34,8 @@ const ExploreCaterersByOccasion = () => {
 
 
     const handleImageClick = (occasionId) => {
-        dispatch(setOccasionTypes({ occasionId, getOccasionCateringTypes }));
-        dispatch(fetchCateringSearchCards());
-        const url = `/catering-search`;
+        // Navigate with query param, let search page handle force select
+        const url = `/catering-search?occasionId=${occasionId}`;
         router.push(url);
     };
 

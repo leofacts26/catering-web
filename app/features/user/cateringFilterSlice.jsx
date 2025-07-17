@@ -691,10 +691,15 @@ export const cateringFilterSlice = createSlice({
             state.getCateringCuisines = updatedCuisines;
         },
         setOccasionTypes: (state, action) => {
-            const { occasionId, getOccasionCateringTypes } = action.payload;
+            // Support both: payload = { occasionId, getOccasionCateringTypes, forceSelect }
+            const { occasionId, getOccasionCateringTypes, forceSelect } = action.payload;
             const updatedOccasions = getOccasionCateringTypes?.map((occasion) => {
                 if (Number(occasion.occasion_id) === Number(occasionId)) {
-                    return { ...occasion, selectedweb: occasion.selectedweb === 1 ? 0 : 1 };
+                    if (forceSelect) {
+                        return { ...occasion, selectedweb: 1 };
+                    } else {
+                        return { ...occasion, selectedweb: occasion.selectedweb === 1 ? 0 : 1 };
+                    }
                 } else {
                     return occasion;
                 }
