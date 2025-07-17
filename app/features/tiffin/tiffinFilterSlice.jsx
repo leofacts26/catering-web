@@ -579,13 +579,26 @@ export const tiffinFilterSlice = createSlice({
             state.getTiffinServiceTypes = updatedServiceTypes;
         },
         setKitchenTypeFilter: (state, { payload }) => {
+            // Support both: payload = id (toggle), or { id, forceSelect } (set selectedweb=1)
+            let id, forceSelect;
+            if (typeof payload === 'object' && payload !== null) {
+                id = payload.id;
+                forceSelect = payload.forceSelect;
+            } else {
+                id = payload;
+                forceSelect = false;
+            }
             const updatedKitchenTypes = state?.getTiffinKitchenTypes?.map((kitchenType) => {
-                if (kitchenType.id === payload) {
-                    return { ...kitchenType, selectedweb: kitchenType.selectedweb === 1 ? 0 : 1 }
+                if (kitchenType.id === id) {
+                    if (forceSelect) {
+                        return { ...kitchenType, selectedweb: 1 };
+                    } else {
+                        return { ...kitchenType, selectedweb: kitchenType.selectedweb === 1 ? 0 : 1 };
+                    }
                 } else {
                     return kitchenType;
                 }
-            })
+            });
             state.getTiffinKitchenTypes = updatedKitchenTypes;
         },
         setTiffinSubscriptionFilter: (state, action) => {

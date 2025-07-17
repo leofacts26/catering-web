@@ -9,6 +9,7 @@ import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import { useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import TiffinSearchBar from '@/components/tiffin/TiffinSearchBar';
 import TiffinSwitchSearchResult from '@/components/tiffin/TiffinSwitchSearchResult';
 import TiffinSelectBox from '@/components/tiffin/TiffinSelectBox';
@@ -26,19 +27,31 @@ import useDocumentTitle from '@/components/useDocumentTitle';
 
 
 const page = () => {
+
   useDocumentTitle('Caterings & Tiffins');
 
-  const router = useRouter()
-  const { getTiffinSearchCards, total_count } = useSelector((state) => state.tiffinFilter)
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const { getTiffinSearchCards, total_count } = useSelector((state) => state.tiffinFilter);
   const [checked, setChecked] = useState(true);
   const dispatch = useDispatch();
-  const { selectedLocation } = useGetLocationResults()
+  const { selectedLocation } = useGetLocationResults();
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const { showOnMapLocLat } = useSelector((state) => state.globalnavbar)
+  const { showOnMapLocLat } = useSelector((state) => state.globalnavbar);
 
+  // On mount, check for kitchenType param and set selected kitchen type after fetch
   useEffect(() => {
-    dispatch(fetchtiffinSearchCards());
-  }, [])
+    const kitchenTypeId = searchParams.get('kitchenType');
+    dispatch(fetchtiffinSearchCards()).then(() => {
+      if (kitchenTypeId) {
+        // Delay to ensure kitchen types are fetched, then set selected with forceSelect
+        setTimeout(() => {
+          dispatch({ type: 'tiffinFilter/setKitchenTypeFilter', payload: { id: kitchenTypeId, forceSelect: true } });
+          dispatch(fetchtiffinSearchCards());
+        }, 100);
+      }
+    });
+  }, []);
 
   const theme = useTheme();
   const isMobileOrTab = useMediaQuery(theme.breakpoints.down('lg'));

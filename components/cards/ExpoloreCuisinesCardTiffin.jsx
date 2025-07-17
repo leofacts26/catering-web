@@ -42,9 +42,8 @@ const ExpoloreKitchenCardTiffin = () => {
     // console.log(getAllcuisines, "getAllcuisines");
     const onHandleKitchenFilter = (kitchen) => {
         const kitchenId = kitchen.id;
-        dispatch(setKitchenTypeFilter(kitchenId));
-        dispatch(fetchtiffinSearchCards());
-        const url = `/tiffin-search`;
+        // Pass kitchenType as query param
+        const url = `/tiffin-search?kitchenType=${kitchenId}`;
         router.push(url);
     }
 
