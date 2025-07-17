@@ -138,7 +138,7 @@ const Footer = () => {
 
 
                     <Stack direction="row" justifyContent="center" sx={{ marginTop: '50px' }}>
-                        <p className='footer-copywright'>Copyright © - CateringsandTiffins.com™ All Rights Reserved</p>
+                        <p className='footer-copywright'>Copyright © - CateringsandTiffins.com™ All Rights Reserved - powered by Giraffette Corporate Services LLP in it.</p>
                     </Stack>
                 </div>
             </section>

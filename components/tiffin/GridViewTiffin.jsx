@@ -225,7 +225,7 @@ const GridViewTiffin = ({ xs, sm, md, lg }) => {
                                                             getSearchCard?.start_price !== null && <Stack direction="row" alignItems="center" justifyContent="end" className="mb-1 mt-1 w-100">
                                                                 <Stack direction="row" alignSelf="end" justifyContent="end" spacing={0} className='w-100'>
                                                                     <CurrencyRupeeIcon style={{ fontSize: '18px' }} className="vc-price-one-similar-tiffin" />
-                                                                    <span className="vc-price-one-similar-tiffin"> {getSearchCard?.start_price} / Plate </span>
+                                                                    <span className="vc-price-one-similar-tiffin"> {getSearchCard?.start_price} / Month </span>
                                                                 </Stack>
                                                             </Stack>
                                                         }
