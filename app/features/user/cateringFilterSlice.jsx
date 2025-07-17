@@ -653,39 +653,58 @@ export const cateringFilterSlice = createSlice({
         // },
         setCuisineTypeFilter: (state, action) => {
             // console.log(action, "action");
-            const { cuisineId, getCateringCuisines } = action.payload;
+            const { cuisineId, getCateringCuisines, forceSelect } = action.payload;
             const updatedCuisines = getCateringCuisines.map((cuisine) => {
-                if (cuisine.id === cuisineId) {
-                    // Toggle selected of parent cuisine
-                    const updatedCuisine = {
-                        ...cuisine,
-                        selectedweb: cuisine.selectedweb === 1 ? 0 : 1
-                    };
-
-                    // Toggle selected of all children based on parent's selected
-                    const updatedChildren = updatedCuisine.children.map(childCuisine => ({
-                        ...childCuisine,
-                        selectedweb: updatedCuisine.selectedweb
-                    }));
-
-                    return {
-                        ...updatedCuisine,
-                        children: updatedChildren
-                    };
+                if (forceSelect) {
+                    // If forceSelect, select parent and all children if parent matches
+                    if (cuisine.id === cuisineId) {
+                        // Parent match: select parent and all children
+                        return {
+                            ...cuisine,
+                            selectedweb: 1,
+                            children: cuisine.children.map(child => ({ ...child, selectedweb: 1 }))
+                        };
+                    } else {
+                        // Check children: only select the matching child
+                        return {
+                            ...cuisine,
+                            selectedweb: 0,
+                            children: cuisine.children.map(child =>
+                                child.id === cuisineId ? { ...child, selectedweb: 1 } : { ...child, selectedweb: 0 }
+                            )
+                        };
+                    }
                 } else {
-                    // If the selected cuisine is a child, update its selected directly
-                    return {
-                        ...cuisine,
-                        children: cuisine.children.map(childCuisine => {
-                            if (childCuisine.id === cuisineId) {
-                                return {
-                                    ...childCuisine,
-                                    selectedweb: childCuisine.selectedweb === 1 ? 0 : 1
-                                };
-                            }
-                            return childCuisine;
-                        })
-                    };
+                    if (cuisine.id === cuisineId) {
+                        // Toggle selected of parent cuisine
+                        const updatedCuisine = {
+                            ...cuisine,
+                            selectedweb: cuisine.selectedweb === 1 ? 0 : 1
+                        };
+                        // Toggle selected of all children based on parent's selected
+                        const updatedChildren = updatedCuisine.children.map(childCuisine => ({
+                            ...childCuisine,
+                            selectedweb: updatedCuisine.selectedweb
+                        }));
+                        return {
+                            ...updatedCuisine,
+                            children: updatedChildren
+                        };
+                    } else {
+                        // If the selected cuisine is a child, update its selected directly
+                        return {
+                            ...cuisine,
+                            children: cuisine.children.map(childCuisine => {
+                                if (childCuisine.id === cuisineId) {
+                                    return {
+                                        ...childCuisine,
+                                        selectedweb: childCuisine.selectedweb === 1 ? 0 : 1
+                                    };
+                                }
+                                return childCuisine;
+                            })
+                        };
+                    }
                 }
             });
             state.getCateringCuisines = updatedCuisines;

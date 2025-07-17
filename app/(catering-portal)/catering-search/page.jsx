@@ -19,7 +19,7 @@ import ListView from '@/components/catering/ListView';
 import GridViewList from '@/components/catering/GridView';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
-import { fetchCateringCuisines, fetchCateringFoodTypes, fetchCateringSearchCards, fetchCateringServingTypes, fetchCaterRatings, fetchHeadCounts, fetchPriceRanges, fetchServiceTypes } from '@/app/features/user/cateringFilterSlice';
+import { fetchCateringCuisines, fetchCateringFoodTypes, fetchCateringSearchCards, fetchCateringServingTypes, fetchCaterRatings, fetchHeadCounts, fetchPriceRanges, fetchServiceTypes, setCuisineTypeFilter } from '@/app/features/user/cateringFilterSlice';
 import useGetLocationResults from '@/hooks/catering/useGetLocationResults';
 import { useMediaQuerym, Drawer, useMediaQuery } from '@mui/material';
 import { useTheme } from '@emotion/react';
@@ -42,15 +42,52 @@ const page = () => {
   const searchParams = useSearchParams();
   const { getOccasionCateringTypes } = useSelector((state) => state.cateringFilter);
   useEffect(() => {
-    dispatch(fetchCateringSearchCards()).then(() => {
-      const occasionId = searchParams.get('occasionId');
-      if (occasionId && getOccasionCateringTypes?.length) {
+    dispatch(fetchCateringSearchCards());
+  }, []);
+
+  // Cuisine force-select logic
+  useEffect(() => {
+    dispatch(fetchCateringCuisines()).then(() => {
+      const cuisineId = searchParams.get('cuisineId');
+      const selectAllChildren = searchParams.get('selectAllChildren');
+      if (cuisineId && getCateringCuisines?.length) {
         setTimeout(() => {
-          dispatch({ type: 'cateringFilter/setOccasionTypes', payload: { occasionId, getOccasionCateringTypes, forceSelect: true } });
+          if (selectAllChildren === '1') {
+            // Select parent and all children
+            const updatedCuisines = getCateringCuisines.map(cuisine => {
+              if (cuisine.id === cuisineId) {
+                return {
+                  ...cuisine,
+                  selectedweb: 1,
+                  children: cuisine.children.map(child => ({ ...child, selectedweb: 1 }))
+                };
+              } else {
+                return {
+                  ...cuisine,
+                  selectedweb: 0,
+                  children: cuisine.children.map(child => ({ ...child, selectedweb: 0 }))
+                };
+              }
+            });
+            dispatch(setCuisineTypeFilter({ cuisineId, getCateringCuisines: updatedCuisines, forceSelect: true }));
+          } else {
+            dispatch(setCuisineTypeFilter({ cuisineId, getCateringCuisines, forceSelect: true }));
+          }
           dispatch(fetchCateringSearchCards());
         }, 100);
       }
     });
+  }, [getCateringCuisines?.length]);
+
+  // Occasion force-select logic (keep existing)
+  useEffect(() => {
+    const occasionId = searchParams.get('occasionId');
+    if (occasionId && getOccasionCateringTypes?.length) {
+      setTimeout(() => {
+        dispatch({ type: 'cateringFilter/setOccasionTypes', payload: { occasionId, getOccasionCateringTypes, forceSelect: true } });
+        dispatch(fetchCateringSearchCards());
+      }, 100);
+    }
   }, [getOccasionCateringTypes?.length]);
 
   const theme = useTheme();

@@ -26,6 +26,8 @@ const ExpoloreCuisinesCard = () => {
     const { getAllcuisines, isLoading } = useSelector((state) => state.homepage)
     const dispatch = useDispatch()
 
+    console.log(getAllcuisines, "getAllcuisines")
+
     useEffect(() => {
         dispatch(fetchCuisines())
     }, [])
@@ -37,13 +39,11 @@ const ExpoloreCuisinesCard = () => {
     }, [dispatch, getCateringCuisines.length]);
 
 
-    // console.log(getAllcuisines, "getAllcuisines");
+    // Handles parent cuisine click: select parent and all children
     const onHandleCuisineFilter = (explorecuisine) => {
-        // console.log(explorecuisine, "explorecuisine");
         const cuisineId = explorecuisine.id;
-        dispatch(setCuisineTypeFilter({ cuisineId, getCateringCuisines }));
-        dispatch(fetchCateringSearchCards());
-        const url = `/catering-search`;
+        // Add a param to indicate all children should be selected (handled in search page)
+        const url = `/catering-search?cuisineId=${cuisineId}&selectAllChildren=1`;
         router.push(url);
     }
 
@@ -91,17 +91,14 @@ const ExpoloreCuisinesCard = () => {
                                     <SwiperSlide>
                                         <CardContent key={explorecuisine.id} className='w-100' style={{ padding: '5px 10px' }}>
                                             <Stack direction="row" justifyContent="center" className='explore-cuisine-card border-radius-two w-100 cursor-pointer'
-                                                onClick={() => onHandleCuisineFilter(explorecuisine)}>
-                                                {/* <img src={explorecuisine?.file_name?.original ? explorecuisine?.file_name?.original : '/img/no-image.jpg'} alt="" className="img-fluid explore-cuisine-img image-shadow" /> */}
-
+                                                onClick={() => onHandleCuisineFilter(explorecuisine, false)}>
                                                 <div className="explore-cator-box" key={explorecuisine?.occasion_id}>
                                                     <img
-                                                        // onClick={() => handleImageClick(explorecuisine?.occasion_id)}  
                                                         src={explorecuisine?.file_name?.medium ? explorecuisine?.file_name?.medium : '/img/no-image.jpg'} className="img-fluid cuisines-img cursor-pointer" />
                                                     <h4 className='text-center cuisines-title'>{explorecuisine?.name}</h4>
                                                 </div>
-
                                             </Stack>
+                                            {/* No children rendering. Parent click will select all children in search page. */}
                                         </CardContent>
                                     </SwiperSlide>
                                 </Grid>
