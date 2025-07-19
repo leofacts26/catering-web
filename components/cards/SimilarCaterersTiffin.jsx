@@ -21,7 +21,7 @@ import { addchWishlist } from '@/app/features/user/settingSlice';
 import useRegistration from '@/hooks/useRegistration';
 
 
-const SimilarCaterersTiffin = ({ tiffin, data }) => {
+const SimilarCaterersTiffin = ({ tiffin, data, vendorId }) => {
     const accessToken = useSelector((state) => state.user.accessToken);
     const router = useRouter()
     const [isAnimating, setIsAnimating] = useState(false);
@@ -122,7 +122,7 @@ const SimilarCaterersTiffin = ({ tiffin, data }) => {
                     },
                 }}
             >
-                {getTiffinSimilarTypes?.map((getSearchCard) => {
+                {getTiffinSimilarTypes?.filter((item) => item.vendor_id !== vendorId)?.map((getSearchCard) => {
                     const brandLogo = getSearchCard?.brand_logo?.[0]?.medium;
                     const bannerImage = getSearchCard?.banner_images?.[0]?.medium;
                     const imageSrc = getSearchCard?.subscription_type_name === "branded" && brandLogo || bannerImage || '/img/no-image.jpg';

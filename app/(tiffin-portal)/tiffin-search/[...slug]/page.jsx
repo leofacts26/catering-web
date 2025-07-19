@@ -500,7 +500,7 @@ const page = () => {
 
       <OurGallery galleryImages={data?.galleryImages} bennerMenuMixGalleryImages={data?.bennerMenuMixGalleryImages} />
 
-      <SimilarCaterersTiffin tiffin data={data} />
+      <SimilarCaterersTiffin tiffin data={data} vendorId={vendorId} />
       <ReviewCardTiffin tiffin />
       <Subscribe />
       <Footer />

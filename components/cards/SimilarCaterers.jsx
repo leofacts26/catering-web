@@ -20,14 +20,14 @@ import toast from 'react-hot-toast';
 import { addchWishlist } from '@/app/features/user/settingSlice';
 import useRegistration from '@/hooks/useRegistration';
 
-const SimilarCaterers = ({ tiffin, data }) => {
+const SimilarCaterers = ({ tiffin, data, vendorId }) => {
     const accessToken = useSelector((state) => state.user.accessToken);
     const { getCateringSimilarTypes } = useSelector((state) => state.cateringFilter)
     const dispatch = useDispatch()
     const router = useRouter()
     const [isAnimating, setIsAnimating] = useState(false);
     const { handleClickOpen } = useRegistration();
-    // console.log(data, "data han"); 
+    console.log(vendorId, "vendorId han"); 
 
 
     useEffect(() => {
@@ -121,7 +121,7 @@ const SimilarCaterers = ({ tiffin, data }) => {
                     },
                 }}
             >
-                {getCateringSimilarTypes?.map((getSearchCard) => {
+                {getCateringSimilarTypes?.filter((item) => item.vendor_id !== vendorId)?.map((getSearchCard) => {
                     const brandLogo = getSearchCard?.brand_logo?.[0]?.medium;
                     const bannerImage = getSearchCard?.banner_images?.[0]?.medium;
                     const imageSrc = getSearchCard?.subscription_type_name === "branded" && brandLogo || bannerImage || '/img/no-image.jpg';

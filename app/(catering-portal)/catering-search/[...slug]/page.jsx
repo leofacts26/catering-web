@@ -522,7 +522,7 @@ const page = () => {
 
             <OurGallery galleryImages={data?.galleryImages} bennerMenuMixGalleryImages={data?.bennerMenuMixGalleryImages} />
 
-            <SimilarCaterers catering data={data} />
+            <SimilarCaterers catering data={data} vendorId={vendorId} />
             <ReciewCards />
 
 
