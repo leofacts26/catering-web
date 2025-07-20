@@ -29,6 +29,7 @@ import {
   setSelectedLocation,
   setVendorListItem,
   setVendorSearch,
+  setLocationPlaceId,
   setVendorSearchKit,
 } from "@/app/features/user/globalNavSlice";
 import useAllowLocation from "@/hooks/useAllowLocation";
@@ -118,6 +119,7 @@ const CateringSearchBar = () => {
   //   const [localPeople, setLocalPeople] = useState("");
   //   const [vendorSearch, setVendorSearch] = useState("");
   const [vendorBoolen, setVendorBoolean] = useState(false);
+  const [searchSelectItem, setSearchSelectItem] = useState("");
   //   console.log(vendorSearch, "vendorSearch vendorSearch");
 
   const containerRef = useRef(null);
@@ -144,6 +146,18 @@ const CateringSearchBar = () => {
     dispatch(setVendorListItem(item?.id));
     dispatch(setVendorSearch(item?.catering_service_name));
     setVendorBoolean(false);
+
+    // Set searchSelectItem for search after vendor search setting location
+    dispatch(setManualLocation(item?.formatted_address || ""));
+    setSearchSelectItem({
+      description: item?.formatted_address || "",
+      place_id: item?.place_id || "",
+      terms: [
+        { value: item.formatted_address || "" },
+      ]
+      // Add other fields if needed
+    });
+    dispatch(setLocBoolean(false));
   };
 
   // console.log(vendorBoolen, "vendorBoolen vendorBoolen vendorBoolen vendorBoolen");
@@ -152,7 +166,7 @@ const CateringSearchBar = () => {
   const { getCurrentLocation } = useAllowLocation();
 
   const handleClear = () => {
-    dispatch(setSelectedLocation(null));
+    // dispatch(setSelectedLocation(null));
     dispatch(setManualLocation(""));
     inputRef.current.focus();
     dispatch(setLocBoolean(false));
@@ -160,6 +174,7 @@ const CateringSearchBar = () => {
 
   const handleClearVendorList = () => {
     dispatch(setVendorSearch(""));
+    dispatch(setVendorListItem(""));
   };
 
   const handleClickOutside = (event) => {
@@ -190,6 +205,7 @@ const CateringSearchBar = () => {
       getCurrentLocation();
     }
     // dispatch(setPeople(localPeople));
+    selectLocation(searchSelectItem)
     dispatch(fetchCateringSearchCards());
     router.push("/catering-search");
   };
@@ -221,7 +237,7 @@ const CateringSearchBar = () => {
               inputRef={inputRef}
               style={{ width: "100%" }}
               onChange={(evt) => {
-                dispatch(setSelectedLocation(null));
+                // dispatch(setSelectedLocation(null));
                 dispatch(setManualLocation(evt.target.value));
                 getPlacePredictions({ input: evt.target.value });
               }}
@@ -265,7 +281,13 @@ const CateringSearchBar = () => {
                       <h2
                         className="ct-box-search-results cursor-pointer"
                         key={index}
-                        onClick={() => selectLocation(item)}
+                        // onClick={() => selectLocation(item)}
+                        onClick={() => {
+                          setSearchSelectItem(item)
+                          dispatch(setManualLocation(item.description))
+                          dispatch(setLocationPlaceId(item?.place_id))
+                          dispatch(setLocBoolean(false))
+                        }}
                       >
                         <Stack direction="row" alignItems="center" className="cateringHover">
                           <AddLocationIcon style={{ fontSize: '15px', color: '57636c', marginRight: '4px' }} /> {item?.description}

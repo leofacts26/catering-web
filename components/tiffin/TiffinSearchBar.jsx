@@ -21,6 +21,7 @@ import DatePickerSearchTiffin from "../search/DatePickerSearchTiffin";
 import { fetchtiffinSearchCards } from "@/app/features/tiffin/tiffinFilterSlice";
 import {
   fetchAllTiffinVendorList,
+  setLocationPlaceId,
   setLocBoolean,
   setManualLocation,
   setPeople,
@@ -109,6 +110,12 @@ const TiffinSearchBar = () => {
   const people = useSelector((state) => state.globalnavbar.people);
   const [localPeople, setLocalPeople] = useState(people);
   const [vendorBoolen, setVendorBoolean] = useState(false);
+  const [searchSelectItem, setSearchSelectItem] = useState("");
+  // console.log(vendorListItem, "vendorListItem")
+  // console.log(tiffinVendorList, "tiffinVendorList")
+  console.log(selectedLocation, "selectedLocation")
+  console.log(manualLocation, "manualLocation")
+  console.log(searchSelectItem, "searchSelectItem")
 
   const containerRef = useRef(null);
   const locSearchRef = useRef(null);
@@ -131,9 +138,24 @@ const TiffinSearchBar = () => {
   };
 
   const vendorListItemTiffin = (item) => {
+    console.log(item, "item in vendorListItemTiffin");
     dispatch(setVendorListItem(item?.id));
     dispatch(setVendorSearch(item?.catering_service_name));
     setVendorBoolean(false);
+
+    dispatch(setManualLocation(item?.formatted_address || ""));
+
+    // Set searchSelectItem for search after vendor search setting location
+    setSearchSelectItem({
+      description: item?.formatted_address || "",
+      place_id: item?.place_id || "",
+      terms: [
+        { value: item.formatted_address || "" },
+      ]
+      // Add other fields if needed
+    });
+     dispatch(setLocBoolean(false));
+
   };
 
   const router = useRouter();
@@ -141,7 +163,7 @@ const TiffinSearchBar = () => {
   const { getCurrentLocation } = useAllowLocation();
 
   const handleClear = () => {
-    dispatch(setSelectedLocation(null));
+    // dispatch(setSelectedLocation(null));
     dispatch(setManualLocation(""));
     inputRef.current.focus();
     dispatch(setLocBoolean(false));
@@ -149,6 +171,7 @@ const TiffinSearchBar = () => {
 
   const handleClearVendorList = () => {
     dispatch(setVendorSearch(""));
+    dispatch(setVendorListItem(""));
   };
 
   const handleClickOutside = (event) => {
@@ -178,7 +201,9 @@ const TiffinSearchBar = () => {
     if (accessToken) {
       getCurrentLocation();
     }
+    // dispatch(setLocBoolean(false));
     dispatch(setPeople(localPeople));
+    selectLocation(searchSelectItem)
     dispatch(fetchtiffinSearchCards());
     router.push("/tiffin-search");
     // console.log("tttttttttttttttttttttttttttttttttttttttttttttttTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT");
@@ -211,7 +236,7 @@ const TiffinSearchBar = () => {
               inputRef={inputRef}
               style={{ width: "100%" }}
               onChange={(evt) => {
-                dispatch(setSelectedLocation(null));
+                // dispatch(setSelectedLocation(null));
                 dispatch(setManualLocation(evt.target.value));
                 getPlacePredictions({ input: evt.target.value });
               }}
@@ -255,7 +280,13 @@ const TiffinSearchBar = () => {
                       <h2
                         className="ct-box-search-results cursor-pointer"
                         key={index}
-                        onClick={() => selectLocation(item)}
+                        // onClick={() => selectLocation(item)}
+                        onClick={() => {
+                          setSearchSelectItem(item)
+                          dispatch(setManualLocation(item.description))
+                          dispatch(setLocationPlaceId(item?.place_id))
+                          dispatch(setLocBoolean(false))
+                        }}
                       >
                         <Stack
                           direction="row"
