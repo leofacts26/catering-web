@@ -555,52 +555,52 @@ export const fetchCateringMapviewSearchCards = createAsyncThunk(
 
 
 export const fetchCatererSimilarCaterer = createAsyncThunk(
-  'user/fetchCatererSimilarCaterer',
-  async (data, thunkAPI) => {
-    const state = thunkAPI.getState();
-    const startDate = state.globalnavbar?.startDate;
-    const endDate = state.globalnavbar?.endDate;
+    'user/fetchCatererSimilarCaterer',
+    async (data, thunkAPI) => {
+        const state = thunkAPI.getState();
+        const startDate = state.globalnavbar?.startDate;
+        const endDate = state.globalnavbar?.endDate;
 
-    const foodtype_filter_formatted = (data?.foodTypes || [])
-      .filter(item => item.id !== "1")
-      .map(foodType => ({
-        id: foodType.id,
-        selected: foodType.selectedweb ? 1 : 0
-      }));
+        const foodtype_filter_formatted = (data?.foodTypes || [])
+            .filter(item => item.id !== "1")
+            .map(foodType => ({
+                id: foodType.id,
+                selected: foodType.selectedweb ? 1 : 0
+            }));
 
-    try {
-      const response = await api.post(
-        `${BASE_URL}/search-vendors`,
-        {
-          is_city_search: 1,
-          search_term: "",
-          order_by: "distance",
-          limit: 100,
-          save_filter: 1,
-          vendor_type: "Caterer",
-          app_type: "web",
-          latitude: data?.latitude || "",
-          longitude: data?.longitude || "",
-          city: data?.city || "",
-          pincode: data?.pincode || "",
-          place_id: data?.place_id || "",
-          food_types_filter: JSON.stringify(foodtype_filter_formatted),
-          start_date: moment(startDate).format('YYYY-MM-DD'),
-          end_date: moment(endDate).format('YYYY-MM-DD'),
-          shuffled: 1
-        },
-        {
-          headers: {
-            authorization: `Bearer ${state?.user?.accessToken}`,
-          },
+        try {
+            const response = await api.post(
+                `${BASE_URL}/search-vendors`,
+                {
+                    is_city_search: 1,
+                    search_term: "",
+                    order_by: "distance",
+                    limit: 100,
+                    save_filter: 1,
+                    vendor_type: "Caterer",
+                    app_type: "web",
+                    latitude: data?.latitude || "",
+                    longitude: data?.longitude || "",
+                    city: data?.city || "",
+                    pincode: data?.pincode || "",
+                    place_id: data?.place_id || "",
+                    food_types_filter: JSON.stringify(foodtype_filter_formatted),
+                    start_date: moment(startDate).format('YYYY-MM-DD'),
+                    end_date: moment(endDate).format('YYYY-MM-DD'),
+                    shuffled: 1
+                },
+                {
+                    headers: {
+                        authorization: `Bearer ${state?.user?.accessToken}`,
+                    },
+                }
+            );
+
+            return response?.data?.data;
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error?.response?.data?.msg || "Something went wrong");
         }
-      );
-
-      return response?.data?.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error?.response?.data?.msg || "Something went wrong");
     }
-  }
 );
 
 
@@ -850,7 +850,14 @@ export const cateringFilterSlice = createSlice({
             })
             .addCase(fetchPriceRanges.fulfilled, (state, { payload }) => {
                 state.isLoading = false;
-                state.getCateringPriceRanges = payload;
+                // state.getCateringPriceRanges = payload;
+                const persisted = state.getCateringPriceRanges || [];
+                state.getCateringPriceRanges = payload.map(apiItem => {
+                    const persistedItem = persisted.find(p => String(p.id) === String(apiItem.id));
+                    return persistedItem
+                        ? { ...apiItem, selectedweb: persistedItem.selectedweb }
+                        : apiItem;
+                });
             })
             .addCase(fetchPriceRanges.rejected, (state, { payload }) => {
                 state.isLoading = false;
@@ -874,7 +881,14 @@ export const cateringFilterSlice = createSlice({
             })
             .addCase(fetchCateringFoodTypes.fulfilled, (state, { payload }) => {
                 state.isLoading = false;
-                state.getCateringFoodTypes = payload;
+                // state.getCateringFoodTypes = payload;
+                const persisted = state.getCateringFoodTypes || [];
+                state.getCateringFoodTypes = payload.map(apiItem => {
+                    const persistedItem = persisted.find(p => String(p.id) === String(apiItem.id));
+                    return persistedItem
+                        ? { ...apiItem, selectedweb: persistedItem.selectedweb }
+                        : apiItem;
+                });
             })
             .addCase(fetchCateringFoodTypes.rejected, (state, { payload }) => {
                 state.isLoading = false;
@@ -885,10 +899,21 @@ export const cateringFilterSlice = createSlice({
                 state.isLoading = true;
             })
             .addCase(fetchOccasionCateringTypes.fulfilled, (state, { payload }) => {
+                // state.isLoading = false;
+                // state.occasionCount = payload.total_count;
+                // state.occasionTotalCount = payload.total_count;
+                // state.getOccasionCateringTypes = payload.data;
                 state.isLoading = false;
                 state.occasionCount = payload.total_count;
                 state.occasionTotalCount = payload.total_count;
-                state.getOccasionCateringTypes = payload.data;
+                // Merge persisted selections with new API data
+                const persisted = state.getOccasionCateringTypes || [];
+                state.getOccasionCateringTypes = payload.data.map(apiItem => {
+                    const persistedItem = persisted.find(p => String(p.occasion_id) === String(apiItem.occasion_id));
+                    return persistedItem
+                        ? { ...apiItem, selectedweb: persistedItem.selectedweb }
+                        : apiItem;
+                });
             })
             .addCase(fetchOccasionCateringTypes.rejected, (state, { payload }) => {
                 state.isLoading = false;
@@ -900,7 +925,26 @@ export const cateringFilterSlice = createSlice({
             })
             .addCase(fetchCateringCuisines.fulfilled, (state, { payload }) => {
                 state.isLoading = false;
-                state.getCateringCuisines = payload;
+                // state.getCateringCuisines = payload;
+                const persisted = state.getCateringCuisines || [];
+                state.getCateringCuisines = payload.map(apiItem => {
+                    const persistedItem = persisted.find(p => String(p.id) === String(apiItem.id));
+                    if (persistedItem) {
+                        // Merge selectedweb for parent
+                        let merged = { ...apiItem, selectedweb: persistedItem.selectedweb };
+                        // Merge children selections if children exist
+                        if (Array.isArray(apiItem.children) && Array.isArray(persistedItem.children)) {
+                            merged.children = apiItem.children.map(child => {
+                                const persistedChild = persistedItem.children.find(pc => String(pc.id) === String(child.id));
+                                return persistedChild
+                                    ? { ...child, selectedweb: persistedChild.selectedweb }
+                                    : child;
+                            });
+                        }
+                        return merged;
+                    }
+                    return apiItem;
+                });
             })
             .addCase(fetchCateringCuisines.rejected, (state, { payload }) => {
                 state.isLoading = false;
