@@ -56,10 +56,10 @@ const Footer = () => {
                                         <h3 className="footer-sub-heading">Search</h3>
                                         <Box>
                                             <ul className="footer-ul">
-                                                <li><Link href="#cuisine">Cuisine</Link></li>
-                                                <li><Link href="#occasion">Occasion</Link></li>
+                                                <li><Link href="/catering#cuisine">Cuisine</Link></li>
+                                                <li><Link href="/catering#occasion">Occasion</Link></li>
                                                 <li><Link href="#location">Location</Link></li>
-                                                <li><Link href="#caterers">Caterers</Link></li>
+                                                <li><Link href="/catering#caterers">Caterers</Link></li>
                                                 <li><Link href="/tiffin">Tiffins</Link></li>
                                             </ul>
                                         </Box>

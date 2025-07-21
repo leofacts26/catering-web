@@ -17,6 +17,7 @@ import { useEffect } from 'react';
 import { clearFiltersGlobal } from '@/app/features/user/homeSlice';
 import { fetchCateringSearchCards, fetchOccasionCateringTypes, resetFilters } from '@/app/features/user/cateringFilterSlice';
 import useGetLocationResults from '@/hooks/catering/useGetLocationResults';
+import { usePathname } from 'next/navigation';
 
 
 
@@ -25,6 +26,20 @@ const Catering = () => {
     const { userDetails } = useSelector((state) => state.user)
     const { selectedLocation } = useGetLocationResults()
 
+    const pathname = usePathname();
+
+    useEffect(() => {
+        // Check for hash manually from window.location
+        const hash = window.location.hash;
+        if (hash) {
+            const el = document.querySelector(hash);
+            if (el) {
+                setTimeout(() => {
+                    el.scrollIntoView({ behavior: 'smooth' });
+                }, 100); // Delay in case content loads a bit late
+            }
+        }
+    }, [pathname]);
     // console.log(selectedLocation, "selectedLocationselectedLocation");
 
 
@@ -50,7 +65,9 @@ const Catering = () => {
             <RecentSearchCard />
             {/* <Heading title="Explore Cuisines" subHeading /> */}
             <ExpoloreCuisinesCard />
-            <Heading title="Explore Caterers around INDIA" subHeading />
+            <div id="location">
+                <Heading title="Explore Caterers around INDIA" subHeading />
+            </div>
             <ExploreCaters />
 
             {/* <Heading
@@ -76,7 +93,9 @@ const Catering = () => {
                     : 'INDIA'
                     }`}
             />
-            <Heading title="Explore Caterers by Occasions" subHeading />
+            <div id="occasion">
+                <Heading title="Explore Caterers by Occasions" subHeading />
+            </div>
             <ExploreCaterersByOccasion />
             <Heading title="FAQ's" center subHeading />
             <Faq />

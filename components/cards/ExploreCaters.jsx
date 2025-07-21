@@ -44,7 +44,7 @@ const ExploreCaters = () => {
     return (
         <>
 
-            <Container maxWidth="lg" id="location">
+            <Container maxWidth="lg" >
                 <Box sx={{ flexGrow: 1 }} className="mb-4" style={{ marginTop: '20px' }}>
                     <Grid container spacing={2}>
                         {isLoading ? (

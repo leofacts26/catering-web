@@ -34,7 +34,9 @@ const Tiffin = () => {
             <RecentSearchCard />
 
             <ExpoloreKitchenCardTiffin />
-            <Heading title="Explore Tiffins around INDIA" subHeading />
+            <div id="location">
+                <Heading title="Explore Tiffins around INDIA" subHeading />
+            </div>
             <ExploreTiffins />
 
 

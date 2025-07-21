@@ -51,8 +51,12 @@ const ExpoloreCuisinesCard = () => {
 
     return (
         <>
-            {getAllcuisines?.length > 0 && <Heading subHeading title="Explore Cuisines" />}
-            <Container maxWidth="lg" id="cuisine">
+            {getAllcuisines?.length > 0 && (
+                <div id="cuisine">
+                    <Heading subHeading title="Explore Cuisines" />
+                </div>
+            )}
+            <Container maxWidth="lg">
                 <Grid container spacing={1}>
                     <Swiper
                         navigation={true}

@@ -27,7 +27,7 @@ const ExpoloreKitchenCardTiffin = () => {
     const dispatch = useDispatch()
 
     console.log(getTiffinKitchenTypes, "getTiffinKitchenTypes");
-    
+
 
     useEffect(() => {
         dispatch(fetchTiffinKitchenTypes())
@@ -50,8 +50,12 @@ const ExpoloreKitchenCardTiffin = () => {
 
     return (
         <>
-            {getTiffinKitchenTypes?.length > 0 && <Heading subHeading title="Explore Kitchen Types" />}
-            <Container maxWidth="lg" id="cuisine">
+            {getTiffinKitchenTypes?.length > 0 && (
+                <div id="cuisine">
+                    <Heading subHeading title="Explore Kitchen Types" />
+                </div>
+            )}
+            <Container maxWidth="lg">
                 <Grid container spacing={1}>
                     <Swiper
                         navigation={true}
