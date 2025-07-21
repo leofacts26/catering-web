@@ -172,7 +172,7 @@ const SimilarCaterers = ({ tiffin, data, vendorId }) => {
                                                     <div className="text-start w-100">
                                                         <h3 className='grid-view-title overflow-ellipsis'>{getSearchCard?.catering_service_name || ""}</h3>
                                                         <p className='vc-similar-card-small overflow-ellipsis text-left'>
-                                                            {getSearchCard?.street_name ? `${getSearchCard.street_name}, ` : ''}
+                                                            {getSearchCard?.area ? `${getSearchCard.area}, ` : ''}
                                                             {/* {getSearchCard?.area ? `${getSearchCard.area}, ` : ''} */}
                                                             {getSearchCard?.city ? getSearchCard.city : ''}
                                                         </p>
