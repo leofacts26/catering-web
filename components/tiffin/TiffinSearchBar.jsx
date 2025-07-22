@@ -132,6 +132,20 @@ const TiffinSearchBar = () => {
     };
   }, [vendorSearch, vendorListItem, dispatch]);
 
+  // vendorListItemCater sessionstorage parse 
+  useEffect(() => {
+    const storedLocation = sessionStorage.getItem("selectedVendorLocation");
+    if (storedLocation) {
+      const locationItem = JSON.parse(storedLocation);
+
+      setSearchSelectItem(locationItem);
+      dispatch(setManualLocation(locationItem.description));
+      dispatch(setLocationPlaceId(locationItem.place_id));
+      dispatch(setSelectedLocation(locationItem));
+    }
+  }, [dispatch]);
+
+
   const handleVendorSearchChange = (e) => {
     dispatch(setVendorSearch(e.target.value));
     setVendorBoolean(true);
@@ -143,18 +157,18 @@ const TiffinSearchBar = () => {
     dispatch(setVendorSearch(item?.catering_service_name));
     setVendorBoolean(false);
 
-    dispatch(setManualLocation(item?.area || ""));
-
-    // Set searchSelectItem for search after vendor search setting location
-    setSearchSelectItem({
+    const locationItem = {
       description: item?.area || "",
       place_id: item?.place_id || "",
-      terms: [
-        { value: item.area || "" },
-      ]
-      // Add other fields if needed
-    });
-     dispatch(setLocBoolean(false));
+      terms: [{ value: item.area || "" }],
+    };
+
+    // Save to sessionStorage
+    sessionStorage.setItem("selectedVendorLocation", JSON.stringify(locationItem));
+
+    dispatch(setManualLocation(item?.area || ""));
+    setSearchSelectItem(locationItem);
+    dispatch(setLocBoolean(false));
 
   };
 
