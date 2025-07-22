@@ -138,19 +138,19 @@ const TiffinSearchBar = () => {
   };
 
   const vendorListItemTiffin = (item) => {
-    console.log(item, "item in vendorListItemTiffin");
+    // console.log(item, "item in vendorListItemTiffin");
     dispatch(setVendorListItem(item?.id));
     dispatch(setVendorSearch(item?.catering_service_name));
     setVendorBoolean(false);
 
-    dispatch(setManualLocation(item?.formatted_address || ""));
+    dispatch(setManualLocation(item?.area || ""));
 
     // Set searchSelectItem for search after vendor search setting location
     setSearchSelectItem({
-      description: item?.formatted_address || "",
+      description: item?.area || "",
       place_id: item?.place_id || "",
       terms: [
-        { value: item.formatted_address || "" },
+        { value: item.area || "" },
       ]
       // Add other fields if needed
     });

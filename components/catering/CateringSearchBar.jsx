@@ -143,17 +143,18 @@ const CateringSearchBar = () => {
   };
 
   const vendorListItemCater = (item) => {
+    // console.log(item, "itemvendorListItemCater");
     dispatch(setVendorListItem(item?.id));
     dispatch(setVendorSearch(item?.catering_service_name));
     setVendorBoolean(false);
 
     // Set searchSelectItem for search after vendor search setting location
-    dispatch(setManualLocation(item?.formatted_address || ""));
+    dispatch(setManualLocation(item?.area || ""));
     setSearchSelectItem({
-      description: item?.formatted_address || "",
+      description: item?.area || "",
       place_id: item?.place_id || "",
       terms: [
-        { value: item.formatted_address || "" },
+        { value: item.area || "" },
       ]
       // Add other fields if needed
     });
