@@ -50,7 +50,7 @@ const Navbar = ({ cateringHome }) => {
         // dispatch(clearTiffinSlice());
 
         toast.success("Logout Successfull")
-        router.push('/')
+        // router.push('/')
         window.location.reload();
     }
 

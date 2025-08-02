@@ -52,7 +52,7 @@ export const userSlice = createSlice({
             state.token = '';
             localStorage.removeItem('accessToken');
             localStorage.clear();
-            window.location.href = '/'; // Redirect after logout
+            // window.location.href = '/'; 
         },
         logoutUser: (state) => {
             state = initialState;

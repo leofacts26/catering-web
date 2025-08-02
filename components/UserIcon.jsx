@@ -53,7 +53,7 @@ const UserIcon = () => {
         // dispatch(resetFilters());
         // dispatch(clearTiffinSlice());
         toast.success("Logout Successfull")
-        router.push('/')
+        // router.push('/')
         window.location.reload();
     }
 
