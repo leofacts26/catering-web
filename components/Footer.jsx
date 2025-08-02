@@ -11,25 +11,83 @@ import { useSelector } from 'react-redux';
 import toast from 'react-hot-toast';
 import LoginModal from './LoginModal';
 import RegisterModal from './RegisterModal';
+import { api, BASE_URL } from '@/api/apiConfig';
+import { useEffect, useState } from 'react';
 
 
 const Footer = () => {
 
     const accessToken = useSelector((state) => state.user.accessToken);
+    const [footerData, setFooterData] = useState([])
+    console.log(footerData, "footerData");
+
+
+    const fetchFooterData = async () => {
+        try {
+            const response = await api.get(`${BASE_URL}/get-list-platform-links?limit=10&current_page=1`, {
+                headers: {
+                    authorization: `Bearer ${accessToken}`,
+                },
+            });
+            setFooterData(response.data.data)
+        } catch (error) {
+            console.log(error);
+
+        }
+    }
+
+    useEffect(() => {
+        fetchFooterData()
+    }, [])
 
 
     const onHandleError = () => {
         toast.error("Please Login to access this resource!!")
     }
 
+    // Inside your component
+    const googlePlayLink = footerData.find(item => item.constant_name === "google_play_link")?.link;
+    const applePlayLink = footerData.find(item => item.constant_name === "apple_play_link")?.link;
+
+
+    // Map constant names to icon components
+    const socialIconsMap = {
+        facebook: <FacebookIcon />,
+        instagram: <InstagramIcon />,
+        twitter: <XIcon />, // or 'x' depending on your constant
+        youtube_link: <YouTubeIcon />,
+    };
+
+    // Filter only social links you want
+    const socialLinks = footerData.filter(item =>
+        ["facebook", "instagram", "twitter", "youtube_link"].includes(item.constant_name)
+    );
+
     return (
         <>
             <section className="footer-bg">
                 <div className='footer-container'>
-                    <Stack direction="row" justifyContent="end" style={{ marginBottom: '30px' }}>
-                        <img src="/img/footer/google-play-badge.png" alt="" className="img-fluid" style={{ width: '160px', objectFit: 'contain' }} />
-                        <img src="/img/footer/apple.png" alt="" className="img-fluid" style={{ width: '150px', objectFit: 'contain' }} />
-
+                    <Stack direction="row" justifyContent="end" style={{ marginBottom: '30px', gap: '10px' }}>
+                        {googlePlayLink && (
+                            <a href={googlePlayLink} target="_blank" rel="noopener noreferrer">
+                                <img
+                                    src="/img/footer/google-play-badge.png"
+                                    alt="Google Play"
+                                    className="img-fluid"
+                                    style={{ width: '160px', objectFit: 'contain' }}
+                                />
+                            </a>
+                        )}
+                        {applePlayLink && (
+                            <a href={applePlayLink} target="_blank" rel="noopener noreferrer">
+                                <img
+                                    src="/img/footer/apple.png"
+                                    alt="Apple Store"
+                                    className="img-fluid"
+                                    style={{ width: '150px', objectFit: 'contain' }}
+                                />
+                            </a>
+                        )}
                     </Stack>
                     <Box sx={{ flexGrow: 1 }}>
                         <Grid container spacing={2}>
@@ -37,7 +95,6 @@ const Footer = () => {
                                 <Stack direction="row" justifyContent="center" alignItems="top" sx={{ height: '100%' }}>
                                     <img src="/img/footer/footer-logo.png" alt="" className="img-fluid" style={{ width: '300px', objectFit: 'contain' }} />
                                 </Stack>
-
                             </Grid>
                             <Grid item xs={12} sm={12} md={12} lg={8} xl={7}>
                                 <Grid container spacing={5}>
@@ -124,10 +181,17 @@ const Footer = () => {
                                                 <li>Billing Name: Giraffette Products</li>
                                             </ul>
                                             <Stack direction="row" spacing={1} sx={{ marginTop: '10px' }}>
-                                                <FacebookIcon />
-                                                <InstagramIcon />
-                                                <XIcon />
-                                                <YouTubeIcon />
+                                                {socialLinks.map((item) => (
+                                                    <a
+                                                        key={item.id}
+                                                        href={item.link}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        style={{ color: 'inherit' }}
+                                                    >
+                                                        {socialIconsMap[item.constant_name]}
+                                                    </a>
+                                                ))}
                                             </Stack>
                                         </Box>
                                     </Grid>
@@ -142,6 +206,9 @@ const Footer = () => {
                     </Stack>
                 </div>
             </section>
+
+
+
             <LoginModal />
             <RegisterModal />
         </>
