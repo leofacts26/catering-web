@@ -38,10 +38,17 @@ const Filters = () => {
                     <Divider />
 
                     <CardContent>
-                        <h3 className='font-20 font-weight-500 filter-text'>Choose Food Type:</h3>
-                        <CaterFoodTypes />
+                        <h3 className='font-20 font-weight-500 filter-text mb-2'>Choose Cuisine</h3>
+                        <CaterCuisineFilter />
                     </CardContent>
                     <Divider />
+
+                    <CardContent>
+                        <h3 className='font-20 font-weight-500 filter-text'>Choose Cater Service:</h3>
+                        <CaterServingTypes />
+                    </CardContent>
+                    <Divider />
+
 
                     <CardContent>
                         <h3 className='font-20 font-weight-500 filter-text'>Choose Head Count:</h3>
@@ -51,16 +58,11 @@ const Filters = () => {
 
 
                     <CardContent>
-                        <h3 className='font-20 font-weight-500 filter-text'>Choose Catering Rating:</h3>
-                        <CaterRatingCount />
+                        <h3 className='font-20 font-weight-500 filter-text'>Choose Service Type:</h3>
+                        <CaterServiceTypes />
                     </CardContent>
                     <Divider />
 
-                    <CardContent>
-                        <h3 className='font-20 font-weight-500 filter-text mb-2'>Choose Cuisine</h3>
-                        <CaterCuisineFilter />
-                    </CardContent>
-                    <Divider />
 
                     <CardContent>
                         <h3 className='font-20 font-weight-500 filter-text'>Choose Occasions:</h3>
@@ -68,16 +70,29 @@ const Filters = () => {
                     </CardContent>
                     <Divider />
 
+
+
                     <CardContent>
-                        <h3 className='font-20 font-weight-500 filter-text'>Choose Service Type:</h3>
-                        <CaterServiceTypes />
+                        <h3 className='font-20 font-weight-500 filter-text'>Choose Catering Rating:</h3>
+                        <CaterRatingCount />
                     </CardContent>
                     <Divider />
 
+
+
                     <CardContent>
-                        <h3 className='font-20 font-weight-500 filter-text'>Choose Cater Service:</h3>
-                        <CaterServingTypes />
+                        <h3 className='font-20 font-weight-500 filter-text'>Choose Food Type:</h3>
+                        <CaterFoodTypes />
                     </CardContent>
+                    <Divider />
+
+
+
+
+
+
+
+
 
                 </Card>
             </Box>
