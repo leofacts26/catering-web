@@ -26,7 +26,7 @@ import { useTheme } from '@emotion/react';
 import useDocumentTitle from '@/components/useDocumentTitle';
 
 const page = () => {
-   useDocumentTitle('Caterings & Tiffins');
+  useDocumentTitle('Caterings & Tiffins');
   const [checked, setChecked] = useState(true);
   const { selectedLocation } = useGetLocationResults()
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -79,19 +79,23 @@ const page = () => {
     });
   }, [getCateringCuisines?.length]);
 
-  // Occasion force-select logic (only if not already selected)
+  // Occasion force-select
   useEffect(() => {
     const occasionId = searchParams.get('occasionId');
-    if (occasionId && getOccasionCateringTypes?.length) {
-      const alreadySelected = getOccasionCateringTypes.some(
-        (o) => String(o.occasion_id) === String(occasionId) && o.selectedweb === 1
-      );
-      if (!alreadySelected) {
-        dispatch({ type: 'cateringFilter/setOccasionTypes', payload: { occasionId, getOccasionCateringTypes, forceSelect: true } });
+
+    if (occasionId) {
+      setTimeout(() => {
+        dispatch({
+          type: 'cateringFilter/setOccasionTypes',
+          payload: {
+            occasionId,
+            forceSelect: true,
+          },
+        });
         dispatch(fetchCateringSearchCards());
-      }
+      }, 100);
     }
-  }, [getOccasionCateringTypes, searchParams]);
+  }, [searchParams]);
 
   const theme = useTheme();
   const isMobileOrTab = useMediaQuery(theme.breakpoints.down('lg'));

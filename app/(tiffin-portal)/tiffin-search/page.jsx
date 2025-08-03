@@ -40,18 +40,36 @@ const page = () => {
   const { showOnMapLocLat } = useSelector((state) => state.globalnavbar);
 
   // On mount, check for kitchenType param and set selected kitchen type after fetch
+  // useEffect(() => {
+  //   const kitchenTypeId = searchParams.get('kitchenType');
+  //   dispatch(fetchtiffinSearchCards()).then(() => {
+  //     if (kitchenTypeId) {
+  //       // Delay to ensure kitchen types are fetched, then set selected with forceSelect
+  //       setTimeout(() => {
+  //         dispatch({ type: 'tiffinFilter/setKitchenTypeFilter', payload: { id: kitchenTypeId, forceSelect: true } });
+  //         dispatch(fetchtiffinSearchCards());
+  //       }, 100);
+  //     }
+  //   });
+  // }, []);
+
   useEffect(() => {
     const kitchenTypeId = searchParams.get('kitchenType');
-    dispatch(fetchtiffinSearchCards()).then(() => {
-      if (kitchenTypeId) {
-        // Delay to ensure kitchen types are fetched, then set selected with forceSelect
-        setTimeout(() => {
-          dispatch({ type: 'tiffinFilter/setKitchenTypeFilter', payload: { id: kitchenTypeId, forceSelect: true } });
-          dispatch(fetchtiffinSearchCards());
-        }, 100);
-      }
-    });
-  }, []);
+
+    if (kitchenTypeId) {
+      setTimeout(() => {
+        dispatch({
+          type: 'tiffinFilter/setKitchenTypeFilter',
+          payload: { id: kitchenTypeId, forceSelect: true },
+        });
+        dispatch(fetchtiffinSearchCards());
+      }, 100);
+    } else {
+      // Initial load if no kitchenType param
+      dispatch(fetchtiffinSearchCards());
+    }
+  }, [searchParams]);
+
 
   const theme = useTheme();
   const isMobileOrTab = useMediaQuery(theme.breakpoints.down('lg'));

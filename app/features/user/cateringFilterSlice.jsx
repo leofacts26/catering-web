@@ -709,21 +709,45 @@ export const cateringFilterSlice = createSlice({
             });
             state.getCateringCuisines = updatedCuisines;
         },
-        setOccasionTypes: (state, action) => {
-            // Support both: payload = { occasionId, getOccasionCateringTypes, forceSelect }
-            const { occasionId, getOccasionCateringTypes, forceSelect } = action.payload;
-            const updatedOccasions = getOccasionCateringTypes?.map((occasion) => {
-                // Compare as string for robust query param matching
+        // setOccasionTypes: (state, action) => {
+        //     // Support both: payload = { occasionId, getOccasionCateringTypes, forceSelect }
+        //     const { occasionId, getOccasionCateringTypes, forceSelect } = action.payload;
+        //     const updatedOccasions = getOccasionCateringTypes?.map((occasion) => {
+        //         // Compare as string for robust query param matching
+        //         if (String(occasion.occasion_id) === String(occasionId)) {
+        //             if (forceSelect) {
+        //                 return { ...occasion, selectedweb: 1 };
+        //             } else {
+        //                 return { ...occasion, selectedweb: occasion.selectedweb === 1 ? 0 : 1 };
+        //             }
+        //         } else {
+        //             return occasion;
+        //         }
+        //     });
+        //     state.getOccasionCateringTypes = updatedOccasions;
+        // },
+        setOccasionTypes: (state, { payload }) => {
+            let occasionId, forceSelect;
+
+            // Support payload = occasionId (toggle) OR { occasionId, getOccasionCateringTypes, forceSelect }
+            if (typeof payload === 'object' && payload !== null) {
+                occasionId = payload.occasionId;
+                forceSelect = payload.forceSelect || false;
+            } else {
+                occasionId = payload;
+                forceSelect = false;
+            }
+
+            const updatedOccasions = state?.getOccasionCateringTypes?.map((occasion) => {
                 if (String(occasion.occasion_id) === String(occasionId)) {
-                    if (forceSelect) {
-                        return { ...occasion, selectedweb: 1 };
-                    } else {
-                        return { ...occasion, selectedweb: occasion.selectedweb === 1 ? 0 : 1 };
-                    }
-                } else {
-                    return occasion;
+                    return {
+                        ...occasion,
+                        selectedweb: forceSelect ? 1 : (occasion.selectedweb === 1 ? 0 : 1),
+                    };
                 }
+                return occasion;
             });
+
             state.getOccasionCateringTypes = updatedOccasions;
         },
         setServiceTypesFilter: (state, action) => {
