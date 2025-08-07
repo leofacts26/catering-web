@@ -20,7 +20,6 @@ import useGetLocationResults from '@/hooks/catering/useGetLocationResults';
 import { usePathname } from 'next/navigation';
 
 
-
 const Catering = () => {
 
     const { userDetails } = useSelector((state) => state.user)

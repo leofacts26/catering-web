@@ -12,6 +12,7 @@ import ExploreoccasionsShimmer from '../shimmer/ExploreOccasionsShimmer';
 import { useRouter } from 'next/navigation';
 import { fetchCateringSearchCards, fetchOccasionCateringTypes, setOccasionTypes } from '@/app/features/user/cateringFilterSlice';
 
+
 const ExploreCaterersByOccasion = () => {
     const { getOccasionCateringTypes, occasionCount } = useSelector((state) => state.cateringFilter)
 

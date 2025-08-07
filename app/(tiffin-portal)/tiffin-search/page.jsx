@@ -18,7 +18,7 @@ import GridViewTiffin from '@/components/tiffin/GridViewTiffin';
 import TiffinFilters from '@/components/tiffin/TiffinFilters';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
-import { fetchtiffinSearchCards } from '@/app/features/tiffin/tiffinFilterSlice';
+import { fetchtiffinSearchCards, setKitchenTypeFilter } from '@/app/features/tiffin/tiffinFilterSlice';
 import useGetLocationResults from '@/hooks/catering/useGetLocationResults';
 import { useTheme } from '@emotion/react';
 import { useMediaQuery, Drawer } from '@mui/material';
@@ -38,6 +38,7 @@ const page = () => {
   const { selectedLocation } = useGetLocationResults();
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const { showOnMapLocLat } = useSelector((state) => state.globalnavbar);
+    const { getTiffinKitchenTypes } = useSelector((state) => state.tiffinFilter)
 
   // On mount, check for kitchenType param and set selected kitchen type after fetch
   // useEffect(() => {
@@ -56,19 +57,25 @@ const page = () => {
   useEffect(() => {
     const kitchenTypeId = searchParams.get('kitchenType');
 
-    if (kitchenTypeId) {
-      setTimeout(() => {
-        dispatch({
-          type: 'tiffinFilter/setKitchenTypeFilter',
-          payload: { id: kitchenTypeId, forceSelect: true },
-        });
+    if (kitchenTypeId && getTiffinKitchenTypes?.length > 0) {
+      const alreadySelected = getTiffinKitchenTypes.some(
+        (k) => String(k.id) === String(kitchenTypeId) && k.selectedweb === 1
+      );
+
+      if (!alreadySelected) {
+        dispatch(setKitchenTypeFilter({ id: kitchenTypeId, forceSelect: true }));
         dispatch(fetchtiffinSearchCards());
-      }, 100);
-    } else {
-      // Initial load if no kitchenType param
+      }
+
+      // ✅ Remove kitchenType param from URL
+      const params = new URLSearchParams(window.location.search);
+      params.delete('kitchenType');
+      router.replace(`/tiffin-search?${params.toString()}`, undefined, { shallow: true });
+    } else if (!kitchenTypeId) {
+      // No kitchenType param — just fetch data
       dispatch(fetchtiffinSearchCards());
     }
-  }, [searchParams]);
+  }, [searchParams, getTiffinKitchenTypes, dispatch]);
 
 
   const theme = useTheme();
