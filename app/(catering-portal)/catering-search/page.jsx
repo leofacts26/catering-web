@@ -118,7 +118,7 @@ const page = () => {
 
 
   const onHandleMapView = () => {
-    let zoomLevel = 10;
+    let zoomLevel = 15;
     if (!showOnMapLocLat?.latitude || !showOnMapLocLat?.longitude) {
       alert("Latitude and Longitude are required to proceed! Please Search with your Location");
       return;
