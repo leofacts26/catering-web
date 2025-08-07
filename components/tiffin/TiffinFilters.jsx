@@ -69,6 +69,13 @@ const TiffinFilters = () => {
                     <Divider />
 
                     <CardContent>
+                        <h3 className='font-20 font-weight-500 filter-text'>Choose Food Type:</h3>
+                        <TiffinFoodTypes />
+                    </CardContent>
+                    <Divider />
+
+
+                    <CardContent>
                         <h3 className='font-20 font-weight-500 filter-text'>Choose Kitchen Type:</h3>
                         <TiffinkitchenTypes />
                     </CardContent>
@@ -89,11 +96,6 @@ const TiffinFilters = () => {
 
 
 
-                    <CardContent>
-                        <h3 className='font-20 font-weight-500 filter-text'>Choose Food Type:</h3>
-                        <TiffinFoodTypes />
-                    </CardContent>
-                    <Divider />
 
 
 

@@ -43,6 +43,13 @@ const Filters = () => {
                     </CardContent>
                     <Divider />
 
+                     <CardContent>
+                        <h3 className='font-20 font-weight-500 filter-text'>Choose Food Type:</h3>
+                        <CaterFoodTypes />
+                    </CardContent>
+                    <Divider />
+
+
                     <CardContent>
                         <h3 className='font-20 font-weight-500 filter-text'>Choose Cater Service:</h3>
                         <CaterServingTypes />
@@ -80,12 +87,7 @@ const Filters = () => {
 
 
 
-                    <CardContent>
-                        <h3 className='font-20 font-weight-500 filter-text'>Choose Food Type:</h3>
-                        <CaterFoodTypes />
-                    </CardContent>
-                    <Divider />
-
+                   
 
 
 
