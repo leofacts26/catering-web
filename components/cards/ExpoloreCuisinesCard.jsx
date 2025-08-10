@@ -26,7 +26,7 @@ const ExpoloreCuisinesCard = () => {
     const { getAllcuisines, isLoading } = useSelector((state) => state.homepage)
     const dispatch = useDispatch()
 
-    console.log(getAllcuisines, "getAllcuisines")
+    // console.log(getAllcuisines, "getAllcuisines")
 
     useEffect(() => {
         dispatch(fetchCuisines())

@@ -19,7 +19,7 @@ const Footer = () => {
 
     const accessToken = useSelector((state) => state.user.accessToken);
     const [footerData, setFooterData] = useState([])
-    console.log(footerData, "footerData");
+    // console.log(footerData, "footerData");
 
 
     const fetchFooterData = async () => {
