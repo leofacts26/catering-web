@@ -11,7 +11,8 @@ const initialState = {
     tiffinWishlist: [],
     editProfileData: null,
     showOtp: true,
-    enquiryList: []
+    enquiryList: [],
+    userNotifications: []
 }
 
 export const fetchWishlist = createAsyncThunk(
@@ -159,6 +160,23 @@ export const fetchEnquiryList = createAsyncThunk(
     }
 )
 
+
+export const geUserNotifications = createAsyncThunk(
+    'user/geUserNotifications',
+    async (user, thunkAPI) => {
+        try {
+            const response = await api.get(`${BASE_URL}/get-user-notifications?current_page=1&limit=10`, {
+                headers: {
+                    authorization: `Bearer ${thunkAPI.getState()?.user?.accessToken}`,
+                },
+            });
+            return response?.data?.data;
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error.response.data.msg);
+        }
+    }
+)
+
 export const settingSlice = createSlice({
     name: 'settings',
     initialState,
@@ -216,6 +234,20 @@ export const settingSlice = createSlice({
                 state.enquiryList = payload;
             })
             .addCase(fetchEnquiryList.rejected, (state, { payload }) => {
+                state.isLoading = false;
+                toast.error(datavalidationerror(payload));
+            })
+            // geUserNotifications 
+            .addCase(geUserNotifications.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(geUserNotifications.fulfilled, (state, { payload }) => {
+                console.log(payload, "payloadpayloadpayload");
+                
+                state.isLoading = false;
+                state.userNotifications = payload;
+            })
+            .addCase(geUserNotifications.rejected, (state, { payload }) => {
                 state.isLoading = false;
                 toast.error(datavalidationerror(payload));
             })
