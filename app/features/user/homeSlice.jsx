@@ -217,7 +217,7 @@ export const userSubscribeEmail = createAsyncThunk(
             });
             toast.success(successToast(response))
         } catch (error) {
-            toast.error(datavalidationerror(error))
+            // toast.error(datavalidationerror(error))
             return thunkAPI.rejectWithValue(error.response.data.msg);
         }
     }

@@ -114,8 +114,36 @@ const Notification = () => {
                                 <div style={{ padding: '10px', width: '400px' }} key={item.id || index}>
                                     <Stack direction="row" justifyContent="space-between">
                                         {/* Left side - avatar & username */}
-                                        <Stack direction="row" alignItems="center" spacing={1}>
-                                            <Avatar
+                                        <Stack direction="column" alignItems="start" spacing={1}>
+                                            <p className='text-dark notification-name'>{item?.title}</p>
+                                            {/* Notification message */}
+                                            <div className='mt-0'>
+                                                <p
+                                                    className="notification-para"
+                                                    style={{
+                                                        display: "-webkit-box",
+                                                        WebkitLineClamp: expandedIndex === index ? "unset" : 3,
+                                                        WebkitBoxOrient: "vertical",
+                                                        overflow: "hidden"
+                                                    }}
+                                                >
+                                                    {item.message}
+                                                </p>
+
+                                                {item.message.length > 100 && (
+                                                    <span
+                                                        className="notification-para"
+                                                        onClick={() => toggleExpand(index)}
+                                                        style={{
+                                                            cursor: "pointer",
+                                                            color: "#c33332"
+                                                        }}
+                                                    >
+                                                        {expandedIndex === index ? "Show less" : "Show more"}
+                                                    </span>
+                                                )}
+                                            </div>
+                                            {/* <Avatar
                                                 alt={item.username}
                                                 src="https://mui.com/static/images/avatar/1.jpg"
                                                 sx={{ width: 40, height: 40 }}
@@ -123,7 +151,7 @@ const Notification = () => {
                                             <Stack flexDirection="column">
                                                 <p className='text-dark notification-name'>{item.username}</p>
                                                 <p className='notification-username'>@{item.phone_number}</p>
-                                            </Stack>
+                                            </Stack> */}
                                         </Stack>
 
                                         {/* Right side - date & read status */}
@@ -135,33 +163,7 @@ const Notification = () => {
                                         </Stack>
                                     </Stack>
 
-                                    {/* Notification message */}
-                                    <div>
-                                        <p
-                                            className="notification-para"
-                                            style={{
-                                                display: "-webkit-box",
-                                                WebkitLineClamp: expandedIndex === index ? "unset" : 3,
-                                                WebkitBoxOrient: "vertical",
-                                                overflow: "hidden"
-                                            }}
-                                        >
-                                            {item.message}
-                                        </p>
 
-                                        {item.message.length > 100 && (
-                                            <span
-                                                className="notification-para"
-                                                onClick={() => toggleExpand(index)}
-                                                style={{
-                                                    cursor: "pointer",
-                                                    color: "#c33332"
-                                                }}
-                                            >
-                                                {expandedIndex === index ? "Show less" : "Show more"}
-                                            </span>
-                                        )}
-                                    </div>
                                 </div>
                             ))
                         ) : (
