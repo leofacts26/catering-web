@@ -26,7 +26,7 @@ const ExpoloreKitchenCardTiffin = () => {
     const { getTiffinKitchenTypes, isLoading } = useSelector((state) => state.tiffinFilter)
     const dispatch = useDispatch()
 
-    console.log(getTiffinKitchenTypes, "getTiffinKitchenTypes");
+    // console.log(getTiffinKitchenTypes, "getTiffinKitchenTypes");
 
 
     useEffect(() => {

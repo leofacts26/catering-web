@@ -32,7 +32,7 @@ import SimilarCaterersTiffin from '@/components/cards/SimilarCaterersTiffin';
 import ShowOnMap from '@/components/ShowOnMap';
 import TiffinDetailSave from '@/components/TiffinDetailSave';
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
-import { useParams } from 'next/navigation'
+import { useParams, useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setlLocationValuesGlobal, setManualLocation, setPeople } from '@/app/features/user/globalNavSlice';
@@ -67,9 +67,12 @@ const page = () => {
   const { slug } = useParams()
   const dispatch = useDispatch()
   const router = useRouter()
+  const searchParams = useSearchParams();
 
-  const vendorId = slug[0];
-  const branchId = slug[1];
+  // const vendorId = slug[0];
+  // const branchId = slug[1];
+  const vendorId = searchParams.get('vendor_id');
+  const branchId = searchParams.get('id');
 
   const [data, setData] = useState()
 

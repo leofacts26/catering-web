@@ -51,11 +51,10 @@ const BrandedCaters = () => {
   const handleImageClick = (item) => {
     // const id = "3";
     // dispatch(setSubscriptionFilter({ id, subscriptionTypes }))
-    const url = `/catering-search/${item?.vendor_id}/${item?.id}`
+    // const url = `/catering-search/${item?.vendor_id}/${item?.id}`
+    const url = `/catering-search/${item?.slug}?vendor_id=${item?.vendor_id}&id=${item?.id}`
     router.push(url);
   };
-
-  // console.log(brandedList, "brandedList 666"); 
 
   return (
     <Container maxWidth="lg" className="branded-slider-caterer" style={{ marginTop: '25px' }} id="caterers">

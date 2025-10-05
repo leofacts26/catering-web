@@ -52,10 +52,10 @@ const PopularCaters = ({ title }) => {
         // const id = "2";
         // dispatch(setSubscriptionFilter({ id, subscriptionTypes }))
         // const url = `/catering-search`;
-        const url = `/catering-search/${item?.vendor_id}/${item?.id}`
+        // const url = `/catering-search/${item?.vendor_id}/${item?.id}`
+        const url = `/catering-search/${item?.slug}?vendor_id=${item?.vendor_id}&id=${item?.id}`
         router.push(url);
     };
-
 
     return (
         <>

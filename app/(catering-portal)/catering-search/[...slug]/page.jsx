@@ -31,7 +31,7 @@ import ContactBtn from "@/components/ContactBtn";
 import CateringDetailSave from "@/components/CateringDetailSave";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { useParams } from 'next/navigation'
+import { useParams, useSearchParams } from 'next/navigation'
 import { setlLocationValuesGlobal } from "@/app/features/user/globalNavSlice";
 import { fetchCateringSearchCards, setSimilarCatererData } from "@/app/features/user/cateringFilterSlice";
 import { useRouter } from 'next/navigation';
@@ -69,15 +69,14 @@ const page = () => {
 
     const dispatch = useDispatch()
     const accessToken = useSelector((state) => state.user.accessToken);
-    const { slug } = useParams()
     const router = useRouter()
+    const { slug } = useParams()
+    const searchParams = useSearchParams();
 
-
-    const vendorId = slug[0];
-    const branchId = slug[1];
+    const vendorId = searchParams.get('vendor_id');
+    const branchId = searchParams.get('id');
 
     const [data, setData] = useState()
-
 
     useEffect(() => {
         dispatch(setSimilarCatererData(data))

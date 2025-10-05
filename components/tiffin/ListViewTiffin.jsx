@@ -169,7 +169,10 @@ const ListViewTiffin = () => {
                                             <Stack spacing={{ xs: 1, sm: 2, md: 0 }} direction={{ xs: 'column', sm: 'row', md: 'row', lg: "row" }} justifyContent="space-between" flexWrap="wrap">
                                                 <Stack direction={{ xs: 'column', sm: 'row', md: 'row', lg: "row" }} alignItems="start" spacing={2}>
                                                     <div className="list-card-img position-relative">
-                                                        <Link target='_blank' href={`/tiffin-search/${getSearchCard?.vendor_id}/${getSearchCard?.id}`}>
+                                                        <Link target='_blank'
+                                                            href={`/tiffin-search/${getSearchCard?.slug}?vendor_id=${getSearchCard?.vendor_id}&id=${getSearchCard?.id}`}
+                                                        // href={`/tiffin-search/${getSearchCard?.vendor_id}/${getSearchCard?.id}`}
+                                                        >
                                                             {getSearchCard ? (
                                                                 <img
                                                                     src={
@@ -199,7 +202,10 @@ const ListViewTiffin = () => {
 
 
                                                     <div className="list-card-center h-100">
-                                                        <Link target='_blank' href={`/tiffin-search/${getSearchCard?.vendor_id}/${getSearchCard?.id}`} className='list-card-title'>{getSearchCard?.catering_service_name}</Link>
+                                                        <Link target='_blank'
+                                                            href={`/tiffin-search/${getSearchCard?.slug}?vendor_id=${getSearchCard?.vendor_id}&id=${getSearchCard?.id}`}
+                                                            // href={`/tiffin-search/${getSearchCard?.vendor_id}/${getSearchCard?.id}`} 
+                                                            className='list-card-title'>{getSearchCard?.catering_service_name}</Link>
                                                         <p className='list-card-desc' style={{ marginBottom: '15px' }}>
                                                             {getSearchCard?.area ? `${getSearchCard?.area}, ` : ''}
                                                             {getSearchCard?.city ? getSearchCard.city : ''}
@@ -339,14 +345,17 @@ const ListViewTiffin = () => {
 
 
                                                         <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} sx={{ marginBottom: '5px' }}>
-                                                            <Link target='_blank' href={`/tiffin-search/${getSearchCard?.vendor_id}/${getSearchCard?.id}`} className='text-decoration-none' variant="contained" style={{
-                                                                color: '#ffffff', padding: '8px 14px', marginTop: '8px', fontWeight: '500',
-                                                                backgroundColor: '#d9822b', borderRadius: '8px', fontSize: '14px',
-                                                                fontFamily: "Readex Pro, sans-serif",
-                                                                textTransform: 'capitalize', '&:hover': {
-                                                                    backgroundColor: '#d9822b',
-                                                                }
-                                                            }}>Enquire Now</Link>
+                                                            <Link target='_blank'
+                                                                // href={`/tiffin-search/${getSearchCard?.vendor_id}/${getSearchCard?.id}`} 
+                                                                href={`/tiffin-search/${getSearchCard?.slug}?vendor_id=${getSearchCard?.vendor_id}&id=${getSearchCard?.id}`}
+                                                                className='text-decoration-none' variant="contained" style={{
+                                                                    color: '#ffffff', padding: '8px 14px', marginTop: '8px', fontWeight: '500',
+                                                                    backgroundColor: '#d9822b', borderRadius: '8px', fontSize: '14px',
+                                                                    fontFamily: "Readex Pro, sans-serif",
+                                                                    textTransform: 'capitalize', '&:hover': {
+                                                                        backgroundColor: '#d9822b',
+                                                                    }
+                                                                }}>Enquire Now</Link>
                                                         </Stack>
 
                                                     </div>
@@ -362,7 +371,10 @@ const ListViewTiffin = () => {
                                             <Stack spacing={{ xs: 1, sm: 2, md: 0 }} direction={{ xs: 'row', sm: 'row', md: 'row', lg: "row" }} justifyContent="space-between" flexWrap="wrap">
                                                 <Stack direction={{ xs: 'row', sm: 'row', md: 'row', lg: "row" }} alignItems="start" spacing={2}>
                                                     <div className="list-card-img position-relative">
-                                                        <Link target='_blank' href={`/tiffin-search/${getSearchCard?.vendor_id}/${getSearchCard?.id}`}>
+                                                        <Link target='_blank'
+                                                            href={`/tiffin-search/${getSearchCard?.slug}?vendor_id=${getSearchCard?.vendor_id}&id=${getSearchCard?.id}`}
+                                                        // href={`/tiffin-search/${getSearchCard?.vendor_id}/${getSearchCard?.id}`}
+                                                        >
                                                             {getSearchCard ? (
                                                                 <img
                                                                     src={
@@ -394,7 +406,10 @@ const ListViewTiffin = () => {
                                                     <Stack direction="column" justifyContent="space-between" className='h-100 w-100'>
 
                                                         <div className="list-card-center h-100">
-                                                            <Link target='_blank' href={`/tiffin-search/${getSearchCard?.vendor_id}/${getSearchCard?.id}`} className='list-card-title'>{getSearchCard?.catering_service_name}</Link>
+                                                            <Link target='_blank'
+                                                                href={`/tiffin-search/${getSearchCard?.slug}?vendor_id=${getSearchCard?.vendor_id}&id=${getSearchCard?.id}`}
+                                                                // href={`/tiffin-search/${getSearchCard?.vendor_id}/${getSearchCard?.id}`}
+                                                                className='list-card-title'>{getSearchCard?.catering_service_name}</Link>
                                                             <p className='list-card-desc' style={{ marginBottom: '15px' }}>
                                                                 {getSearchCard?.area ? `${getSearchCard?.area}, ` : ''}
                                                                 {getSearchCard?.city ? getSearchCard.city : ''}
@@ -449,14 +464,17 @@ const ListViewTiffin = () => {
 
 
                                                         <Stack direction="row" justifyContent={{ xs: 'end', sm: 'end', lg: "end" }} sx={{ marginBottom: '5px' }}>
-                                                            <Link target='_blank' href={`/tiffin-search/${getSearchCard?.vendor_id}/${getSearchCard?.id}`} className='text-decoration-none enq-btn-mob' variant="contained" style={{
-                                                                color: '#ffffff', padding: '8px 14px', marginTop: '8px', fontWeight: '500',
-                                                                backgroundColor: '#d9822b', borderRadius: '8px', fontSize: '14px',
-                                                                fontFamily: "Readex Pro, sans-serif",
-                                                                textTransform: 'capitalize', '&:hover': {
-                                                                    backgroundColor: '#d9822b',
-                                                                }
-                                                            }}>Enquire Now</Link>
+                                                            <Link target='_blank'
+                                                                href={`/tiffin-search/${getSearchCard?.slug}?vendor_id=${getSearchCard?.vendor_id}&id=${getSearchCard?.id}`}
+                                                                // href={`/tiffin-search/${getSearchCard?.vendor_id}/${getSearchCard?.id}`} 
+                                                                className='text-decoration-none enq-btn-mob' variant="contained" style={{
+                                                                    color: '#ffffff', padding: '8px 14px', marginTop: '8px', fontWeight: '500',
+                                                                    backgroundColor: '#d9822b', borderRadius: '8px', fontSize: '14px',
+                                                                    fontFamily: "Readex Pro, sans-serif",
+                                                                    textTransform: 'capitalize', '&:hover': {
+                                                                        backgroundColor: '#d9822b',
+                                                                    }
+                                                                }}>Enquire Now</Link>
                                                         </Stack>
 
                                                     </Stack>
