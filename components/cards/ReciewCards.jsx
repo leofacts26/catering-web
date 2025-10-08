@@ -166,7 +166,7 @@ const ReciewCards = () => {
                         <CloseIcon />
                     </IconButton>
                     <DialogContent dividers>
-                        {reviewsList.length > 0 && reviewsList?.map((item) => (
+                        {reviewsList?.length > 0 && reviewsList?.map((item) => (
                             <div style={{ marginRight: '0px' }}>
                                 <div className="vc-review-card-modal" key={item?.id}>
                                     <Stack direction="row" justifyContent="space-between" spacing={1}>

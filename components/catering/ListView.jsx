@@ -105,10 +105,11 @@ const ListView = () => {
     }, [handleScroll])
 
 
+
     const onHandleShare = (cardId, data) => {
         setIsAnimating(cardId);
-        const { vendorId, Id } = data;
-        const linkToCopy = `https://cateringsandtiffins.com/catering-search/${vendorId}/${Id}`;
+        const { slug, branch_slug } = data;
+        const linkToCopy = `https://cateringsandtiffins.com/catering-search/${slug}?branch_slug=${branch_slug}`;
         navigator.clipboard.writeText(linkToCopy)
             .then(() => {
                 toast.success('Link copied to clipboard');
@@ -159,7 +160,7 @@ const ListView = () => {
                                         <Stack direction={{ xs: 'column', sm: 'row', md: 'row', lg: "row" }} alignItems="start" spacing={2}>
                                             <div className="list-card-img position-relative">
                                                 <Link target='_blank'
-                                                    href={`/catering-search/${getSearchCard?.slug}?vendor_id=${getSearchCard?.vendor_id}&id=${getSearchCard?.id}`}
+                                                    href={`/catering-search/${getSearchCard?.slug}?branch_slug=${getSearchCard?.branch_slug}`}
                                                 // href={`/catering-search/${getSearchCard?.vendor_id}/${getSearchCard?.id}`}
                                                 >
                                                     {getSearchCard ? (
@@ -192,7 +193,7 @@ const ListView = () => {
 
                                             <div className="list-card-center h-100">
                                                 <Link target='_blank'
-                                                    href={`/catering-search/${getSearchCard?.slug}?vendor_id=${getSearchCard?.vendor_id}&id=${getSearchCard?.id}`}
+                                                    href={`/catering-search/${getSearchCard?.slug}?branch_slug=${getSearchCard?.branch_slug}`}
                                                     // href={`/catering-search/${getSearchCard?.vendor_id}/${getSearchCard?.id}`} 
                                                     className='list-card-title'
                                                 >{getSearchCard?.catering_service_name}</Link>
@@ -297,7 +298,7 @@ const ListView = () => {
                                             <div>
                                                 <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} className='mb-2 share-love'>
                                                     <ShareIcon className={`lse-icons ${isAnimating === getSearchCard.id ? 'spin-animation text-red' : ''}`} style={{ marginRight: '10px', cursor: 'pointer' }}
-                                                        onClick={() => onHandleShare(getSearchCard.id, { vendorId: getSearchCard.vendor_id, Id: getSearchCard.id })}
+                                                        onClick={() => onHandleShare(getSearchCard.id, {slug: getSearchCard.slug, branch_slug: getSearchCard.branch_slug })}
                                                     />
                                                     {accessToken ? <>
                                                         {wishlist[getSearchCard?.id] ? <FavoriteIcon className='lse-icons cursor-pointer fill-heart-catering' onClick={() => onHandleAddFavourite(getSearchCard?.id)} /> : <FavoriteBorderIcon className='lse-icons cursor-pointer' onClick={() => onHandleAddFavourite(getSearchCard?.id)} />}
@@ -340,7 +341,7 @@ const ListView = () => {
 
                                                 <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} sx={{ marginBottom: '5px' }}>
                                                     <Link target='_blank'
-                                                        href={`/catering-search/${getSearchCard?.slug}?vendor_id=${getSearchCard?.vendor_id}&id=${getSearchCard?.id}`}
+                                                        href={`/catering-search/${getSearchCard?.slug}?branch_slug=${getSearchCard?.branch_slug}`}
                                                         // href={`/catering-search/${getSearchCard?.vendor_id}/${getSearchCard?.id}`}
                                                         className='text-decoration-none' variant="contained" style={{
                                                             color: '#ffffff', padding: '8px 14px', marginTop: '8px', fontWeight: '500',
@@ -366,7 +367,7 @@ const ListView = () => {
                                         <Stack direction={{ xs: 'row', sm: 'row', md: 'row', lg: "row" }} alignItems="start" spacing={2} className="w-100">
                                             <div className="list-card-img position-relative">
                                                 <Link target='_blank'
-                                                    href={`/catering-search/${getSearchCard?.slug}?vendor_id=${getSearchCard?.vendor_id}&id=${getSearchCard?.id}`}
+                                                    href={`/catering-search/${getSearchCard?.slug}?branch_slug=${getSearchCard?.branch_slug}`}
                                                 // href={`/catering-search/${getSearchCard?.vendor_id}/${getSearchCard?.id}`}
                                                 >
                                                     {getSearchCard ? (
@@ -401,7 +402,7 @@ const ListView = () => {
 
                                                 <div className="list-card-center h-100">
                                                     <Link target='_blank'
-                                                        href={`/catering-search/${getSearchCard?.slug}?vendor_id=${getSearchCard?.vendor_id}&id=${getSearchCard?.id}`}
+                                                        href={`/catering-search/${getSearchCard?.slug}?branch_slug=${getSearchCard?.branch_slug}`}
                                                         // href={`/catering-search/${getSearchCard?.vendor_id}/${getSearchCard?.id}`} 
                                                         className='list-card-title'>{getSearchCard?.catering_service_name}</Link>
                                                     <p className='list-card-desc' style={{ marginBottom: '15px' }}>
@@ -465,7 +466,7 @@ const ListView = () => {
 
                                                 <Stack direction="row" justifyContent={{ xs: 'end', sm: 'end', lg: "end" }} sx={{ marginBottom: '5px' }}>
                                                     <Link target='_blank'
-                                                        href={`/catering-search/${getSearchCard?.slug}?vendor_id=${getSearchCard?.vendor_id}&id=${getSearchCard?.id}`}
+                                                        href={`/catering-search/${getSearchCard?.slug}?branch_slug=${getSearchCard?.branch_slug}`}
                                                         // href={`/catering-search/${getSearchCard?.vendor_id}/${getSearchCard?.id}`}
                                                         className='text-decoration-none' variant="contained" style={{
                                                             color: '#ffffff', padding: '8px 14px', marginTop: '8px', fontWeight: '500',

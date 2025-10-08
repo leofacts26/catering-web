@@ -73,7 +73,7 @@ const page = () => {
     const { slug } = useParams()
     const searchParams = useSearchParams();
 
-    const vendorId = searchParams.get('vendor_id');
+    const branchSlug = searchParams.get('branch_slug');
     const branchId = searchParams.get('id');
 
     const [data, setData] = useState()
@@ -90,7 +90,7 @@ const page = () => {
 
     const getData = async () => {
         try {
-            const response = await api.get(`${BASE_URL}/user-get-vendor-show-details?branch_id=${branchId}&vendor_id=${vendorId}`, {
+            const response = await api.get(`${BASE_URL}/user-get-vendor-show-details?branch_slug=${branchSlug}`, {
                 headers: {
                     authorization: `Bearer ${accessToken}`,
                 },
@@ -146,13 +146,14 @@ const page = () => {
         setCuisineCount(20)
     }
 
+
     const selectedCuisines = data?.cuisines?.filter((item) => item.selected === "1") || [];
     const selectedOccations = data?.occasions?.filter((item) => item.selected === "1") || [];
 
     const onHandleShare = (cardId, data) => {
         setIsAnimating(cardId);
-        // const { vendorId, Id } = data;
-        const linkToCopy = `https://cateringsandtiffins.com/catering-search/${vendorId}/${branchId}`;
+        // const { branch_slug } = data;
+        const linkToCopy = `https://cateringsandtiffins.com/catering-search/${slug}?branch_slug=${branchSlug}`;
         navigator.clipboard.writeText(linkToCopy)
             .then(() => {
                 toast.success('Link copied to clipboard');
@@ -172,7 +173,7 @@ const page = () => {
     const content = data?.about_description || '';
     const shortContent = content.slice(0, shortContentLength);
 
-    // console.log(data, "DATA");
+    console.log(data, "DATA");
 
 
     return (
@@ -201,7 +202,7 @@ const page = () => {
                     <div className='vc-icon-box'>
                         <Stack direction='row' justifyContent="space-between" alignItems="end">
                             <Stack direction="row" alignItems="center" spacing={1} className="vc-icons"
-                                onClick={() => onHandleShare(data?.id, { vendorId: data?.vendor_id, Id: data?.id })}>
+                                onClick={() => onHandleShare(data?.id, { slug: data.slug, branch_slug: data.branch_slug } )}>
                                 <ShareIcon className={` ${isAnimating === data?.id ? 'spin-animation text-red' : ''}`} style={{ fontSize: '18px' }}
                                 />
                                 <span>Share</span>
@@ -296,7 +297,7 @@ const page = () => {
 
                                 {data?.business_phone_number && <Stack direction="row" spacing={2} style={{ marginTop: '10px' }}>
                                     {/* <Button variant="contained" className="vt-whatsapp-btn"> <WhatsAppIcon style={{ marginRight: '3px' }} /> Whatsapp</Button> */}
-                                    <ContactBtn area={data?.area} city={data?.city} number={data?.business_phone_number} vendorId={vendorId} branchId={branchId} />
+                                    <ContactBtn area={data?.area} city={data?.city} number={data?.business_phone_number} branchSlug={branchSlug} branchId={branchId} />
                                 </Stack>}
 
                             </Stack>
@@ -521,7 +522,7 @@ const page = () => {
 
             <OurGallery galleryImages={data?.galleryImages} bennerMenuMixGalleryImages={data?.bennerMenuMixGalleryImages} />
 
-            <SimilarCaterers catering data={data} vendorId={vendorId} />
+            <SimilarCaterers catering data={data} branchSlug={branchSlug} slug={slug} />
             <ReciewCards />
 
 

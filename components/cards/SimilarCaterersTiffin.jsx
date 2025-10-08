@@ -21,7 +21,7 @@ import { addchWishlist } from '@/app/features/user/settingSlice';
 import useRegistration from '@/hooks/useRegistration';
 
 
-const SimilarCaterersTiffin = ({ tiffin, data, vendorId }) => {
+const SimilarCaterersTiffin = ({ tiffin, data, branchSlug, slug }) => {
     const accessToken = useSelector((state) => state.user.accessToken);
     const router = useRouter()
     const [isAnimating, setIsAnimating] = useState(false);
@@ -59,18 +59,20 @@ const SimilarCaterersTiffin = ({ tiffin, data, vendorId }) => {
         setWishlist(initialWishlist)
     }, [getTiffinSimilarTypes])
 
-    console.log(getTiffinSimilarTypes, "getTiffinSimilarTypes");
+    // console.log(getTiffinSimilarTypes, "getTiffinSimilarTypes");
 
     // onNavigateDetailPage 
-    const onNavigateDetailPage = (slug, vendor_id, id) => {
-        router.push(`/tiffin-search/${slug}?vendor_id=${vendor_id}&id=${id}`)
+    const onNavigateDetailPage = (slug, branchSlug) => {
+        router.push(`/tiffin-search/${slug}?branch_slug=${branchSlug}`)
     }
 
 
     const onHandleShare = (cardId, data) => {
         setIsAnimating(cardId);
-        const {slug, vendorId, Id } = data;
-        const linkToCopy = `https://cateringsandtiffins.com/tiffin-search/${slug}?vendor_id=${vendorId}&id=${Id}`;
+        // const { slug, vendorId, Id } = data;
+        // const linkToCopy = `https://cateringsandtiffins.com/tiffin-search/${slug}?vendor_id=${vendorId}&id=${Id}`;
+        // const { slug, branch_slug } = data;
+        const linkToCopy = `https://cateringsandtiffins.com/tiffin-search/${slug}?branch_slug=${branchSlug}`;
         navigator.clipboard.writeText(linkToCopy)
             .then(() => {
                 toast.success('Link copied to clipboard');
@@ -84,7 +86,7 @@ const SimilarCaterersTiffin = ({ tiffin, data, vendorId }) => {
 
 
 
-    const filteredTiffinCaterers = getTiffinSimilarTypes?.filter((item) => item.vendor_id !== vendorId) || [];
+    const filteredTiffinCaterers = getTiffinSimilarTypes?.filter((item) => item.vendor_id !== branchSlug) || [];
     return (
         <Container maxWidth="xl" style={{ marginTop: '30px', marginBottom: '30px' }}>
             <Stack sx={{ marginBottom: '10px' }} alignItems="center" justifyContent="space-between" direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 1, sm: 2, md: 4 }}>
@@ -135,7 +137,7 @@ const SimilarCaterersTiffin = ({ tiffin, data, vendorId }) => {
                         return (
                             <SwiperSlide>
                                 <div className='text-decoration-none cursor-pointer' onClick={(e) => {
-                                    onNavigateDetailPage(getSearchCard?.slug, getSearchCard?.vendor_id, getSearchCard?.id)
+                                    onNavigateDetailPage(getSearchCard?.slug, getSearchCard?.branch_slug)
                                     // e.stopPropagation()
                                 }}>
                                     <div className="vc-similar-card">
@@ -147,7 +149,7 @@ const SimilarCaterersTiffin = ({ tiffin, data, vendorId }) => {
                                                     <span className='round-white'>
                                                         <ShareIcon className={`grid-lse-icons-tiffin ${isAnimating === getSearchCard.id ? 'spin-animation text-orange' : 'text-dark'}`} style={{ marginRight: '2px', cursor: 'pointer' }}
                                                             onClick={(e) => {
-                                                                onHandleShare(getSearchCard.id, { vendorId: getSearchCard.vendor_id, Id: getSearchCard.id })
+                                                                onHandleShare(getSearchCard.id, { slug: data.slug, branch_slug: data.branch_slug })
                                                                 e.stopPropagation()
                                                             }}
                                                         />

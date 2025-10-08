@@ -25,7 +25,7 @@ const PopularTiffins = () => {
     const dispatch = useDispatch()
     const { tiffinSubscriptionTypes } = useSelector((state) => state.tiffinFilter);
     const { locationValuesGlobal } = useSelector((state) => state.globalnavbar)
-    
+
 
 
     const data = {
@@ -34,21 +34,21 @@ const PopularTiffins = () => {
         is_city_search: locationValuesGlobal.latitude ? 1 : 0
     }
 
-     useEffect(() => {
+    useEffect(() => {
         if (!tiffinSubscriptionTypes?.length) {
-          dispatch(fetchGetAllTiffinSubscriptionTypes());
+            dispatch(fetchGetAllTiffinSubscriptionTypes());
         }
-      }, [dispatch, tiffinSubscriptionTypes?.length]);
+    }, [dispatch, tiffinSubscriptionTypes?.length]);
 
     useEffect(() => {
         dispatch(fetchPopularTiffins(data))
     }, [])
 
-    const onHandlePopularTiffenFilter = async (cater) => {
-    //    await dispatch(setTiffinSubscriptionFilter({ id, tiffinSubscriptionTypes }))
+    const onHandlePopularTiffenFilter = async (item) => {
+        //    await dispatch(setTiffinSubscriptionFilter({ id, tiffinSubscriptionTypes }))
         // dispatch(fetchtiffinSearchCards())
         // const url = `/tiffin-search`;
-        const url = `/tiffin-search/${cater?.vendor_id}/${cater?.id}`
+        const url = `/catering-search/${item?.slug}?branch_slug=${item.branch_slug}`
         router.push(url);
     };
 
@@ -56,7 +56,7 @@ const PopularTiffins = () => {
         <>
             <Container maxWidth="lg" className="popular-cater-slider" style={{ marginTop: '25px' }}>
                 <Box sx={{ flexGrow: 1 }}>
-                    <Grid container spacing={2} 
+                    <Grid container spacing={2}
                     // onClick={() => onHandlePopularTiffenFilter("5")}
                     >
                         <Swiper
@@ -89,7 +89,7 @@ const PopularTiffins = () => {
                             <>
                                 {popularTiffins?.length > 0 && popularTiffins?.map((cater, index) => (
                                     <SwiperSlide onClick={() => onHandlePopularTiffenFilter(cater)} key={popularTiffins?.id} >
-                                        <Box  style={{ padding: '10px 0px 10px 15px' }}>
+                                        <Box style={{ padding: '10px 0px 10px 15px' }}>
                                             <img src={cater.gallery_images["vendor-brand-logo"][0].image_name[0]?.medium} alt={cater?.catering_service_name} className="img-fluid popular-caterers-img image-shadow cursor-pointer" />
                                             <h4 className='popular-caterers-heading overflow-ellipsis'>{cater?.catering_service_name}</h4>
                                             <p className='popular-caterers-des overflow-ellipsis'> {cater?.area} {cater?.street_name}  </p>

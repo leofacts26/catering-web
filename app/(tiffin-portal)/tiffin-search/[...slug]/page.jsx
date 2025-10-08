@@ -69,9 +69,9 @@ const page = () => {
   const router = useRouter()
   const searchParams = useSearchParams();
 
-  // const vendorId = slug[0];
+  // const branchSlug = slug[0];
   // const branchId = slug[1];
-  const vendorId = searchParams.get('vendor_id');
+  const branchSlug = searchParams.get('branch_slug');
   const branchId = searchParams.get('id');
 
   const [data, setData] = useState()
@@ -81,7 +81,7 @@ const page = () => {
     dispatch(setSimilarCatererTiffinData(data))
   }, [data])
 
-  console.log(data, "data");
+  // console.log(data, "data");
 
 
   useEffect(() => {
@@ -90,7 +90,7 @@ const page = () => {
 
   const getData = async () => {
     try {
-      const response = await api.get(`${BASE_URL}/user-get-vendor-show-details?branch_id=${branchId}&vendor_id=${vendorId}`, {
+      const response = await api.get(`${BASE_URL}/user-get-vendor-show-details?branch_slug=${branchSlug}`, {
         headers: {
           authorization: `Bearer ${accessToken}`,
         },
@@ -130,8 +130,8 @@ const page = () => {
 
   const onHandleShare = (cardId, data) => {
     setIsAnimating(cardId);
-    // const { vendorId, Id } = data;
-    const linkToCopy = `https://cateringsandtiffins.com/tiffin-search/${vendorId}/${branchId}`;
+    // const { slug, branch_slug } = data;
+    const linkToCopy = `https://cateringsandtiffins.com/tiffin-search/${slug}?branch_slug=${branchSlug}`;
     navigator.clipboard.writeText(linkToCopy)
       .then(() => {
         toast.success('Link copied to clipboard');
@@ -187,7 +187,7 @@ const page = () => {
             <Stack direction='row' justifyContent="space-between" alignItems="end">
               <Stack direction="row" alignItems="center" spacing={1} className="vc-icons-tiffin">
                 <Stack direction="row" alignItems="center" spacing={1} className="vc-icons-tiffin"
-                  onClick={() => onHandleShare(data?.id, { vendorId: data?.vendor_id, Id: data?.id })}>
+                  onClick={() => onHandleShare(data?.id, { slug: data.slug, branch_slug: data.branch_slug } )}>
                   <ShareIcon className={` ${isAnimating === data?.id ? 'spin-animation text-orange' : ''}`} style={{ fontSize: '18px' }}
                   />
                   <span>Share</span>
@@ -315,7 +315,7 @@ const page = () => {
 
                 </Link>}
                 {data?.business_phone_number && <Stack direction="row" spacing={2} style={{ marginTop: '10px' }}>
-                  <ContactBtn number={data?.business_phone_number} vendorId={vendorId} branchId={branchId} />
+                  <ContactBtn number={data?.business_phone_number} branchSlug={branchSlug} branchId={branchId} />
                 </Stack>}
               </Stack>
             </Grid>
@@ -503,7 +503,7 @@ const page = () => {
 
       <OurGallery galleryImages={data?.galleryImages} bennerMenuMixGalleryImages={data?.bennerMenuMixGalleryImages} />
 
-      <SimilarCaterersTiffin tiffin data={data} vendorId={vendorId} />
+      <SimilarCaterersTiffin tiffin data={data} branchSlug={branchSlug} slug={slug} />
       <ReviewCardTiffin tiffin />
       <Subscribe />
       <Footer />

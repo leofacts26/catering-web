@@ -118,8 +118,8 @@ const ListViewTiffin = () => {
 
     const onHandleShare = (cardId, data) => {
         setIsAnimating(cardId);
-        const { vendorId, Id } = data;
-        const linkToCopy = `https://cateringsandtiffins.com/tiffin-search/${vendorId}/${Id}`;
+        const { slug, branch_slug } = data;
+        const linkToCopy = `https://cateringsandtiffins.com/tiffin-search/${slug}?branch_slug=${branch_slug}`;
         navigator.clipboard.writeText(linkToCopy)
             .then(() => {
                 toast.success('Link copied to clipboard');
@@ -170,7 +170,7 @@ const ListViewTiffin = () => {
                                                 <Stack direction={{ xs: 'column', sm: 'row', md: 'row', lg: "row" }} alignItems="start" spacing={2}>
                                                     <div className="list-card-img position-relative">
                                                         <Link target='_blank'
-                                                            href={`/tiffin-search/${getSearchCard?.slug}?vendor_id=${getSearchCard?.vendor_id}&id=${getSearchCard?.id}`}
+                                                            href={`/tiffin-search/${getSearchCard?.slug}?branch_slug=${getSearchCard?.branch_slug}`}
                                                         // href={`/tiffin-search/${getSearchCard?.vendor_id}/${getSearchCard?.id}`}
                                                         >
                                                             {getSearchCard ? (
@@ -203,7 +203,7 @@ const ListViewTiffin = () => {
 
                                                     <div className="list-card-center h-100">
                                                         <Link target='_blank'
-                                                            href={`/tiffin-search/${getSearchCard?.slug}?vendor_id=${getSearchCard?.vendor_id}&id=${getSearchCard?.id}`}
+                                                            href={`/tiffin-search/${getSearchCard?.slug}?branch_slug=${getSearchCard?.branch_slug}`}
                                                             // href={`/tiffin-search/${getSearchCard?.vendor_id}/${getSearchCard?.id}`} 
                                                             className='list-card-title'>{getSearchCard?.catering_service_name}</Link>
                                                         <p className='list-card-desc' style={{ marginBottom: '15px' }}>
@@ -303,7 +303,7 @@ const ListViewTiffin = () => {
                                                     <div>
                                                         <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} className='mb-2 share-love'>
                                                             <ShareIcon className={`lse-icons ${isAnimating === getSearchCard.id ? 'spin-animation text-red' : ''}`} style={{ marginRight: '10px', cursor: 'pointer' }}
-                                                                onClick={() => onHandleShare(getSearchCard.id, { vendorId: getSearchCard.vendor_id, Id: getSearchCard.id })}
+                                                                onClick={() => onHandleShare(getSearchCard.id, { slug: getSearchCard.slug, branch_slug: getSearchCard.branch_slug })}
                                                             />
                                                             {accessToken ? <>
                                                                 {wishlist[getSearchCard?.id] ? <FavoriteIcon className='lse-icons cursor-pointer fill-heart-tiffin' onClick={() => onHandleAddFavourite(getSearchCard?.id)} /> : <FavoriteBorderIcon className='lse-icons cursor-pointer' onClick={() => onHandleAddFavourite(getSearchCard?.id)} />}
@@ -347,7 +347,7 @@ const ListViewTiffin = () => {
                                                         <Stack direction="row" justifyContent={{ xs: 'start', sm: 'end', lg: "end" }} sx={{ marginBottom: '5px' }}>
                                                             <Link target='_blank'
                                                                 // href={`/tiffin-search/${getSearchCard?.vendor_id}/${getSearchCard?.id}`} 
-                                                                href={`/tiffin-search/${getSearchCard?.slug}?vendor_id=${getSearchCard?.vendor_id}&id=${getSearchCard?.id}`}
+                                                                href={`/tiffin-search/${getSearchCard?.slug}?branch_slug=${getSearchCard?.branch_slug}`}
                                                                 className='text-decoration-none' variant="contained" style={{
                                                                     color: '#ffffff', padding: '8px 14px', marginTop: '8px', fontWeight: '500',
                                                                     backgroundColor: '#d9822b', borderRadius: '8px', fontSize: '14px',
@@ -372,7 +372,7 @@ const ListViewTiffin = () => {
                                                 <Stack direction={{ xs: 'row', sm: 'row', md: 'row', lg: "row" }} alignItems="start" spacing={2}>
                                                     <div className="list-card-img position-relative">
                                                         <Link target='_blank'
-                                                            href={`/tiffin-search/${getSearchCard?.slug}?vendor_id=${getSearchCard?.vendor_id}&id=${getSearchCard?.id}`}
+                                                            href={`/tiffin-search/${getSearchCard?.slug}?branch_slug=${getSearchCard?.branch_slug}`}
                                                         // href={`/tiffin-search/${getSearchCard?.vendor_id}/${getSearchCard?.id}`}
                                                         >
                                                             {getSearchCard ? (
@@ -407,7 +407,7 @@ const ListViewTiffin = () => {
 
                                                         <div className="list-card-center h-100">
                                                             <Link target='_blank'
-                                                                href={`/tiffin-search/${getSearchCard?.slug}?vendor_id=${getSearchCard?.vendor_id}&id=${getSearchCard?.id}`}
+                                                                href={`/tiffin-search/${getSearchCard?.slug}?branch_slug=${getSearchCard?.branch_slug}`}
                                                                 // href={`/tiffin-search/${getSearchCard?.vendor_id}/${getSearchCard?.id}`}
                                                                 className='list-card-title'>{getSearchCard?.catering_service_name}</Link>
                                                             <p className='list-card-desc' style={{ marginBottom: '15px' }}>
@@ -465,7 +465,7 @@ const ListViewTiffin = () => {
 
                                                         <Stack direction="row" justifyContent={{ xs: 'end', sm: 'end', lg: "end" }} sx={{ marginBottom: '5px' }}>
                                                             <Link target='_blank'
-                                                                href={`/tiffin-search/${getSearchCard?.slug}?vendor_id=${getSearchCard?.vendor_id}&id=${getSearchCard?.id}`}
+                                                                href={`/tiffin-search/${getSearchCard?.slug}?branch_slug=${getSearchCard?.branch_slug}`}
                                                                 // href={`/tiffin-search/${getSearchCard?.vendor_id}/${getSearchCard?.id}`} 
                                                                 className='text-decoration-none enq-btn-mob' variant="contained" style={{
                                                                     color: '#ffffff', padding: '8px 14px', marginTop: '8px', fontWeight: '500',

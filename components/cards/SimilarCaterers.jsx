@@ -20,14 +20,14 @@ import toast from 'react-hot-toast';
 import { addchWishlist } from '@/app/features/user/settingSlice';
 import useRegistration from '@/hooks/useRegistration';
 
-const SimilarCaterers = ({ tiffin, data, vendorId }) => {
+const SimilarCaterers = ({ tiffin, data, branchSlug, slug }) => {
     const accessToken = useSelector((state) => state.user.accessToken);
     const { getCateringSimilarTypes } = useSelector((state) => state.cateringFilter)
     const dispatch = useDispatch()
     const router = useRouter()
     const [isAnimating, setIsAnimating] = useState(false);
     const { handleClickOpen } = useRegistration();
-    console.log(vendorId, "vendorId han"); 
+    // console.log(vendorId, "vendorId han");
 
 
     useEffect(() => {
@@ -62,15 +62,15 @@ const SimilarCaterers = ({ tiffin, data, vendorId }) => {
 
 
     // onNavigateDetailPage 
-    const onNavigateDetailPage = (slug, vendor_id, id) => {
-        router.push(`/catering-search/${slug}?vendor_id=${vendor_id}&id=${id}`)
+    const onNavigateDetailPage = (slug, branchSlug) => {
+        router.push(`/catering-search/${slug}?branch_slug=${branchSlug}`)
     }
-// `/catering-search/${item?.slug}?vendor_id=${item?.vendor_id}&id=${item?.id}`
+    // `/catering-search/${item?.slug}?vendor_id=${item?.vendor_id}&id=${item?.id}`
 
     const onHandleShare = (cardId, data) => {
         setIsAnimating(cardId);
-        const {slug, vendorId, Id } = data;
-        const linkToCopy = `https://cateringsandtiffins.com//catering-search/${slug}?vendor_id=${vendorId}&id=${Id}`;
+        // const { slug, branch_slug } = data;
+        const linkToCopy = `https://cateringsandtiffins.com/catering-search/${slug}?branch_slug=${branchSlug}`;
         navigator.clipboard.writeText(linkToCopy)
             .then(() => {
                 toast.success('Link copied to clipboard');
@@ -83,7 +83,9 @@ const SimilarCaterers = ({ tiffin, data, vendorId }) => {
     };
 
 
-    const filteredCaterers = getCateringSimilarTypes?.filter((item) => item.vendor_id !== vendorId) || [];
+    const filteredCaterers = getCateringSimilarTypes?.filter((item) => item.branch_slug !== branchSlug) || [];
+    console.log(filteredCaterers, "filteredCaterers");
+    
     return (
         <Container maxWidth="xl" style={{ marginTop: '30px', marginBottom: '30px' }}>
             <Stack sx={{ marginBottom: '10px' }} alignItems="center" justifyContent="space-between" direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 1, sm: 2, md: 4 }}>
@@ -134,7 +136,7 @@ const SimilarCaterers = ({ tiffin, data, vendorId }) => {
                         return (
                             <SwiperSlide>
                                 <div className='text-decoration-none  cursor-pointer' onClick={(e) => {
-                                    onNavigateDetailPage(getSearchCard?.slug, getSearchCard?.vendor_id, getSearchCard?.id)
+                                    onNavigateDetailPage(getSearchCard?.slug, getSearchCard?.branch_slug)
                                     e.stopPropagation()
                                 }}>
                                     <div className="vc-similar-card">
@@ -146,7 +148,7 @@ const SimilarCaterers = ({ tiffin, data, vendorId }) => {
                                                     <span className='round-white '>
                                                         <ShareIcon className={`grid-lse-icons ${isAnimating === getSearchCard.id ? 'spin-animation text-red' : 'text-dark'}`} style={{ marginRight: '2px', cursor: 'pointer' }}
                                                             onClick={(e) => {
-                                                                onHandleShare(getSearchCard.id, { vendorId: getSearchCard.vendor_id, Id: getSearchCard.id })
+                                                                onHandleShare(getSearchCard.id, { slug: data.slug, branch_slug: data.branch_slug })
                                                                 e.stopPropagation()
                                                             }}
                                                         />
